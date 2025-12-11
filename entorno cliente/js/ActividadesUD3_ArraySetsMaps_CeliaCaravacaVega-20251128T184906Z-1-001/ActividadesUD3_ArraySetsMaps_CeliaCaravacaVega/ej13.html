@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej13</title>
+</head>
+
+<body>
+    <script>
+        // Set array
+        const set = new Set(["A", "B", "C"]);
+        let array=[...set];
+        //comprobar que no hacen referencia a la misma posicion de memoria
+        if(structuredClone(set,array)){
+           console.log("son independientes") ;
+        }else{
+           console.log("no son independientes") ;
+        }
+
+    </script>
+</body>
+
+</html>

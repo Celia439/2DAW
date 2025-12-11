@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej1</title>
+</head>
+<body>
+    <script>
+    // array con nombre de cinco ciudades
+    let ciudades = ["Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza"];
+    // invertir el oden con reverse()
+    ciudades.reverse();
+    ciudades.forEach(element => {
+        console.log(element);
+    });
+    // Generar un segundo array invertido sin modificar el original usando  .toReversed()
+    let ciudadesInv =ciudades.toReversed();
+    ciudadesInv.forEach(element => {
+        console.log(element);
+    });
+    </script>
+</body>
+</html>

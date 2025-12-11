@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej9</title>
+</head>
+
+<body>
+    <script>
+        //Notas de Celia 
+        const notas = [5, 8, 4.99, 7, 9];
+        //Todos aprobaron ?
+        if (notas.every((elemento) => elemento >= 5)) {
+            console.log("Todo aprobado");
+        } else {
+            console.log("No esta todo aprobado");
+        }
+        //algun sobresaliente
+        if (notas.some((elemento) => elemento >= 9 && elemento <= 10)) {
+            console.log("Pero no te deprimas has aprobado alguna con sobresaliente");
+        } else {
+            console.log("Deberias esforzarte mas");
+        }
+        if (notas.some((elemento) => elemento < 3)) {
+            console.log("Es un poco feo sacar un tres eso demuestra que no estudiaste");
+        } else {
+            console.log("Por lo menos no sacaste ninguna menor a tres");
+        }
+    </script>
+</body>
+
+</html>

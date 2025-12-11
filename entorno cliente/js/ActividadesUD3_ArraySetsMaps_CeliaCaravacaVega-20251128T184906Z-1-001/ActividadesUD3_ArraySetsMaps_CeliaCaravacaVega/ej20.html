@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej20</title>
+</head>
+
+<body>
+    <script>
+        let map = new Map();
+        let opc = -1;
+
+        while (opc != 0) {
+
+            opc = parseInt(prompt(
+                `MENÚ
+1. Insertar producto
+2. Buscar producto por ID
+3. Comprobar existencia por ID
+4. Listar todas las claves
+5. Listar todos los valores
+0. Salir
+
+Elige una opción:`));
+
+            switch (opc) {
+                // las llabes es para que las variables declaradas sean locales
+                case 1: {
+                    // INSERTAR
+                    let id = prompt("Introduce el ID del producto:");
+                    let producto = prompt("Introduce el nombre del producto:");
+                    map.set(id, producto);
+                    console.log(`Producto añadido: (${id} → ${producto})`);
+                    break;
+                }
+
+                case 2: {
+                    // BUSCAR POR ID
+                    let id = prompt("Introduce el ID a buscar:");
+                    if (map.has(id)) {
+                        console.log(`Encontrado: (${id} → ${map.get(id)})`);
+                    } else {
+                        console.log("Ese ID no existe.");
+                    }
+                    break;
+                }
+
+                case 3: {
+                    // COMPROBAR EXISTENCIA
+                    let id = prompt("Introduce el ID para comprobar existencia:");
+                    console.log(map.has(id)
+                        ? "El ID SÍ existe en el mapa."
+                        : "El ID NO existe en el mapa."
+                    );
+                    break;
+                }
+
+                case 4: {
+                    // LISTAR CLAVES
+                    console.log("Claves del mapa:");
+                    for (let clave of map.keys()) {
+                        console.log(clave);
+                    }
+                    break;
+                }
+
+                case 5: {
+                    // LISTAR VALORES
+                    console.log("Valores del mapa:");
+                    for (let valor of map.values()) {
+                        console.log(valor);
+                    }
+                    break;
+                }
+
+                case 0:
+                    console.log("Saliendo del programa...");
+                    break;
+
+                default:
+                    console.log("Introduce un valor correcto (0-5).");
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>

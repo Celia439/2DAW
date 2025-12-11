@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej8</title>
+</head>
+
+<body>
+    <script>
+        //dedades array
+        const edades = [12, 25, 18, 40, 17];
+        //mayores de edad
+        const mayoresEdad = edades.filter((elemento) => elemento >= 18);
+        console.log("mayores de edad");
+        mayoresEdad.forEach(element => {
+            console.log(element);
+        });
+        //entre 18 y 30
+        const mayores = edades.filter((element) => element > 18 && element < 30);
+        console.log("Mayores de 18 y menores que 30");
+        mayores.forEach(element => {
+            console.log(element);
+        });
+        //edades pares
+        const edadPares = edades.filter((element) => element % 2 === 0);
+        console.log("Edades pares");
+        edadPares.forEach(element => {
+            console.log(element);
+        });
+    </script>
+</body>
+
+</html>

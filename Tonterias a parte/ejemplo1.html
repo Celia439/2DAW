@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>hello</title>
+    <style>
+        body {
+            background-color: gainsboro;
+        }
+
+        strong {
+            margin-left: 25%;
+
+        }
+
+        .encabezado {
+            background-color: rgb(244, 255, 213);
+            border-radius: 1em;
+            padding: 1em;
+            text-align: center;
+        }
+
+        .nav {
+            display: flex;
+            margin: 1em;
+            background-color: yellow;
+            border-radius: 1em;
+            padding: 2em;
+        }
+
+        .a {
+            text-shadow: 1px 4px 9px green;
+            margin-left: 50%;
+            background-color: greenyellow;
+            border-radius: 1em;
+            padding: 1em;
+            color: white;
+        }
+
+        .a:hover {
+            background-color: black;
+
+        }
+
+        img {
+            margin-left: 25%;
+            border-radius: 14em;
+            width: 20em;
+        }
+
+        .limon {
+            background-color: darkgoldenrod;
+            border-radius: 2em;
+            padding: 2em;
+        }
+
+        button {
+            background-color: chartreuse;
+            color: rgb(55, 6, 100);
+            border-radius: 2em;
+            margin: 5em;
+            padding: 2em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="encabezado">
+        <h1>Lemon</h1>
+    </div>
+
+    <div class="nav">
+        <p>Simplemente es un Limón</p>
+        <a class="a"
+            href="https://media.istockphoto.com/photos/lemon-picture-id182437624?k=6&m=182437624&s=612x612&w=0&h=nfxgv_bDGzz0AtQSbL-uNf5IinJVCFi4v74KItenIew=">LEMON</a>
+    </div>
+
+    <h2>Limón</h2>
+
+    <a href="https://www.mundodeportivo.com/uncomo/comida/articulo/origen-e-historia-del-limon-44075.html">
+        <img src="https://media.istockphoto.com/photos/lemon-picture-id182437624?k=6&m=182437624&s=612x612&w=0&h=nfxgv_bDGzz0AtQSbL-uNf5IinJVCFi4v74KItenIew="
+            alt="img">
+    </a>
+
+
+    <div class="nav">
+        <h2>¿quieres más?</h2>
+        <button onclick="fu()">boton</button>
+        <p id="limon"></p>
+    </div>
+
+    <div class="nav">
+        <h1>¿Aun quieres que está pag haga algo enserio...?</h1>
+        <button onclick="funciontocha()"></button>
+    </div>
+
+    <script>
+        // notita el let para funciones y bucles donde no vallas a utilizar despues const ovio y var para toda la
+        // pag para acceder desde todos lados es gloval. pero la variable fuera y dentro se ve desde fuera o no eso no cambia es solo para que se vea bien
+        // let no se puede volver a declarar var si eso es raro y no se para que se usa
+
+        // vamos a hacer cositas 
+        let num = 2;
+        let numText = "2";
+        document.write(num + numText);
+        document.write("<br>");
+        document.write(num * numText);
+        document.write("<br>");
+        // pasar num a string
+        num = 6;
+        let cadena = String(num);
+        document.write("<br>");
+        document.write(cadena, "<br>", typeof (cadena));
+        // pasar a String a num
+        var numero = Number(cadena);
+        document.write(numero, "<br>", typeof (numero), "<br>");
+        // al parecer cualquier cadena es true
+        let bool = Boolean(cadena);
+        document.write("<br>");
+        document.write(bool, "<br>", typeof (bool));
+        document.write("<br>");
+        // el valor null pasarlo a numero no se para que pero bueno 
+        let nullnumber = null;
+        document.write("-<br>", Number(nullnumber), " ", typeof (Number(nullnumber)));
+        // una cadena vacia es 0 por lo que si lo pasas a num 
+        let vacio = "";
+        let a = Number(vacio);
+        document.write("-<br>", a, " ", typeof (Number(a)));
+        document.write("-<br>", Number(nullnumber), " ", typeof (Number(nullnumber)));
+        //a no lo habia visto así
+        let nr = 2; console.log(nr++, nr); console.log(++nr);
+        console.log("----------------------------------------------");
+        //para elvar algo **=
+        let x = 5; let y = "5";
+        console.log(x == y);
+        console.log(x === y);
+        console.log(x != y);
+        console.log(x !== y);
+        let ao = 5; let b = 6;
+        console.log(b > ao);
+        console.log(b >= b);
+        console.log(ao < b); console.log(ao <= b);
+        // los array const se hace constante el tamaño de este no su contenido
+        const arr = ["Hola"];
+        arr[0] = "Cadista";
+        console.log(arr[0]);
+        // si en un array te sales del borde al recorrerlo te va a dar undefined XD
+        //se puede tener array negativos
+        //cars[-1] = "Fiat"; console.log(cars[-1]);
+
+        var numeros = [12, 24, 36];
+        numeros[5] = 48; console.log(numeros.length); console.log("numeros", numeros);
+        frutasguays = ["pero", "pera", "limon"];
+
+        //si añades con push devuelve la longitud
+        frutasguays.push("takasnina");
+        let longitud = frutasguays.push("esparrago"); console.log(frutasguays);
+        //arr.splice añade y elimina elementos
+        /**
+         * El primer parámetro, 2 es el índice del array en el que queremos comenzar a insertar. El
+        segundo parámetro, 0 es el número de elementos que queremos eliminar.
+        ▪ arr.splice(2, 2, "cuadrado", "linea"); console.log(arr);
+        
+        el concat contaneta aparte de cosas arrays 
+        
+        pop elimina elimina el ultimo elemento del array 
+        
+        shift()lo mismo que el pop pero con el primero
+        
+        delete array[1] se carga la posicion y deja un undefine en su lugar
+        
+        find busca 
+        
+        indexOf saca el indice si esta si no esta da -1 y (1,2)el 2 busca apartir de la posicion 2
+        
+        lastIndexOf pilla el indice de el ultimo elemento
+        
+        el sort es sort
+        
+        reverse es reverse
+        
+        
+        */
+        console.log("---");
+        console.log(1 / 0);
+        console.log("---");
+
+        let apf = [11, 50, 0, 4, 6, 2, 9, 10];
+        apf.sort();
+        console.log("---", apf);
+
+        arr8 = [2, 6, 7, 8];
+        let findValor = arr8.find(function (e) { return e === 6 });
+        console.log(findValor);
+        let findValor2 = arr8.find(e => e === 10);
+        console.log(findValor2);
+
+
+        let perro = {
+            nombre: "JavaScript",
+            peso: 2.4,
+            color: "negro",
+            raza: "chihuahua",
+            edad: 3,
+            porculero: true
+        }
+
+        console.log("---objeto---");
+        let colorPerro = perro["color"];
+        let colorPerro2 = perro.color;
+        console.log(perro);
+        // se puede modificar sus datos y valores y tipo de valor
+        perro["edad"] = "tres";
+        //cambia eso otro ejemplo simple
+        let variable = "edad";
+        console.log(perro[variable]);
+        perro[variable] = 15;
+        // se puede meter objetos dentro de objetos
+        let empresa2 = {
+            nombre: "Helados SuperJuaky",
+            actividad: "helados artesanales",
+            direccion: {
+
+                calle: "La Barca",
+                numero: "123",
+                cp: "11160",
+                city: "El colorado",
+                state: "Kansas Sity"
+
+            },
+            anioCreación: 2021
+
+        };
+        // dos formas de cambiar eso 
+        empresa2.direccion.cp = "33117";
+        empresa2["direccion"]["numero"] = "100";
+        // se puede meter array dentro de objetos
+        let empresa = {
+            nombre: "Helados SuperJuaky",
+            actividades: ["Helados", "Cafelitos", "Almuerzos"],
+            direccion: {
+
+                calle: "La Barca",
+                numero: "123",
+                cp: "11160",
+                city: "El colorado",
+                state: "Kansas Sity"
+
+            },
+            anioCreación: 2021
+
+        };
+
+        console.log("** Alijera coge un paraguas by joaki**");
+
+        console.log("------");
+        /**
+                switch (actividad) {
+                    case "Despertar":
+                        console.log("Son las 6:30");
+                        break;
+                    case "Desayuno":
+                        console.log(" Son las 7:00");
+                        break;
+                    case "A trabajar":
+                        console.log(" Son las 8:00");
+                        break;
+        
+                    case "A comer":
+                        console.log(" Son las 12:00");
+                        break;
+                    case "Para casa":
+                        console.log(" Son las 5:00");
+                        break;
+                    case "A cenar":
+                        console.log(" Son las 6:30");
+                        break;
+                    default:
+                        console.log("Sabe Dios que estas haciendo");
+                        break;
+                }
+                        **/
+        //awa
+
+
+        // esto es raro y no se para que 
+        let nombres = ["pepe", "lui", "pepa",
+            "jose", "josefa", "paula"];
+        for (let i = 0; i < nombres.length; i++) {
+            if (nombres[i].startsWith("p")) {
+                delete nombres[i];
+                continue;//continue y saltate los empty
+            }
+            nombres[i] = "Hola " + nombres[i];
+        }
+        console.log(nombres);
+        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        let coche = {
+            model: "Golf",
+            make: "Volkswagen",
+            year: 1999,
+            color: "black",
+        };
+        for (let prop in coche) {
+            console.log(coche[prop]);
+            console.log(prop);
+        }
+        ////llllllllllllllllllll (SI RECORRES UN ARRAY FOR TIENE UN OF
+        //  Y SI ES UN OBJETO IN)
+        let arrKey = Object.keys(coche);
+        for (let key of Object.keys(coche)) {
+            console.log(key);
+        }
+        for (let value of Object.values(coche)) {
+            console.log(value);
+        }
+        //yyyyyyyaydfua ostias que raro pero ta way convierte objeto en array 
+
+        let arrEntrada = Object.entries(coche);
+        console.log(arrEntrada);
+
+        for (const [clave, valor] of Object.entries(coche)) {
+            console.log(clave, ":", valor);
+        }
+        let coches2 = [
+            {
+                modelo: "Golf",
+                marca: "Volkswagen",
+                año: 1999,
+                color: "negro",
+            },
+            {
+                modelo: "Picanto"
+                ,
+                marca: "Kia",
+                año: 2020,
+                color: "rojo",
+            },
+            {
+                modelo: "Peugeot",
+                marca: "208",
+                año: 2021,
+                color: "negro",
+            }
+        ];
+
+        for (let i = 0; i < coches2.length; i++) {
+            if (coches2[i].año >= 2020) {
+                if (coches2[i].color === "negro") {
+                    console.log("Tengo coche nuevo:", coches2[i]);
+                    break;
+                }
+            }
+        }
+// el continue salta a la siguiente itetacion 
+
+
+        //piripiripi--------------------------------------------------------------------------
+        function fu() {
+            document.getElementById("limon").innerText = "hola";
+        }
+        function funciontocha() {
+
+        }
+
+    </script>
+
+</body>
+
+</html>

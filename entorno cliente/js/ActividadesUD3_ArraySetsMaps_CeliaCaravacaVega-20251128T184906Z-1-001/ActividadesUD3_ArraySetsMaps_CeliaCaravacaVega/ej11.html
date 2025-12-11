@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej11</title>
+</head>
+
+<body>
+    <script>
+        //!!!!!!!!Se me ocurre implementar el map para hacer mas listas seria simple pero no me daría tiempo a realizar los demas ejercicios
+        // por el tema de comprobar que esten bien los datos y la lista no exista en el array de las listas y el cambiar de lista.
+        //array de objetos ( implemetar funciones)
+        const tareas = [
+            { id: 1, texto: "Hacer 25 ej de js", completada: false },
+        ];
+        //mostrar menu
+        console.log("--menu--");
+        console.log("1 Listar tareas");
+        console.log("2 Añadir tarea");
+        console.log("3 Buscar por texto");
+        console.log("4 Marcar como completada");
+        console.log("5 Filtrar completadas/no completadas");
+        console.log("0 Salir");
+        console.log("--------");
+        //mientras no salir 
+        let opc = -1;
+        while (opc != 0) {
+            opc = Number(prompt("elija opcion"));
+            switch (opc) {
+                //salir
+                case 0:
+                    console.log(" Hasta la proxima! bye");
+                    nosalir = false;
+                    break;
+                // Mostrar tareas 
+                case 1:
+                    console.log("Tareas:");
+                    tareas.forEach(element => {
+                        console.log("indice " + tareas.findIndex((elemento) => elemento === element) + " id: " + element.id + " Descripcion: " + element.texto + " Estado: " + element.completada);
+                    });
+                    console.log("---");
+                    break;
+                //Añadir tareas 
+                case 2:
+                    let text = prompt("deme la descripcion de la tarea:");
+                    //comprobar que no exista
+                    if (tareas.some((element) => element.texto === text)) {
+                        console.log("La tarea con descripcion text '" + text + "' ya existe");
+                    } else {
+                        tareas.push({ id: (++tareas.length), texto: text, completada: false });
+                        console.log("tarea registrada exitosamente");
+                    }
+
+                    break;
+                //Buscar por texto 
+                case 3:
+                    // pedir texto
+                    let descripcion = prompt("Escriba la descricion de la que quiere buscar:");
+                    // definir la encontrada
+                    let encontrada = tareas.find((element) => element.texto === descripcion);
+                    //si no la encuentras das el mensaje concreto 
+                    if (encontrada === undefined) {
+                        console.log("no se encontro ninguna descripcion con : " + descripcion);
+                    } else {
+                        // mostrarla si la encunetras
+                        console.log("indice " + tareas.findIndex((elemento) => encontrada === elemento) + " id: " + encontrada.id + " Descripcion: " + encontrada.texto + " Estado: " + encontrada.completada);
+                    }
+                    break;
+                //marcar como completada
+                case 4:
+                    // Encontrarla por indice
+                    let indice = Number(prompt("Deme el indice (enpieza en 0) de la tarea a marcar como completada:"));
+                    if (indice < 0 || indice >= tareas.length || isNaN(indice)) {
+                        console.log("no se encontro ningun id  : " + indice);
+
+                    } else {
+                        //modificarla
+                        tareas[indice].completada = true;
+                        console.log("Tarea completada exitosamente:", tareas[indice]);
+                    }
+
+                    break;
+                //Filtrar completadas o no completadas
+                case 5:
+                    let estado = prompt("Ver completadas o no completadas");
+                    if (estado.toLowerCase() === "completadas") {
+                        //usar el filter para meterlo dentro de un array y recorrerlo 
+
+                        let completadas = tareas.filter((element) => element.completada === true);
+                        if (completadas.length !== 0) {
+
+                            completadas.forEach(element => {
+                                console.log("id:" + element.id + "Descripcion:" + element.texto + "Estado:" + element.completada);
+                            });
+                        } else {
+                            console.log("no hay ninguna completada por el momento");
+                        }
+                        //mostrar un mensaje si todas estan completadas
+
+                        if (tareas.every((element) => element.completada)) {
+                            console.log("Todas las tareas están completadas");
+                        }
+                    } else if (estado.toLowerCase() === "no completadas") {
+                        //utilizar el every para ver todas las no completadas
+
+                        let noCompletadas = tareas.filter((element) => element.completada === false);
+                        if (noCompletadas.length !== 0) {
+                            noCompletadas.forEach(element => {
+                                console.log("id:" + element.id + "Descripcion:" + element.texto + "Estado:" + element.completada);
+                            });
+                        } else {
+                            console.log("no hay ninguna no completada por el momento");
+
+                        }
+                        // mostrar mensaje si ninguna completa
+
+                        if (tareas.every((element) => !element.completada)) {
+                            console.log("Ninguna tarea está completada");
+                        }
+                    } else {
+                        console.log("valor introducido incorrecto");
+                    }
+                    break;
+
+                default:
+                    console.log("ponga un valor valido");
+                    break;
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>

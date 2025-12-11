@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej16</title>
+</head>
+
+<body>
+    <script>
+        let set = new Set([5, "A", [1, 2, 3]]);
+        // a ahora mismo es literalmete un array 
+        let a = [...set];
+        // b es un set nuevo diferente al de arriba
+        let b = structuredClone(set);
+        console.log("a: " + a);
+        console.log("b:", b);
+
+        a.push("Extraño no?");
+        b.add("parece que si");
+
+        console.log(a + "  -  ");
+        console.log("b:", b);
+
+
+    </script>
+</body>
+
+</html>

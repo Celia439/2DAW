@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej10</title>
+</head>
+
+<body>
+    <script>
+        //array de objetos
+        const alumnos = [
+            { id: 1, nombre: "Ana" },
+            { id: 2, nombre: "Pedro" }, 
+            { id: 2, nombre: "Celia" },
+            { id: 3, nombre: "Lucía" }
+        ];
+        // alumno con id 2 
+        let alumno2 = alumnos.find((alumno) => alumno.id == 2);
+        console.log("id: " + alumno2.id + " Nombre: " + alumno2.nombre);
+        // posicion del alumno 2
+        let posicion = alumnos.findIndex((element) => element === alumno2);
+        console.log("Posicion " + posicion);
+        // con findLast()
+        let alumno2L = alumnos.findLast((alumno) => alumno.id == 2);
+        console.log("id: " + alumno2L.id + " Nombre: " + alumno2L.nombre);
+        // findLastindex()
+        let posicionL = alumnos.findLastIndex((element) => element === alumno2L);
+        console.log("Posicion " + posicionL);
+
+    </script>
+</body>
+
+</html>

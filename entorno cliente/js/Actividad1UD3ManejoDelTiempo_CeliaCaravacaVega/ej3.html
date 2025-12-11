@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ej3</title>
+    <style>
+        p {
+            font-size: 3em;
+            margin-top: 30%;
+            margin-left: 45%;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+Texto parpadeante
+● Toma un párrafo.
+● Cada 500 ms alterna entre visible / oculto o cambia de color.
+● Usa setInterval() para hacer el cambio.
+-->
+    <p id="pantalla">!ALERTA!</p>
+    <script>
+        setInterval(alerta, 500);
+        let contador = 0;
+        function alerta() {
+            if (contador % 2 == 0) {
+                document.getElementById("pantalla").style.color = "red";
+                contador++;
+            } else {
+                document.getElementById("pantalla").style.color = "black";
+                contador++;
+            }
+        }
+    </script>
+</body>
+
+</html>

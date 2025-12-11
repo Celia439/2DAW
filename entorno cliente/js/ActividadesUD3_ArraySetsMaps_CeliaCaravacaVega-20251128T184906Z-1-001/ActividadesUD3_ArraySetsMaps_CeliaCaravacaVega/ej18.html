@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej18</title>
+</head>
+
+<body>
+    <script>
+        let map = new Map();
+        //añadir
+        map.set("number", 10);
+        map.set("string", "hola carolina");
+        map.set("objet", { id: 1, text: "Buenos dias" });
+        //almacenar en array los  array de pares clave valor del map
+        let paresArr = [...map];
+        console.log(paresArr);
+        paresArr.forEach(element => {
+            console.log(element);
+        });
+        // solo las claves
+        let claveArr = map.keys();
+        claveArr.forEach(element => {
+            console.log(element);
+        });
+        //solo los valores
+        let valorArr = map.values();
+        valorArr.forEach(element => {
+            console.log(element);
+        });
+    </script>
+</body>
+
+</html>

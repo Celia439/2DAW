@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej2</title>
+</head>
+
+<body>
+    <script>
+        //array con palabras desordenadas
+        let palabrasDesordenadas = ["uno", "Tres", "Cuatro", "dos", "cinco"];
+        //odenar el array con sort()
+        palabrasDesordenadas.sort();
+        console.log("desordenado");
+        palabrasDesordenadas.forEach(element => {
+            console.log(element);
+        });
+
+        //oredenar ignorar mayusculas y minusculas 
+        palabrasDesordenadas.sort(function (a, b) {
+            let ab = a.toLowerCase();
+            let ba = b.toLowerCase();
+            if (ab > ba) {
+                return 1;
+            } else if (ab < ba) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        console.log("ordenado");
+        palabrasDesordenadas.forEach(element => {
+            console.log(element);
+        });
+
+    </script>
+</body>
+
+</html>

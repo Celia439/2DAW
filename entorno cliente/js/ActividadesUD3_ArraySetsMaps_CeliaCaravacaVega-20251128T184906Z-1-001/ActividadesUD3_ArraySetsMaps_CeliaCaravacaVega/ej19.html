@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej19</title>
+</head>
+
+<body>
+    <script>
+        const pares = [[1, "uno"], [2, "dos"], [3, "tres"]];
+        //Convertir a map
+        let map = new Map();
+        pares.forEach(element => {
+            map.set(element[0],element[1]);
+        });
+        console.log("Map:",map);
+    </script>
+</body>
+
+</html>

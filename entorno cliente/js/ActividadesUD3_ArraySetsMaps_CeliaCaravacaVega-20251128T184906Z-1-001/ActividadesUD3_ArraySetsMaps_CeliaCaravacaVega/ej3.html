@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej3</title>
+</head>
+
+<body>
+    <script>
+        //array con numeros desordenadas
+        let numerosDesordenadas = [11, 1, 2, 22, 3, 55, 33, 5];
+        //odenar mal con el array con sort()
+        numerosDesordenadas.sort();
+        console.log("desordenado");
+        numerosDesordenadas.forEach(element => {
+            console.log(element);
+        });
+
+        //oredenar ignorar mayusculas y minusculas 
+
+        let numOrdenadas = numerosDesordenadas.toSorted((a, b) => a - b);
+        console.log("ordenado");
+        numOrdenadas.forEach(element => {
+            console.log(element);
+        });
+    </script>
+</body>
+
+</html>

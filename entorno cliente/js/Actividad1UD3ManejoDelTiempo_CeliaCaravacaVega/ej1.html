@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ej1</title>
+</head>
+
+<body>
+    <!--
+ Crea tu propio cronómetro.
+● Al cargar la página (window.onload) empieza a contar
+segundos.
+● Muestra el tiempo en pantalla.
+● Función crono() que sume 1 cada seguFndo.
+● Usa setInterval(crono, 1000).       
+-->
+<p id="pantalla"></p>
+
+    <script>
+        // añadir que si tocas el espacio para
+      window.onload = (event) => {
+        setInterval(crono,1000);
+    };
+    let contador=-1;
+    function crono (){
+        contador++;
+        document.getElementById("pantalla").innerHTML=contador;
+    }
+    </script>
+</body>
+
+</html>

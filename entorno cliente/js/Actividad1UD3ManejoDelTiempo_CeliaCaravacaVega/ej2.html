@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ej2</title>
+</head>
+
+<body>
+    <!--
+    Crear una alerta tras 3 segundos al
+pulsar un botón.
+● Al hacer clic en un botón → inicia un setTimeout() de
+3000 ms.
+● Muestra una alerta: "Han pasado 3 segundos”.
+● Añadir un segundo botón “Cancelar” que haga
+clearTimeout().
+-->
+    <button onclick="inicio()">Alerta</button>
+    <button onclick="parar()">Parar</button>
+    <p id="pantalla"></p>
+    <script>
+        let contador = -1;
+        function inicio() {
+            setTimeout(alerta, 3000);
+        };
+        function parar(){
+            clearTimeout();
+            document.getElementById("pantalla").innerHTML = "";
+        }
+        function alerta() {
+            document.getElementById("pantalla").innerHTML = "Han pasado 3 segundos";
+        }
+    </script>
+</body>
+
+</html>

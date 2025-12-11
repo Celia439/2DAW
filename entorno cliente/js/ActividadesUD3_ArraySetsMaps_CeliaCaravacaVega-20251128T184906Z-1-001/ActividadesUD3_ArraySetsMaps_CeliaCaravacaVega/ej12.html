@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej12</title>
+</head>
+
+<body>
+    <script>
+        // Set vacio
+        let set = new Set();
+        set.add(5);
+        set.add(5);
+        set.add(4);
+        console.log(set.size);
+        console.log("tiene 4?:" + set.has(4));
+        set.delete(4);
+        console.log("tiene 4?:" + set.has(4));
+        set.clear();
+        console.log(set.size);
+
+    </script>
+</body>
+
+</html>

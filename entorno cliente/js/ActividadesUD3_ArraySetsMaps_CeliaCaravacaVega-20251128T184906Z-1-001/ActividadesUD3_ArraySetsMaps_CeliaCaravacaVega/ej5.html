@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej5</title>
+</head>
+
+<body>
+    <script>
+        //array 
+        const productos = [
+            { nombre: "Teclado", precio: 25 },
+            { nombre: "Monitor", precio: 180 },
+            { nombre: "Ratón", precio: 15 }
+        ];
+
+        //ordenar por precio ascendente
+        console.log("orden precio ascendente");
+        productos.sort(function (a, b) {
+            if (a.precio < b.precio) {
+                return -1;
+            } else if (a.precio > b.precio) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        productos.forEach(element => {
+            console.log(element);
+        });
+        // ordernarlos alfabéticamente 
+        console.log("orden alfabéticamente");
+        productos.sort(function (a, b) {
+            let a1 = a.nombre.toLowerCase();
+            let b1 = b.nombre.toLowerCase();
+            if (a1 < b1) {
+                return -1;
+            } else if (a1 > b1) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
+        productos.forEach(element => {
+            console.log(element);
+        });
+        //copia ordenada 
+        console.log("Copia ordenada");
+        const productosOrd = productos.toSorted();
+        productosOrd.forEach(element => {
+            console.log(element);
+        });
+    </script>
+</body>
+
+</html>

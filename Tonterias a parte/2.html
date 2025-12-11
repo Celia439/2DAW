@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <p onclick="alert('Bienvenido')">
+        Hazme click
+    </p>
+    <script>
+        function saludos(nombre, rol) {
+            console.log(`Hola, mi nombre es ${nombre}`);
+            console.log(`Yo soy ${rol}`);
+        }
+        console.log("inicio de programa");
+        // esto reliza la funcion que se le pasa con los parametros que se le pasan despues de los milisegundos y lo ejecuta
+        let parada = setTimeout(saludos, 2000, "Jerbasio", "Programador");
+        // clearTime out lo limpia o algo 
+        clearTimeout(parada);
+        console.log(`Tiempo de espera ID ${parada} ha sido eliminado`);
+        // este repite constantemente hasata que hagas el clear
+        setInterval(saludos, 90000, parametro, parametro);
+        var elcrono= setInterval(crono,1000);
+        clearInterval(elcrono);
+    </script>
+</body>
+
+</html>

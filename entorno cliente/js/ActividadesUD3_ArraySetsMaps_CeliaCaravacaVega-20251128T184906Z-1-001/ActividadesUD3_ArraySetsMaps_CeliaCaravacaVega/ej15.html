@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej15</title>
+</head>
+
+<body>
+    <script>
+        const a = new Set([1, 2, 3, 4, 5]);
+        const b = new Set([4, 5, 6, 7]);
+        // --- Unión ---
+        const union = new Set([...a, ...b]);
+        console.log("Unión:", union); // Set {1,2,3,4,5,6,7}
+
+        // --- Intersección ---
+        const intersection = new Set([...a].filter(x => b.has(x)));
+        console.log("Intersección:", intersection); // Set {4,5}
+
+        // --- Diferencia (a - b) ---
+        const difference = new Set([...a].filter(x => !b.has(x)));
+        console.log("Diferencia (a - b):", difference); // Set {1,2,3}
+
+        // --- Exclusión (Symmetric Difference: elementos que están en a o en b, pero no en ambos) ---
+        const symDifference = new Set([...union].filter(x => !(a.has(x) && b.has(x))));
+        console.log("Exclusión (simétrica):", symDifference); // Set {1,2,3,6,7}
+    </script>
+</body>
+
+</html>

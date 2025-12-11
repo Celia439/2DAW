@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ej4</title>
+    <style>
+        p {
+            font-size: 3em;
+            margin-top: 20%;
+            margin-left: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+Temporizador regresivo.
+● El usuario escribe un número de segundos.
+● Comienza a bajar hasta 0.
+● Cuando llega a 0: mostrar mensaje “¡Tiempo agotado!” o un sonido.
+(sonido)
+//meterlo dentro de la funion alerta
+var sonido = document.createElement("iframe");
+	sonido.setAttribute("src","audio/pajaritos.mp3");
+	document.body.appendChild(sonido);
+	document.getElementById("play").removeEventListener("click",sonarPajaros);
+-->
+    <h1>Ejercicio 4</h1>
+    <input type="number" placeholder="segundos" id="segundos" />
+    <button onclick="empezar()">Empezar</button>
+    <p id="pantalla"></p>
+    <script>
+        // empezar cuenta La cuenta atras
+        var contador = 0;
+        function empezar() {
+            var segundos = parseInt(document.getElementById("segundos").value);
+            let minisegundos = segundos * 1000;
+            // Al declararse hay una diferencia de tiempo de un segundo 
+            // para solucionarlo añado un segundo más
+            minisegundos+=1000;
+           let idA= setTimeout(alerta, minisegundos);
+           let idC= setInterval(crono, 1000);
+            //setear los segundos
+            contador = segundos;
+
+
+        }
+        // en cuanto termine meter el sonido y la alerta visual
+        function alerta() {
+            document.getElementById("pantalla").innerHTML = "¡Tiempo agotado!";
+            //cerrar el tiempo
+            clearTimeout(idA);
+            clearInterval(idC);
+        }
+
+        // definir la cuenta atras  
+        function crono() {
+            //mientrar sea mayor a 0
+            if (contador != 0) {
+                //muestra el segundo concreto
+                console.log("contador" + contador);
+                document.getElementById("pantalla").innerHTML = contador;
+                contador--;
+            } 
+        }
+    </script>
+</body>
+
+</html>

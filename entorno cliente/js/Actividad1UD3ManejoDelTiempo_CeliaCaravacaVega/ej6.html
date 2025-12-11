@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ej6</title>
+    <style>
+        p {
+            font-size: 3em;
+            margin-top: 20%;
+            margin-left: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+Cambiar la imagen de un banner cada 2
+segundos.
+● Tres o cuatro imágenes.
+● Cada 2000 ms se cambia automáticamente a la siguiente.
+● Botón “Pausar” que haga clearInterval().
+-->
+    <h1>Ejercicio 6</h1>
+    <button onclick="empezar()">Empezar</button>
+    <button onclick="parar()">Parar</button>
+    <p id="pantalla"></p>
+    <script>
+        let idC = "";
+        // empezar a cargar
+        function empezar() {
+            idC = setInterval(cargar, 500);
+        }
+        // Cuando queremos que pare
+        function parar() {
+            document.getElementById("pantalla").innerHTML = "";
+            //cerrar el tiempo
+            clearInterval(idC);
+        }
+        var contador = 0;
+        function cargar() {
+            // dependiendo de contador mostrara el mensaje correspondiente
+            if (contador == 0) {
+                //muestra el segundo concreto
+                document.getElementById("pantalla").innerHTML = "Cargando.";
+                contador = 1;
+            } else if (contador == 1) {
+                document.getElementById("pantalla").innerHTML = "Cargando..";
+                contador = 2;
+            } else {
+                document.getElementById("pantalla").innerHTML = "Cargando...";
+                contador = 0;
+            }
+        }
+    </script>
+</body>
+
+</html>

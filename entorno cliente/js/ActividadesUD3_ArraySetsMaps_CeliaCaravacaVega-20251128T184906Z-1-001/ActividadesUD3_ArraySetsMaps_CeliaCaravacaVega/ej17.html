@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej17</title>
+</head>
+
+<body>
+    <script>
+        let map = new Map();
+        //añadir
+        map.set("number", 10);
+        map.set("string", "hola carolina estoy trabajando con 3 lenguajes y me está costando un poco");
+        map.set("objet", { id: 1, text: "Buenos dias" });
+        //obtener
+        console.log(map.get("objet"));
+        // esta?
+        if (map.has("number")) {
+            console.log("Existe el número pero no te lo voy a decir");
+        }
+        //tamaño
+        console.log(map.size);
+        //borrar algo concreto
+        map.delete("string");
+        console.log("map:", map);
+        // borralo todo
+        map.clear();
+        console.log("map:", map);
+
+    </script>
+</body>
+
+</html>
