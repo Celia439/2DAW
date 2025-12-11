@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de viajes</title>
+</head>
+
+<body>
+    <script>
+        let destinos = [
+            {
+                ciudad: "Sevilla",
+                pais: "España",
+                fechaObjetivo: new Date("2026-04-03"),
+                presupuesto: 197.99
+            }, {
+                ciudad: "Chiclana",
+                pais: "España",
+                fechaObjetivo: new Date("2026-08-13"),
+                presupuesto: 165.99
+            }, {
+                ciudad: "Cadiz",
+                pais: "España",
+                fechaObjetivo: new Date("2026-03-25"),
+                presupuesto: 170.99
+            }, {
+                ciudad: "Paris",
+                pais: "Francia",
+                fechaObjetivo: new Date("2026-01-01"),
+                presupuesto: 1974.99
+            }
+            ,
+            {
+                ciudad: "Tokio",
+                pais: "Japon",
+                fechaObjetivo: new Date("2027-12-25"),
+                presupuesto: 2000.99
+            },
+            {
+                ciudad: "Rio de Janeiro",
+                pais: "Brasil",
+                fechaObjetivo: new Date("2030-04-02"),
+                presupuesto: 3045.99
+            }
+        ];
+        /**
+         * Elimina los espacios y comvierte a minuscula el parametro introducido 
+         */
+        function normalizarTexto(texto) {
+            return texto.trim().toLowerCase();
+        }
+        // Crear un map cuya clave sea  el pais y el valor el numero de destinos añadidos
+        let paisesVisitados = new Map();
+        destinos.forEach(element => {
+            if (paisesVisitados.has(element.pais)) {
+                paisesVisitados.set(element.pais, (paisesVisitados.get(element.pais) + 1));
+            } else {
+                paisesVisitados.set(element.pais, 1);
+            }
+        });
+        /**
+         * Calcula cuantos dias faltan para la fecha del viaje introducida por párametro 
+         */
+        function diasRestantes(fechaObjetivo) {
+            let dias = 0;
+            let hoy = new Date();
+            // redondear hacia arriba la diferencia de dias para obtenerlos
+            dias = Math.ceil(fechaObjetivo.getDate() - hoy.getDate());
+            return dias;
+        }
+        console.log(diasRestantes(new Date("2025-12-15")));
+        // guardar los destinos de localStorage en formato JSON
+        localStorage.setItem("destinos" , JSON.stringify(destinos));
+        // Crear una cookie llamada preferencia Viaje con la cidudad favorita del usuario  7 dias de expiracion 
+        let hoy = new Date();
+        hoy.setDate((hoy.getDate() + 7));
+        let fechaUTC = hoy.toUTCString();
+        // diudad favorita del usuario 
+        let ciudadFav = prompt("Digame su ciudad favorita:").toUpperCase();
+        ciudadFav = encodeURIComponent(ciudadFav);
+        document.cookie = "preferenciaViaje=" + ciudadFav + ";expires=" + fechaUTC;
+
+        /**
+         * Devuelve un array nuevo array con solo los destinos cuyo país coincida con el parametro  
+         *  utilizando la funcion normalizar 
+       */
+        function filtrarPorPais(pais) {
+            return paises = destinos.filter(a => normalizarTexto(a.pais) === normalizarTexto(pais));
+        }
+        console.log(filtrarPorPais("España"));  
+    </script>
+</body>
+
+</html>
