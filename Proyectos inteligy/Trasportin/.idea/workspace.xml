@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a3f25332-f9b1-4e9b-9105-acd2da901b10" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" notifyAboutMissingVendor="false" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="PHP File" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="33Bsb7Nm9TLqzAZy1DKgxgphgDN" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.Ej1.php.executor": "Coverage",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/2DAW/Proyectos inteligy/Trasportin/Ejercicios_Arrays(Refuerzo_y_ampliación)",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "advanced.settings",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\2DAW\Proyectos inteligy\Trasportin\Ejercicios_Arrays(Refuerzo_y_ampliación)" />
+      <recent name="D:\2DAW\Proyectos inteligy\Trasportin\ejerciciosFunciones" />
+      <recent name="E:\2DAW\Proyectos inteligy\Trasportin\Ejercicios_Arrays(Refuerzo_y_ampliación)" />
+      <recent name="D:\2DAW\Proyectos inteligy\Trasportin\relacion_ejercicios_estructuras_selectivas_e_iterativas" />
+      <recent name="E:\2DAW\Proyectos inteligy\Trasportin\relacion_de_ejercicios\d18" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\2DAW\Proyectos inteligy\Trasportin\relacion_de_ejercicios" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="primer_ej.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/primer_ej.php">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.169" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="StructureViewState">
+    <option name="selectedTab" value="PHP" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3f25332-f9b1-4e9b-9105-acd2da901b10" name="Changes" comment="" />
+      <created>1758801901600</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1758801901600</updated>
+      <workItem from="1758801910399" duration="90000" />
+      <workItem from="1758809419367" duration="1163000" />
+      <workItem from="1758888332975" duration="2247000" />
+      <workItem from="1758901957091" duration="6198000" />
+      <workItem from="1759153176063" duration="6591000" />
+      <workItem from="1759225523251" duration="628000" />
+      <workItem from="1759232481646" duration="2885000" />
+      <workItem from="1759239365674" duration="6742000" />
+      <workItem from="1759313625128" duration="1610000" />
+      <workItem from="1759405099320" duration="4747000" />
+      <workItem from="1759412027163" duration="3152000" />
+      <workItem from="1759505824128" duration="7281000" />
+      <workItem from="1759834105775" duration="8838000" />
+      <workItem from="1759920357325" duration="6678000" />
+      <workItem from="1759999482496" duration="8945000" />
+      <workItem from="1760016965959" duration="4250000" />
+      <workItem from="1760449153647" duration="5168000" />
+      <workItem from="1760621901105" duration="3008000" />
+      <workItem from="1760632427078" duration="720000" />
+      <workItem from="1760699609352" duration="14720000" />
+      <workItem from="1760715212971" duration="110000" />
+      <workItem from="1760715345904" duration="3212000" />
+      <workItem from="1760719683770" duration="3875000" />
+      <workItem from="1760867927759" duration="15679000" />
+      <workItem from="1760960277279" duration="3193000" />
+      <workItem from="1760967174927" duration="6780000" />
+      <workItem from="1760976392288" duration="796000" />
+      <workItem from="1761039923749" duration="9962000" />
+      <workItem from="1761053717599" duration="26000" />
+      <workItem from="1761057343030" duration="3194000" />
+      <workItem from="1761130333016" duration="6234000" />
+      <workItem from="1761224470271" duration="1372000" />
+      <workItem from="1761298750942" duration="5244000" />
+      <workItem from="1761308172279" duration="1660000" />
+      <workItem from="1761319972912" duration="4036000" />
+      <workItem from="1761324526368" duration="4658000" />
+      <workItem from="1761383101872" duration="93000" />
+      <workItem from="1761383211636" duration="6000" />
+      <workItem from="1761575626965" duration="213000" />
+      <workItem from="1761575883815" duration="583000" />
+      <workItem from="1761579295256" duration="7000" />
+      <workItem from="1761579309755" duration="2348000" />
+      <workItem from="1761651581741" duration="6000" />
+      <workItem from="1761651613696" duration="3475000" />
+      <workItem from="1762180698431" duration="6754000" />
+      <workItem from="1762266713666" duration="6815000" />
+      <workItem from="1762439664763" duration="4070000" />
+      <workItem from="1762511036276" duration="8176000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

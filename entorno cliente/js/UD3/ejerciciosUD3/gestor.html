@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de producto</title>
+</head>
+
+<body>
+    <script>
+        let productos = [
+            {
+                nombre: "Raton ultra caro",
+                precio: 60.99,
+                categoria: "perifericos"
+            },
+            {
+                nombre: "chinchetas",
+                precio: 2.99,
+                categoria: "oficina"
+            }
+            , {
+                nombre: "pelota",
+                precio: 300.99,
+                categoria: "Jugetes"
+            }, {
+                nombre: "pelota",
+                precio: 30.99,
+                categoria: "Jugetes"
+            }
+        ];
+        //nombre de los productos
+        let nombres = productos.map(a => a.nombre);
+        console.log("Todos los nombres de los productos: " + nombres);
+        //productos mayores a 50
+        let productoMas50 = productos.filter(a => a.precio > 50);
+        console.log("Productos mayores a 50: ", productoMas50);
+        // buscar por nombre 
+        let chinchetas = productos.find(a => a.nombre == "chinchetas");
+        console.log("objeto cincheta", chinchetas);
+        // indice de pelota
+        let indceP = productos.findIndex(a => a.nombre == "pelota");
+        console.log("El incide de la pelota es:" + indceP);
+        //some y ebery
+        let alguno = productos.some(a => a.nombre.includes("a"));
+        console.log("Algun nombre que incluya 'a' " + alguno);
+        let todos = productos.every(a => a.categoria == "Jugetes");
+        console.log("Todos los productos son de categoria jugetes " + todos);
+        // ordenar por precio con callback
+        function ordenarPorPrecio(precioA, precioB) {
+            return precioA.precio - precioB.precio;
+        }
+        productos.sort(ordenarPorPrecio);
+        console.log("Objetos ordenados por precio", productos);
+        // ordenar por categoria con toSorted
+        function ordenarPorCategoria(precioA, precioB) {
+            return precioA.categoria.localeCompare(precioB.categoria);
+        }
+        let arrayNuevoOrdenado = productos.toSorted(ordenarPorCategoria);
+        console.log("aray copia ordenados por categoria", arrayNuevoOrdenado);
+        //aray al reves
+        console.log("productos al reves: ", productos.reverse());
+        //crear un map por nombre y precio eliminando dublicados(nota la segunda pelota es que le cambiaron el precio)
+        let todosProductos = new Map();
+        productos.forEach(element => {
+            todosProductos.set(element.nombre, element.precio);
+        });
+        /**mostrar categorias unicas primera forma
+        let categoria = [];
+        let i = 0;
+        productos.forEach(element => {
+            if (!categoria.includes(element.categoria)) {
+                console.log(element.categoria);
+                categoria[i] = element.categoria;
+                i++;
+            }
+        });
+        */
+        //mostrar categoria unicas 
+        let categorias = [];
+        function unico(categoria) {
+            let esUnico = true;
+            if (categorias.includes(categoria)) {
+                esUnico = false;
+            } else {
+                categorias.push(categoria);
+            }
+            return esUnico;
+        }
+        console.log(productos.filter(a => unico(a.categoria)));
+
+        //Precio de cada producto desde el map
+        console.log("precios: ",todosProductos.values());
+        // Número de categorias 
+        console.log("Num de categorias: "+categorias.length);
+    </script>
+</body>
+
+</html>

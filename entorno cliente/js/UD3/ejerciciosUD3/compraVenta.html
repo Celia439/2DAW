@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compa-venta</title>
+</head>
+
+<body>
+    <script>
+        //Productos con array de objetos de producto
+        let productos = [
+            {
+                id: 15,
+                titulo: "Televisor",
+                precio: 5.00,
+                categoria: "Tecnologia",
+                fechaPublicacion: new Date("2025-01-01")
+            }, {
+                id: 255,
+                titulo: "Pelota",
+                precio: 1.00,
+                categoria: "Jugetes",
+                fechaPublicacion: new Date("2025-11-11")
+
+            }, {
+                id: 30,
+                titulo: "Switch",
+                precio: 100.99,
+                categoria: "Tecnologia",
+                fechaPublicacion: new Date("2024-05-03")
+
+            }
+        ];
+        /**
+         * Esta función devuelve un array nuevo con todos los productos de 
+         * dicha categoría pasada por párametro 
+         * Si no lo la encuentra imprime un mensaje 
+         */
+        function filtrarPorCategoria(categoria) {
+            let productosC = productos.filter(a => a.categoria === categoria);
+            if (productosC[0] === undefined) {
+                console.log("No se encontro la categoria");
+            } else {
+                return productosC;
+            }
+        }
+        console.log("Tecnología:", (filtrarPorCategoria("Tecnologia")));
+        /**
+         *  Devuelve todos los productos cuyo título contenga la palabra
+         *  pasada por párametro.
+         *  Si no lo encuentra ninguna coincidencia imprime un mensaje 
+         */
+        function buscarProducto(palabra) {
+            let palabras = productos.filter(a => a.titulo.toLowerCase().includes(palabra.toLowerCase()));
+            if (palabras[0] === undefined) {
+                console.log("Ninguna coindidencia");
+            } else {
+                return palabras;
+            }
+        }
+        console.log("Televisor:", buscarProducto("tele"));
+        // Map ventas clave=>if  valor=> ventas
+        let ventas = new Map();
+        productos.forEach(element => {
+            ventas.set(element.id, 0);
+        });
+        /**
+         * Aumenta la venta del id pasado por párametro +1 si no lo 
+         * encuentra devuelve un mensaje  
+         */
+        function registrarVenta(id) {
+            if (ventas.has(id)) {
+
+                ventas.set(id, ventas.get(id) + 1);
+                console.log("Aumentado con existo " + ventas.get(id));
+            } else {
+                console.log("El id introducido " + id + " no corresponde con nignuno en las ventas");
+            }
+        }
+        registrarVenta(15);
+        // mientras la sesion esté abierta guardar publicaciones del usuario 
+        sessionStorage.setItem("publicaciones", JSON.stringify(productos));
+        //Cookie usuaro compras con caducidad de un dia 
+        // configurar la fecha para que expire dentro de un dia
+        let hoy = new Date();
+        hoy.setDate(hoy.getDate() + 1);
+        let fechaUTC = hoy.toUTCString();
+        //preguntar el nombre de usuario 
+        let nombre = prompt("Diga su nombre").toLowerCase();
+        let nameUser = encodeURIComponent(nombre);
+        document.cookie = "usuarioCompras=" + nameUser + ";expires=" + fechaUTC;
+    </script>
+</body>
+
+</html>

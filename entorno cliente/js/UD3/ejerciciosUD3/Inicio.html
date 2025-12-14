@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>CreadorDeCookie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <button type="button" onClick='establecerCookie("usuario","decir hola","1")'>Crear cookie usuario</button>
+    <button type="button" onClick='alert( obtenerCookie("usuario"))'>Ver la Cookie usuario</button>
+    <button type="button" onclick="alert(comprobarCookie('usuario'))">Comprobar cookie usuario</button>
+    <script>
+        //Cuando carge la página
+        window.onload = function () {
+            //Si la cookie no existe 
+            if (obtenerCookie("usuario") === null) {
+                //Preguntar al usuario si quiere crear la cookie
+                let sino = prompt("La cookie usuario no existe quieres crearla ?SI/NO");
+                if (sino.toUpperCase() == "SI") {
+                    //Codificar valor
+                    let valorC = encodeURIComponent("decir hola pero al cargar");
+                    //Crear una fecha con el dia de hoy y sumarle treinta dias más 
+                    let fecha = new Date();
+                    fecha.setTime(fecha.getTime() + (30 * 24 * 60 * 60 * 1000));
+                    //Convertir a formato cookie
+                    let fechaUTC = fecha.toUTCString();
+                    //Crear la cookie 
+                    document.cookie = "usuario=" + valorC + ";expires=" + fechaUTC;
+                }
+            }
+
+        }
+        function establecerCookie(nombre, valor, dias) {
+            //Codificar valor
+            let valorC = encodeURIComponent(valor);
+            //calcular fecha de caducidad
+            let fecha = new Date();
+            //dias en milisegundos
+            fecha.setTime(fecha.getTime() + (dias * 24 * 60 * 60 * 1000));
+            //convertir en formato cookie
+            let fechaUTC = fecha.toUTCString();
+            //construir el texto de la cookie
+            document.cookie = nombre + "=" + valorC + ";expires=" + fechaUTC;
+        }
+
+        function obtenerCookie(nombre) {
+            // obtener todas las cookies como un string
+            let cookiesString = document.cookie;
+
+            // 2. Dividir el string para obtener un array de pares (nombre=valor)
+            let listCookie = cookiesString.split(';');
+
+            // Inicializar el índice para el bucle while
+            let i = 0;
+            let noEncontrada = true;
+            let cookieOut = null;
+            // Recorrer el array mientras el índice sea menor que la longitud total
+            while (i < listCookie.length && noEncontrada) {
+
+                // La cookie actual en el bucle
+                let cookieElemento = listCookie[i];
+                let elementoLimpio = cookieElemento.trim();
+                // Limpiar espacios iniciales y corregir el nombre de la función: startsWith
+                if (elementoLimpio.startsWith(nombre + '=')) {
+
+                    // Si la encontramos, extraemos el valor:
+                    // Usamos .substring() para cortar el texto después de 'nombre='
+                    // La longitud a cortar es la longitud del 'nombre' más el signo '=' (1)
+                    const valorCodificado = elementoLimpio.substring(nombre.length + 1);
+
+                    // Descodificamos el valor y decimos que la encontramos 
+                    cookieOut = decodeURIComponent(valorCodificado);
+                    noEncontrada = false;
+                }
+
+                // Incrementar el índice para pasar a la siguiente cookie
+                i++;
+            }
+
+            // Si el bucle while termina devolver valor
+            return cookieOut;
+        }
+        function comprobarCookie(nombre) {
+            // obtener todas las cookies como un string
+            let cookiesString = document.cookie;
+
+            // 2. Dividir el string para obtener un array de pares (nombre=valor)
+            let listCookie = cookiesString.split(';');
+
+            // Inicializar el índice para el bucle while
+            let i = 0;
+            let noEncontrada = true;
+            //Cookie a devolver 
+            let cookieOut = null;
+            //nombre auxiliar
+            let nombreAux = nombre;
+            // Recorrer el array mientras el índice sea menor que la longitud total
+            while (noEncontrada) {
+                let cookieElemento = listCookie[i];
+                let elementoLimpio = cookieElemento.trim();
+                if (elementoLimpio.startsWith(nombreAux + "=")) {
+                    const valorCodificado = elementoLimpio.substring(nombreAux.length + 1);
+                    cookieOut = decodeURIComponent(valorCodificado);
+                    noEncontrada = false;
+                }
+                if (listCookie.length === i) {
+                    i = 0;
+                    nombreAux = prompt("No se enconntro la cookie " + nombreAux + " introduzca otro nombre");
+
+                }
+                i++;
+            }
+            return "La cookie " + cookieOut + " existe";
+        }
+    </script>
+</body>
+
+</html>

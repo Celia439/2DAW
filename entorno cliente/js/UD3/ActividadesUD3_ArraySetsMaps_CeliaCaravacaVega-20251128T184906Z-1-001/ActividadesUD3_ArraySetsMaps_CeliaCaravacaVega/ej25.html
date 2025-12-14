@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej25</title>
+</head>
+
+<body>
+    <script>
+        //listas de estudiantes 
+        let estudiantesOriginal = [
+            { id: 1, nombre: "Ana", apellido: "García" },
+            { id: 2, nombre: "Luis", apellido: "López" },
+            { id: 3, nombre: "Ana", apellido: "García" }, // duplicado
+            { id: 4, nombre: "Sofía", apellido: "Alonso" },
+        ];
+        //Improtar datos desde array original
+        let estudiantes = estudiantesOriginal.toSorted(function (elementoA, elementoB) {
+            return elementoA.nombre.localeCompare(elementoB.nombre);
+        });
+        console.log(estudiantes);
+        // sin duplicados con set
+        let estudiantesNoDupli = new Set();
+        for (let estu of estudiantesOriginal) {
+            let estuAux = estu.nombre + "-" + estu.apellido;
+            estudiantesNoDupli.add(estuAux);
+        }
+        console.log(estudiantesNoDupli);
+        //ordenar estudiantes por apellido
+        estudiantes.sort(function (elementoA, elementoB) {
+            return elementoA.apellido.localeCompare(elementoB.apellido);
+        });
+        console.log(estudiantes);
+        // map con id y alumno
+        let idEstudiante = new Map();
+        estudiantesOriginal.forEach(element => {
+            idEstudiante.set(element.id, element);
+        });
+        console.log(idEstudiante);
+        //buscar un estudiante por id
+        function buscarEstudiantePorId(id, map) {
+            let alumno = "";
+            if (map.has(id)) {
+                alumno = map.get(id);
+            } else {
+                alumno = "Alumno no encontrado";
+            }
+            return alumno;
+        }
+        console.log(buscarEstudiantePorId(2, idEstudiante));
+        //buscar palabras por clave del nombre...?
+        function buscarPorClaveSimple(estudiantes, clave) {
+            const claveLimpia = clave.toLowerCase();
+
+            return estudiantes.filter(est => {
+                const nombre = est.nombre.toLowerCase();
+                const apellido = est.apellido.toLowerCase();
+                return nombre.includes(claveLimpia) || apellido.includes(claveLimpia);
+            });
+        }
+        console.log(buscarPorClaveSimple(estudiantes, "Lu"));
+        // Set con las iniciales sin repetir
+        const inicialesSet = new Set(
+            estudiantes.map(est => {
+                // Tomar la primera letra de nombre y apellido
+                const inicialNombre = est.nombre[0].toUpperCase();
+                const inicialApellido = est.apellido[0].toUpperCase();
+                return `${inicialNombre}.${inicialApellido}`;
+            })
+        );
+
+        console.log(inicialesSet);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades de Aventura</title>
+</head>
+
+<body>
+    <script>
+        let acctividades = [
+            {
+                nombre: "Scape room virtual",
+                tipo: "scape room",
+                fecha: "12-12-2025",
+                pecio: 20.99
+            },
+            {
+                nombre: "El salon de Felipe",
+                tipo: "Salon de salsa",
+                fecha: "13-12-2025",
+                pecio: 10.99
+            },
+            {
+                nombre: "CookieDJ",
+                tipo: "Discoteca",
+                fecha: "14-12-2025",
+                pecio: 5.99
+            },
+            {
+                nombre: "Queso festival",
+                tipo: "Feria",
+                fecha: "15-12-2025",
+                pecio: 9.00
+            },
+            {
+                nombre: "Tivoli",
+                tipo: "Atracciones",
+                fecha: "16-12-2025",
+                pecio: 9.90
+            }
+        ];
+        /**
+         * Modifica el texto pasado por parametro a minuscula y sin espacios delante y atras 
+         */
+        function normalizarTexto(texto) {
+            return texto.trim().toLowerCase();
+        }
+        /**
+         * Le pasas un tipo de actividad y devuelve las actividades que coincidan 
+         * Utiliza normalizarTexto() para lipiar.
+         */
+        function filtrarPorTipo(tipoBuscado) {
+            let act = [];
+            let i = 0
+            acctividades.forEach(element => {
+                if (normalizarTexto(tipoBuscado) === normalizarTexto(element.tipo)) {
+                    act[i] = element;
+                    i++;
+
+                }
+            });
+            return act;
+        }
+        /**
+         * Le pasas por parametro una pablablra y si el nombre de alguna actividad
+         * contiene esa palabra la acumula en un array que devuelve.
+         */
+        function buscarActividad(palabra) {
+            let act = [];
+            let i = 0;
+            acctividades.forEach(element => {
+                if (element.nombre.toLowerCase().includes(palabra.toLowerCase())) {
+                    act[i] = element;
+                    i++;
+                }
+            });
+            return act;
+        }
+        // participantes por actividad
+        let participantesPorActividad = new Map();
+        acctividades.forEach(element => {
+            participantesPorActividad.set(element.nombre, 0);
+        });
+        /**
+         * Apunta el número de personas que participaran en la actividad
+         *  dentro del map participantesPorActividad
+         */
+        function apuntarParticipantes(nombreActividad, cantidad) {
+            let keys = [...participantesPorActividad.keys()].map(k => k.toLowerCase());
+            if (cantidad < 0 || isNaN(cantidad) || !isNaN(nombreActividad) || !keys.includes(nombreActividad.toLowerCase())) {
+                console.log("Error al apuntar participantes");
+            } else {
+                participantesPorActividad.set(nombreActividad, cantidad);
+                console.log("Operación realizada con existo");
+            }
+        }
+        /**
+         * Funcion auxiliar que da la vuelta a la fecha pasada por parametro
+         */
+        function convertirFotmatoDate(fecha) {
+            let dmy = fecha.split("-");
+            return dmy[2] + "-" + dmy[1] + "-" + dmy[0];
+        }
+
+        /**
+         * Le pasas por parametro la fecha de una actividad y te dice cuantos dias quedan 
+         * para que se realice.
+         * formato fecha parametro"YYYY-MM-DD"
+         */
+        function diasParaLaActividad(fecha) {
+            let dias = null;
+            let i = 0;
+            let noEncontrada = true;
+            let actividad = null;
+            // Recorrer el array mientras el índice sea menor que la longitud total
+            while (i < acctividades.length && noEncontrada) {
+                let actividadAct = acctividades[i];
+                //Poner el formato correcto para comparar
+                let fechaF = convertirFotmatoDate(actividadAct.fecha);
+                if (fechaF == fecha) {
+                    actividad = actividadAct;
+                    noEncontrada = false;
+                }
+                i++;
+            }
+            if (noEncontrada) {
+                console.log("No se encontro la actividad con fecha " + fecha);
+            } else {
+                console.log("Fecha encontrada con existo");
+                //Calcular cuanto falta con respecto al dia de hoy
+                let hoy = new Date();
+                let fechaD = new Date(fecha);
+                let difefencia = fechaD.getTime() - hoy.getTime();
+                //redondear para arriba
+                dias = Math.ceil(difefencia / (1000 * 60 * 60 * 24));
+            }
+            return dias;
+        }
+        //Guardar las actividades dentro de localStorage pasandolas a string
+        localStorage.setItem("actividades", JSON.stringify(acctividades));
+        //let actividadesGuardadas = JSON.parse(localStorage.getItem("actividades"));(recogerlo)
+        // pasar el map a array
+        let arrayDePares = [...participantesPorActividad];
+        // pasar el array a texto para que lo pueda leer sessionStorage
+        sessionStorage.setItem("participantes", JSON.stringify(arrayDePares));
+        // let pares = JSON.parse(sessionStorage.getItem("participantes"));(recogerlo)
+        // volver a map
+        //let participantesMap = new Map(pares);
+
+        //COOKIES
+        //Calcular la fecha 
+        let fecha = new Date();
+        fecha.setDate(fecha.getDate() + 5);
+        let fechaS = fecha.toUTCString();
+        // perdir el valor de la activida favorita 
+        let actividadFav = prompt("Digame su actividad favorita:").toUpperCase();
+        actividadFav= encodeURIComponent(actividadFav);
+        document.cookie = "actividadFavoria=" + actividadFav + ";expires=" + fechaS;
+    </script>
+</body>
+
+</html> 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej24</title>
+</head>
+
+<body>
+    <script>
+        function valores_unicos_con_set(arr) {
+            return [...new Set(arr)];
+        }
+        function valores_unicos_sin_set(arr) {
+
+            // 1. Crear un array con los índices de la PRIMERA aparición de cada valor
+            let primerosIndices = arr.map(valor => arr.findIndex(v => v === valor));
+
+            // 2. Filtrar dejando solo los valores cuya posición coincide con su primera aparición
+            return arr.filter((valor, indice) => primerosIndices[indice] === indice);
+        }
+        let num = [1, 2, 3, 2, 4, 1, 5];
+
+        console.log(valores_unicos_con_set(num));
+
+        console.log(valores_unicos_sin_set(num));
+    </script>
+</body>
+
+</html>

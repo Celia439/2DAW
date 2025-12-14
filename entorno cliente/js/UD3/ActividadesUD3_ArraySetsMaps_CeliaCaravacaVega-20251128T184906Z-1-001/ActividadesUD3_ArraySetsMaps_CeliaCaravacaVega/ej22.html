@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej22</title>
+</head>
+
+<body>
+    <script>
+        let texto = "¡Ya queda muy poco para terminar ya la actividad de JS :D!";
+
+        // Convertir a array de palabras
+        let palabras = texto.split(" ");
+
+        // Limpiar signos y pasar a minúsculas usando map y replace
+        function limpiarPalabra(word) {
+            // pasar a minúsculas
+            let w = word.toLowerCase();
+            // quitar signos (nota: la g significa gloval eso quiere decir a toda la palabra)
+            w = w.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()¿¡?]/g, "");
+            // quitar tildes
+            w = w.replace(/á/g, "a")
+                .replace(/[é]/g, "e")
+                .replace(/[í]/g, "i")
+                .replace(/[ó]/g, "o")
+                .replace(/[ú]/g, "u");
+            return w;
+        }
+
+        let limpio = palabras.map(limpiarPalabra);
+
+        // Crear un Set para quitar repetidos
+        let unico = new Set(limpio);
+
+        // Mostrar resultado
+        console.log("Array limpio:", limpio);
+        console.log("Palabras únicas:", [...unico]);  // Convertimos el Set a array para mostrarlo
+
+        // map con cuantas palabras y sus repeticiones
+        let repeticiones = new Map();
+        unico.forEach(clave => {
+            let repeticionesAux = 0;
+            limpio.forEach(valor => {
+                if (valor === clave) {
+                    repeticionesAux++;
+                }
+            });
+            repeticiones.set(clave, repeticionesAux);
+        });
+        console.log("Repericiones", repeticiones);
+
+
+    </script>
+</body>
+
+</html>

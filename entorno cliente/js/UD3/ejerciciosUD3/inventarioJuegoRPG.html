@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG inventary</title>
+</head>
+
+<body>
+    <script>
+        //Equipo del entrenador
+        let bolsa = [
+            {
+                nombre: "Pikachu",
+                tipo: "eléctrico",
+                rareza: "alta",
+                fechaObtencion: new Date("2025-12-20")
+
+            }, {
+                nombre: "Kirlia",
+                tipo: "psíquico",
+                rareza: "alta",
+                fechaObtencion: new Date("2025-12-01")
+
+            }, {
+                nombre: "Ralts",
+                tipo: "psíquico",
+                rareza: "alta",
+                fechaObtencion: new Date("2025-12-14")
+
+            },
+            {
+                nombre: "Wurmple",
+                tipo: "bicho",
+                rareza: "baja",
+                fechaObtencion: new Date("2025-12-10")
+
+            },
+            {
+                nombre: "Mudkip",
+                tipo: "agua",
+                rareza: "muy alta",
+                fechaObtencion: new Date("2025-12-09")
+
+            }
+        ];
+
+        /**
+         * Esta función comprueba si los valores son correctos para crear un objeto pokémon
+         */
+        function crearPokemon(nombre, tipo, rareza, fechaObtencion) {
+            if (nombre.match(/^[A-Z\s]+$/i) && typeof (rareza) == "string" && typeof (tipo) == "string" && typeof (fechaObtencion) == "object") {
+                this.nombre = nombre;
+                this.tipo = tipo.toLowerCase();
+                this.rareza = rareza;
+                this.fechaObtencion = fechaObtencion;
+            } else {
+                console.log("Error al crear Pokémon");
+            }
+        }
+
+        let togepi = new crearPokemon("Togepi", "normal", "alta", new Date("2026-01-01"));
+
+        //Guardar la bolsa en localStorage como json
+        localStorage.setItem("bolsa", JSON.stringify(bolsa));
+        //Crear un map de número de objetos pokémon por tipo
+        let tipos = new Map();
+        for (let p of bolsa) {
+            // crear el tipo y si no existe el tipo incializa a 0 o lo que te de y sumale a eso 1
+            tipos.set(p.tipo, (tipos.get(p.tipo) || 0) + 1);
+        }
+
+        /**
+         * Esta función calcula cuantos días a pasado desde 
+         * que se obtubo el objeto pokemon  del inventario
+         * si no lo encuentra devuelve null
+         */
+        function diasEnInventario(fecha) {
+            let dias = null;
+            let i = 0;
+            let noEncontrada = true;
+            // Recorrer el array mientras el índice sea menor que la longitud total
+            while (i < bolsa.length && noEncontrada) {
+                let pokemonAct = bolsa[i];
+                let fechaF = pokemonAct.fechaObtencion;
+                if (new Date(fechaF).getTime() === new Date(fecha).getTime()){
+                noEncontrada = false;
+            }
+            i++;
+        }
+        if (noEncontrada) {
+            console.log("No se encontro el objeto pokemon con la fecha de captura el " + fecha);
+        } else {
+            console.log("Fecha encontrada con éxisto");
+            //Calcular cuanto a pasado
+            let hoy = new Date();
+            let fechaD = new Date(fecha);
+            let diferencia =  hoy.getTime()-fechaD.getTime();
+            //redondear para abajo
+            dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        }
+        return dias;
+        }
+        //Crear cookie del jugador en mayuscular que expire en dos dias
+         //Calcular la fecha 
+        let fecha = new Date();
+        fecha.setDate(fecha.getDate() + 2);
+        let fechaS = fecha.toUTCString();
+        // valor del jugador
+        let value = "entrenador pokemon".toUpperCase();
+        value= encodeURIComponent(value);
+        document.cookie = "jugador=" + value + ";expires=" + fechaS;
+    </script>
+</body>
+
+</html>

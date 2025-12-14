@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej23</title>
+</head>
+
+<body>
+    <script>
+
+        // Función para obtener un elemento de un Set
+        function getFromSet(set, index) {
+            let i = 0;
+            for (let item of set) {
+                if (i === index) return item;
+                i++;
+            }
+            return undefined;
+        }
+
+        // Set de categorías
+        let categoria = new Set(["Bebidas", "Panaderia", "yogures"]);
+        //Crear un Map que vincule categoría(del set) → productos(array)
+        let productos = new Map();
+
+        let productosAux = [
+            { id: 1, nombre: "fanta", precio: 1.10 },
+            { id: 2, nombre: "agua", precio: 1.95 },
+            { id: 3, nombre: "pan", precio: 1.40 },
+            { id: 4, nombre: "bollo", precio: 2.99 },
+            { id: 5, nombre: "danet", precio: 3.99 },
+            { id: 6, nombre: "griego", precio: 2.99 }
+        ];
+
+        productos.set(getFromSet(categoria, 0), [productosAux[0], productosAux[1]]);
+        productos.set(getFromSet(categoria, 1), [productosAux[2], productosAux[3]]);
+        productos.set(getFromSet(categoria, 2), [productosAux[4], productosAux[5]]);
+
+        console.log("productos:", productos);
+        //Filtrar por precio mayor que 2
+        let filtradosPrecio = productosAux.filter(p => p.precio > 2);
+        console.log("Productos > 2 :", filtradosPrecio);
+        // Ordenar por nombre
+        let ordenadosNombre = [...productosAux].sort((a, b) =>
+            a.nombre.localeCompare(b.nombre)
+        );
+        console.log("Productos ordenados por nomrbre:", ordenadosNombre);
+        // lista ordenada sin tocar
+        let ordenToSorted = productosAux.toSorted((a, b) =>
+            a.nombre.localeCompare(b.nombre)
+        );
+        console.log("Productos ordenados sin tocar original):", ordenToSorted);
+        //buscar por nombre
+        function buscarProducto(nombre) {
+            return productosAux.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
+        }
+
+        console.log("FIND (buscando 'pan'):", buscarProducto("pan"));
+        console.log("FIND (buscando 'griego'):", buscarProducto("griego"));
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej11</title>
+</head>
+
+<body>
+    <script>
+        // Array de objetos
+        const tareas = [
+            { id: 1, texto: "Hacer 25 ej de js", completada: false },
+        ];
+
+        // Funciones para cada opción del menú
+        function listarTareas() {
+            console.log("Tareas:");
+            tareas.forEach(element => {
+                console.log("indice " + tareas.findIndex((elemento) => elemento === element) + " id: " + element.id + " Descripcion: " + element.texto + " Estado: " + element.completada);
+            });
+            console.log("---");
+        }
+
+        function anadirTarea() {
+            let text = prompt("Deme la descripcion de la tarea:");
+            if (tareas.some((element) => element.texto === text)) {
+                console.log("La tarea con descripcion '" + text + "' ya existe");
+            } else {
+                tareas.push({ id: (++tareas.length), texto: text, completada: false });
+                console.log("Tarea registrada exitosamente");
+            }
+        }
+
+        function buscarPorTexto() {
+            let descripcion = prompt("Escriba la descricion de la que quiere buscar:");
+            let encontrada = tareas.find((element) => element.texto === descripcion);
+            if (encontrada === undefined) {
+                console.log("No se encontro ninguna descripcion con: " + descripcion);
+            } else {
+                console.log("indice " + tareas.findIndex((elemento) => encontrada === elemento) + " id: " + encontrada.id + " Descripcion: " + encontrada.texto + " Estado: " + encontrada.completada);
+            }
+        }
+
+        function marcarCompletada() {
+            let indice = Number(prompt("Deme el indice (empieza en 0) de la tarea a marcar como completada:"));
+            if (indice < 0 || indice >= tareas.length || isNaN(indice)) {
+                console.log("No se encontro ningun id: " + indice);
+            } else {
+                tareas[indice].completada = true;
+                console.log("Tarea completada exitosamente:", tareas[indice]);
+            }
+        }
+
+        function filtrarPorEstado() {
+            let estado = prompt("Ver completadas o no completadas");
+            if (estado.toLowerCase() === "completadas") {
+                let completadas = tareas.filter((element) => element.completada === true);
+                if (completadas.length !== 0) {
+                    completadas.forEach(element => {
+                        console.log("id:" + element.id + " Descripcion:" + element.texto + " Estado:" + element.completada);
+                    });
+                } else {
+                    console.log("No hay ninguna completada por el momento");
+                }
+                if (tareas.every((element) => element.completada)) {
+                    console.log("Todas las tareas están completadas");
+                }
+            } else if (estado.toLowerCase() === "no completadas") {
+                let noCompletadas = tareas.filter((element) => element.completada === false);
+                if (noCompletadas.length !== 0) {
+                    noCompletadas.forEach(element => {
+                        console.log("id:" + element.id + " Descripcion:" + element.texto + " Estado:" + element.completada);
+                    });
+                } else {
+                    console.log("No hay ninguna no completada por el momento");
+                }
+                if (tareas.every((element) => !element.completada)) {
+                    console.log("Ninguna tarea está completada");
+                }
+            } else {
+                console.log("Valor introducido incorrecto");
+            }
+        }
+
+        // Mostrar menú
+        function mostrarMenu() {
+            console.log("--menu--");
+            console.log("1 Listar tareas");
+            console.log("2 Añadir tarea");
+            console.log("3 Buscar por texto");
+            console.log("4 Marcar como completada");
+            console.log("5 Filtrar completadas/no completadas");
+            console.log("0 Salir");
+            console.log("--------");
+        }
+
+        // Bucle principal
+        let opc = -1;
+        while (opc != 0) {
+            mostrarMenu();
+            opc = Number(prompt("Elija opción"));
+            switch (opc) {
+                case 0:
+                    console.log("Hasta la proxima! bye");
+                    break;
+                case 1:
+                    listarTareas();
+                    break;
+                case 2:
+                    anadirTarea();
+                    break;
+                case 3:
+                    buscarPorTexto();
+                    break;
+                case 4:
+                    marcarCompletada();
+                    break;
+                case 5:
+                    filtrarPorEstado();
+                    break;
+                default:
+                    console.log("Ponga un valor valido");
+                    break;
+            }
+        }
+
+        // 💡 Idea futura: manejar varias listas de tareas usando un Map
+        // Ejemplo:
+        // const listas = new Map();
+        // listas.set("personal", [...]);
+        // listas.set("trabajo", [...]);
+    </script>
+</body>
+
+</html>

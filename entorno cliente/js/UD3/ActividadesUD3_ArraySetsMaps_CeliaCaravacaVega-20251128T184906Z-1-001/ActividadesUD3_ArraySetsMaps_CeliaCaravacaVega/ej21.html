@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej21</title>
+</head>
+
+<body>
+    <script>
+        //let notasAlumnos=[{alumno,notas:[n1,n2,n3]}];
+        let notasAlumnos = [{ alumno: "Celia", notas: [5, 7, 4] }, { alumno: "Juan", notas: [8, 6, 4] }, { alumno: "Paula", notas: [10, 7, 7] }];
+        // la media dentro de un map asociativo por alumno
+        let media = new Map();
+        let indice = 0;
+        console.log("(---------La media de cada uno map()----------)");
+        notasAlumnos.forEach(element => {
+            let total = element.notas.reduce((a, n) => a + n, 0);
+
+            let mediaAux = total / notasAlumnos.length;
+
+            media.set(indice, [element.alumno, mediaAux.toFixed(2)]);
+            indice++;
+        });
+        console.log("media", media);
+        // lista de aprobados con filter
+        let listaMedias = [...media];
+        let listaAprobados = listaMedias.filter((array) => array[1][1] >= 5);
+        console.log("(---------Aprobados filter()------------------)");
+        listaAprobados.forEach(element => {
+            console.log(element)
+        });
+        // comprobar suspensos con some
+        if (listaMedias.some((objeto) => objeto[1][1] < 4))
+            console.log("En la clase hay al menos un suspenso grave");
+        // comprobar si todos aprobaron
+        if (listaMedias.length === listaAprobados.length)
+            console.log("Todos han aprobado");
+    </script>
+</body>
+
+</html>
