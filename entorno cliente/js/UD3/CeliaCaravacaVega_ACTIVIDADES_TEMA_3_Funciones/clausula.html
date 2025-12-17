@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clausulas</title>
+</head>
+
+<body>
+    <script>
+        const contador = (function () {
+            let cuenta = 0;
+            return function () {
+                cuenta++;
+                return cuenta;
+            };
+        })();
+
+        //a) Explica qué hace la función contador.
+        // contador contiene una función anónima que, a su vez, tiene dentro otra función
+        // que aumenta un contador cada vez que se llama.
+
+        //b) Muestra en consola tres llamadas consecutivas a contador() y explica el resultado.
+        console.log(contador()); //1
+        console.log(contador()); //2
+        console.log(contador()); //3
+        // Sus resultados son los valores que devuelve la función hija.
+        // La función padre solo se ejecuta una vez y lo que queda es la función hija.
+        // Por lo tanto, cuando llamamos a contador(), estamos sumando y mostrando
+        // la variable de la función padre.
+        // Esto ocurre porque se mantiene la referencia y la variable no se borra
+        // (así funcionan las cláusulas).
+
+        //c) Modifica la función para que acepte un valor inicial para cuenta.
+        const contador2 = (function (valorInicial) {
+            let cuenta = valorInicial;
+            return function () {
+                cuenta++;
+                return cuenta;
+            };
+        })(5);
+        // Simplemente se pasa un valor como parámetro.
+        // Puedes usar una variable en lugar del 5, pero el funcionamiento es el mismo.
+        console.log(contador2()); //6
+        console.log(contador2()); //7
+        console.log(contador2()); //8
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expresiones Regulares</title>
+</head>
+
+<body>
+    <script>
+        const texto = `
+Pedro nació el 1998-07-21.
+Sonia nació el 2003-11-05.
+La fecha incorrecta es 21-07-1998.
+Mi correo es ejemplo123@gmail.com
+Teléfono: 678-123-456
+Palabras: perro, pato, saco, Sapo, mesa, sol, pico, pera
+`;
+        //Apartado 1
+        //a) Crea una expresión regular que compruebe si una palabra
+        //contiene exactamente 4 caracteres.
+        if (texto.match(/^.{4}$/)) {
+            console.log("Contiene solo cuatro caracteres");
+        } else {
+            console.log("No contiene solo cuatro caracteres");
+        }
+        //b) Modifica la expresión anterior para que solo acepte letras,
+        //no números ni símbolos.
+        if (texto.match(/^[a-zA-Z]+$/)) {
+            console.log("Contiene solo caracteres");
+        } else {
+            console.log("No contiene solo caracteres");
+        }
+        //c) Explica qué significa el carácter . dentro de una expresión
+        // regular.
+        // El Caracter . signigica cualquier caracter
+        //Apartado 2
+        
+
+    </script>
+</body>
+
+</html>

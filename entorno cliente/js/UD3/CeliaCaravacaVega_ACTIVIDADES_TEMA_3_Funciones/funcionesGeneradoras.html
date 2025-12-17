@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones Generadoras</title>
+</head>
+
+<body>
+    <script>
+        //a) Crea una función generadora colores() que genere los
+        // valores "Rojo", "Verde" y "Azul".
+        function* generadoraColores() {
+            yield "Rojo";
+            yield "Verde";
+            yield "Azul";
+        }
+        //b) Crea un objeto a partir de la función generadora y llama a
+        // next() varias veces, mostrando el resultado en consola.
+        let objeto = generadoraColores();
+        console.log(objeto.next());
+        console.log(objeto.next());
+        console.log(objeto.next());
+        //c) Añade un bucle for...of para imprimir todos los valores de
+        //la función generadora.
+        for (color of generadoraColores()) {
+            console.log(color);
+        }
+        
+    </script>
+</body>
+
+</html> 

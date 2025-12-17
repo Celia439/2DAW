@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callbacks</title>
+</head>
+
+<body>
+    <script>
+        let nombres = ["Ana", "Luis", "Marta"];
+        //a) Crea una función modificarArray(array, callback) que
+        //añada un nombre al array y luego ejecute la función
+        //callback pasada como parámetro.
+        function modificarArray(array, callback) {
+            callback("Celia", array);
+
+        }
+        function nuevoNombre(nombre, array) {
+            array.push(nombre);
+        }
+        //b) Llama a modificarArray y muestra en consola el tamaño
+        // del array dentro del callback.
+        modificarArray(nombres, nuevoNombre)
+        console.log(nombres.length);
+        //c) Utiliza forEach para imprimir cada nombre del array
+        // después de modificarlo
+        nombres.forEach(element => {
+            console.log(element);
+        });
+    </script>
+</body>
+
+</html>
