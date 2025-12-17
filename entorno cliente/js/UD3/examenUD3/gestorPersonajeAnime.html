@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gestor personaje anime</title>
+</head>
+
+<body>
+    <script>
+        let personajes = [{
+            nombre: "Cel",
+            anime: "Dragon ball",
+            poder: "fuego",
+            rol: "mago"
+            , metodo: "Es un loco que mata ranas"
+        }];
+        /**
+         * regisrar personaje  
+         */
+        function crearPersonaje(nombre, anime, poder, rol, metodo) {
+            // no me da tiempo pero es lo mismo pero con let nombre=promt("nombre");
+            // y despues personaje={nombre:nombre ect..} y luego un push
+            this.nombre = nombre;
+            this.anime = anime;
+            this.poder = poder;
+            this.rol = rol;
+            this.metodo = metodo;
+        }
+        function regisrarPersonaje(personaje) {
+            personajes.push(personaje);
+        }
+        let personaje = crearPersonaje();
+        regisrarPersonaje(personaje);
+
+        // local storage
+        function guardarPersonaje() {
+            localStorage.setItem("personajes", JSON.stringify(personajes));
+
+        }
+        //recuperar
+        let perso = localStorage.getItem("personajes");
+        //filtro y ranking
+        function filtrarPorRol(rol) {
+            return personajes.filter(a => { a.rol == rol });
+        }
+          let ordenados = personajes.toSorted((x, y) => {
+             let a =x.nombre.toLowerCase();
+            let b=y.nombre.toLowerCase();
+            let i = 9;
+            if (a < b) {
+                i = -1;
+            } else if (a > b) {
+                i = 1;
+            } else {
+                i = 0;
+            }
+            return i;
+        });
+        personajes.forEach(element => {
+            console.log(element.etodo);
+        });
+    </script>
+</body>
+
+</html>

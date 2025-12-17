@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamers</title>
+</head>
+
+<body>
+    <p id="carga">Streaming en curso...</p>
+    <p id="p"></p>
+    <button onclick="iniciar()">Alerta 3s</button>
+    <button onclick="para()">para</button>
+    <img id='image' src='img1.png' alt='uno' />
+    <button onclick="stop">Para reproduccion imagen</button>
+    <script>
+        // 1)al iniciar la pagina un cronometro
+        window.onload = function () {
+            setInterval(crono, 1000)
+        }
+        //inicializar contador 
+        let i = 0;
+        function crono() {
+            document.getElementById("p").innerText = i;
+            i++;
+        }
+        // si le dan al boton iniciar dar la alerta
+        function iniciar() {
+            setTimeout(alerta, 3000);
+        }
+        // la  alerta muestra un alert
+        function alerta() {
+            alert("¡3 segundos!");
+        }
+        // hacemos clearTimeOut del id de set TimeOut
+        function para() {
+            clearTimeout();
+        }
+
+        //2) parrafo streaming en curso parpadea cada 500ms
+        setInterval(cambiarColor, 500);
+        let x = 0;
+        function cambiarColor() {
+            if (x % 2 == 0) {
+                document.getElementById("carga").style.color = "blue";
+                x++;
+            } else {
+                document.getElementById("carga").style.color = "red";
+                x++;
+            }
+        }
+        //3) cambio de banner automatico( nota al cambiar por una imagen no existente da error constante en el inspetor de codifo consola)
+        setInterval(cambioImg, 2000);
+        let y = 1;
+        function cambioImg() {
+            if (y == 1) {
+                document.getElementById("image").innerHTML = "<img id='image' src='img1.png' alt='uno'/>";
+                y = 2;
+            } else if (y == 2) {
+                document.getElementById("image").innerHTML = "<img id='image' src='img2.png' alt='dos'/>";
+                y = 3;
+            } else {
+                document.getElementById("image").innerHTML = "<img id='image' src='img3.png' alt='tres'/>";
+                y = 1;
+            }
+        }
+        //4) a
+        const streamers = [
+            { nombre: "Alex", juegos: ["Valorant", "Minecraft"] },
+            { nombre: "Marta", juegos: ["LoL", "Minecraft"] },
+            { nombre: "Luis", juegos: ["CS:GO"] },
+            { nombre: "Ana", juegos: ["Valorant", "LoL"] }
+        ];
+        //Map con jugador y numero de juegos jugados
+        let nombreJuegos = new Map();
+        streamers.forEach(element => {
+            nombreJuegos.set(element.nombre, element.juegos.length);
+        });
+        console.log(nombreJuegos);
+        /**
+         *  esta funcion encuentra por el nombre del usuario y devuelve un objeto con sus juegos
+         * si no lo encuentra devuelve undefined
+         * (Falla algo)
+         */
+        function buscarStreamer(nombreInput) {
+            return streamers.find((a) => { a.nombre == nombreInput });
+        }
+        console.log(buscarStreamer("maria"));
+        console.log(buscarStreamer("Luis"));
+        //Mostrar nombres ordenados alfabéticamente usando .toSorted().
+        let streamerOrd = streamers.toSorted((x, y) => {
+             let a =x.nombre.toLowerCase();
+            let b=y.nombre.toLowerCase();
+            let i = 9;
+            if (a < b) {
+                i = -1;
+            } else if (a > b) {
+                i = 1;
+            } else {
+                i = 0;
+            }
+            return i;
+        });
+ console.log(streamerOrd);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GestorDeEventosGamer&Comunidad</title>
+</head>
+
+<body>
+    <script>
+        // 1 )establecer cookie
+        /**
+         * Esta funcion establece una cookie con el nombre valor y dias que le introduzcas por parametro 
+         * valor y nombre deben de ser texto y dias un int
+         */
+        function eslablecerCookie(nombre, valor, dias) {
+            let valorURI = encodeURIComponent(valor);
+            //calcular dias 
+            let hoy = new Date();
+            let diasUTC = new Date();
+            diasUTC.setDate(hoy.getDate() + (dias * 1000 * 60 * 60 * 24));
+            console.log(diasUTC);
+            document.cookie = nombre + "=" + valorURI + ";expire=" + diasUTC;
+        }
+        eslablecerCookie("usuario", "come cookies", 9)
+        /**
+         * Dependiendo del nomrbe de la cookie pasada por parametro te da su valor
+         */
+        function obtenerCookie(nombre) {
+            let cookies = document.cookie;
+            cookies = cookies.trim();
+            let encontrado = cookies.startsWith(nombre);
+            return encontrado;
+        }
+        obtenerCookie("usuario")
+        /**
+         * Busca una cookie si no la encuentra te sugiere crear una y pregunta nombre y caducara despues de 30 días
+         * si existe muestra bienvenido
+         */
+        function comprobarCookie(nombre){
+            let cookie=obtenerCookie(nombre);
+            if(cookie==""){
+                let sino =prompt("No hemos encontrado una cookie llamada asi la creamos ? si/no");
+                if(sino.toLocaleLowerCase=="si"){
+                    let valor=prompt("digame el valor de la cookie:");
+                    let valorURI= encodeURIComponent(valor);
+                    let fecha= new Date();
+                    fecha.setDate(fecha.getDate()+30);
+                    document.cookie=nombre+"="+valorURI+";expire="+fecha;
+                }else{
+                    alert("ok");
+                }
+            }else{
+                console.log("Bienvenido de nuevo...");
+            }
+        }
+    </script>
+</body>
+
+</html>
