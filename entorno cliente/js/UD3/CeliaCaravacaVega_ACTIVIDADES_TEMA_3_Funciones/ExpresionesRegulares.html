@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <!--Debes repasarlo todo está mal -->
     <script>
         const texto = `
 Pedro nació el 1998-07-21.
@@ -20,14 +21,15 @@ Palabras: perro, pato, saco, Sapo, mesa, sol, pico, pera
         //Apartado 1
         //a) Crea una expresión regular que compruebe si una palabra
         //contiene exactamente 4 caracteres.
-        if (texto.match(/^.{4}$/)) {
+        let palabra = "palabra";
+        if (palabra.match(/^.{4}$/)) {
             console.log("Contiene solo cuatro caracteres");
         } else {
             console.log("No contiene solo cuatro caracteres");
         }
         //b) Modifica la expresión anterior para que solo acepte letras,
         //no números ni símbolos.
-        if (texto.match(/^[a-zA-Z]+$/)) {
+        if (palabra.match(/^[a-zA-Z]{4}$/)) {
             console.log("Contiene solo caracteres");
         } else {
             console.log("No contiene solo caracteres");
@@ -35,8 +37,58 @@ Palabras: perro, pato, saco, Sapo, mesa, sol, pico, pera
         //c) Explica qué significa el carácter . dentro de una expresión
         // regular.
         // El Caracter . signigica cualquier caracter
+
         //Apartado 2
-        
+        //a) Crea una expresión regular que valide que un texto empieza
+        // por la letra p.(En este caso no empieza por la p por que hay un salto de linea)
+        if (texto.match(/^p/)) {
+            console.log("Empieza por la letra p");
+        } else {
+            console.log("No empieza por la letra p");
+        }
+        //b) Crea otra que valide que un texto termina en a.
+        if (texto.match(/a\.$/)) {
+            console.log("Termina por a.");
+        } else {
+            console.log("No termina por a.");
+        }
+        //c) Crea una expresión regular que valide palabras que empiezan
+        // por p y terminan por o.****** con palabras no texto
+        if (texto.match(/^p.*o\.$/)) {
+            console.log("Termina por o. y empieza por p");
+        } else {
+            console.log("No termina por o. y empieza por p");
+        }
+        //d) Prueba las expresiones con varias palabras del texto dado.
+        let regex = /p.*o\.$/;
+        let array;
+        while (array = regex.exec(texto) !== null) {
+            console.log(`Found ${array[0]}. Next starts at ${regex.lastIndex}.`);
+
+        }
+        //Apartado 3
+        //a) Crea una expresión regular que detecte palabras que
+        // empiecen por p o s.
+        if (texto.match(/^(p|s)/)) {
+            console.log("Empieza por p o s");
+        } else {
+            console.log("no empieza por p o s");
+        }
+        //b) Modifica la expresión para que además terminen por o o a.
+        if (texto.match(/^(p|s).*(o|a)$/)) {
+            console.log("Empieza por p o s y termina por o o a");
+        } else {
+            console.log("no empieza por p o s y no termina por o o a");
+        }
+        //c) Añade el flag necesario para que no distinga mayúsculas de minúsculas.
+        if (texto.match(/^(p|s).*(o|a)$/i)) {
+            console.log("Empieza por p o s y termina por o o a");
+        } else {
+            console.log("no empieza por p o s y no termina por o o a");
+        }
+        //d) Explica el uso del operador |.
+        // El operador | es un operador de alternancia y sirve para que tenga dos opiones de patrón "lo que esta a la derecha o lo que está a la izquierda"
+        //Si se cumple alguno de los dos patrones da true.
 
     </script>
 </body>
