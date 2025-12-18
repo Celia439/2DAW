@@ -52,19 +52,16 @@ Palabras: perro, pato, saco, Sapo, mesa, sol, pico, pera
             console.log("No termina por a.");
         }
         //c) Crea una expresión regular que valide palabras que empiezan
-        // por p y terminan por o.****** con palabras no texto
-        if (texto.match(/^p.*o\.$/gi)) {
+        // por p y terminan por o.
+        if (texto.match(/p.*o\./gi)) {
             console.log("Termina por o. y empieza por p");
         } else {
             console.log("No termina por o. y empieza por p");
         }
         //d) Prueba las expresiones con varias palabras del texto dado.
-        let regex = /p.*o\.$/;
-        let array;
-        while ((array = regex.exec(texto)) !== null) {
-            console.log(array[0]);
-        }
-
+        let regex = /p.*o/;
+        let array= regex.exec(texto);
+        console.log(array);
         //Apartado 3
         //a) Crea una expresión regular que detecte palabras que
         // empiecen por p o s.
@@ -89,6 +86,69 @@ Palabras: perro, pato, saco, Sapo, mesa, sol, pico, pera
         // El operador | es un operador de alternancia y sirve para que tenga dos opiones de patrón "lo que esta a la derecha o lo que está a la izquierda"
         //Si se cumple alguno de los dos patrones da true.
 
+        //Apartado 4
+        //a) Crea una expresión regular que detecte números de
+        //exactamente 2 dígitos.
+        if (texto.match(/[0-9]{2}/m)) {
+            console.log("Tiene dos numeros");
+        } else {
+            console.log("no tiene dos numeros");
+        }
+        //b) Modifícala para que acepte números de 2 a 4 dígitos.
+        if (texto.match(/[0-9]{2,4}/m)) {
+            console.log("Tiene dos numeros");
+        } else {
+            console.log("no tiene dos numeros");
+        }
+        //c) Crea una expresión regular que detecte la palabra "disparo"
+        // o "disparos" usando ?.
+        if (texto.match(/disparos?/m)) {
+            console.log("Tiene disparo o disparos");
+        } else {
+            console.log("No tiene disparo o disparos");
+        }
+        //d) Explica la diferencia entre *, + y ?.
+        // * significa cero o muchos caracteres.
+        // + significa uno o muchos caracteres.
+        // ? significa cero o un caracter.
+
+        //Apartado 5
+        //a) Crea una expresión regular que detecte cualquier carácter
+        // que NO sea un número.
+        if (texto.match(/[^0-9]/)) {
+            console.log("No tiene numeros");
+        } else {
+            console.log("Tiene numeros");
+        }
+        //b) Crea otra que detecte palabras que NO empiecen por vocal.
+        if (texto.match(/^[^aeiou]/)) {
+            console.log("No empieza por vocal");
+        } else {
+            console.log("empieza por vocal");
+        }
+        //c) Explica el significado del símbolo ^ cuando se usa dentro
+        // de corchetes [].
+        // El simbolo ^ por si solo representa que el inicio del texto empiece por lo que está a la derecha 
+        // sin embargo si lo colocamos dentro de [^] significa lo contrario a lo que hay dentro 
+        // que no contenga el contenido de dentro de los corchetes
+
+        // Apartado 6
+        //a) Crea una expresión regular que detecte fechas en formato YYYY-MM-DD.
+        if (texto.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
+            console.log("El formato está correcto");
+        } else {
+            console.log("Formato de fecha incorrecto");
+        }
+        //b) Usa el método test() para comprobar si la fecha "2025-12-15" es válida.
+        let fecha="2025-12-15";
+        let patron=/[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+        if(patron.test(fecha)){
+            console.log("Correcta "+fecha);
+        }else{
+            console.log("Incorrecta "+fecha);
+        }
+        //c) Usa el método exec() para extraer la fecha del texto dado.
+        
     </script>
 </body>
 
