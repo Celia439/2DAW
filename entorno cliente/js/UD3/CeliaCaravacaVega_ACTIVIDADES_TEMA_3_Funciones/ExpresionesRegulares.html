@@ -8,7 +8,6 @@
 </head>
 
 <body>
-    <!--Debes repasarlo todo está mal -->
     <script>
         const texto = `
 Pedro nació el 1998-07-21.
@@ -36,12 +35,12 @@ Palabras: perro, pato, saco, Sapo, mesa, sol, pico, pera
         }
         //c) Explica qué significa el carácter . dentro de una expresión
         // regular.
-        // El Caracter . signigica cualquier caracter
+        // El Caracter . signigica cualquier caracter exepto el salto de linea  
 
         //Apartado 2
         //a) Crea una expresión regular que valide que un texto empieza
-        // por la letra p.(En este caso no empieza por la p por que hay un salto de linea)
-        if (texto.match(/^p/)) {
+        // por la letra p.(En este caso no empieza por la p por que hay un salto de linea por lo que se pone multilinea)
+        if (texto.match(/^p/m)) {
             console.log("Empieza por la letra p");
         } else {
             console.log("No empieza por la letra p");
@@ -54,7 +53,7 @@ Palabras: perro, pato, saco, Sapo, mesa, sol, pico, pera
         }
         //c) Crea una expresión regular que valide palabras que empiezan
         // por p y terminan por o.****** con palabras no texto
-        if (texto.match(/^p.*o\.$/)) {
+        if (texto.match(/^p.*o\.$/gi)) {
             console.log("Termina por o. y empieza por p");
         } else {
             console.log("No termina por o. y empieza por p");
@@ -62,14 +61,14 @@ Palabras: perro, pato, saco, Sapo, mesa, sol, pico, pera
         //d) Prueba las expresiones con varias palabras del texto dado.
         let regex = /p.*o\.$/;
         let array;
-        while (array = regex.exec(texto) !== null) {
-            console.log(`Found ${array[0]}. Next starts at ${regex.lastIndex}.`);
-
+        while ((array = regex.exec(texto)) !== null) {
+            console.log(array[0]);
         }
+
         //Apartado 3
         //a) Crea una expresión regular que detecte palabras que
         // empiecen por p o s.
-        if (texto.match(/^(p|s)/)) {
+        if (texto.match(/^(p|s)/g)) {
             console.log("Empieza por p o s");
         } else {
             console.log("no empieza por p o s");
