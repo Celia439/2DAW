@@ -1,0 +1,168 @@
+/* 1. Usa el selector universal para definir una fuente base. */
+* {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+/* 3. Usa una clase para destacar algunos párrafos. */
+.texto {
+    color: blue;
+}
+
+.destacado {
+    font-size: larger;
+    color: rgb(129, 127, 255);
+}
+
+p {
+    /* 2. Usa un selector de etiqueta para dar color a todos los párrafos. */
+    font-size: large;
+    color: rgb(115, 255, 0);
+}
+
+/* 4. Usa un id para centrar un elemento concreto. */
+#titulo-principal {
+    text-align: center;
+}
+
+/* 5. Aplica: */
+/* a. Un selector descendiente */
+.caja p {
+    border: 1px solid white;
+    border-radius: 2em;
+    padding: 1em;
+}
+
+/* b. Un selector de hijos (elementos dentro del contenedor) */
+.contenedor>.texto {
+    background-color: rgb(14, 29, 29);
+    border-radius: 1em;
+    padding: 1em;
+}
+
+/* c. Un selector adyacente (afecta al párrafo justo después de un div) */
+div+p {
+    background-color: brown;
+    padding: 1em;
+    border-radius: 1em 1em 1em 0em;
+}
+
+/* 6. Combina varios selectores en una sola regla. */
+.bloque,
+.a,
+.b,
+.c,
+.d {
+    padding: 1em;
+    font-family: cursive;
+    margin-left: 15%;
+    border: cyan dashed;
+    margin-top: 5px;
+    width: 15em;
+}
+
+/* Extra mío: al pasar por encima cambia el borde y aparece una sombra */
+.bloque:hover {
+    border: rgb(255, 220, 180) dashed;
+    box-shadow: 1em 0em 5em 1em cyan;
+    opacity: 1;
+}
+
+/* 4. Ejercicio de jerarquía semántica */
+/* Añadir una imagen de fondo y configurarla */
+.contenedor {
+    /* Aplicar transparencia con  rgba()*/
+    background-color: rgba(49, 42, 42, 0.7);
+    /*2 Imagen de fondo */
+    background-image: url(./pictures9.png);
+    /* No repetir la imagen */
+    background-repeat: no-repeat;
+    /* Posición del fondo */
+    background-position: center center;
+    /* Tamaño de la imagen */
+    background-size: cover;
+    /* Fijar la imagen al fondo */
+    background-attachment: fixed;
+
+    margin: 5em;
+    padding: 2em;
+    width: 100em;
+    height: 50em;
+}
+
+/*2 trasparencia de los div bloque con opaticy*/
+.bloque {
+    opacity: 0.5;
+}
+
+/* a) Nombre del color */
+.a {
+    background-color: aquamarine;
+}
+
+/* b) Hexadecimal */
+.b {
+    background-color: #ff0000;
+}
+
+/* c) RGB */
+.c {
+    background-color: rgb(255, 157, 139);
+}
+
+/* d) HSL */
+.d {
+    background-color: hsl(229, 100%, 50%);
+}
+
+/* Estilos de texto */
+.parrafo-texto {
+    /* Alinear el texto a la derecha */
+    text-align: right;
+    /* text-indent: desplaza la primera línea del texto */
+    text-indent: 15%;
+    /* letter-spacing: añade espacio entre las letras */
+    letter-spacing: 0.1em;
+    /* line-height: añade espacio entre líneas */
+    line-height: 2em;
+    /* text-transform: pone la primera letra de cada palabra en mayúscula */
+    text-transform: capitalize;
+    /* text-decoration: subraya el texto */
+    text-decoration: underline white 1px;
+    /* Tipo de letra */
+    font-family: 'Courier New', Courier, monospace;
+    /* Tamaño de letra */
+    font-size: xx-large;
+    /* Poner el texto en negrita */
+    font-weight: bold;
+}
+
+/* Utilizar una pseudo-clase que reacciona al pasar el cursor */
+.parrafo-texto:hover {
+    text-decoration: underline blue 1px;
+}
+
+@counter-style mi-estilo {
+    /* Si se queda sin símbolos, vuelve a empezar (no compatible con navegadores antiguos) */
+    system: cyclic;
+    /* Se especifican los símbolos que se van a usar */
+    symbols: "♠" "○" "★" "☆" "◆" "◇" "●" "♦";
+    /* Sufijo que aparece después del símbolo */
+    suffix: "º ";
+}
+
+.lista {
+    /* Si usamos list-style-type con el nombre del counter-style,
+       se aplica el estilo personalizado */
+    list-style-type: mi-estilo;
+    /* Indica si el marcador va dentro o fuera del contenido */
+    list-style-position: inside;
+    /* Si se usa list-style-image se rompe el estilo personalizado (pero añade una imagen de fondo)*/
+    /* list-style-image: url(./pictures9.png); */
+    /* list-style cambia el estilo por uno predefinido (pero ignora las demas etiquetas de estilo y se pisan)*/
+    /* list-style: armenian; */
+}

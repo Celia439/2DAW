@@ -17,138 +17,251 @@ Mi correo es ejemplo123@gmail.com
 Teléfono: 678-123-456
 Palabras: perro, pato, saco, Sapo, mesa, sol, pico, pera
 `;
-        //Apartado 1
-        //a) Crea una expresión regular que compruebe si una palabra
-        //contiene exactamente 4 caracteres.
+        // Apartado 1
+        // a) Crea una expresión regular que compruebe si una palabra
+        // contiene exactamente 4 caracteres.
         let palabra = "palabra";
         if (palabra.match(/^.{4}$/)) {
             console.log("Contiene solo cuatro caracteres");
         } else {
             console.log("No contiene solo cuatro caracteres");
         }
-        //b) Modifica la expresión anterior para que solo acepte letras,
-        //no números ni símbolos.
+        // b) Modifica la expresión anterior para que solo acepte letras,
+        // no números ni símbolos.
         if (palabra.match(/^[a-zA-Z]{4}$/)) {
             console.log("Contiene solo caracteres");
         } else {
             console.log("No contiene solo caracteres");
         }
-        //c) Explica qué significa el carácter . dentro de una expresión
-        // regular.
-        // El Caracter . signigica cualquier caracter exepto el salto de linea  
+        // c) Explica qué significa el carácter . dentro de una expresión regular.
+        // El carácter . significa cualquier carácter excepto el salto de línea.
 
-        //Apartado 2
-        //a) Crea una expresión regular que valide que un texto empieza
-        // por la letra p.(En este caso no empieza por la p por que hay un salto de linea por lo que se pone multilinea)
+        // Apartado 2
+        // a) Crea una expresión regular que valide que un texto empieza
+        // por la letra p. (En este caso no empieza por la p porque hay un salto de línea por lo que se pone multilínea)
         if (texto.match(/^p/m)) {
             console.log("Empieza por la letra p");
         } else {
             console.log("No empieza por la letra p");
         }
-        //b) Crea otra que valide que un texto termina en a.
+        // b) Crea otra que valide que un texto termina en a.
         if (texto.match(/a\.$/)) {
             console.log("Termina por a.");
         } else {
             console.log("No termina por a.");
         }
-        //c) Crea una expresión regular que valide palabras que empiezan
+        // c) Crea una expresión regular que valide palabras que empiezan
         // por p y terminan por o.
         if (texto.match(/p.*o\./gi)) {
             console.log("Termina por o. y empieza por p");
         } else {
             console.log("No termina por o. y empieza por p");
         }
-        //d) Prueba las expresiones con varias palabras del texto dado.
+        // d) Prueba las expresiones con varias palabras del texto dado.
         let regex = /p.*o/;
-        let array= regex.exec(texto);
+        let array = regex.exec(texto);
         console.log(array);
-        //Apartado 3
-        //a) Crea una expresión regular que detecte palabras que
+
+        // Apartado 3
+        // a) Crea una expresión regular que detecte palabras que
         // empiecen por p o s.
         if (texto.match(/^(p|s)/g)) {
             console.log("Empieza por p o s");
         } else {
             console.log("no empieza por p o s");
         }
-        //b) Modifica la expresión para que además terminen por o o a.
+        // b) Modifica la expresión para que además terminen por o o a.
         if (texto.match(/^(p|s).*(o|a)$/)) {
             console.log("Empieza por p o s y termina por o o a");
         } else {
             console.log("no empieza por p o s y no termina por o o a");
         }
-        //c) Añade el flag necesario para que no distinga mayúsculas de minúsculas.
+        // c) Añade el flag necesario para que no distinga mayúsculas de minúsculas.
         if (texto.match(/^(p|s).*(o|a)$/i)) {
             console.log("Empieza por p o s y termina por o o a");
         } else {
             console.log("no empieza por p o s y no termina por o o a");
         }
-        //d) Explica el uso del operador |.
-        // El operador | es un operador de alternancia y sirve para que tenga dos opiones de patrón "lo que esta a la derecha o lo que está a la izquierda"
-        //Si se cumple alguno de los dos patrones da true.
+        // d) Explica el uso del operador |.
+        // El operador | es un operador de alternancia y sirve para que tenga dos opciones de patrón: "lo que está a la derecha o lo que está a la izquierda".
+        // Si se cumple alguno de los dos patrones da true.
 
-        //Apartado 4
-        //a) Crea una expresión regular que detecte números de
-        //exactamente 2 dígitos.
-        if (texto.match(/[0-9]{2}/m)) {
-            console.log("Tiene dos numeros");
+        // Apartado 4
+        // a) Crea una expresión regular que detecte números de
+        // exactamente 2 dígitos.
+        if (texto.match(/[^0-9]{1}[0-9]{2}[^0-9]{1}/m)) {
+            console.log("Tiene dos números");
         } else {
-            console.log("no tiene dos numeros");
+            console.log("no tiene dos números");
         }
-        //b) Modifícala para que acepte números de 2 a 4 dígitos.
-        if (texto.match(/[0-9]{2,4}/m)) {
-            console.log("Tiene dos numeros");
+        // b) Modifícala para que acepte números de 2 a 4 dígitos.
+        if (texto.match(/[^0-9]{1}[0-9]{2,4}[^0-9]/m)) {
+            console.log("Tiene dos números");
         } else {
-            console.log("no tiene dos numeros");
+            console.log("no tiene dos números");
         }
-        //c) Crea una expresión regular que detecte la palabra "disparo"
+        // c) Crea una expresión regular que detecte la palabra "disparo"
         // o "disparos" usando ?.
         if (texto.match(/disparos?/m)) {
             console.log("Tiene disparo o disparos");
         } else {
             console.log("No tiene disparo o disparos");
         }
-        //d) Explica la diferencia entre *, + y ?.
+        // d) Explica la diferencia entre *, + y ?.
         // * significa cero o muchos caracteres.
         // + significa uno o muchos caracteres.
-        // ? significa cero o un caracter.
+        // ? significa cero o un carácter.
 
-        //Apartado 5
-        //a) Crea una expresión regular que detecte cualquier carácter
+        // Apartado 5
+        // a) Crea una expresión regular que detecte cualquier carácter
         // que NO sea un número.
         if (texto.match(/[^0-9]/)) {
-            console.log("No tiene numeros");
+            console.log("No tiene números");
         } else {
-            console.log("Tiene numeros");
+            console.log("Tiene números");
         }
-        //b) Crea otra que detecte palabras que NO empiecen por vocal.
-        if (texto.match(/^[^aeiou]/)) {
-            console.log("No empieza por vocal");
+        // b) Crea otra que detecte palabras que NO empiecen por vocal.
+        if (texto.match(/ [^aeiou]\w*/gi)) {
+            console.log("Las palabras no empiezan por vocal");
         } else {
-            console.log("empieza por vocal");
+            console.log("Hay palabras que empiezan por vocal");
         }
-        //c) Explica el significado del símbolo ^ cuando se usa dentro
+        // c) Explica el significado del símbolo ^ cuando se usa dentro
         // de corchetes [].
-        // El simbolo ^ por si solo representa que el inicio del texto empiece por lo que está a la derecha 
-        // sin embargo si lo colocamos dentro de [^] significa lo contrario a lo que hay dentro 
-        // que no contenga el contenido de dentro de los corchetes
+        // El símbolo ^ por sí solo representa que el inicio del texto empiece por lo que está a la derecha. 
+        // Sin embargo, si lo colocamos dentro de [^] significa lo contrario a lo que hay dentro: 
+        // que no contenga el contenido de dentro de los corchetes.
 
         // Apartado 6
-        //a) Crea una expresión regular que detecte fechas en formato YYYY-MM-DD.
+        // a) Crea una expresión regular que detecte fechas en formato YYYY-MM-DD.
         if (texto.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
             console.log("El formato está correcto");
         } else {
             console.log("Formato de fecha incorrecto");
         }
-        //b) Usa el método test() para comprobar si la fecha "2025-12-15" es válida.
-        let fecha="2025-12-15";
-        let patron=/[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-        if(patron.test(fecha)){
-            console.log("Correcta "+fecha);
-        }else{
-            console.log("Incorrecta "+fecha);
+        // b) Usa el método test() para comprobar si la fecha "2025-12-15" es válida.
+        let fecha = "2025-12-15";
+        let patron = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+        if (patron.test(fecha)) {
+            console.log("Correcta " + fecha);
+        } else {
+            console.log("Incorrecta " + fecha);
         }
-        //c) Usa el método exec() para extraer la fecha del texto dado.
-        
+        // c) Usa el método exec() para extraer la fecha del texto dado.
+        let regex2 = /[0-9]{4}-[0-9]{2}-[0-9]{2}/g;
+        let array2 = regex2.exec(texto);
+        console.log(array2);
+        // d) Indica qué información devuelve exec() además del texto coincidente.
+        // 0: "1998-07-21" (Este es el texto que coincide)
+        // groups: undefined (Aquí si añadiéramos grupos aparecerían estilo día, mes y año)
+        // index: 16 (El índice de la coincidencia)
+        // input: "\nPedro nació el 1998-07-21.\nSonia nació el 2003-11-05.\nLa fecha incorrecta es 21-07-1998.\nMi correo es ejemplo123@gmail.com\nTeléfono: 678-123-456\nPalabras: perro, pato, saco, Sapo, mesa, sol, pico, pera\n" (La entrada de texto a comparar)
+        // length: 1 (la longitud de coincidencias encontrada)
+        // [[Prototype]]: Array(0) (es un array que hereda las funciones (.length, etc.) para poder utilizarlas. El 0 es la posición más importante de este array)
+
+        // Apartado 7
+        /**
+         * a) Modifica la expresión de fecha para capturar por separado:
+         * ● Año
+         * ● Mes
+         * ● Día
+         */
+        let regexModi = /(?<anio>[0-9]{4})-(?<mes>[0-9]{2})-(?<dia>[0-9]{2})/;
+        let resultado = regexModi.exec(texto);
+        console.log(resultado);
+        // b) Muestra en consola cada uno de los valores capturados.
+        // Si está vacío es false
+        if (resultado) {
+            console.log("Coincidencia completa: " + resultado[0]); // El texto entero
+            console.log("Año: " + resultado.groups.anio); // Primer 
+            console.log("Mes: " + resultado.groups.mes); // Segundo 
+            console.log("Día: " + resultado.groups.dia); // Tercer 
+        }
+        // c) Explica qué es un grupo de captura y para qué sirve.
+        // Un grupo de captura es una funcionalidad que encierra entre paréntesis () el contenido que queremos encontrar de manera individual y mejora la legibilidad.
+
+        // Apartado 8
+        // a) Crea una expresión regular con los flags g e i.
+        let palabra1 = "Aerografo, auto y asado";
+        let expresionA = /Aw*o/gi;
+        let resultadoA = palabra1.match(expresionA);
+        console.log(resultadoA);
+        // b) Explica qué hace cada uno de esos flags.
+        //    g es global: no se para en la primera coincidencia, las comprueba todas.
+        //    i es: ignora mayúsculas y minúsculas.
+
+        // c) Usa la propiedad .flags para mostrar los flags activos.
+        console.log("Flags utilizados " + expresionA.flags);
+        // d) Usa la propiedad .source para mostrar el patrón sin los delimitadores.
+        console.log("patrón sin delimitadores " + expresionA.source);
+
+        // Apartado 9
+        // a) Crea una expresión regular con el flag g para buscar fechas en el texto.
+        let textoA9 = "matematicas 2025-10-15 flecha 2050-06-08";
+        let expresionA9 = /[0-9]{4}-[0-9]{2}-[0-9]{2}/g;
+        console.log(textoA9.match(expresionA9));
+        // b) Ejecuta exec() varias veces y observa cómo cambia lastIndex.
+        // Primera ejecución
+        let res1 = expresionA9.exec(textoA9);
+        console.log("1º:", res1[0], "Próximo inicio (lastIndex):", expresionA9.lastIndex);
+
+        // Segunda ejecución
+        let res2 = expresionA9.exec(textoA9);
+        console.log("2º:", res2[0], "Próximo inicio (lastIndex):", expresionA9.lastIndex);
+
+        // Tercera ejecución (ya no hay más)
+        let res3 = expresionA9.exec(textoA9);
+        console.log("3º:", res3); // Devolverá null
+        console.log("Reinicio (lastIndex):", expresionA9.lastIndex); // Vuelve a 0
+        // c) Explica para qué sirve la propiedad .lastIndex.
+        // La propiedad lastIndex sirve para localizar el índice de la última coincidencia + 1 de la palabra localizada 
+        // para empezar a buscar; si se llama más de una vez pasamos a la siguiente coincidencia, al llegar a lo último
+        // devuelve null y se reinicia.
+
+        // Apartado 10
+        // a) Crea una expresión regular que valide un correo electrónico sencillo (usuario@dominio.com).
+        let miCorreo = "ccarveg3010@gmail.com";
+        let correoRegex = /\w+@\w+\.com/i;
+        console.log("El correo " + miCorreo + " ¿está bien?: " + correoRegex.test(miCorreo));
+        // b) Crea una expresión regular que valide un número de teléfono con el formato XXX-XXX-XXX.
+        let telefono = "678-784-465";
+        let telefonoRegex = /[0-9]{3}-[0-9]{3}-[0-9]{3}/;
+        console.log("Mi número de teléfono " + telefono + " ¿es válido?: " + telefonoRegex.test(telefono));
+        // c) Explica las limitaciones de estas expresiones regulares.
+        // Al ser básicas no podemos controlar algunos casos como:
+        // correos que tengan caracteres especiales además y otros dominios diferentes.
+        // En el del teléfono obligamos a que tengan guiones sí o sí, cuando podríamos permitir otros caracteres.
+
+        // Apartado 11
+        // a) Indica cuándo es mejor usar test() y cuándo exec().
+        // test es mejor de usar cuando tenemos que comprobar si un patrón se cumple o no.
+        // Mientras que exec es mejor de utilizar cuando queremos ver qué es lo que cumple 
+        // nuestro patrón.
+        // b) Crea un ejemplo práctico donde test() sea suficiente.
+        let mensaje = "Mira este pedazo de anuncio http:\\mipag.com";
+        let anuncioRegex = /(anuncio|chollo|http:)/i;
+        if (anuncioRegex.test(mensaje)) {
+            console.log("Ha recibido spam");
+        } else {
+            console.log("Correo limpio");
+        }
+        // c) Crea otro ejemplo donde sea necesario usar exec().
+        // Encontrar diminutivos individualmente.
+        let frase = "colgadito, abrazado, zapatito, manzana, aguafiestas, mantequita";
+        let diminutivosRegex = /[a-z]+(ito|ita)/ig;
+        // Mientras exec() encuentre algo, el bucle sigue.
+        let coincidencia;
+        while ((coincidencia = diminutivosRegex.exec(frase)) !== null) {
+            console.log("Encontrado: " + coincidencia[0] + " (Sufijo: " + coincidencia[1] + ")");
+        }
+        // Apartado 12
+        // la expresión final
+        let expresionFinal = /^([a-z]|[A-Z])\w{5,10}$/;
+        // ^: Empieza obligatoriamente por lo que sigue.
+        // ([a-z]|[A-Z]): Debe empezar con una única letra (mayúscula o minúscula).
+        // \w{5,10}: A continuación, debe tener entre 5 y 10 caracteres adicionales que pueden ser letras, números o guiones bajos.
+        // $ dice que termine ahí.
+
     </script>
 </body>
 
