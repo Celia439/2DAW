@@ -40,7 +40,7 @@ if (isset($_POST["fecha1"], $_POST["fecha2"])) {
         echo "<br>el timestamp se ve asi $timestampA <br>";
         // si ponemos una fecha mas grande en el segundo parametro sucede un error y no se
         // puenden procesar numeros negativos con las fechas por lo que comprobamos cual
-        // el mas grande para evitar el error
+        // el mas grande para evitar el error (se puede usar el abs) y evitar el if
         if ($timestampA > $timestampB) {
             $timestampDiferencia = $timestampA - $timestampB;
         } else {

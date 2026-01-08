@@ -11,7 +11,7 @@ if ( isset($_FILES["archivos"]) && $_FILES["archivos"]["error"] === 0) {
     $archivoTmp = $_FILES['archivos']['tmp_name'];
     $nombreOriginal = $_FILES['archivos']['name'];
     $tamanoBytes = $_FILES['archivos']['size'];
-    $tamanoMB = round($tamanoBytes / (1024 * 1024), 2);
+    $tamanoMB = number_format($tamanoBytes / (1024 * 1024), 2);
 
     // Obtener extensión y forzar minúsculas
     $extension = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));

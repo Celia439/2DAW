@@ -25,7 +25,7 @@ if (!empty($_POST["nombre"]) && isset($_FILES["foto"]) && $_FILES["foto"]["error
         if (move_uploaded_file($archivoTmp, $nuevoNombre)) {
 
             // Convertir tamaño a MB
-            $tamanoMB = round($tamanoBytes / (1024 * 1024), 2);
+            $tamanoMB = number_format($tamanoBytes / (1024 * 1024), 2);
 
             echo "<h3>Imagen subida correctamente</h3>";
             echo "<table border='1' cellpadding='5'>";

@@ -44,14 +44,15 @@ if ( !empty($_POST["fecha"]) && isset($_POST["fecha"]) ) {
         $diasExactos = ceil($diferenciaSegundos / (60 * 60 * 24)); // Convertir a días
         // si los dias es mayor a 0 quiere decir que tiene dias de retraso.
         if ($diasExactos > 0) {
-            echo "Tienes $diasExactos días de retraso, multa: " . ($diasExactos * 3) . "€";
             // si los dias es igual a cero lo tiene que entregar hoy a tiempo.
+            echo "Te quedan " . abs($diasExactos) . " días para devolver el libro.";
         } elseif ($diasExactos == 0) {
             echo "¡Entrega el libro justo a tiempo!";
         } else {
             // si los dias es menor a 0 quiere decir que aun le quedan días para entregar.
             // abs valor absoluto(positivo)
-            echo "Te quedan " . abs($diasExactos) . " días para devolver el libro.";
+            echo "Tienes $diasExactos días de retraso, multa: " . ($diasExactos * 3) . "€";
+
         }
     } else {
         echo "La fecha introducida es erronea";
