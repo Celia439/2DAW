@@ -46,7 +46,8 @@ if (isset($_POST["fecha1"], $_POST["fecha2"])) {
         } else {
             $timestampDiferencia = $timestampB - $timestampA;
         }
-        echo "Y la diferencia entre estas dos fechas son " . date("d", $timestampDiferencia) . " Dias";
+        $dias = $timestampDiferencia / (60 * 60 * 24);
+        echo "Y la diferencia entre estas dos fechas son $dias días";
     } else {
         echo "Alguna de las fechas esta mal.";
     }

@@ -16,10 +16,12 @@
 //nacimiento, la página le dirá si es mayor de edad o no. En caso de que hoy sea su
 //cumpleaños le mostrará una felicitación
 /**
+ * La fecha que se le pase por parametro debe empezar por año
+ * mes y día
  * @param mixed $fechastr
  * @return array
  */
-function sacarLaFechaConSubstrinYPasarloAVariables(mixed $fechastr): array
+function fechaToString(mixed $fechastr): array
 {
     $anio = substr($fechastr, 0, 4);
     $mes = substr($fechastr, 5, 2);
@@ -30,7 +32,7 @@ function sacarLaFechaConSubstrinYPasarloAVariables(mixed $fechastr): array
 if (isset($_POST["fecha"])) {
     $fechastr = $_POST["fecha"];
     // sacar la fecha con substrin y pasarlo a variables
-    [$anio, $mes, $dia] = sacarLaFechaConSubstrinYPasarloAVariables($fechastr);
+    [$anio, $mes, $dia] = fechaToString($fechastr);
     //comprobar que la fecha sea valida
     if (checkdate($mes, $dia, $anio)) {
         echo "fecha valida<br>";

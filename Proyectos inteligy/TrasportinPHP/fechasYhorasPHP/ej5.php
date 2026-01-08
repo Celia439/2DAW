@@ -25,7 +25,7 @@
 <body>
 <form action="ej5.php" method="post" enctype="multipart/form-data">
     <label>Introduzca un día para todos los meses que sea importante
-        <input name="fecha" type="date" value="no">
+        <input name="fecha" type="date">
     </label>
     <input type="submit" value="enviar">
 </form>
@@ -56,7 +56,7 @@ function crearCalendario($mesInput, $anioInput, $diaInput): void
     //sacar los dias del mes
     $diasStr = date("t", $timeStamp);
     //año para mostrar
-    $anio=date("Y",$timeStamp);
+    $anio = date("Y", $timeStamp);
     //Dias de la semana en español
     $diasSemana = array("Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom");
     //creamos un timestamp de el mes y año pasado por parámetro pero  con el dia a 1
@@ -124,11 +124,16 @@ function crearCalendario($mesInput, $anioInput, $diaInput): void
     echo "
 <form action='ej5.php' method='post' enctype='multipart/form-data'>
     <label>Mes anterior
-        <input name='SoA' value='anterior' type='radio'>
+    <!--Entiendo que el ejercicio fuera así con checkbox, pero hablando de tema de utilidad.
+    ¿Cuál es la función de que el usuario pueda pulsar las dos casillas a la vez?
+    Pues puse un radio para que el usuario elija uno u otro y dependiendo del valor avanzamos 
+    retrocedemos.    
+    -->
+        <input name='anterior' value='anterior' type='checkbox'>
     </label>
     <label>
         Mes siguiente
-        <input name='SoA' value='siguiente' type='radio'>
+        <input name='siguiente' value='siguiente' type='checkbox'>
     </label>
     <input type='hidden' name='dia_guardado' value='" . $diaInput . "'>
     <input type='hidden' name='mes_guardado' value='" . $mesInput . "'>
@@ -139,7 +144,7 @@ function crearCalendario($mesInput, $anioInput, $diaInput): void
 }
 
 //Si introducimos una fecha
-if (isset($_POST["fecha"]) && $_POST["fecha"] !== "" && $_POST["fecha"] !== "no") {
+if (isset($_POST["fecha"]) && $_POST["fecha"] !== "") {
     $fechastr = $_POST["fecha"];// te devuelve la fecha con guiones "-"
     // sacar la fecha con substring y
     // pasarlo a variables
@@ -156,21 +161,24 @@ if (isset($_POST["fecha"]) && $_POST["fecha"] !== "" && $_POST["fecha"] !== "no"
     } else {
         echo "La fecha introducida es errónea";
     }
-} elseif (isset($_POST["SoA"])) {
-    $soa = $_POST["SoA"];
+} elseif (isset($_POST["anio_guardado"])) {
     $anioAct = $_POST["anio_guardado"];
     $diaAct = $_POST["dia_guardado"];
     $mesAct = $_POST["mes_guardado"];
     //Comprobar que quiere
     $fechaTimeStamp = "";
-    if ($_POST["SoA"] == "siguiente") {
+    if (isset($_POST["siguiente"], $_POST["anterior"])) {
+        echo "No puede retroceder y avanzar a la vez";
+        $fechaTimeStamp = mktime(0, 0, 0, $mesAct, $diaAct, $anioAct);
+    } else if (isset($_POST["siguiente"])) {
         $fechaTimeStamp = mktime(0, 0, 0, $mesAct + 1, $diaAct, $anioAct);
 
-    } else if ($_POST["SoA"] == "anterior") {
+    } else if (isset($_POST["anterior"])) {
         $fechaTimeStamp = mktime(0, 0, 0, $mesAct - 1, $diaAct, $anioAct);
 
     } else {
-        echo "se a producido un error a la hora de cambiar la fecha";
+        echo "El botón enviar solo funciona si le das a mes anterior o siguiente";
+        $fechaTimeStamp = mktime(0, 0, 0, $mesAct, $diaAct, $anioAct);
     }
     //sacamos el año y el mes actualizado
     $anioAct = date("Y", $fechaTimeStamp);

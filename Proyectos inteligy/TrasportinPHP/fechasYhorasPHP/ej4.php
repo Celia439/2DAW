@@ -6,7 +6,7 @@
 <body>
 <form action="ej4.php" method="post" enctype="multipart/form-data">
     <label>Fecha de devolucion de libro prestado
-        <input name="fecha" type="date" value="no">
+        <input name="fecha" type="date">
     </label>
     <input type="submit" value="enviar">
 </form>
@@ -17,7 +17,7 @@
 //Teniendo en cuenta que por cada día de retraso el usuario tendrá que pagar 3€,
 //mostrar un mensaje indicando si todavía le quedan días de préstamo, si lo está
 //devolviendo el día exacto y si no es así, la multa que tendrá que pagar.
-if ($_POST["fecha"]==="no") {
+if ( !empty($_POST["fecha"]) && isset($_POST["fecha"]) ) {
     $fechastr = $_POST["fecha"];// te devuelve la fecha con guiones
     // sacar la fecha con substring
     echo "La fecha sacada tal cual del formulario: " . $fechastr;
@@ -40,13 +40,18 @@ if ($_POST["fecha"]==="no") {
         $hoy = mktime(0, 0, 0, $mesH, $diaH, $anioH);
 
         $diferenciaSegundos = $hoy - $fechaDevolucion;
-        $diasRetraso = ceil($diferenciaSegundos / (60 * 60 * 24)); // Convertir a días
-        if ($diasRetraso > 0) {
-            echo "Tienes $diasRetraso días de retraso, multa: " . ($diasRetraso * 3) . "€";
-        } elseif ($diasRetraso == 0) {
+        //redodndear para arriba
+        $diasExactos = ceil($diferenciaSegundos / (60 * 60 * 24)); // Convertir a días
+        // si los dias es mayor a 0 quiere decir que tiene dias de retraso.
+        if ($diasExactos > 0) {
+            echo "Tienes $diasExactos días de retraso, multa: " . ($diasExactos * 3) . "€";
+            // si los dias es igual a cero lo tiene que entregar hoy a tiempo.
+        } elseif ($diasExactos == 0) {
             echo "¡Entrega el libro justo a tiempo!";
         } else {
-            echo "Te quedan " . abs($diasRetraso) . " días para devolver el libro.";
+            // si los dias es menor a 0 quiere decir que aun le quedan días para entregar.
+            // abs valor absoluto(positivo)
+            echo "Te quedan " . abs($diasExactos) . " días para devolver el libro.";
         }
     } else {
         echo "La fecha introducida es erronea";
