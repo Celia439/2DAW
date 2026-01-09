@@ -10,7 +10,11 @@ body {
     background-color: #f0f8f7;
     color: #333;
 }
-
+hr{
+    border: 2px white;
+    
+    
+}
 /* Cabecera */
 header {
     background-color: #024d52;
