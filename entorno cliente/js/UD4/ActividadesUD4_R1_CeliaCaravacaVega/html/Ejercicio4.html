@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Intranet - Avisos</title>
+    <style>
+        .aviso {
+            color: darkred;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Avisos internos</h2>
+
+    <ul id="listaAvisos">
+        <li class="aviso">Reunión general el lunes</li>
+        <li class="aviso">Actualización de servidores el viernes</li>
+    </ul>
+
+    <button id="btnAgregar">Añadir aviso</button>
+    <button id="btnEliminar">Eliminar último aviso</button>
+
+    <script>
+        //1. Acceder al nodo Document para crear nuevos nodos.
+        let lista = document.getElementById("listaAvisos");
+        let botonA = document.getElementById("btnAgregar");
+        let botonE = document.getElementById("btnEliminar");
+        //2 Crear dinámicamente un nuevo aviso cuando el usuario pulse un botón:
+        botonA.addEventListener('click', function () {
+
+            //○ El aviso debe ser un nodo Element <li>.
+            let li = document.createElement("li");
+            //○ El texto del aviso debe ser un nodo Text.
+            let text = document.createTextNode("Texto del aviso");
+            //○ El aviso debe tener un atributo class="aviso".
+            li.setAttribute("class", "aviso");
+            //3. Insertar el nuevo aviso dentro de la lista existente.
+            li.appendChild(text);
+            lista.appendChild(li);
+
+        });
+        //4. Eliminar el último aviso de la lista al pulsar otro botón.
+        botonE.addEventListener('click', function () {
+            let utlimoAviso = lista.lastElementChild;
+            lista.removeChild(utlimoAviso);
+        });
+    </script>
+
+</body>
+
+</html>

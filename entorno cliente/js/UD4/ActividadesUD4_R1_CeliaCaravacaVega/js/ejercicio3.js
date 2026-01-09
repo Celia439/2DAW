@@ -7,12 +7,11 @@ let plan1 = document.querySelector(".plan");
 let boton = document.getElementById("btnSeleccionar");
 //○ El primer elemento <h3> usando un selector de etiqueta.
 let h3Primero = document.getElementsByTagName("h3")[0];
-document.getElementById("resultado").innerHTML = h3Primero;
 //2. Funcionalidad del botón:
 //Al hacer clic en el botón Seleccionar plan:
 boton.addEventListener("click", function () {
   //○ Añadir la clase CSS seleccionado únicamente al primer plan.
-  plan1.classList.add(".seleccionado");
+  plan1.classList.add("seleccionado");
   //○ Cambiar el texto del <h3> del plan seleccionado a: “Plan seleccionado”
   h3Primero.textContent = "Plan seleccionado";
   //○ Mostrar en el párrafo resultado el mensaje: “Has seleccionado el plan básico”

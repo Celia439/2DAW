@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de tareas</title>
+    <style>
+        .tarea {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Listado de tareas</h2>
+
+    <div id="contenedorTareas">
+        <div class="tarea" data-estado="pendiente">
+            <p class="descripcion">Preparar documentación del proyecto</p>
+        </div>
+
+        <div class="tarea" data-estado="pendiente">
+            <p class="descripcion">Revisar incidencias del sistema</p>
+        </div>
+    </div>
+
+    <button id="btnModificar">Modificar primera tarea</button>
+    <button id="btnBorrar">Eliminar primera tarea</button>
+
+    <script>
+        //1. Acceder a nodos Element usando:
+        let contenedorTarea = document.getElementById("contenedorTareas");
+        let tareas = document.getElementsByClassName("tarea");
+        let botonM = document.getElementById("btnModificar");
+        let botonB = document.getElementById("btnBorrar");
+        //2. Modificar el contenido de texto (nodo Text) de una tarea seleccionada.
+        let p = tareas[0].firstElementChild;
+        botonM.addEventListener('click', function () {
+            p.textContent = "Terminar documentación del proyecto";
+            //3. Acceder y modificar un atributo (data-estado) de una tarea.
+            tareas[0].setAttribute("data-estado", "terminado");
+        });
+        //4. Eliminar completamente una tarea del DOM al pulsar un botón.
+        botonB.addEventListener('click', function () {
+            //5. Usar la propiedad parentNode para eliminar el nodo correctamente.
+            p.parentNode.remove();
+        });
+    </script>
+
+</body>
+
+</html>
