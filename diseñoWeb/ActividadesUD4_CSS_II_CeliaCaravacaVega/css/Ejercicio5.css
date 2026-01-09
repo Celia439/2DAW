@@ -1,0 +1,23 @@
+.caja-transicion {
+    /*Tamaño inicial*/
+    width: 500px;
+    height: 700px;
+    /*Transición*/    
+
+    /* Propiedades que cambian */
+    transition-property: width, height, background-color;
+
+    /* Tiempo de transición */
+    transition-duration: 2s;
+    /*lineal*/
+    transition-timing-function: linear;
+    /*Retraso*/
+    transition-delay: 1s;
+}
+
+/*Al pasar el ratón cambiar ancho y color fondo*/
+.caja-transicion:hover {
+    background-color: brown;
+    width: 600px;
+
+}

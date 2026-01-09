@@ -1,0 +1,21 @@
+.caja1,
+.caja2 {
+    /*Ancho de 200 px*/
+    width: 200px;
+
+    /*Espaciado interior de 20 px*/
+    padding: 20px;
+
+    /*Borde de 10 px*/
+    border: 10px solid black;
+}
+
+.caja1 {
+    box-sizing: border-box;
+    background-color: blue;
+
+    /*El box-sizing con border-box se ajusta 
+    a la anchura del width independientemente
+    de lo que midan los bordes o el padding*/
+
+}

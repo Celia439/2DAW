@@ -1,0 +1,15 @@
+.caja {
+    /* Espaciado interior a izquierda y derecha de 5 letras
+    Forma larga:
+        padding-left: 5em;
+        padding-right: 5em;
+    Orden:
+        arriba | derecha | abajo | izquierda*/
+    padding: 0em 5em 0em 5em;
+    /* Espaciado exterior de 3 letras*/
+    margin: 3em;
+    /* borde solido y redondito de 3 px de color oro*/
+    border: 3px solid gold;
+    border-radius: 3em;
+
+}

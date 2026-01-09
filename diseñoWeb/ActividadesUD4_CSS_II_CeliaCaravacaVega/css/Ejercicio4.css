@@ -1,0 +1,21 @@
+.tarjeta {
+    width: 300px;
+
+    padding: 20px;
+
+    /*Degradado lineal*/
+    background-image: linear-gradient(red,yellow,red);
+
+    /*Degradado radial
+    background-image: radial-gradient( red,white);*/
+
+    /*Degradado Conico
+    background-image: conic-gradient(blue, yellow);*/
+
+    color: white;
+    
+            /*X(horizontal)   Y(Vertical)   Blur(difuminado)   Color*/
+    text-shadow: 1px 1px 1px rgb(76, 3, 172);
+
+    box-shadow: 1em 1em 1em black;
+}

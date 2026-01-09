@@ -1,0 +1,16 @@
+.bloque {
+    /*1*/
+    width: 500px;
+    height: 600px;
+    /*2*/
+    min-width: 400px;
+    max-width: 600px;
+    /*3*/
+    min-height: 500px;
+    max-height: 700px;
+    /*4 Para ver mejor el comportamiento le he dado un color de fondo.
+   Al usar min y max, el tamaño puede variar al redimensionar la página,
+   pero nunca será menor ni mayor que los límites definidos. */
+    background-color: aqua;
+
+}

@@ -1,0 +1,23 @@
+.animacion {
+    width: 100px;
+    height: 100px;
+    margin: 40px;
+
+    /* Animación abreviada */
+    animation: mover 4s infinite alternate ease-in-out;
+}
+
+@keyframes mover {
+    from {
+        transform: translateX(0);
+        background-color: red;
+        width: 100px;
+        height: 100px;
+    }
+    to {
+        transform: translateX(500px);
+        background-color: blue;
+        width: 550px;
+        height: 550px;
+    }
+}
