@@ -12,7 +12,7 @@ vez (input tipo file con multiple).
 -->
 <form action="ej9.1.php" method="post" enctype="multipart/form-data">
         <label> Subir pdf
-            <input name="archivos" type="file">
+            <input name="archivos[]" type="file" multiple>
         </label>
         <input type="submit" value="Comprobar">
         <input type="reset" value="Lipiar Parametros">
