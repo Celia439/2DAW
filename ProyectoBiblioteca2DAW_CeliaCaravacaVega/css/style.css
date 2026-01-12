@@ -10,34 +10,32 @@ body {
     background-color: #f0f8f7;
     color: #333;
 }
-hr{
-    border: 2px white;
-    
-    
+
+hr {
+    border: solid 2px rgb(255, 255, 255);
+
 }
+
 /* Cabecera */
 header {
     background-color: #024d52;
     padding: 15px 50px;
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
 }
 
-.logo {
+.menu-principal {
     display: flex;
     align-items: center;
+    gap: 25px;
 }
 
 .logo-icon {
     width: 5em;
     height: 5em;
     border-radius: 50%;
-}
-
-.menu-principal {
-    display: flex;
-    gap: 25px;
 }
 
 .menu-principal a {
@@ -50,18 +48,14 @@ header {
     text-decoration: underline;
 }
 
-.menu-iconos {
-    display: flex;
-    gap: 15px;
-    align-items: center;
+.iconos-header {
+    background: none;
+    color: white;
+    border: none;
 }
 
-.menu-iconos button {
-    background: none;
-    border: none;
-    color: #f0f8f7;
-    font-size: 18px;
-    cursor: pointer;
+.iconos-header img {
+    width: 35px;
 }
 
 .btn-login {
@@ -77,10 +71,11 @@ header {
 }
 
 /* Pestañas */
+
 .pestanas {
     background-color: #024d52;
-    padding: 1em 2em 1em 20em ;
     display: flex;
+    justify-content: center;
     gap: 15px;
 }
 
@@ -104,18 +99,18 @@ header {
 /* Banner Principal */
 .banner-principal {
     margin: 40px auto;
-    max-width: 1200px;
-    padding: 0 20px;
+    padding:  2em;
 }
 
 .banner-contenido {
     background: linear-gradient(135deg, #3d3f58 0%, #6a6c84 100%);
     border-radius: 15px;
-    padding: 40px;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 30px;
     opacity: 0.9;
+    
 }
 
 .banner-imagen {
@@ -178,7 +173,7 @@ header {
 
 .carrusel-puntos {
     display: flex;
-    gap:2em;
+    gap: 2em;
     width: 900px;
     align-items: center;
     margin: 20px 0px 20px 350px;
