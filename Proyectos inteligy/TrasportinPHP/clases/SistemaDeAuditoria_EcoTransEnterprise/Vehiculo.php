@@ -1,5 +1,4 @@
 <?php
-//todo debes implementar index.php y lo de la matriz tridimensional
 abstract class Vehiculo implements certificable
 {
     //Atributos de la clase
@@ -30,10 +29,10 @@ abstract class Vehiculo implements certificable
         try {
             //Comprobar que el id sea correcto
             if (!preg_match('/[A-Za-z]{3}-[0-9]{4}X/', $id)) {
-                throw new Exception("<h2 style='color: red'>Error: El id $id es incorrecto patron: XXX0000X</h2>");
+                throw new \RuntimeException("<h2 style='color: red'>Error: El id $id es incorrecto patron: XXX0000X</h2>");
                 //Comprobar que el la fecha sea correcta
             } else if (!preg_match('/[0-9]{4}[0-9]{2}[0-9]{2}/', $fechAd)) {
-                throw new Exception("<h2 style='color: red'>Error: La fehca $fechAd es incorrecto patron: AAAA-MM-DD</h2>");
+                throw new \RuntimeException("<h2 style='color: red'>Error: La fehca $fechAd es incorrecto patron: AAAA-MM-DD</h2>");
                 //Si va bien crear el vehículo
             } else {
                 $this->id = $id;
