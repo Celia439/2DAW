@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio Bibliotecario</title>
+    <link rel="stylesheet" href="../css/bibliotecario.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Barra superior -->
+        <header class="header">
+            <div class="logo">
+                <svg width="79" height="75" viewBox="0 0 79 75" fill="none">
+                    <path d="M79.1543 34.4238C79.1543 36.5265 79.1543 38.6292 79.1003 40.8348C78.7027 42.9547 78.4815 44.9991 77.988 46.9825C77.1566 50.3241 75.6994 53.4441 73.9084 56.4316C71.5865 60.3042 68.5817 63.6336 65.0163 66.4939C61.9782 68.9311 58.5775 70.8428 54.9036 72.3101C51.6857 73.5952 48.3559 74.4671 44.8875 74.8614C44.2714 74.9314 43.6616 75.0502 43.0488 75.1465C40.834 75.1465 38.6192 75.1465 36.2959 75.0952C34.063 74.7177 31.9095 74.5077 29.8204 74.0392C26.3006 73.2499 23.0142 71.8666 19.8674 70.1662C15.7881 67.9619 12.2812 65.1092 9.2684 61.7243C6.70121 58.8401 4.68752 55.6116 3.14197 52.1236C1.78831 49.0687 0.869892 45.9075 0.45463 42.6147C0.380873 42.0299 0.255718 41.4508 0.154297 40.8691C0.154297 38.7665 0.154297 36.6638 0.208306 34.4582C0.605931 32.3383 0.827121 30.2939 1.3206 28.3105C2.15202 24.9689 3.60915 21.8489 5.40024 18.8614C7.72205 14.9887 10.7269 11.6594 14.2923 8.7991C17.3304 6.3619 20.7311 4.45017 24.405 2.98288C27.6229 1.69776 30.9524 0.824865 34.4211 0.431586C35.0372 0.361738 35.647 0.24277 36.2598 0.146484C38.4746 0.146484 40.6894 0.146484 43.0126 0.197757C45.2456 0.575252 47.3991 0.785258 49.4882 1.25374C53.0081 2.04305 56.2945 3.42641 59.4413 5.12681C63.5205 7.33106 67.0274 10.1837 70.0402 13.5687C72.6074 16.4529 74.6211 19.6814 76.1666 23.1693C77.5203 26.2242 78.4393 29.3853 78.854 32.6783C78.9276 33.2631 79.0529 33.8421 79.1543 34.4238Z" fill="#F0F8F7"/>
+                    <path d="M26.2361 59.3097C25.4923 59.9434 24.768 60.6001 23.9915 61.1953C23.7841 61.3543 23.4172 61.3733 23.123 61.3749C20.5774 61.388 18.0311 61.3547 15.4863 61.3992C14.7136 61.4127 14.4875 61.2178 14.4892 60.4651C14.5151 49.4309 14.507 38.3967 14.507 27.3624C14.507 25.1165 14.4812 22.8701 14.5325 20.6252C14.541 20.2512 14.8034 19.8088 15.0904 19.5293C15.6975 18.938 16.3983 18.4334 17.1757 17.8734C17.6079 17.8723 17.9252 17.891 18.2121 17.9488C17.4844 18.6006 16.7871 19.2134 15.9342 19.963C17.4164 19.963 18.6596 19.8608 19.8767 19.9862C21.855 20.19 23.5095 19.7744 24.7503 18.2225C24.8403 18.11 24.9888 18.0396 25.1809 17.9596C25.5506 17.9882 25.8495 18.0067 26.216 18.0295C26.216 18.4069 26.216 18.7192 26.216 19.0315C26.216 32.116 26.2158 45.2005 26.2168 58.285C26.2169 58.6266 26.2294 58.9681 26.2361 59.3097Z" fill="#017072"/>
+                    <path d="M41.1316 59.2939C41.0879 45.8372 41.0825 32.3565 41.0939 18.8758C41.0944 18.2721 41.0078 17.8662 40.1948 17.9003C40.8006 17.2664 41.456 16.6933 42.1118 16.1205C43.501 14.9072 44.8904 13.694 46.2797 12.4808C46.8448 12.06 47.4588 11.8456 48.2978 12.1134C48.2978 13.0288 48.2978 13.9847 48.2852 15.0568C47.1419 16.815 46.0112 18.457 44.8805 20.0989C44.2823 20.9219 43.6438 21.7225 43.1104 22.5817C42.9508 22.8389 43.0059 23.2799 43.0958 23.6034C44.7327 29.4985 46.3907 35.3884 48.041 41.2802C48.1398 41.6328 48.2118 41.9922 48.3052 42.4059C48.3048 45.8697 48.2854 49.2761 48.2971 52.6824C48.2989 53.1895 48.1451 53.5333 47.7334 53.8671C45.5323 55.652 43.3572 57.4661 41.1316 59.2939Z" fill="#017072"/>
+                </svg>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none">
+                        <path d="M12 5.20833V19.7917M5 12.5H19" stroke="#F3F3F3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Prestamos
+                </a>
+                <a href="#" class="nav-item">
+                    <svg width="29" height="26" viewBox="0 0 29 26" fill="none">
+                        <path d="M23.3333 3.25H10C9.11595 3.25 8.2681 3.59241 7.64298 4.2019C7.01786 4.8114 6.66667 5.63805 6.66667 6.5V32.5C6.66667 33.362 7.01786 34.1886 7.64298 34.7981C8.2681 35.4076 9.11595 35.75 10 35.75H30C30.8841 35.75 31.7319 35.4076 32.357 34.7981C32.9821 34.1886 33.3333 33.362 33.3333 32.5V13M23.3333 3.25L33.3333 13M23.3333 3.25L23.3333 13H33.3333M26.6667 21.125H13.3333M26.6667 27.625H13.3333M16.6667 14.625H13.3333" stroke="#F3F3F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Reservas
+                </a>
+                <a href="#" class="nav-item">
+                    <svg width="25" height="26" viewBox="0 0 25 26" fill="none">
+                        <path d="M12.5 8.66667V13M12.5 17.3333H12.5104M22.9167 13C22.9167 18.9831 18.253 23.8333 12.5 23.8333C6.74703 23.8333 2.08333 18.9831 2.08333 13C2.08333 7.01691 6.74703 2.16667 12.5 2.16667C18.253 2.16667 22.9167 7.01691 22.9167 13Z" stroke="#F3F3F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Multas
+                </a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <svg width="26" height="32" viewBox="0 0 26 32" fill="none">
+                        <path d="M14.8742 28C14.6837 28.4041 14.4103 28.7395 14.0814 28.9727C13.7525 29.2059 13.3796 29.3286 13 29.3286C12.6204 29.3286 12.2475 29.2059 11.9186 28.9727C11.5897 28.7395 11.3163 28.4041 11.1258 28M19.5 10.6667C19.5 8.54494 18.8152 6.5101 17.5962 5.00981C16.3772 3.50952 14.7239 2.66667 13 2.66667C11.2761 2.66667 9.62279 3.50952 8.40381 5.00981C7.18482 6.5101 6.5 8.54494 6.5 10.6667C6.5 20 3.25 22.6667 3.25 22.6667H22.75C22.75 22.6667 19.5 20 19.5 10.6667Z" stroke="#F0F8F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="login-btn">Login</button>
+            </div>
+        </header>
+        
+        <!-- Separador -->
+        <div class="divider"></div>
+        
+        <!-- Menú lateral -->
+        <aside class="sidebar">
+            <div class="sidebar-item">
+                <svg width="48" height="40" viewBox="0 0 48 40" fill="none">
+                    <path d="M12 15L24 25L36 15" stroke="#F3F3F3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Más</span>
+            </div>
+            <div class="sidebar-item">
+                <span>Usuarios</span>
+            </div>
+            <div class="sidebar-item">
+                <span>Libros</span>
+            </div>
+            <div class="sidebar-item">
+                <span>Reportes</span>
+            </div>
+            <div class="sidebar-item">
+                <span>Empresa</span>
+            </div>
+        </aside>
+        
+        <!-- Barra de búsqueda -->
+        <div class="search-container">
+            <svg class="search-icon" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                <path d="M26.95 28L18.2875 19.6C17.6 20.1333 16.8094 20.5556 15.9156 20.8667C15.0219 21.1778 14.0708 21.3333 13.0625 21.3333C10.5646 21.3333 8.45052 20.4944 6.72031 18.8167C4.9901 17.1389 4.125 15.0889 4.125 12.6667C4.125 10.2444 4.9901 8.19444 6.72031 6.51667C8.45052 4.83889 10.5646 4 13.0625 4C15.5604 4 17.6745 4.83889 19.4047 6.51667C21.1349 8.19444 22 10.2444 22 12.6667C22 13.6444 21.8396 14.5667 21.5188 15.4333C21.1979 16.3 20.7625 17.0667 20.2125 17.7333L28.875 26.1333L26.95 28ZM13.0625 18.6667C14.7812 18.6667 16.2422 18.0833 17.4453 16.9167C18.6484 15.75 19.25 14.3333 19.25 12.6667C19.25 11 18.6484 9.58333 17.4453 8.41667C16.2422 7.25 14.7812 6.66667 13.0625 6.66667C11.3437 6.66667 9.88281 7.25 8.67969 8.41667C7.47656 9.58333 6.875 11 6.875 12.6667C6.875 14.3333 7.47656 15.75 8.67969 16.9167C9.88281 18.0833 11.3437 18.6667 13.0625 18.6667Z" fill="#E6E0E9"/>
+            </svg>
+            <input type="text" class="search-input" placeholder="Buscar...">
+        </div>
+        
+        <!-- Panel de resumen -->
+        <section class="dashboard">
+            <h2 class="dashboard-title">Resumen</h2>
+            
+            <div class="stat-item">
+                <svg class="stat-icon" width="48" height="37" viewBox="0 0 48 37" fill="none">
+                    <path d="M16.9167 2.16667H7.25C6.60906 2.16667 5.99437 2.39494 5.54116 2.80127C5.08795 3.2076 4.83333 3.7587 4.83333 4.33333V21.6667C4.83333 22.2413 5.08795 22.7924 5.54116 23.1987C5.99437 23.6051 6.60906 23.8333 7.25 23.8333H21.75C22.3909 23.8333 23.0056 23.6051 23.4588 23.1987C23.9121 22.7924 24.1667 22.2413 24.1667 21.6667V8.66667M16.9167 2.16667L24.1667 8.66667M16.9167 2.16667V8.66667H24.1667M19.3333 14.0833H9.66667M19.3333 18.4167H9.66667M12.0833 9.75H9.66667" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="stat-info">
+                    <span class="stat-label">Libros: 50</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <svg class="stat-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M33.3333 35V31.6667C33.3333 29.8986 32.631 28.2029 31.3807 26.9526C30.1305 25.7024 28.4348 25 26.6667 25H13.3333C11.5652 25 9.86953 25.7024 8.61929 26.9526C7.36905 28.2029 6.66667 29.8986 6.66667 31.6667V35M26.6667 11.6667C26.6667 15.3486 23.6819 18.3333 20 18.3333C16.3181 18.3333 13.3333 15.3486 13.3333 11.6667C13.3333 7.98477 16.3181 5 20 5C23.6819 5 26.6667 7.98477 26.6667 11.6667Z" stroke="#1E1E1E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="stat-info">
+                    <span class="stat-label">Usuarios:10</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 5%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <svg class="stat-icon" width="40" height="39" viewBox="0 0 40 39" fill="none">
+                    <path d="M23.3333 3.25H10C9.11595 3.25 8.2681 3.59241 7.64298 4.2019C7.01786 4.8114 6.66667 5.63805 6.66667 6.5V32.5C6.66667 33.362 7.01786 34.1886 7.64298 34.7981C8.2681 35.4076 9.11595 35.75 10 35.75H30C30.8841 35.75 31.7319 35.4076 32.357 34.7981C32.9821 34.1886 33.3333 33.362 33.3333 32.5V13M23.3333 3.25L33.3333 13M23.3333 3.25L23.3333 13H33.3333M26.6667 21.125H13.3333M26.6667 27.625H13.3333M16.6667 14.625H13.3333" stroke="#1E1E1E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="stat-info">
+                    <span class="stat-label">Reservas:18</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <svg class="stat-icon" width="40" height="33" viewBox="0 0 40 33" fill="none">
+                    <path d="M20 6.875V26.125M8.33333 16.5H31.6667" stroke="#1E1E1E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="stat-info">
+                    <span class="stat-label">Préstamos:15</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 10%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <svg class="stat-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M20 13.3333V20M20 26.6667H20.0167M36.6667 20C36.6667 29.2047 29.2047 36.6667 20 36.6667C10.7953 36.6667 3.33333 29.2047 3.33333 20C3.33333 10.7953 10.7953 3.33333 20 3.33333C29.2047 3.33333 36.6667 10.7953 36.6667 20Z" stroke="#1E1E1E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="stat-info">
+                    <span class="stat-label">Multas:0</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 1%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Tarjetas de actividad reciente -->
+        <div class="activity-cards">
+            <!-- Préstamos recientes -->
+            <div class="card">
+                <h3 class="card-title">Préstamos recientes</h3>
+                <div class="separator"></div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>nombre</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">15/10/2005</span>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reservas recientes -->
+            <div class="card">
+                <h3 class="card-title">Reservas recientes</h3>
+                <div class="separator"></div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Multas recientes -->
+            <div class="card">
+                <h3 class="card-title">Multas recientes</h3>
+                <div class="separator"></div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-row">
+                            <span>Menu Label</span>
+                            <span class="shortcut">⇧A</span>
+                        </div>
+                        <span class="card-description">Menu description.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/bibliotecario.js"></script>
+</body>
+</html>
