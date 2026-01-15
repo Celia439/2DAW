@@ -6,25 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layout con orden de elementos</title>
     <style>
-        .container {
-            background-color: burlywood;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 10em;
+        #main {
+           display: flex;
+            height: 56em;
         }
 
-        .item {
-            background-color: chocolate;
+        article {
+            background-color: blue;
             color: white;
+            order: 2;
+            flex-grow: 1;
+
         }
 
-        .logo {
-            background-color: aqua;
+        nav {
+            background-color: green;
+            color: white;
+            order: 1;
+            width: 10em;
         }
 
-        .menu {
-            background-color: brown;
+        aside {
+            background-color: tomato;
+            color: white;
+            order: 3;
+            width: 10em;
         }
     </style>
 </head>
