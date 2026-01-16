@@ -98,16 +98,20 @@ echo "<h2>";
 echo "9. Muestra el nombre de la asignatura y nota de todas las asignaturas cursadas por
 el alumno Ramón Torres.";
 echo "</h2>";
+//hacer join de la tabla asignatura y alumnos y matricula
+$consulta9="select a.nombre,nota from asignaruras a INNER JOIN matriculas m on  where nombre='Ramon torres'";
 
 echo "<h2>";
 echo "10. Muestra el nombre y edad de todos los alumnos, ordenados de mayor a menor
 edad";
 echo "</h2>";
+$consulta10="select a.nombre,ORDER_BY edad DSC from alumnos a INNER JOIN matriculas m on  ";
 
 echo "<h2>";
 echo "11. Muestra el nombre de la asignatura y el número de alumnos matriculados en
 cada una de ellas.";
 echo "</h2>";
+$consulta11="select a.nombre,count() from alumnos a INNER JOIN matriculas m on  ";
 
 echo "<h2>";
 echo "12. Muestra el nombre del alumno y la nota media obtenida en todas las asignaturas
