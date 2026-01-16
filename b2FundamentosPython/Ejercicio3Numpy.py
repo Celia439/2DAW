@@ -6,7 +6,7 @@ b = np.array([10, 20, 30, 40, 50])
 
 # b) Operaciones elemento a elemento
 print(f"Suma: {a + b}")
-print(f"Resta: {a - b}")
+print(f"Resta: {b - a}")
 print(f"Multiplicación: {a * b}")
 print(f"División: {a / b}")
 print(f"Modulo a: {a **2 }")

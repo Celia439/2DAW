@@ -5,7 +5,7 @@ arr = np.array([10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
 # a) Primer elemento
 print(arr[0])
 
-# b) Último elemento
+# b) Último elemento que cutre podrias solo poner -1
 print(arr[arr.size-1])
 
 # c) Elementos del índice 2 al 5

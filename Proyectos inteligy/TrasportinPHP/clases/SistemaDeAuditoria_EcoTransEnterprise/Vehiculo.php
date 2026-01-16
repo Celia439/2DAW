@@ -62,7 +62,8 @@ abstract class Vehiculo implements certificable
      * Te devuelve la salud del vehículo,
      * empieza en 100, en caso de tenga más
      * de 5 años -25 de salud.
-     * Si tiene un mas de 20.000km -25 de salud.
+     * Si tiene un mas de 20.000km -25 de salud.ç
+     * trabajar con ml
      * @return int
      */
     function calcularSalud()

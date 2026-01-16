@@ -13,13 +13,13 @@ print(f"Mascara count :{ temperaturas[mask].size}")
 
 # d) Máscara entre 20 y 25
 mask2=temperaturas>20 & temperaturas<25
-print(f"Mascara entre :{ temperaturas[mask2]}")
+print(f"Mascara entre :{ temperaturas[mask2]}")    
 
 # e) Reemplazar valores > 28 con 28
 mask3=[temperaturas>28]=28
 print(f"Mascara reemplazo :{ temperaturas[mask3]}")
 
-# f) Clasificar temperaturas 
+# f) Clasificar temperaturas (BUSCA)
 # Temperaturas < 20 → "Frío" 
 # Temperaturas entre 20-25 → "Templado" 
 # Temperaturas > 25 → "Calor"

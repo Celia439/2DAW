@@ -1,6 +1,6 @@
 import numpy as np
-
-# a) Array del 0 al 9
+#python -m pip install numpy
+# a) Array del 0 al 9 si pones un solo valor es del cero al num 
 array=np.arange(0,9)
 
 # b) Array 3x4 de ceros
@@ -13,7 +13,7 @@ array3=np.ones((2,5))
 array4=np.eye(4)
 
 # e) Explorar propiedades de cada array
-# Su forma (shape)
+# Su forma (shape) se puede acortar con el item.gloval y un diccionario
 print(f"Forma : {array.shape}") 
 print(f"Forma : {array2.shape}") 
 print(f"Forma : {array3.shape}") 

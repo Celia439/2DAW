@@ -69,7 +69,7 @@ while ($file = $resultado6->fetch_array(MYSQLI_ASSOC)) {
     echo "DNI: $file[dni] Código: $file[codigo] Nota: $file[nota] $file[anio]<br>";
 }
 echo "<h2>";
-echo "7. Muestra el DNI del alumno, nombre del alumno, nombre de la asignatura, año y nota de todas las matrículas";
+echo "7. Muestra el DNI del alumno, nombre del alumno, nombre de la asignatura, año y nota de todas las matrículas(Ojo con el left jon)";
 echo "</h2>";
 $consulta7 = "
 SELECT 
@@ -92,26 +92,36 @@ echo "8. Muestra el nombre del alumno, nombre de la asignatura y nota de los alu
 que hayan obtenido una nota mayor o igual a 6(como se supone que relaciono  las tablas sin casilla comun ?)";
 echo "</h2>";
 
-$consulta8="select a.nombre,m.nombre,nota from alumnos a INNER JOIN matriculas m on  where nota>=6";
+$consulta8 = "select a.nombre,m.nombre,nota from alumnos a INNER JOIN matriculas m on  where nota>=6";
 
 echo "<h2>";
 echo "9. Muestra el nombre de la asignatura y nota de todas las asignaturas cursadas por
 el alumno Ramón Torres.";
 echo "</h2>";
-//hacer join de la tabla asignatura y alumnos y matricula
-$consulta9="select a.nombre,nota from asignaruras a INNER JOIN matriculas m on  where nombre='Ramon torres'";
 
+//hacer join de la tabla asignatura y alumnos y matricula
+$consulta9 = "select  asg.nombre as nombreAsignatura, m.nota as Nota
+   From Matriculas m
+   INNER JOIN Alumnos a ON m.dni = a.dni
+   INNER JOIN Asignaturas asg ON m.codigo = asg.codigo
+   where a.nombre='juan' GROUP BY asg.nombre";
+
+$resultado9 = $conexion->query($consulta9);
+
+while ($file = $resultado9->fetch_array(MYSQLI_ASSOC)) {
+    echo "Asignatura: $file[nombreAsignatura] Nota: $file[Nota]<br>";
+}
 echo "<h2>";
 echo "10. Muestra el nombre y edad de todos los alumnos, ordenados de mayor a menor
 edad";
 echo "</h2>";
-$consulta10="select a.nombre,ORDER_BY edad DSC from alumnos a INNER JOIN matriculas m on  ";
+$consulta10 = "select a.nombre,ORDER_BY edad DSC from alumnos a INNER JOIN matriculas m on  ";
 
 echo "<h2>";
 echo "11. Muestra el nombre de la asignatura y el número de alumnos matriculados en
 cada una de ellas.";
 echo "</h2>";
-$consulta11="select a.nombre,count() from alumnos a INNER JOIN matriculas m on  ";
+$consulta11 = "select a.nombre,count() from alumnos a INNER JOIN matriculas m on  ";
 
 echo "<h2>";
 echo "12. Muestra el nombre del alumno y la nota media obtenida en todas las asignaturas
@@ -153,5 +163,6 @@ echo "<h2>";
 echo "20. Muestra el nombre del alumno y su nota media, indicando solo el alumno que
 tiene la nota media más alta de todos.";
 echo "</h2>";
+
 //no te olvides
 $conexion->close();
