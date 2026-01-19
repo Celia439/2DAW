@@ -21,6 +21,31 @@ echo "A parte mayores a 21<br>";
 while ($consulta->fetch()) {
     echo "$dni , $nombre, $edad <br>";
 }
+//alumnos de 21 o 24 años
+$uno = 21;
+$otro=24;
+$sentiencia = "select * from alumnos where edad = ? or edad = ?  ";
+$consulta = $conexion->prepare($sentiencia);
+$consulta->bind_param("ii", $uno,$otro);
+$consulta->bind_result($dni, $nombre, $edad);
+$consulta->execute();
+echo "<br>alumnos de 21 o 24 años<br>";
+while ($consulta->fetch()) {
+    echo "$dni , $nombre, $edad <br>";
+}
+
+//alumnos llamado ...
+$alumno= "%a%";
+$sentiencia = "select * from alumnos where nombre like ?  ";
+$consulta = $conexion->prepare($sentiencia);
+$consulta->bind_param("s", $alumno);
+$consulta->bind_result($dni, $nombre, $edad);
+$consulta->execute();
+echo "<br>alumnos con a en su nombre<br>";
+while ($consulta->fetch()) {
+    echo "$dni , $nombre, $edad <br>";
+}
+
 //no te olvides
 $consulta->close();
 $conexion->close();
