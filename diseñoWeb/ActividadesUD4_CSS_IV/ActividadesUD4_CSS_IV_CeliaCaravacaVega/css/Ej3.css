@@ -2,4 +2,20 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     grid-template-rows: 1fr 2fr;
+    justify-content: center;
+    align-content: center;
+}
+
+.widget {
+    background-color: aquamarine;
+    border: solid black;
+    margin: 1px;
+    padding: 1em;
+}
+
+.widget-main {
+    background-color: blueviolet;
+    color: white;
+    /*desde la linea uno a la tres por columna*/
+    grid-column: 1 / 3;
 }

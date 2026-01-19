@@ -1,0 +1,46 @@
+ .blog {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+     place-content: space-between;
+     justify-items: center;
+     align-items: center;
+ }
+
+ .posts {
+     background-color: aqua;
+     width: 100%;
+ }
+
+ .post {
+     background-color: yellow;
+     place-self: start;
+     border: dashed;
+     margin: 1em;
+
+ }
+
+ .destacado {
+     background-color: brown;
+     color: white;
+     place-self: center;
+ }
+
+ .sidebar {
+     background-color: blueviolet;
+     width: 100%;
+     height: 100%;
+     color: white;
+ }
+
+ .sidebar h3 {
+     padding-inline-start: 1em;
+     background-color: purple;
+ }
+
+ .sidebar p {
+     color: black;
+     margin: 1em;
+     padding: 5px;
+     background-color: thistle;
+ }
