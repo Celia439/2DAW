@@ -30,28 +30,110 @@ if (isset($_POST['sumit'])) {
     if ($num == 0) {
         echo "Mensajito de error tu alumno nunca a existido";
     } else {
-        $consulta2 = "select 
-    a.nombre as nombreAlumno
-     ,a.edad as edadAlumno,
-      asg.nombre as nombreAsignatura
-     ,m.nota as nota
-    
-FROM 
-    Matriculas m
-    INNER JOIN Alumnos a ON m.dni = a.dni
-    INNER JOIN Asignaturas asg ON m.codigo = asg.codigo
-    where a.dni=?";
-        $consulta = $conexion->prepare($consulta2);
-        $consulta->bind_param("s", $dni);
-        $consulta->execute();
-        $consulta->bind_result($nombreA, $edadA, $nombreAsig, $nota);
+        $sentiencia2 = "
+SELECT 
+    a.nombre AS nombreAlumno,
+    a.edad AS edadAlumno,
+    asg.nombre AS nombreAsignatura,
+    m.nota AS nota
+FROM Matriculas m
+INNER JOIN Alumnos a ON m.dni = a.dni
+INNER JOIN Asignaturas asg ON m.codigo = asg.codigo
+WHERE m.dni = ?;
 
-        while ($consulta->fetch()) {
+    ";
+        $consulta2 = $conexion->prepare($sentiencia2);
+        $consulta2->bind_param("s", $dni);
+        $consulta2->execute();
+        $consulta2->bind_result($nombreA, $edadA, $nombreAsig, $nota);
+
+        while ($consulta2->fetch()) {
             echo "$nombreA, $edadA, $nombreAsig,$nota<br>";
         }
 
-        $consulta->close();
+        $consulta2->close();
     }
 
+}
+//ejercicio 2
+echo "<h5>Crear un formulario con un desplegable para seleccionar el trimestre (1 o 2).
+Mostrar:
+ </h5>";
+echo "<ul> <li>Alumnos que tengan más de una matrícula en asignaturas del trimestre
+seleccionado</li>
+<li>•número de asignaturas</li>
+<li>•nota media obtenida</li>
+</ul>
+";
+echo "<form action='#' method='post' enctype='multipart/form-data'>
+<select name='trimestre'>
+<option value='1'>1</option>
+<option value='2'>2</option>
+</select>
+<input name='enviar' type='submit'>
+</form>";
+if (isset($_POST["enviar"])) {
+    $trimestre = $_POST['trimestre'];
+        $sentiencia2 = "
+select
+    a.nombre,
+    count(asg.nombre),
+    AVG(m.nota)
+from matriculas m 
+INNER JOIN Alumnos a ON m.dni = a.dni
+INNER JOIN Asignaturas asg ON m.codigo = asg.codigo
+WHERE asg.trimestre=?
+group by m.dni
+having  count(m.codigo)>1
+";
+        $consulta2 = $conexion->prepare($sentiencia2);
+        $consulta2->bind_param("i", $trimestre);
+        $consulta2->execute();
+        $consulta2->bind_result($nombre, $notaC, $notaM);
+        while ($consulta2->fetch()) {
+            echo "$nombre,Asignaturas: $notaC, nota media: $notaM<br>";
+
+        }
+        $consulta2->close();
+
+}
+echo "<h5>Crear un formulario con un campo de texto para introducir una cadena de
+búsqueda. Mostrar</h5>
+<ul>
+<li>• nombre del alumno</li>
+<li>• nombre de la asignatura</li>
+<li>• Nota</li>
+</ul>
+<h6>Solo se mostrarán los alumnos cuyo nombre contenga la cadena introducida y que
+tengan alguna nota superior a 5. Además, ordenar los resultados por nombre y nota.
+</h6>
+";
+
+echo "<form action='#' method='post' enctype='multipart/form-data'>
+<input name='cBusqueda' type='text' placeholder='Cadena de busqueda' >
+<input name='enviar3' type='submit' value='enviar'>
+</form>";
+if(isset($_POST["enviar3"])){
+    $cBusqueda=$_POST["cBusqueda"];
+    $sentencia="
+    select 
+        a.nombre,
+        asg.nombre,
+        m.nota
+    from matriculas m
+    inner join asignaturas asg on m.codigo=asg.codigo
+    inner join  alumnos a on m.dni=a.dni
+    where a.nombre like '%?%'  and m.nota>5 
+    GROUP by a.nombre
+    order by a.nombre and m.nota
+    ";
+    $consulta= $conexion->prepare($sentencia);
+    //Me da error hay y no se por que
+    $consulta->bind_param('s',$cBusqueda);
+    $consulta->execute();
+    $consulta->bind_result($nombreAl,$nombreAsg,$nota);
+    while($consulta->fetch()){
+        echo "$nombreAl ,$nombreAsg, $nota";
+    }
 }
 $conexion->close();
