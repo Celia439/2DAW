@@ -143,7 +143,154 @@ print(" Ejercicio 3: Procesamiento de datos con NumPy")
 print("="*50)
 import numpy as np
 
+#a) (3 puntos) Crea un array NumPy con los datos y muestra:
+
 # Datos de sensores: 5 sensores, 7 días de mediciones
 # Cada fila es un sensor, cada columna un día
 np.random.seed(42)
 temperaturas = np.random.uniform(15, 35, size=(5, 7))
+
+
+# La forma (shape) del array 
+
+print(f"Forma de la matriz temperaturas: {temperaturas.shape}")
+
+# La temperatura media global
+
+print(f"Temperatura global: {np.mean(temperaturas)}")
+
+# La temperatura máxima y mínima registradas
+
+print(f"Temperatura máxima: {np.max(temperaturas)}")
+print(f"Temperatura minima: {np.min(temperaturas)}")
+
+
+# b) (4 puntos) Calcula y muestra:
+
+# La temperatura media de cada sensor (promedio por fila)
+
+print(f"Temperatura media de cada sensor: {np.mean(temperaturas,axis=1)}")
+
+# La temperatura media de cada día (promedio por columna)
+
+print(f"Temperatura media de cada día: {np.mean(temperaturas,axis=0)}")
+
+# El sensor con mayor temperatura promedio (índice) 
+
+print(f"Sensor con mayor temperatura promedio(indice): {np.argmax(np.mean(temperaturas,axis=1)) }")
+
+# c) (5 puntos) Crea una máscara booleana para identificar:
+
+# Temperaturas superiores a 28°C
+
+masck=temperaturas>28
+
+# Reemplaza esas temperaturas por exactamente 28 (simula un límite de seguridad)
+
+temperaturas[masck]=28
+
+# Muestra cuántas temperaturas fueron ajustadas
+
+print("Cantidad de temperaturas ajustadas:", np.sum(masck))
+
+# d) (4 puntos) Normaliza los datos usando la fórmula Min-Max: 
+# temperatura_normalizada = (temperatura - min) / (max - min)
+
+#Los valores deben quedar entre 0 y 1
+
+min_tmp=np.min(temperaturas)
+max_tmp=np.max(temperaturas)
+temperaturas_normalizadas= ((temperaturas-min_tmp)/(max_tmp-min_tmp))
+
+# Muestra las primeras 3 filas normalizadas
+
+print(temperaturas_normalizadas[:3])
+
+#e) (4 puntos) Usa broadcasting para: Crear un array de "alertas" (bonos) de [10, 20, 15, 25, 18] € por sensor 
+alertas=np.array([10, 20, 15, 25, 18])
+# Sumar estas alertas a CADA DÍA de medición de cada sensor
+
+suma_alertas=temperaturas+alertas.reshape(5,1)
+
+# Mostrar el array resultante (shape debe seguir siendo 5x7)
+
+print(suma_alertas.shape)
+
+
+# ============================================
+# Ejercicio 4: Análisis de estudiantes 
+# ============================================
+
+print("="*50)
+print(" Ejercicio 4: Análisis de estudiantes ")
+print("="*50)
+
+# Calificaciones: 20 estudiantes, 5 asignaturas
+# Filas = estudiantes, Columnas = asignaturas
+np.random.seed(123)
+calificaciones = np.random.uniform(4, 10, size=(20, 5))
+calificaciones = np.round(calificaciones, 1)
+
+asignaturas = ["Matemáticas", "Física", "Programación", "Inglés", "Historia"]
+
+ #a) (4 puntos) Crea una función estudiantes_aprobados(calificaciones, nota_minima=5.0) que:
+def estudiantes_aprobados(calificaciones, nota_minima=5.0):
+    # Devuelva un array booleano indicando qué estudiantes aprobaron TODAS las asignaturas
+    masck=np.all( calificaciones>nota_minima ,axis=1)
+    # Muestre cuántos estudiantes aprobaron todo
+    print(f"Número de estudiantes aprobados: {np.sum(masck)}")
+    # Devuelva los índices de esos estudiantes
+    print(f"indice de los estudiantes: {np.where(masck)}")
+estudiantes_aprobados(calificaciones,5)
+ # b) (5 puntos) Calcula y muestra: 
+    # La nota media de cada asignatura
+nota_media_porAsignatura=np.mean(calificaciones,axis=0)
+print(f"Nota media de cada asignatura: {nota_media_porAsignatura}")
+    # La asignatura con mejor nota media (usa np.argmax y el array de nombres)
+asignatura_mejor_media=np.argmax(nota_media_porAsignatura)
+print(f"Asignatura con mejor nota media: {asignaturas[ asignatura_mejor_media]}")
+    # La asignatura con peor nota media
+asignatura_peor_media=np.argmin(nota_media_porAsignatura)
+print(f"Asignatura con peor nota media: {asignaturas[ asignatura_peor_media]}")
+
+    # La desviación estándar de cada asignatura (indica cuál tiene más variabilidad)  
+desviacion=desv_std = np.std(calificaciones, axis=0) 
+print(f"Desviación de cada asignatura: { desviacion}")
+print(f"Mayor desviación : { asignaturas[np.argmax(desviacion)]}")
+
+ # c) (5 puntos) Crea un sistema de clasificación:
+ 
+    # Excelente: nota media ≥ 9
+    # Notable: 7 ≤ nota media < 9
+    # Bien: 6 ≤ nota media < 7
+    # Aprobado: 5 ≤ nota media < 6
+    # Suspenso: nota media < 5
+    # Usa np.where o máscaras booleanas para crear un array con la clasificación de cada estudiante según su nota media.
+media_alumnos=np.mean(calificaciones,axis=1)
+clasificacion=np.where(
+    media_alumnos>=9,
+    "Excelente",
+    np.where(
+        (media_alumnos<9) &(media_alumnos>=7),
+        "Notable",np.where(
+            (media_alumnos<7)&(media_alumnos>=6),
+            "Bien",np.where(
+                (media_alumnos<6)&(media_alumnos>=5),
+                "Aprobado",np.where(
+                    media_alumnos<5,
+                    "Suspenso","Error")) )) )
+print(clasificacion)
+
+
+ # d) (6 puntos) Análisis avanzado:
+ 
+    # Encuentra el estudiante con mayor nota en cada asignatura (5 estudiantes, pueden repetirse)
+mejor_estudiante_por_asignatura= np.argmax(calificaciones,axis=0)
+print(f"Indice de los mejores estudiantes por asignaturas: {mejor_estudiante_por_asignatura}")
+ 
+    # Crea una "matriz de diferencias" que muestre la diferencia de cada estudiante respecto a la media de cada asignatura (resta la media de cada columna)
+matriz_de_diferencias=np.array()
+ 
+    # Identifica qué estudiante tiene la mayor desviación positiva total (suma de todas sus diferencias positivas)
+ 
+ 

@@ -20,7 +20,6 @@
     align-items: center;
     gap: 30px;
     opacity: 0.9;
-    
 }
 
 .banner-imagen {
@@ -36,28 +35,28 @@
 }
 
 .banner-texto h1 {
-    font-size: 80px;
+    font-size: 2em;
     color: #ff6b5b;
     font-weight: bold;
     margin: 0;
-    line-height: 1;
 }
 
 .banner-descuento {
-    font-size: 24px;
+    font-size: 2em;
     font-weight: bold;
-    margin: 5px 0;
+    margin: 1em ;
+    
 }
 
 .banner-descripcion {
-    font-size: 16px;
-    margin: 10px 0;
+    font-size: 2em;
+    margin: 1em;
 }
 
 .banner-promo {
-    font-size: 28px;
+    font-size: 2em;
     font-weight: bold;
-    margin: 15px 0;
+    margin: 1em;
 }
 
 .btn-oferta {

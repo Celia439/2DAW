@@ -150,16 +150,17 @@ body {
 
 /* Barra de búsqueda */
 .search-container {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin: 1em;
     width: 990px;
     height: 40px;
 }
 
 .search-icon {
-    position: absolute;
-    left: 15px;
     width: 24px;
     height: 24px;
-    z-index: 2;
 }
 
 .search-input {
