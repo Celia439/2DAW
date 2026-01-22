@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 2 - Área interactiva</title>
+  <style>
+    #area {
+      width: 300px;
+      height: 150px;
+      background-color: lightgray;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Área interactiva</h2>
+  <div id="area">Mueve el ratón aquí</div>
+  <script>
+    //2. Interacción con un área (MouseEvent + mouseover/mouseout/mousemove)
+    //Dado el Ej2.html realiza las siguientes tareas:
+
+    // 1. Seleccionar el div “área interactiva” por su id.
+    let area = document.getElementById("area");
+    // 2. Asociar mouseover con addEventListener:
+    area.addEventListener('mouseover', function () {
+      // ○ Cambiar el color de fondo cuando el ratón entra.
+      area.style.backgroundColor = "pink";
+    });
+    // 3. Asociar mouseout con addEventListener:
+    area.addEventListener('mouseout', function () {
+      // ○ Restaurar el color original cuando el ratón sale.
+      area.style.backgroundColor = "lightgray";
+    });
+    // 4. Asociar mousemove con addEventListener:
+    area.addEventListener('mousemove', function () {
+      // ○ Mostrar en consola las coordenadas event.clientX y event.clientY del ratón.
+      console.log("Coordenadas:");
+      console.log("event.clientX: "+event.clientX);
+      console.log("event.clientY: "+event.clientY);
+    });
+    // 5. Probar moviendo el ratón dentro y fuera del área y observando la salida en consola.
+  </script>
+</body>
+
+</html>

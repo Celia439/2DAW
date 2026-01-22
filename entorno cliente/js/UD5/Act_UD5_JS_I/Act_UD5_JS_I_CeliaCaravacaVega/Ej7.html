@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 7 - Drag & Drop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .contenedor {
+      width: 200px;
+      min-height: 100px;
+      background-color: lightgray;
+      padding: 10px;
+    }
+
+    .tarea {
+      background-color: lightgreen;
+      margin: 5px;
+      padding: 5px;
+      cursor: grab;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenedor" id="pendientes">
+    <h3>Pendientes</h3>
+    <div class="tarea" draggable="true" id="tarea1">Tarea 1</div>
+    <div class="tarea" draggable="true" id="tarea2">Tarea 2</div>
+  </div>
+  <div class="contenedor" id="completadas">
+    <h3>Completadas</h3>
+  </div>
+  <script>
+    //7. Drag & Drop de tareas (DragEvent)
+
+    // Dado el Ej6.html realiza las siguientes tareas:
+
+    // ● Seleccionar los contenedores y las tareas.
+    let contenedor = document.getElementById("pendientes");
+    let tarea1 = document.getElementById("tarea1");
+    let tarea2 = document.getElementById("tarea2");
+    let completadas = document.getElementById("completadas");
+    // ● Asociar dragstart a las tareas:
+    tarea1.addEventListener('dragstart', function (e) {
+      // ○ Guardar el id de la tarea en event.dataTransfer.
+      e.dataTransfer.setData("text/plain", e.target.id);
+      // ○ Cambiar el estilo de la tarea mientras se arrastra (por ejemplo, cambiar el color o el cursor).
+      document.body.style.cursor = "grabbing";
+      console.log("dragstart:", e.target.id);
+    });
+    tarea2.addEventListener('dragstart', function (e) {
+      // ○ Guardar el id de la tarea en event.dataTransfer.
+      e.dataTransfer.setData("text/plain", e.target.id);
+      // ○ Cambiar el estilo de la tarea mientras se arrastra (por ejemplo, cambiar el color o el cursor).
+      document.body.style.cursor = "grabbing";
+      console.log("dragstart:", e.target.id);
+    });
+
+    // ● Asociar dragover al contenedor de destino:
+    completadas.addEventListener('dragover', function (e) {
+      // ○ Evitar el comportamiento por defecto (event.preventDefault()) para permitir el drop.
+      e.preventDefault();
+    });
+    // ● Asociar drop al contenedor de destino:
+    completadas.addEventListener('drop', function (e) {
+      // ○ Obtener el id de la tarea arrastrada.
+      let id = e.dataTransfer.getData("text/plain");
+      // ○ Añadir la tarea al contenedor de destino.
+      let tarea = document.getElementById(id);
+      completadas.appendChild(tarea);
+      // ○ Restaurar estilos de la tarea.
+      document.body.style.cursor = "default";
+      console.log("drop:", id);
+    });
+    // ● Mostrar en consola el tipo de evento cada vez que se arrastre
+    // o suelte la tarea.
+  </script>
+</body>
+
+</html>

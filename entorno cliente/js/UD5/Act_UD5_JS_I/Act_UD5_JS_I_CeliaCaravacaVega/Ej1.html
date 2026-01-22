@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 1 - Panel de botones</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Panel de botones</h2>
+  <button id="btnClick">Click</button>
+  <button id="btnDblClick">Doble Click</button>
+  <script>
+    //1. Panel de botones y mensajes (MouseEvent + click/dblclick)
+    //Dado el Ej1.html realiza las siguientes tareas:
+
+    //1. Seleccionar los botones usando document.getElementById.
+    let btnClick = document.getElementById("btnClick");
+    let btnDblClick = document.getElementById("btnDblClick");
+    //2. Asociar un evento click con addEventListener a un botón:
+    btnClick.addEventListener('click', function () {
+      //○ Al hacer click, mostrar un mensaje en consola o con alert.
+      alert("Hiciste click en el botón")
+      //○ Cambiar temporalmente el color de fondo del botón.
+      btnClick.style.backgroundColor = "yellow";
+    });
+
+    //3. Asociar un evento dblclick con addEventListener al otro botón:
+    btnDblClick.addEventListener('dblclick', function () {
+      //○ Al hacer doble clic, mostrar otro mensaje y restaurar el color original del botón.
+      alert("Hiciste doble click sobre esté boton");
+      btnClick.style.backgroundColor = "rgb(241, 241, 241)";
+    });
+    //4. Probar ambos botones y verificar que funcionan de forma independiente.
+
+  </script>
+</body>
+
+</html>

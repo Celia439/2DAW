@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 3 - Registro de teclado</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    #info {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Registro de teclado</h2>
+  <p>Pulsa cualquier tecla y observa los resultados en la consola o área de info.</p>
+  <div id="info">Información de la tecla pulsada</div>
+  <script>
+    //3. Registro de teclado (KeyboardEvent + keydown/keyup)
+    //Dado el Ej3.html realiza las siguientes tareas:
+    // 1. Asociar keydown al document:
+    document.addEventListener('keydown', function (e) {
+      // ○ Mostrar en consola el valor de la tecla pulsada (event.key) y el tipo de evento (event.type).
+      console.log(e.key);
+      console.log(e.type);
+      // ○ Opcional: cambiar un estilo de la página (por ejemplo el color de fondo) dependiendo de la tecla pulsada.
+      if (e.key == "Y") {
+        document.body.style.backgroundColor = "Yellow";
+      }
+    });
+    // 2. Asociar keyup al document:
+    document.addEventListener('keyup', function (e) {
+      // ○ Mostrar en consola que la tecla se ha soltado (event.key y event.type).○ Restaurar estilos si los cambiaron en keydown.
+      console.log(e.key);
+      console.log(e.type);
+      // ○ Opcional: cambiar un estilo de la página (por ejemplo el color de fondo) dependiendo de la tecla pulsada.
+      if (e.key == "Y") {
+        document.body.style.backgroundColor = "white";
+      }
+    });
+    // 3. Verificar que al pulsar y soltar teclas se registran correctamente ambos eventos.
+  </script>
+</body>
+
+</html>

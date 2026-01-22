@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 4 - Formulario</title>
+  <style>
+    input,
+    button {
+      margin: 5px 0;
+      padding: 5px;
+      display: block;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Formulario de contacto</h2>
+  <form id="formulario">
+    <label>Nombre: <input type="text" id="nombre"></label>
+    <label>Email: <input type="email" id="email"></label>
+    <button type="submit">Enviar</button>
+  </form>
+  <div id="mensajes"></div>
+  <script>
+    //  4. Formulario de contacto (InputEvent / FocusEvent / Submit)
+    // Dado el Ej4.html realiza las siguientes tareas:
+
+    let formulario = document.getElementById("formulario");
+    let nombre = document.getElementById("nombre");
+    let email = document.getElementById("email");
+    let mensajes = document.getElementById("mensajes");
+
+    // 1. Asociar input a los campos de texto:
+    nombre.addEventListener('input', function () {
+      // ○ Cada vez que el usuario escriba, mostrar el valor actualizado en consola.
+      console.log(nombre.value);
+    });
+
+    // 2. Asociar focus y blur a los campos:
+
+    //nombre:
+    nombre.addEventListener('focus', function () {
+      // ○ focus: cambiar el borde del input a otro color para indicar que está activo.
+      nombre.style.outline = "green solid 2px";
+    });
+    nombre.addEventListener('blur', function () {
+      // ○ blur: restaurar el borde a su color original.
+      nombre.style.outline = "black solid 2px";
+    });
+
+    //email:
+    email.addEventListener('focus', function () {
+      // ○ focus: cambiar el borde del input a otro color para indicar que está activo.
+      email.style.outline = "green solid 2px";
+    });
+    email.addEventListener('blur', function () {
+      // ○ blur: restaurar el borde a su color original.
+      email.style.outline = "black solid 2px";
+    });
+
+    // 3. Capturar el evento submit del formulario:
+    formulario.addEventListener('submit', function (e) {
+      // ○ Evitar que la página se recargue (event.preventDefault()).
+      e.preventDefault();
+      // ○ Mostrar un mensaje en pantalla indicando que el formulario se ha enviado correctamente.
+      mensajes.innerText = "El formulario se ha enviado correctamente";
+    });
+    // 4. Probar que todos los campos reaccionan y que el formulario no se envía realmente al pulsar “Enviar”.
+  </script>
+</body>
+
+</html>

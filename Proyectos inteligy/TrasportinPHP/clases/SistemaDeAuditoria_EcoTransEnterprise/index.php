@@ -25,17 +25,16 @@
     <fieldset>
         <legend>Equipamientos</legend>
         <label>GPS
-            <input type="checkbox" name="checkboxes[]" value="gp s">GPS<br>
-            <input name="gps" type="checkbox">
+            <input type="checkbox" name="checkboxes[]" value="gps"><br>
         </label>
         <label>Sensor de carril
-            <input name="sensor_carril" type="checkbox">
+            <input type="checkbox" name="checkboxes[]" value="sensor_carril"><br>
         </label>
         <label>Cámara 360
-            <input name="camara_360" type="checkbox">
+            <input type="checkbox" name="checkboxes[]" value="camara_360"><br>
         </label>
         <label>ABS
-            <input name="abs" type="checkbox">
+            <input type="checkbox" name="checkboxes[]" value="abs"><br>
         </label>
 
     </fieldset>
@@ -46,7 +45,15 @@ if (isset($_POST["enviar"])) {
     $datos = $_POST["datos_raw"];
     $min = $_POST["min"];
     $max = $_POST["max"];
-    $gps= $_POST["gps"];
+    $equipamientos = $_POST["checkboxes"];
+    $datos=explode("#",$datos);
+    echo implode( " ",$datos);
+foreach ($datos as $coche){
+
+}
+
+
+
 }
 ?>
 </body>

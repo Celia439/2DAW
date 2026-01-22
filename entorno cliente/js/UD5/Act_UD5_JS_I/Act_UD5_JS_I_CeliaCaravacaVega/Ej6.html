@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 6 - Burbujeo y objetivo</title>
+  <style>
+    #contenedor {
+      padding: 30px;
+      background-color: lightblue;
+    }
+
+    #boton {
+      padding: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Burbujeo y fase de objetivo</h2>
+  <div id="contenedor">
+    Contenedor
+    <button id="boton">Botón</button>
+  </div>
+  <script>
+    //6. Burbujeo y objetivo (event.target / event.currentTarget / stopPropagation)
+    // Dado el Ej6.html realiza las siguientes tareas:
+
+    // 1. Seleccionar el div contenedor y el botón dentro.
+    let contenedor = document.getElementById("contenedor");
+    let boton = document.getElementById("boton");
+    // 2. Asociar click con addEventListener a ambos elementos.
+    // 3. En el manejador de cada evento, mostrar en consola:
+    contenedor.addEventListener('click', function (event) {
+      // ○ event.target → el elemento exacto que disparó el evento.
+      console.log(event.target);
+      // ○ event.currentTarget → el elemento que gestiona el evento.
+      console.log(event.currentTarget);
+    });
+    boton.addEventListener('click', function (event) {
+      // ○ event.target → el elemento exacto que disparó el evento.
+      console.log(event.target);
+      // ○ event.currentTarget → el elemento que gestiona el evento.
+      console.log(event.currentTarget);
+      // 4. En el botón interior, usar event.stopPropagation() para que al hacer click no
+      //  se ejecute el manejador del contenedor.
+      event.stopPropagation();
+    });
+
+    // 5. Probar haciendo click en el botón y en el contenedor, observando las diferencias
+    //  entre target y currentTarget y cómo stopPropagation detiene la burbuja.
+    //El target es exactamente el elemento que cliqueamos
+    //Mientras que currentTarget el que tiene el listener
+    // y el stopPropagation detiene la burbuja por lo que al pulsar el boton no llega al padre contenedor
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 5 - Carrusel</title>
+  <style>
+    #carrusel {
+      width: 300px;
+      height: 200px;
+      background-color: lightgray;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Carrusel de imágenes</h2>
+  <div id="carrusel">Imagen 1</div>
+  <button id="detener">Detener carrusel</button>
+  <script>
+    //5. Carrusel de imágenes automático (Event + setInterval / clearInterval)
+    // Dado el Ej5.html realiza las siguientes tareas:
+    let carrusel = document.getElementById("carrusel");
+    let detener = document.getElementById("detener");
+    // 1. Crear un array con nombres de imágenes o textos representando las imágenes.
+    let imagenes = ["img1", "img2", "img3"];
+
+    // 2. Mostrar la primera imagen al cargar la página.
+    document.addEventListener('DOMContentLoaded', function () {
+      carrusel.innerText = imagenes[0];
+    });
+    // 3. Usar setInterval para cambiar la imagen automáticamente cada 3 segundos.
+    let actual = 0;
+    function cambioImg() {
+      if (actual == 0) {
+        carrusel.innerText = imagenes[0];
+        actual = 1;
+      } else if (actual == 1) {
+        carrusel.innerText = imagenes[1];
+        actual = 2;
+      } else {
+        carrusel.innerText = imagenes[2];
+        actual = 0;
+      }
+    }
+    cambio = setInterval(cambioImg, 3000);
+    // 4. Asociar un evento click al botón “Detener carrusel”:
+    detener.addEventListener('click', function (event) {
+      //○ Detener el cambio automático usando clearInterval.
+      clearInterval(cambio);
+      // 5. Cada vez que cambie la imagen, mostrar en consola el tipo de evento (event.type).
+      console.log(event.type);
+    });
+
+    // 6. Probar que el carrusel funciona automáticamente y que se puede detener con el botón.
+  </script>
+</body>
+
+</html>
