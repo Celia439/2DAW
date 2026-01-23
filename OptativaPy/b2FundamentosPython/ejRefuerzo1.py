@@ -1,7 +1,6 @@
 temperatura= float( input("ingresa la temperatura: "))
 origen= input("ingresa la unidad de origen(C/F/K): ")
 destino= input("ingresa la unidad de destino(C/F/K): ")
-# deverias haber jugadon funcines dentro de funciones en vez de buscarlo gloval()items da todos objetos y funciones 
 if origen == "C" and destino == "F":
     f = (temperatura * 9/5) + 32
     print(f"{temperatura}ºC = {f}ºF")

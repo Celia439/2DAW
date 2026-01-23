@@ -289,8 +289,11 @@ mejor_estudiante_por_asignatura= np.argmax(calificaciones,axis=0)
 print(f"Indice de los mejores estudiantes por asignaturas: {mejor_estudiante_por_asignatura}")
  
     # Crea una "matriz de diferencias" que muestre la diferencia de cada estudiante respecto a la media de cada asignatura (resta la media de cada columna)
-matriz_de_diferencias=np.array()
+matriz_de_diferencias=calificaciones-nota_media_porAsignatura
+print(f"Matriz de diferencias de estudiante respecto a la media de cada asignatura: {matriz_de_diferencias}")
  
     # Identifica qué estudiante tiene la mayor desviación positiva total (suma de todas sus diferencias positivas)
- 
- 
+diferencias_positivas = np.where(matriz_de_diferencias > 0, matriz_de_diferencias, 0)
+suma_positivas_por_estudiante = np.sum(diferencias_positivas, axis=1)
+mejor_estudiante = np.argmax(suma_positivas_por_estudiante)
+print(f"Estudiante que tiene la mayor desviacion positiva total: {mejor_estudiante}")
