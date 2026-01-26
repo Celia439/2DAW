@@ -1,0 +1,60 @@
+/*4. Layout de dashboard (1,5 puntos)
+Se desea crear un layout básico de dashboard (panel de control) para una aplicación
+interna. Dado el Ej4.html realiza las siguientes tareas:
+1. El contenedor .dashboard debe:*/
+.dashboard{
+    /*● Usar Grid CSS.*/
+    display: grid;
+    /*● Definir 2 columnas: 200px y 1fr.*/
+    grid-template-columns:200px 1fr;
+    /*● Definir 3 filas: 70px, 1fr y 50px.*/
+    grid-template-rows:70px 1fr 50px;
+    /*2. Distribuye las áreas de la siguiente forma:*/
+    /*● Header ocupa toda la fila superior.*/
+    /*● Menú en la columna izquierda.*/
+    /*● Contenido en la columna derecha.*/
+    /*● Footer ocupa toda la fila inferior.*/
+    /*3. Usa grid-template-areas.*/
+    grid-template-areas:
+    "header header"
+    "menu contenido"
+    "footer footer" ;
+    /*5. Aplica un gap de 15px.*/
+    gap:15px;
+    /*6. Centra el contenido de cada celda usando place-items: center.*/
+    place-items:center;
+    /*Para ocupar la pantalla y alinear el  texto en el centro*/
+    height: 880px;
+    text-align: center;
+
+}
+
+/*4. Añade un color distinto cada una de las áreas.*/
+header{
+    grid-area: header;
+    /*Para que se vea bien*/
+    width: 100%;
+    height: 100%;
+    background-color: gainsboro;
+}
+nav{
+    grid-area: menu;
+    /*Para que se vea bien*/
+    width: 100%;
+    height: 100%;
+    background-color: lemonchiffon;
+}
+main{
+    grid-area: contenido;
+    /*Para que se vea bien*/
+    width: 100%;
+    height: 100%;
+    background-color: lightblue;
+}
+footer{
+    grid-area: footer;
+    /*Para que se vea bien*/
+    width: 100%;
+    height: 100%;
+    background-color: steelblue;
+}

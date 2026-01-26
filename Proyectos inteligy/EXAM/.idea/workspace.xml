@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="789ea09f-d082-4979-a20c-61b645df6b50" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/EcoLogistics/Analizable.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EcoLogistics/Ruta.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EcoLogistics/RutaUrbana.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EcoLogistics/Vehiculo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EcoLogistics/index.php" afterDir="false" />
-    </list>
+    <list default="true" id="789ea09f-d082-4979-a20c-61b645df6b50" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,6 +77,7 @@
       <updated>1769180012979</updated>
       <workItem from="1769180014039" duration="12062000" />
       <workItem from="1769442500525" duration="1000" />
+      <workItem from="1769442925641" duration="123000" />
     </task>
     <servers />
   </component>

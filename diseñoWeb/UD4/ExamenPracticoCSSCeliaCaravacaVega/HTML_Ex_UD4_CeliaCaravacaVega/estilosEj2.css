@@ -1,0 +1,42 @@
+/*2. Barra de acciones (1,5 puntos)
+Se quiere implementar una barra de acciones similar a la de una aplicación web. Dado
+Ej2.html realiza las siguientes tareas:*/
+/*1. El contenedor .actions debe:*/
+.actions {
+    /*● Usar Flexbox.*/
+    display: flex;
+    /*● Colocar los elementos en fila.*/
+    flex-direction: row;
+    /*● Repartir el espacio de forma uniforme (justify-content).*/
+    justify-content: space-between;
+    /*● Tener una altura de 60px.*/
+    height: 60px;
+    /*● Centrar los ítems verticalmente.*/
+    align-content: center;
+    /*3. Añade un gap de 10px entre los elementos.*/
+    gap: 80px;
+
+}
+
+/*2. Cada .item debe:*/
+.item {
+    /*● Tener un padding interno.*/
+    padding: 1em;
+    /*● Un color de fondo distinto al contenedor.*/
+    background-color: grey;
+    /*● El texto centrado horizontal y verticalmente.*/
+    align-self: center;
+    /*extra*/
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    border-radius: 2em;
+    margin: 2em;
+}
+
+.item:hover {
+    background-color: ghostwhite;
+    color: black;
+    text-shadow: 1px 1px 2px white;
+    box-shadow: 5px 5px;
+    border: 1px black solid;
+}

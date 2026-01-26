@@ -97,6 +97,7 @@ having  count(m.codigo)>1
         $consulta2->close();
 
 }
+//Ejercicio 3
 echo "<h5>Crear un formulario con un campo de texto para introducir una cadena de
 búsqueda. Mostrar</h5>
 <ul>
@@ -123,12 +124,13 @@ if(isset($_POST["enviar3"])){
     from matriculas m
     inner join asignaturas asg on m.codigo=asg.codigo
     inner join  alumnos a on m.dni=a.dni
-    where a.nombre like '%?%'  and m.nota>5 
+    where a.nombre like ?  and m.nota>5 
     GROUP by a.nombre
     order by a.nombre and m.nota
     ";
     $consulta= $conexion->prepare($sentencia);
-    //Me da error hay y no se por que
+    //Me da error hay y es por que no se debe poner '' en la sentencia sql
+    $cBusqueda = "%".$cBusqueda."%";
     $consulta->bind_param('s',$cBusqueda);
     $consulta->execute();
     $consulta->bind_result($nombreAl,$nombreAsg,$nota);
@@ -136,4 +138,47 @@ if(isset($_POST["enviar3"])){
         echo "$nombreAl ,$nombreAsg, $nota";
     }
 }
+//ejercicio 4
+echo "<h5>
+Crear un formulario con un campo de texto para el DNI. Comprobar que existe un
+alumno con ese DNI. Preparar una consulta y ejecutarla cada vez que se envíe el
+formulario, sin volver a preparar la sentencia.Mostrar:</h5>
+<ul>
+<li>•  nombre del alumno</li>
+<li>• asignaturas</li>
+<li>• Nota</li>
+</ul>
+";
+echo "<form action='#' method='post' enctype='multipart/form-data'>
+<input type='text' placeholder='dni' name='dni'/>
+<input type='submit' value='enviar' name='enviar'/>
+</form>";
+
+//primero se envio el formulario
+if(isset($_POST["enviar"])){
+//pillar el dni
+    $dni=$_POST["dni"];
+    //comprobar si existe
+    $sentenciaC="select count(dni) from alumnos where dni=?";
+    $consulta=$conexion->prepare($sentenciaC);
+    $consulta->bind_param("s",$dni);
+    $consulta->execute();
+    $consulta->bind_result($num);
+    $consulta->close();
+    if($num=0){
+        echo "Tu dni no está registrado";
+    }else{
+    $sentenciaM="
+    select 
+        a.nombre
+        ,asg.nombre
+        ,m.nota 
+    from matricula m 
+    inner join asignaturas asg on m.codigo =asg.codigo
+    inner join  ";
+    }
+
+}
+
+
 $conexion->close();

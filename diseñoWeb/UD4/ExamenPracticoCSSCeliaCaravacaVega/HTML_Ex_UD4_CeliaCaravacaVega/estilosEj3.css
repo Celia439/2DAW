@@ -1,0 +1,29 @@
+/*3. Galería de productos (1,5 puntos)
+Una tienda online necesita una galería adaptable para mostrar productos. Dado el
+Ej3.html realiza las siguientes tareas:
+1. El contenedor .gallery debe:*/
+.gallery{
+    /*● Usar Flexbox.*/
+    display: flex;
+    /*● Permitir salto de línea.*/
+    flex-wrap: wrap;
+    /*● Tener un ancho fijo de 400px.*/
+    width: 400px;
+    /*● Usar gap para separar filas y columnas.*/
+    gap: 2em;
+    justify-content: center;
+}
+/*2. Cada .product debe:*/
+.product{
+    /*● Ocupar aproximadamente el 50% del ancho.*/
+    width: 50%;
+    /*● Tener una altura fija.*/
+    height: 80px;
+    /*● Tener un color de fondo.*/
+    background-color: yellowgreen;
+    /*extra*/
+    border-radius: 1em;
+    text-align: center;
+    padding: 1em;
+}
+/*3. Usa unidades relativas cuando sea posible. utilice em*/
