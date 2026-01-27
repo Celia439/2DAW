@@ -1,0 +1,90 @@
+* {
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    font-family: "Fuente", sans-serif;
+}
+
+/**Selector descendiente*/
+div span {
+    background-color: blue;
+    color: white;
+    border-radius: 1em;
+
+}
+
+/** Selector adyascente*/
+div+div {
+    background-color: brown;
+}
+
+/**Combinacion de selectores este tiene más expecificidad que selector adyascente*/
+#contenedor2,
+.contenedor {
+    padding: 1em;
+    margin: 1em;
+}
+
+/**flexible*/
+.contenedor {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background: linear-gradient(red, blue, yellowgreen, purple, black, white);
+    box-shadow: 1em 1em 1em;
+}
+
+/** Selector de hijos*/
+.contenedor>p {
+    background: radial-gradient(red, yellow, green);
+    color: rgb(0, 0, 0);
+    padding: 1em;
+    align-self: flex-end;
+    transition: width 2s, height 4s;
+}
+
+.contenedor>p:hover {
+   width: 100px;
+   height: 150px;
+
+}
+
+/** solores y fondos*/
+#contenedor2 {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: auto ;
+    gap:1em;
+    width: 100%;
+    color: rgb(165, 255, 255);
+    background-color: black;
+    background-image: url(https://imgs.search.brave.com/O7hb7QihCiUUfnX6vj_4RJxl8kfQX_EpvzZtJ6hU20g/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9pbWct/Y29ycC5jb20vaW1h/Z2VzL3NsaWRlcy9j/aXRpZXMvaW1nLXRh/aXdhbi5qcGc);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.5;
+}
+
+/* img*/
+.img {
+    background-color: yellow;
+    color: black;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+.cja{
+width: 100px;
+height: 100px;
+animation-name: ejemplo ;
+animation-duration: 15s;
+}
+@keyframes ejemplo {
+    from {background-color: red;}
+    to { background-color: purple;}
+}
