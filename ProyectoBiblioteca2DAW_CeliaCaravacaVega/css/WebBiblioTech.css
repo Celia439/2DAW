@@ -1,3 +1,5 @@
+/*## Bloques comunes ##*/
+
 /* Reset básico */
 * {
     margin: 0;
@@ -5,36 +7,205 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8f7;
+    color: #333;
+}
+
+/* ---Cabecera--- */
+header {
+    background-color: #024d52;
+    padding: 15px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Contenido de la cabecera*/
+.menu-principal {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/*Logo empresa*/
+.logo-icon {
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+}
+
+/*Acceso rapido*/
+.menu-principal a {
+    color: #f0f8f7;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/*Acceso rapido hover*/
+.menu-principal a:hover {
+    color: #b2b2b2;
+    text-decoration: underline;
+}
+
+/*Acceso rápido seleccionado*/
+.menu-principal a.seleccionado {
+    color: #b2b2b2;
+    text-decoration: underline;
+}
+
+/*Boton de cabecera (Buscar, notificaciones,opcciones)*/
+.iconos-header {
+    background: none;
+    border: none;
+}
+
+/*Boton de cabecera seleccionar*/
+.iconos-header:hover {
+    opacity: 0.5;
+}
+
+/*Imagen de los botones de cabecera*/
+.iconos-header img {
+    width: 35px;
+}
+
+/*Botón de login*/
+.btn-general {
+    background-color: #ff6b5b;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.btn-general:hover {
+    background-color: #ff5544;
+}
+
+/*Separador*/
+hr {
+    width: 60%;
+    height: 4px;
+    background-color: rgb(184, 217, 124);
+}
+
+/* ---Pestañas--- */
+
+.pestanas {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+
+}
+
+.pestana {
+    padding: 5px 15px;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #b2b2b2;
+}
+
+.pestana.activa {
+    border-bottom: 1px solid #303030;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.pestana:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ---Footer--- */
+footer {
+    background-color: #024d52;
+    color: #c8ffff;
+    padding: 60px 20px 40px;
+    margin-top: 60px;
+}
+
+.footer-contenido {
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+}
+
+.footer-columna h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.footer-columna h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.footer-columna p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.footer-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-top: 20px;
+}
+
+.footer-columna ul {
+    list-style: none;
+}
+
+.footer-columna ul li {
+    margin-bottom: 12px;
+}
+
+.footer-columna ul li a {
+    color: #c8ffff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.footer-columna ul li a:hover {
+    text-decoration: underline;
+}
+
+
+
+/*##Bloques expecificos##*/
+
+
 
 /* Banner Principal */
 .banner-principal {
-    margin: 40px auto;
-    padding:  2em;
+        margin: 2em;
 }
 
 .banner-contenido {
-    background: linear-gradient(135deg, #3d3f58 0%, #6a6c84 100%);
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    opacity: 0.9;
-}
+    background: linear-gradient(135deg, #3d46c7 0%, #6a6c84 100%);
+    border-radius:1em;
+    display: grid;
+    color: white;
 
+    grid-template-columns: 1fr 1fr 2fr;
+}
+/*Mientras carge la imagen*/
 .banner-imagen {
-    width: 300px;
-    height: 250px;
+    max-width: 300px;
+    max-height: 250px;
     background-color: rgba(240, 248, 247, 0.2);
     border-radius: 10px;
-    flex-shrink: 0;
 }
 
-.banner-texto {
-    color: white;
-}
 
-.banner-texto h1 {
+
+
+    
+.banner-texto  {
     font-size: 2em;
     color: #ff6b5b;
     font-weight: bold;
@@ -44,8 +215,7 @@
 .banner-descuento {
     font-size: 2em;
     font-weight: bold;
-    margin: 1em ;
-    
+    padding: 1em; background-color: #024d52;
 }
 
 .banner-descripcion {
@@ -59,20 +229,9 @@
     margin: 1em;
 }
 
-.btn-oferta {
-    background-color: #ff6b5b;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-}
 
-.btn-oferta:hover {
-    background-color: #ff5544;
-}
+
+
 
 .subtitulo {
     font-size: 20px;
