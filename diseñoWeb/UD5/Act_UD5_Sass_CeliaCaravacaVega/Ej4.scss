@@ -1,0 +1,24 @@
+//4. Alertas con Mapas de Colores
+//Dado Ej4.html usa mapas de colores para diferentes tipos de alertas.
+//Realiza los siguientes apartados:
+
+//1. Crear mapa $alert-colors: ("success": #28a745, "error": #dc3545, "warning": #ffc107).
+$alert-colors: (
+    "success": #28a745,
+    "error": #dc3545,
+    "warning": #ffc107);
+    //2. Crear mixin alert-style($type) que aplique background-color desde el mapa y color: #fff.
+    @mixin alert-style($type){
+        background-color: $type;
+    }
+    //3. Aplicar el mixin en .alert-success, .alert-error y .alert-warning.
+    .alert-success{
+        @include alert-style(map-get($alert-colors,"success"));
+    }
+    .alert-error{
+        @include alert-style(map-get($alert-colors,"error"));
+
+    }
+    .alert-warning{
+        @include alert-style(map-get($alert-colors,"warning"));
+    }

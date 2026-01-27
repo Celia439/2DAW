@@ -1,0 +1,17 @@
+.card-small {
+  box-shadow: 5px 2px 8px rgba(0, 0, 0, 0.3);
+  width: 1fr;
+  height: 2fr;
+}
+
+.card-medium {
+  box-shadow: 1em 5px 1em green;
+  width: 20em;
+  height: 30em;
+}
+
+.card-large {
+  box-shadow: 10px 1em 70px red;
+  width: 500px;
+  height: 500px;
+}/*# sourceMappingURL=Ej3.css.map */

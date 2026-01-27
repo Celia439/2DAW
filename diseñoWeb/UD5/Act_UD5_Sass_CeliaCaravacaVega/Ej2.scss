@@ -3,22 +3,37 @@
 //pseudoclases.
 //Realiza los siguientes apartados:
 //1. Crear las variables: $btn-padding, $btn-radius, $btn-primary, $btn-secondary, $btn-success.
-$btn-padding:15px;
-$btn-radius:;
-$btn-prymary:;
-$btn-secondary:;
-$btn-success:;
+$btn-padding: 15px;
+$btn-radius: 2em;
+$btn-primary: orange;
+$btn-secondary: lightblue;
+$btn-success: lightgreen;
+
 //2. Crear mixin button-style($bg, $color) que incluya padding,border-radius, cursor y background-color.
-@mixin button-style($bg,$color){
+@mixin button-style($bg, $color) {
+    padding: $btn-padding;
+    border-radius: $btn-radius;
+    cursor: pointer;
+    color: $color;
+    border: none;
+    background-color: $bg;
+
     //3. Usar pseudoclase :hover dentro del mixin para cambiar el color al pasar el ratón.
+    &:hover {
+        background-color: darken($bg,10%);
+    }
 }
+
 //4. Aplicar el mixin en las clases .btn-primary, .btn-secondary y .btn-success.
-.btn-primary{
-
+.btn-primary {
+    @include button-style($btn-primary,black );
 }
-.btn-secondary{
 
+.btn-secondary {
+    @include button-style($btn-secondary,black );
 }
-.btn-success{
+
+.btn-success {
+    @include button-style($btn-success,black );
 
 }

@@ -1,0 +1,30 @@
+//3. Tarjetas con Box-Shadow y Tamaños Dinámicos
+//Dado Ej3.html crea tarjetas reutilizables con mixins para sombra y tamaño.
+//Realiza los siguientes apartados:
+
+//1. Crear mixin box-shadow($x: 0, $y: 0, $blur: 5px, $color:rgba(0,0,0,0.3)).
+@mixin box-shadow($x: 0, $y: 0, $blur: 5px, $color: rgba(0, 0, 0, 0.3)) {
+    box-shadow: $x $y $blur $color;
+}
+
+//2. Crear mixin sizes($width, $height) para aplicar dimensiones.
+@mixin sizes($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+//3. Aplicar mixins en .card-small, .card-medium y .card-large con valores distintos.
+.card-small {
+    @include box-shadow(5px,2px ,8px);
+    @include sizes(1fr,2fr);
+}
+
+.card-medium {
+    @include box-shadow(1em,5px ,1em ,green );
+    @include sizes(20em,30em);
+}
+
+.card-large {
+    @include box-shadow(10px,1em ,70px ,red );
+    @include sizes(500px,500px);
+}
