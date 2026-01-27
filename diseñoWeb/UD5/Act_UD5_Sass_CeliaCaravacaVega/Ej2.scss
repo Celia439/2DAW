@@ -1,0 +1,24 @@
+//2. Botones Reutilizables con Mixin
+//Dado Ej2.html crea botones con estilos uniformes usando mixin y
+//pseudoclases.
+//Realiza los siguientes apartados:
+//1. Crear las variables: $btn-padding, $btn-radius, $btn-primary, $btn-secondary, $btn-success.
+$btn-padding:15px;
+$btn-radius:;
+$btn-prymary:;
+$btn-secondary:;
+$btn-success:;
+//2. Crear mixin button-style($bg, $color) que incluya padding,border-radius, cursor y background-color.
+@mixin button-style($bg,$color){
+    //3. Usar pseudoclase :hover dentro del mixin para cambiar el color al pasar el ratón.
+}
+//4. Aplicar el mixin en las clases .btn-primary, .btn-secondary y .btn-success.
+.btn-primary{
+
+}
+.btn-secondary{
+
+}
+.btn-success{
+
+}
