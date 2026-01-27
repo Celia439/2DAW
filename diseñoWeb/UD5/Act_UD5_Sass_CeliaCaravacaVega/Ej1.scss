@@ -1,0 +1,25 @@
+//1. Tema de colores con variables
+//Dado el Ej1.html Aplica variables y mixin básico para cambiar colores de fondo y texto.
+//SCSS requerido:
+//● Variables para colores claros y oscuros.
+
+//● Mixin simple para aplicar background-color y color.
+//Apartados:
+
+//1. Crear las variables $bg-light, $text-light, $bg-dark, $text-dark.
+$bg-light:#ffffff;
+$text-light:black;
+$bg-dark:#333333;
+$text-dark:white;
+//2. Crear un mixin theme($bg, $text) que aplique los estilos de fondo y texto.
+@mixin theme($bg,$text){
+    background-color: $bg;
+    color: $text;
+}
+//3. Aplicar el mixin en .light-theme y .dark-theme.
+.light-theme{
+    @include theme($bg-light,$text-light);
+}
+.dark-theme{
+    @include theme($bg-dark,$text-dark);
+}
