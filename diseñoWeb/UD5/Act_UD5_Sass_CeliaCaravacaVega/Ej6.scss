@@ -1,0 +1,28 @@
+@use "sass:map";
+/*6. Tarjetas de Producto con Variables y Mapas
+Dado Ej6.html aplica colores y padding a tarjetas de producto según tipo.
+Realiza los siguientes apartados:*/
+
+//1. Crear mapa $product-colors: ("basic": #3498db, "premium": #e67e22, "vip": #9b59b6).
+$product-colors: (
+    "basic": #3498db,
+    "premium": #e67e22,
+    "vip": #9b59b6
+);
+
+//2. Crear mixin card-style($bg) que aplique background-color y padding.
+@mixin card-style($bg){
+    background-color: $bg;
+    padding: 2em;
+}
+//3. Aplicar mixin a .card-basic, .card-premium y .card-vip.
+
+.card-basic{
+@include card-style(map.get($product-colors,"basic"));
+}
+.card-premium{
+@include card-style(map.get($product-colors,"premium"));
+}
+.card-vip{
+@include card-style(map.get($product-colors,"vip"));
+}

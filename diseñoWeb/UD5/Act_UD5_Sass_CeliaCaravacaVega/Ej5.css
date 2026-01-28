@@ -1,0 +1,15 @@
+@charset "UTF-8";
+/*5. Lista de Navegación con Combinadores y Pseudoclases
+Dado Ej5.html usa anidamiento, combinadores y pseudoclases.
+Realiza los siguientes apartados: */
+nav ul li + li {
+  margin: 2em;
+}
+nav ul li a {
+  -webkit-text-decoration: dotted;
+          text-decoration: dotted;
+  color: black;
+}
+nav ul li:hover {
+  color: grey;
+}/*# sourceMappingURL=Ej5.css.map */

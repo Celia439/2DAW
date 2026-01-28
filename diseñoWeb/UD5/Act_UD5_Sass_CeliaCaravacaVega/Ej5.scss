@@ -1,0 +1,24 @@
+/*5. Lista de Navegación con Combinadores y Pseudoclases
+Dado Ej5.html usa anidamiento, combinadores y pseudoclases.
+Realiza los siguientes apartados: */
+//1. Anidar ul y li dentro de nav.
+nav {
+    ul {
+        li {
+
+            //2. Usar & + li para separar los li con margen.
+            &+li {
+                margin: 2em;
+            }
+
+            //3. Usar pseudoclase :hover en a para cambiar el color al pasar el ratón.
+            a{
+                text-decoration: dotted;
+                color: black;
+            }
+            &:hover {
+                color: grey;
+            }
+        }
+    }
+}

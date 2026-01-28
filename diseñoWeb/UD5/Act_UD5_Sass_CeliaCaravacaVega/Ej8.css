@@ -1,0 +1,122 @@
+@charset "UTF-8";
+/*8. Página Mini Proyecto
+Dado el Ej8.html desarrolla una mini página web utilizando Sass (SCSS)
+que integre de forma conjunta variables, mixins, mapas, funciones,
+anidamiento, pseudoclases y reutilización de código, siguiendo una
+estructura profesional y mantenible.
+Realiza los siguientes apartados:*/
+.light-theme {
+  background-color: #f5f5f5;
+  color: #333;
+}
+.light-theme a {
+  color: #3498db;
+}
+
+nav {
+  background-color: #2c3e50;
+}
+nav ul {
+  list-style: none;
+}
+nav ul li {
+  margin: 0px 15px 0px 15px;
+}
+nav ul li a {
+  color: white;
+}
+nav ul li a:hover {
+  color: #f1c40f;
+}
+
+.card-small {
+  height: 150px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.card-medium {
+  height: 200px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.card-large {
+  height: 250px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.card-basic {
+  background-color: #bdc3c7;
+}
+
+.card-premium {
+  background-color: #f1c40f;
+}
+
+.card-vip {
+  background-color: #9b59b6;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background-color: rgb(33.1380753138, 125.1882845188, 186.8619246862);
+}
+
+.btn-success {
+  background-color: #2ecc71;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-success:hover {
+  background-color: rgb(36.616, 162.384, 89.948);
+}
+
+.alert-success {
+  background-color: #2ecc71;
+  color: white;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.alert-error {
+  background-color: #e74c3c;
+  color: white;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+.card {
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+.alert {
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+button {
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  color: #333;
+}/*# sourceMappingURL=Ej8.css.map */

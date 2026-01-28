@@ -1,0 +1,234 @@
+@use"sass:map";
+/*8. Página Mini Proyecto
+Dado el Ej8.html desarrolla una mini página web utilizando Sass (SCSS)
+que integre de forma conjunta variables, mixins, mapas, funciones,
+anidamiento, pseudoclases y reutilización de código, siguiendo una
+estructura profesional y mantenible.
+Realiza los siguientes apartados:*/
+
+//1. Aplicar tema claro mediante un mixin:
+
+//a. Crear un mixin llamado theme-light.
+@mixin theme-light($bgG: #f5f5f5, $colorP: #333, $colorE: #3498db) {
+    //b. El mixin debe definir:
+    //i. Color de fondo general: #f5f5f5
+    background-color: $bgG;
+    //ii. Color de texto principal: #333
+    color: $colorP;
+
+    //iii. Color de enlaces: #3498db
+    a {
+        color: $colorE;
+    }
+}
+
+//c. Aplicar el mixin a la clase .light-theme.
+.light-theme {
+    @include theme-light()
+}
+
+//2. Navegación con anidamiento y pseudoclases:
+
+//a. Estilizar la etiqueta <nav> usando anidamiento SCSS.
+nav {
+    //b. Aplicar los siguientes estilos:
+    //i. Fondo del nav: #2c3e50
+    background-color: #2c3e50;
+
+    //ii. Quitar estilos por defecto de la lista (ul).
+    ul {
+        list-style: none;
+
+        //iii. Los <li> deben mostrarse en línea con margen
+        //horizontal de 15px.
+        li {
+            margin: 0px 15px 0px 15px;
+
+            //iv. Los enlaces (a):
+            a {
+                //1. Color normal: blanco.
+                color: white;
+
+                //2. En :hover: color #f1c40f y subrayado.
+                &:hover {
+                    color: #f1c40f;
+                    text-decoration: underline;
+                }
+
+            }
+        }
+    }
+
+}
+
+//3. Tarjetas de productos con mapas y mixins
+
+//a. Crear un mapa Sass $card-sizes con los siguientes valores:
+//small: 150px, medium: 200px y large: 250px.
+$card-sizes: (
+    "small":150px,
+    "medium":200px,
+    "large":250px
+);
+
+//b. Crear un mixin card-size($size) que:
+@mixin card-size($size) {
+    //i. Obtenga la altura desde el mapa.
+    height: map.get($card-sizes, $size );
+    //ii. Aplique padding de 20px.
+    padding: 20px;
+    //iii. Aplique borde redondeado de 8px.
+    border-radius: 8px;
+
+}
+
+//c. Crear un segundo mapa $card-colors que contenga los
+//valores: basic: #bdc3c7, premium: #f1c40f y vip: #9b59b6.
+$card-colors: (
+    "basic": #bdc3c7,
+    "premium": #f1c40f,
+    "vip": #9b59b6
+);
+
+//d. Cada tarjeta debe:
+//i. Usar el tamaño según su clase (card-small,card-medium, card-large).
+.card-small {
+    @include card-size("small");
+}
+
+.card-medium {
+    @include card-size("medium");
+}
+
+.card-large {
+    @include card-size("large");
+}
+
+//ii. Usar el color según su tipo (card-basic, card-premium, card-vip).
+.card-basic {
+    background-color: map.get($card-colors, "basic");
+
+}
+
+.card-premium {
+    background-color: map.get($card-colors, "premium");
+
+}
+
+.card-vip {
+    background-color: map.get($card-colors, "vip");
+
+}
+
+//4. Botones con mixin reutilizable y pseudoclases:
+
+//a. Crear un mixin button-style($bg-color) que aplique:
+@mixin button-style($bg-color) {
+    //i. Fondo según parámetro.
+    background-color: $bg-color;
+    //ii. Texto blanco.
+    color: white;
+    //iii. Padding 10px 20px.
+    padding: 10px 20px;
+    //iv. Borde redondeado 6px.
+    border-radius: 6px;
+    //v. Cursor pointer.
+    cursor: pointer;
+
+    //b. En :hover:
+    &:hover {
+        //i. Oscurecer el color de fondo un 10% usando funciones de Sass.
+        background-color: darken($bg-color, 10%);
+    }
+
+}
+
+//c. Aplicar el mixin a:
+//i. .btn-primary → color #3498db
+.btn-primary {
+    @include button-style(#3498db);
+}
+
+//ii. .btn-success → color #2ecc71
+.btn-success {
+    @include button-style(#2ecc71);
+}
+
+//5. Alertas con mixin y mapas de colores:
+
+//a. Crear un mapa $alert-colors con:
+$alert-colors: (
+    //i. success: #2ecc71
+    "success": #2ecc71,
+    //ii. error: #e74c3c
+    "error": #e74c3c,
+);
+
+//b. Crear un mixin alert-style($type) que:
+@mixin alert-style($type) {
+    //i. Obtenga el color del mapa.
+    $color: map.get($alert-colors, $type );
+    //ii. Aplique fondo de color.
+    background-color: $color;
+
+    //iii. Texto blanco.
+    color: white;
+    //iv. Padding 15px.
+    padding: 15px;
+    //v. Margen superior 10px.
+    margin-top: 10px;
+    //vi. Borde redondeado 5px.
+    border-radius: 5px;
+}
+
+//c. Aplicar el mixin a:
+//i. .alert-success
+.alert-success {
+    @include alert-style("success");
+}
+
+//ii. .alert-error
+.alert-error {
+    @include alert-style("error");
+}
+
+//6. Tipografía consistente con variables y mixin:
+//a. Definir las siguientes variables:
+//i. Fuente principal: 'Arial', sans-serif
+$fuentePrincipal: 'Arial', sans-serif;
+//ii. Tamaño base: 16px
+$tamanioBase: 16px;
+//iii. Color del texto: #333
+$colorText: #333;
+
+//b. Crear un mixin text-base que aplique:
+@mixin text-base() {
+    //i. Fuente.
+    font-family: $fuentePrincipal;
+    //ii. Tamaño base.
+    font-size: $tamanioBase;
+    //iii. Color.
+    color: $colorText;
+}
+
+//c. Aplicar el mixin a:
+
+//i. body
+body {
+    @include text-base();
+}
+
+//ii. .card
+.card {
+    @include text-base();
+}
+
+//iii. .alert
+.alert {
+    @include text-base();
+}
+
+//iv. button
+button {
+    @include text-base();
+}
