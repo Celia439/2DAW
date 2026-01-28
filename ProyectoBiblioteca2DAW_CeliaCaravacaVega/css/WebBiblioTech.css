@@ -182,45 +182,46 @@ footer {
 
 /* Banner Principal */
 .banner-principal {
-        margin: 2em;
+    margin: 2em;
 }
 
 .banner-contenido {
-    background: linear-gradient(135deg, #3d46c7 0%, #6a6c84 100%);
-    border-radius:1em;
+    background: linear-gradient(#6a709a, #4a4e69);
+    border-radius: 1em;
     display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "img desc promo";
     color: white;
 
-    grid-template-columns: 1fr 1fr 2fr;
 }
+
 /*Mientras carge la imagen*/
 .banner-imagen {
+    grid-area: img;
     max-width: 300px;
     max-height: 250px;
+    margin-left: 5em;
     background-color: rgba(240, 248, 247, 0.2);
     border-radius: 10px;
+    margin-top: 3em;
 }
-
-
-
-
-    
-.banner-texto  {
-    font-size: 2em;
-    color: #ff6b5b;
-    font-weight: bold;
-    margin: 0;
-}
-
+/*Palabra a destacar o descuento*/
 .banner-descuento {
-    font-size: 2em;
     font-weight: bold;
-    padding: 1em; background-color: #024d52;
+    padding: 1em;
 }
 
 .banner-descripcion {
+    grid-area: desc;
     font-size: 2em;
     margin: 1em;
+    padding: 1em;
+}
+
+.promo-button {
+    grid-area: promo;
+    text-align: center;
+    margin-top: 2em;
 }
 
 .banner-promo {
@@ -387,10 +388,10 @@ footer {
 }
 
 
-/* Responsive */
+/* ## Responsived ## */
 @media (max-width: 768px) {
+    /*General */
     header {
-        flex-direction: column;
         gap: 15px;
         padding: 15px 20px;
     }
@@ -429,7 +430,7 @@ footer {
     }
 
     .footer-contenido {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 30px;
     }
 }
