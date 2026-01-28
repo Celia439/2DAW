@@ -20,7 +20,7 @@ $btn-success: lightgreen;
 
     //3. Usar pseudoclase :hover dentro del mixin para cambiar el color al pasar el ratón.
     &:hover {
-        background-color: darken($bg,10%);
+        background-color: darken($bg,20%);
     }
 }
 

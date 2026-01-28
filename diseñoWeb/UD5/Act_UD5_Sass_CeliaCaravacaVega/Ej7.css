@@ -1,0 +1,19 @@
+@charset "UTF-8";
+/*7. Lista de Navegación con Combinadores y Pseudoclases
+Dado Ej7.html define estilos tipográficos consistentes usando variables
+y mixin.
+Realiza los siguientes apartados:*/
+.title {
+  font-family: sans-serif;
+  font-size: 3em;
+}
+
+.subtitle {
+  font-family: sans-serif;
+  font-size: 2em;
+}
+
+.text {
+  font-family: sans-serif;
+  font-size: 15px;
+}/*# sourceMappingURL=Ej7.css.map */

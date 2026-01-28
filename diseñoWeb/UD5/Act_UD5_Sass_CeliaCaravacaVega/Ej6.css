@@ -1,0 +1,18 @@
+@charset "UTF-8";
+/*6. Tarjetas de Producto con Variables y Mapas
+Dado Ej6.html aplica colores y padding a tarjetas de producto según tipo.
+Realiza los siguientes apartados:*/
+.card-basic {
+  background-color: #3498db;
+  padding: 2em;
+}
+
+.card-premium {
+  background-color: #e67e22;
+  padding: 2em;
+}
+
+.card-vip {
+  background-color: #9b59b6;
+  padding: 2em;
+}/*# sourceMappingURL=Ej6.css.map */

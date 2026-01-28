@@ -7,7 +7,7 @@
   background-color: orange;
 }
 .btn-primary:hover {
-  background-color: #cc8400;
+  background-color: #996300;
 }
 
 .btn-secondary {
@@ -19,7 +19,7 @@
   background-color: lightblue;
 }
 .btn-secondary:hover {
-  background-color: rgb(133.9158878505, 197.4112149533, 218.0841121495);
+  background-color: rgb(94.8317757009, 178.8224299065, 206.1682242991);
 }
 
 .btn-success {
@@ -31,5 +31,5 @@
   background-color: lightgreen;
 }
 .btn-success:hover {
-  background-color: rgb(99.7734375, 231.2265625, 99.7734375);
+  background-color: rgb(55.546875, 224.453125, 55.546875);
 }/*# sourceMappingURL=Ej2.css.map */

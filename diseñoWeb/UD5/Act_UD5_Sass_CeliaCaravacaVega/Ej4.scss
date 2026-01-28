@@ -1,3 +1,4 @@
+@use "sass:map";
 //4. Alertas con Mapas de Colores
 //Dado Ej4.html usa mapas de colores para diferentes tipos de alertas.
 //Realiza los siguientes apartados:
@@ -12,13 +13,14 @@ $alert-colors: (
         background-color: $type;
     }
     //3. Aplicar el mixin en .alert-success, .alert-error y .alert-warning.
+   
     .alert-success{
-        @include alert-style(map-get($alert-colors,"success"));
+        @include alert-style(map.get($alert-colors,"success"));
     }
     .alert-error{
-        @include alert-style(map-get($alert-colors,"error"));
+        @include alert-style(map.get($alert-colors,"error"));
 
     }
     .alert-warning{
-        @include alert-style(map-get($alert-colors,"warning"));
+        @include alert-style(map.get($alert-colors,"warning"));
     }

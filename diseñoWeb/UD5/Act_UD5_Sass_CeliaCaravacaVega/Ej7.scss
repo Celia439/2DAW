@@ -1,0 +1,29 @@
+/*7. Lista de Navegación con Combinadores y Pseudoclases
+Dado Ej7.html define estilos tipográficos consistentes usando variables
+y mixin.
+Realiza los siguientes apartados:*/
+
+//1. Variables: $font-family, $font-size-h1, $font-size-h2, $font-size-p.
+$font-family: sans-serif;
+$font-size-h1: 3em;
+$font-size-h2: 2em;
+$font-size-p: 15px;
+
+//2. Crear mixin text-style($size, $family) que aplique font-size y font-family.
+@mixin text-style($size, $family) {
+    font-family: $family;
+    font-size: $size;
+}
+
+//3. Aplicar el mixin en .title, .subtitle y .text.
+.title {
+    @include text-style($font-size-h1, $font-family);
+}
+
+.subtitle {
+    @include text-style($font-size-h2, $font-family);
+}
+
+.text {
+    @include text-style($font-size-p, $font-family);
+}
