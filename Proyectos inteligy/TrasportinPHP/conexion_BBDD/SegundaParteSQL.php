@@ -239,5 +239,10 @@ where m.anio like ?
     $consulta->close();
 }
 
-
+//6
+//7
+//8
+//11
+//20
+//25
 $conexion->close();

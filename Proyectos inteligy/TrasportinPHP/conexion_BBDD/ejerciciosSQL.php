@@ -80,8 +80,8 @@ SELECT
     m.nota
 FROM 
     Matriculas m
-    INNER JOIN Alumnos a ON m.dni = a.dni
-    INNER JOIN Asignaturas asg ON m.codigo = asg.codigo";
+    left JOIN Alumnos a ON m.dni = a.dni
+    left JOIN Asignaturas asg ON m.codigo = asg.codigo";
 $resultado7 = $conexion->query($consulta7);
 
 while ($file = $resultado7->fetch_array(MYSQLI_ASSOC)) {
@@ -121,12 +121,19 @@ echo "<h2>";
 echo "11. Muestra el nombre de la asignatura y el número de alumnos matriculados en
 cada una de ellas.";
 echo "</h2>";
-$consulta11 = "select a.nombre,count() from alumnos a INNER JOIN matriculas m on  ";
+$consulta11 = "select asg.nombre,count(m.dni) as Matriculados from matriculas m 
+    INNER JOIN asignaturas asg on asg.codigo=m.codigo
+    GROUP by asg.nombre
+    ";
 
 echo "<h2>";
 echo "12. Muestra el nombre del alumno y la nota media obtenida en todas las asignaturas
 en las que esté matriculado.";
 echo "</h2>";
+$consulta12 = "select a.nombre, round(avg(m.nota),2) as NotaMediaTodasAsignaturasMatriculado from matriculas m 
+    INNER JOIN alumnos a on a.dni=m.dni
+    GROUP by a.nombre,a.dni;
+    ";
 
 echo "<h2>";
 echo "13. Muestra el nombre de los alumnos que no han cursado ninguna asignatura en
@@ -141,6 +148,12 @@ echo "<h2>";
 echo "15. Muestra el nombre de la asignatura y el número de alumnos matriculados de
 aquellas asignaturas que tengan más de un alumno.";
 echo "</h2>";
+
+$consulta15 = "select asg.nombre,count(m.dni) as Matriculados from matriculas m 
+    INNER JOIN asignaturas asg on asg.codigo=m.codigo 
+    GROUP by asg.nombre
+having count(m.codigo)>1
+    ;";
 echo "<h2>";
 echo "16. Muestra el nombre del alumno y el nombre de la asignatura de todos los
 alumnos que estén matriculados en asignaturas del segundo trimestre.
@@ -150,6 +163,12 @@ echo "<h2>";
 echo "17. Muestra el nombre del alumno y el número de asignaturas en las que está
 matriculado, pero solo los alumnos que tengan más de una matrícula.";
 echo "</h2>";
+$consulta17 = "select a.nombre,count(m.codigo) as AsignaturasMatriculado from matriculas m 
+    INNER JOIN asignaturas asg on asg.codigo=m.codigo 
+    INNER JOIN alumnos a on a.dni=m.dni
+    GROUP by a.nombre
+    having count(m.dni)>1
+    ;";
 echo "<h2>";
 echo "18. Muestra el nombre de la asignatura y el número de alumnos matriculados,
 incluyendo también aquellas asignaturas que no tienen ningún alumno
@@ -163,6 +182,10 @@ echo "<h2>";
 echo "20. Muestra el nombre del alumno y su nota media, indicando solo el alumno que
 tiene la nota media más alta de todos.";
 echo "</h2>";
-
+$consulta17 = "select a.nombre,avg(m.nota) as NotaMediaMasAlta from matriculas m 
+    INNER JOIN alumnos a on a.dni=m.dni
+    GROUP by a.nombre
+    having max(avg(m.nota))
+    ;";
 //no te olvides
 $conexion->close();
