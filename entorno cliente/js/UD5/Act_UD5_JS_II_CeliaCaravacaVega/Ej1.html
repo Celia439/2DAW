@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Ejercicio 1</title>
+</head>
+
+<body>
+	<table id="tablaUsuarios">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Email</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Ana</td>
+				<td>ana@email.com</td>
+				<td>
+					<button class="editar">Editar</button>
+					<button class="borrar">Borrar</button>
+				</td>
+			</tr>
+			<tr>
+				<td>Carlos</td>
+				<td>carlos@email.com</td>
+				<td>
+					<button class="editar">Editar</button>
+					<button class="borrar">Borrar</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<script>
+		//1. Delegación de eventos en una tabla dinámica
+		//Una aplicación interna muestra un listado de usuarios en una tabla. Cada fila tiene botones de acción.
+		//Dado el Ej1.html realiza las siguientes tareas:
+		let tbody = document.querySelector("#tablaUsuarios tbody");
+		//1. Añade un solo listener al <tbody> usando delegación de eventos.
+		tbody.addEventListener('click', function (event) {
+			//2. Detecta si se ha pulsado Editar o Borrar usando event.target.
+			if (event.target.classList.contains("editar")) {
+				alert("pulsaste el boton editar");
+			} else if (event.target.classList.contains("borrar")) {
+				alert("pulsaste el boton borrar");
+			}
+			//3. Muestra por consola (console.log) el nombre del usuario afectado.
+			let usuario = event.target.closest("tr").children[0];
+			console.log(usuario);
+		});
+		//4. Explica en un comentario por qué event.currentTarget no es el botón.
+		// event.currentTarget no es el botón porque el listener
+		// está asignado al tbody (o tabla). El evento se produce
+		// en el botón (event.target) y llega hasta el tbody
+		// por la fase de burbujeo.
+
+	</script>
+</body>
+
+</html>

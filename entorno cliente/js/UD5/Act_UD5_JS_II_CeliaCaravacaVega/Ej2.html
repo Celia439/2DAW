@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Ejercicio 2</title>
+</head>
+
+<body>
+	<div id="panel">
+		<div class="card">
+			<h3>Ventas</h3>
+			<button>Ver detalle</button>
+		</div>
+		<div class="card">
+			<h3>Clientes</h3>
+			<button>Ver detalle</button>
+		</div>
+	</div>
+	<script>
+		/*2. Diferencia entre target y currentTarget
+		En un panel de administración hay bloques clicables con contenido interno.
+		Dado el Ej2.html realiza las siguientes tareas:*/
+
+		//1. Añade un listener a cada .card.
+		let card1 = document.getElementsByClassName("card")[0];
+		let card2 = document.getElementsByClassName("card")[1];
+		//2. Al hacer clic en el botón, muestra por consola:
+		//○ event.target.tagName.
+		//○ event.currentTarget.className.
+		//3. Cambia el fondo solo de la card pulsada (modificando estilos o clases CSS en el DOM).
+		card1.addEventListener('click', function (event) {
+			console.log("EventTargetTarName: " + event.target.tagName);
+			console.log("eventCurrentTargeetClassName: " + event.currentTarget.className);
+			if (event.currentTarget.className == "card") {
+				event.currentTarget.style.backgroundColor = "blue";
+				event.currentTarget.style.color = "white";
+			}
+		});
+		card2.addEventListener('click', function (event) {
+			console.log("EventTargetTarName: " + event.target.tagName);
+			console.log("eventCurrentTargeetClassName: " + event.currentTarget.className);
+			if (event.currentTarget.className == "card") {
+				event.currentTarget.style.backgroundColor = "green";
+				event.currentTarget.style.color = "white";
+			}
+		});
+		//4. Justifica en un comentario por qué no se debe usar event.target para cambiar el estilo.
+		//Porque en caso de utilizar event.target hacemos referencia al elemento donde se a clicado en vez de a la targeta seleccionada
+	</script>
+</body>
+
+</html>

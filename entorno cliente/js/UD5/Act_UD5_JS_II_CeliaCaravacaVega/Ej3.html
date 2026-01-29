@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Ejercicio 3</title>
+</head>
+
+<body>
+	<nav id="menu">
+		<ul>
+			<li>Inicio</li>
+			<li>Servicios
+				<ul>
+					<li>Web</li>
+					<li>App</li>
+				</ul>
+			</li>
+			<li>Contacto</li>
+		</ul>
+	</nav>
+	<script>
+		/*3. Captura vs burbujeo en un menú desplegable
+		Un menú corporativo necesita controlar el orden de ejecución de eventos.
+		Dado el Ej3.html realiza las siguientes tareas:*/
+
+		//1. Añade un listener al <nav> en fase de captura.
+		document.getElementById("menu").addEventListener('click',function(event){
+			console.log("NAV en captura:  "+event.target.textContent);	
+		},true);
+		//2. Añade otro listener a los <li> en fase de burbujeo.
+		let items = document.querySelectorAll("#menu li");
+		items.forEach(li=>{
+    		li.addEventListener('click', function(event){
+        		console.log("LI en burbujeo: " + event.target.textContent);
+    		});
+		});
+
+		//3. Haz clic en “Web” y muestra por consola el orden real de ejecución.
+		
+		//4. Usa comentarios para explicar el flujo del evento.
+		// Cuando hacemos click en web ocurren dos cosas:
+		// Se captura el li concreto desde el nav hasta el li (ocurre antes que el burbujeo por la fase de captura).
+		// El li burbujea su contenido para mostrarlo
+	</script>
+</body>
+
+</html>
