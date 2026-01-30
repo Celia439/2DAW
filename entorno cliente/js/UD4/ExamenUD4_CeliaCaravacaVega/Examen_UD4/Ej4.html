@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Información del sistema</title>
+</head>
+
+<body>
+
+  <h2>Información del navegador</h2>
+  <ul id="info"></ul>
+
+  <button id="btnHistorial">Mostrar historial</button>
+
+  <script>
+    /*  Ejercicio 4 - Información del navegador y navegación (1,2 puntos)
+    Página de diagnóstico técnico para el departamento IT.
+    Dado el Ej4.html se pide:*/
+    let info = document.getElementById("info");
+    let btnHistorial = document.getElementById("btnHistorial");
+    //1. Mostrar en la lista: (0,4 puntos)
+    // 2. Cada dato debe aparecer en un <li> distinto. (0,3 puntos)
+
+    //● URL completa. 
+    let liURL = document.createElement("li");
+    let url = location.href.toString();
+    console.log(url);
+    liURL.innerText = url;
+    // ● Protocolo.
+    let liProtocol = document.createElement("li");
+    let protocolo = location.protocol.toString();
+    liProtocol.innerText = protocolo;
+    // ● Hostname.
+    let liHostName = document.createElement("li");
+    let hostname = location.hostname.toString();
+    liHostName.innerText = hostname;
+    // ● Pathname.
+    let liPathname = document.createElement("li");
+    let pathname = location.pathname.toString();
+    liPathname.innerText = pathname;
+    //enlazar a la lista
+    info.appendChild(liURL);
+    info.appendChild(liProtocol);
+    info.appendChild(liHostName);
+    info.appendChild(liPathname);
+    // 3. Al pulsar Mostrar historial:
+    btnHistorial.addEventListener('click', function () {
+      // ● Mostrar en consola history.length. (0,2 puntos)
+      console.log(history.length);
+      // ● Cambiar la URL usando history.pushState() sin recargar. (0,2 puntos)
+      history.pushState(null, "nombreIgnoradoPorElNabegador", "/?cambioURL");
+      // ● Mostrar un alert("URL modificada dinámicamente").
+      alert("URL modificada dinámicamente");
+      // 4. Si la URL contiene hash(#), cambiar el fondo del body . (0,1puntos)
+      if (location) {
+        document.body.style.backgroundColor = "pinck";
+      }
+    });
+  </script>
+</body>
+
+</html>

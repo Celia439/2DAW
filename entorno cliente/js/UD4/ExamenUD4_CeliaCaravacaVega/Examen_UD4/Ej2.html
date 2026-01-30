@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Avisos internos</title>
+  <style>
+    .aviso {
+      background: #ffeeba;
+      margin: 5px 0;
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Avisos internos</h2>
+
+  <ul id="listaAvisos">
+    <li class="aviso">Reunión a las 10:00</li>
+  </ul>
+
+  <button id="btnAdd">Añadir aviso</button>
+  <button id="btnRemove">Eliminar último aviso</button>
+
+  <script>
+    /*Ejercicio 2 - Panel de avisos internos (1,2 puntos)
+  En una intranet corporativa se gestionan avisos internos para los empleados.
+  Dado el Ej2.html se pide:*/
+    let listaAvisos = document.getElementById("listaAvisos");
+    let btnAdd = document.getElementById("btnAdd");
+    let btnRemove = document.getElementById("btnRemove");
+    //1. Al pulsar Añadir aviso:
+    btnAdd.addEventListener('click', function () {
+      //● Crear un <li> dinámicamente. (0,3 puntos)
+      let li = document.createElement("li");
+      //● Añadir texto: "Nuevo aviso generado". (0,2 puntos)
+      let textLi = document.createTextNode("Nuevo aviso generado");
+      li.appendChild(textLi);
+      //● Asignar la clase aviso. (0,2 puntos)
+      li.setAttribute("class", "aviso");
+      //● Insertarlo en la lista. (0,2 puntos)
+      listaAvisos.appendChild(li);
+    });
+    //2. Al pulsar Eliminar último aviso: (0,3 puntos)
+    btnRemove.addEventListener('click', function () {
+      //● Eliminar el último <li> de la lista.
+      // (otra forma listaAvisos.childNodes[listaAvisos.childElementCount-1])
+      let utlimo = listaAvisos.lastChild;
+      console.log(utlimo);
+      listaAvisos.removeChild(utlimo);
+
+    });
+    //3. Usar correctamente:
+    // ● createElement
+    // ● createTextNode
+    // ● appendChild
+    // ● removeChild
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Alta de empleado</title>
+  <style>
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Alta de empleado</h2>
+
+  <form id="formEmpleado">
+    <label>
+      Nombre:
+      <input type="text" id="nombre">
+    </label>
+    <p class="error" id="errorNombre"></p>
+
+    <label>
+      Email:
+      <input type="text" id="email">
+    </label>
+    <p class="error" id="errorEmail"></p>
+
+    <label>
+      Edad:
+      <input type="text" id="edad">
+    </label>
+    <p class="error" id="errorEdad"></p>
+
+    <button type="submit">Registrar</button>
+  </form>
+
+  <script>
+    /*Ejercicio 1 - Formulario de alta de empleado (1,8 puntos)
+    Una empresa necesita validar el formulario de alta de nuevos empleados antes de enviarlo al
+    servidor.
+    Dado el Ej1.html se pide:*/
+    let formEmpleado = document.getElementById("formEmpleado");
+    let errorNombre = document.getElementById("errorNombre");
+    let nombre = document.getElementById("nombre");
+    let nombreE = document.getElementById("errorNombre");
+    let email = document.getElementById("email");
+    let emailE = document.getElementById("errorEmail");
+    let edad = document.getElementById("edad");
+    let edadE = document.getElementById("errorEdad");
+    //1. Capturar el envío del formulario usando addEventListener. (0,3 puntos)
+    //Funciona, la cosa es que no recuerdo como hacer que la página no se refresque inmediatamente
+    formEmpleado.addEventListener('submit', function () {
+      //2. Validar: (0,9 puntos)
+      //3. Mostrar los mensajes de error debajo de cada campo. (0,3 puntos)
+      //a. Nombre: obligatorio, solo letras y espacios.
+      if (!nombre.value.match(/^[A-Za-záéíóúÁÉÍÓñÑ\s]+$/)) {
+        nombreE.innerText = "Error: Solo se pueden introducir letras y espacios";
+        //b. Email: obligatorio y formato válido.
+      } else if (email.value.match(/^[^@]+@[^0-9@]+\.[^0-9]{3,}$/)) {
+        emailE.innerText = "Error: el formato del correo es invalido Ejemplo : ejemplo@gmail.es";
+        //c. Edad: número entre 18 y 65.
+      } else if (edad.value < 18 || edad.value > 65) {
+        emailE.innerText = "Error: Debes ser mayor de edad +18 y menor a 65 años";
+      } else {
+        //4. Si todo es correcto, mostrar un alert("Empleado registrado correctamente"). (0,3 puntos)
+        alert("todo esta correcto");
+      }
+
+    });
+    //5. Usar getElementById y/o querySelector.
+  </script>
+</body>
+
+</html>

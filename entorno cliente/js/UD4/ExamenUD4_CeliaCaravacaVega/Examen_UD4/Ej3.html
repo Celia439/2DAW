@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tareas</title>
+  <style>
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .activa {
+      background: #d4edda;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Panel de tareas</h2>
+
+  <div id="tareas">
+    <div class="card">
+      <p>Tarea 1</p>
+      <button>Completar</button>
+    </div>
+    <div class="card">
+      <p>Tarea 2</p>
+      <button>Completar</button>
+    </div>
+  </div>
+
+  <script>
+    /*Ejercicio 3 - Gestión de tarjetas de tareas (1,8 puntos)
+    Aplicación web para gestionar tareas de un equipo.
+    Dado el Ej3.html se pide:*/
+    let tareas = document.getElementById("tareas");
+    //1. Usar delegación de eventos sobre el contenedor #tareas. (0,4 puntos)
+    tareas.addEventListener('click', function (event) {
+      //2. Detectar si el clic se produce sobre un botón usando matches(). (0,3 puntos)
+      if (event.target.matches("button")) {
+        // 3. Localizar la tarjeta correspondiente usando closest ('.card'). (0,3 puntos)
+        let card = event.target.closest(".card");
+        // 4. Añadir la clase activa a la tarjeta pulsada. (0,3 puntos)
+        card.classList.add("activa");
+        // 5. Cambiar el texto del <p> a: (0,3 puntos)
+        // "Tarea completada" lo unico que no puedo acceder es al p :(
+        console.log(card.firstChild);
+        let p = card.firstChild;
+        p.textContent = "Tarea completada";
+        // 6. Si existe una tarjeta siguiente (nextElementSibling), cambiar su borde a color rojo.(0,2 puntos)
+        if (card.nextElementSibling != null) {
+          card.nextElementSibling.style.border = "red 2px solid";
+        }
+      }
+    });
+
+
+
+
+
+  </script>
+</body>
+
+</html>
