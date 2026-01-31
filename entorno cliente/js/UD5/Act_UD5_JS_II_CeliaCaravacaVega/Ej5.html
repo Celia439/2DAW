@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Ejercicio 5</title>
+	<meta charset="UTF-8">
+	<title>Ejercicio 5</title>
 </head>
+
 <body>
 	<ul id="tareas">
 		<li>
@@ -13,6 +15,45 @@
 		</li>
 	</ul>
 	<button id="nueva">Nueva tarea</button>
-<script></script>
+	<script>
+		/*5. Gestión de botones en una lista de tareas
+	Una app tipo ToDo usa delegación para manejar tareas creadas
+	dinámicamente.
+	Dado el Ej5.html realiza las siguientes tareas:*/
+
+		//1. Añade un único listener al elemento <ul id="tareas"> usando delegación
+		//  de eventos.
+		document.getElementById("tareas").addEventListener('click', function (event) {
+			//2. Si se pulsa el botón ✔, marca la tarea como completada, realizando
+			//  un cambio visual en el DOM (por ejemplo, cambiando el color del texto o añadiendo una clase CSS).
+			if (event.target.classList.contains("ok")) {
+				event.target.parentNode.style.backgroundColor = "lightblue";
+				//3. Si se pulsa el botón ✖, elimina la tarea correspondiente del DOM.
+			} else if (event.target.classList.contains("delete")) {
+				event.target.parentNode.remove();
+			}
+			//4. Al pulsar el botón Nueva tarea, crea dinámicamente una nueva tarea
+			//  dentro del <ul> con la misma estructura HTML que las existentes.
+			let nueva = document.getElementById("nueva");
+			if (nueva.onclick()) {
+				let li = document.createElement("li");
+				li.innerHTML = '<span>Estudiar JS</span> <button class="ok">✔</button> <button class="delete">✖</button>';
+				ul.appendChild(li);
+			}
+		});
+
+		// Listener independiente para el botón “Nueva tarea” ya que no se puede acceder con el anterior
+		const nuevaBtn = document.getElementById("nueva");
+		nuevaBtn.addEventListener('click', function () {
+			const ul=document.getElementById("tareas");
+			const li = document.createElement("li");
+			li.innerHTML = '<span>Estudiar JS</span><button class="ok">✔</button><button class="delete">✖</button>';
+			ul.appendChild(li);
+		});
+
+		// 5. Comprueba que los botones ✔ y ✖ funcionan correctamente también
+		//  en las tareas creadas dinámicamente sin añadir nuevos listeners.
+	</script>
 </body>
+
 </html>

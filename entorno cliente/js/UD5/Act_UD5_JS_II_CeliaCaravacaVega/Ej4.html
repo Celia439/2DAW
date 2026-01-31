@@ -1,27 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Ejercicio 4</title>
+	<meta charset="UTF-8">
+	<title>Ejercicio 4</title>
+
 </head>
+
 <body>
 	<form id="registro">
 		<input type="text" name="nombre" placeholder="Nombre">
 		<input type="email" name="email" placeholder="Email">
 		<input type="password" name="password" placeholder="Contraseña">
 	</form>
-<script>
-	/*4. Formulario con validación por delegación
-Un formulario se valida dinámicamente mientras el usuario escribe.
-Dado el Ej4.html realiza las siguientes tareas:*/
+	<script>
+		/*4. Formulario con validación por delegación
+	Un formulario se valida dinámicamente mientras el usuario escribe.
+	Dado el Ej4.html realiza las siguientes tareas:*/
 
-//1. Añade un único listener input al formulario (no uno por cada input).
-
-//2. Detecta qué campo se está modificando usando event.target.name.
-//3. Valida:
-//○ Nombre: mínimo 3 caracteres.
-//○ Password: mínimo 6 caracteres.
-//4. Marca en rojo solo el input inválido (modificando clases CSS en el DOM).
-</script>
+		//1. Añade un único listener input al formulario (no uno por cada input).
+		document.getElementById("registro").addEventListener('input', function (event) {
+			//2. Detecta qué campo se está modificando usando event.target.name.
+			//3. Valida:
+			//4. Marca en rojo solo el input inválido (modificando clases CSS en el DOM).
+			//○ Nombre: mínimo 3 caracteres.
+			//Validar
+			if (event.target.name === "nombre" && event.target.value.length <= 3) {
+				//Cambiar color borde
+				event.target.style.borderColor = "red";
+			} else if (event.target.value.length > 3) {
+				event.target.style.borderColor = "#333";
+			} else {
+				//Caso de error
+				console.log("error Detectar");
+			}
+			//○ Password: mínimo 6 caracteres.
+			//Validar
+			if (event.target.name === "password" && event.target.value.length <= 6) {
+				//Cambiar color borde
+				event.target.style.borderColor = "red";
+			} else if (event.target.value.length > 6) {
+				//Cambiar color borde
+				event.target.style.borderColor = "#333";
+			} else {
+				//Caso de error
+				console.log("error Detectar");
+			}
+		}, true);
+	</script>
 </body>
+
 </html>

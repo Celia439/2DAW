@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de usuarios</title>
+
+  <style>
+    .error { color: red; }
+    .ok { color: green; }
+    .usuario { border: 1px solid #ccc; padding: 10px; margin: 5px 0; }
+    .activo { background-color: #e0ffe0; }
+  </style>
+</head>
+
+<body>
+
+<h1 id="titulo">Gestión de usuarios</h1>
+
+<form id="formulario">
+  <label>Nombre:</label><br>
+  <input type="text" id="nombre"><br><br>
+
+  <label>Email:</label><br>
+  <input type="text" id="email"><br><br>
+
+  <label>Edad:</label><br>
+  <input type="text" id="edad"><br><br>
+
+  <button type="button" id="btnAgregar">Agregar usuario</button>
+</form>
+
+<p id="mensaje"></p>
+
+<hr>
+
+<h2>Listado de usuarios</h2>
+<div id="listaUsuarios"></div>
+
+<hr>
+
+<button id="btnInfo">Info del navegador</button>
+<button id="btnCambiarURL">Cambiar URL</button>
+
+<script src="app.js"></script>
+</body>
+</html>
