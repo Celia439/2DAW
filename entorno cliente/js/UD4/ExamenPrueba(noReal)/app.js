@@ -178,7 +178,7 @@ btnInfo.addEventListener("click", function () {
 btnCambiarURL.addEventListener("click", function () {
   //Usar history.pushState() para cambiar la URL a:
   //?pagina=usuarios
-  history.pushState(null,"","?pagina=usuarios"); //(Que parametro me falta ?)
+  history.pushState(null,"","?pagina=usuarios");
   //Mostrar en consola:
   //URL cambiada sin recargar
   console.log("url cambiada sin recargar");
