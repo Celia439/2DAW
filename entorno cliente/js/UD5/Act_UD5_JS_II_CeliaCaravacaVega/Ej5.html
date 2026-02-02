@@ -32,20 +32,15 @@
 			} else if (event.target.classList.contains("delete")) {
 				event.target.parentNode.remove();
 			}
-			//4. Al pulsar el botón Nueva tarea, crea dinámicamente una nueva tarea
-			//  dentro del <ul> con la misma estructura HTML que las existentes.
-			let nueva = document.getElementById("nueva");
-			if (nueva.onclick()) {
-				let li = document.createElement("li");
-				li.innerHTML = '<span>Estudiar JS</span> <button class="ok">✔</button> <button class="delete">✖</button>';
-				ul.appendChild(li);
-			}
-		});
 
+
+		});
+		//4. Al pulsar el botón Nueva tarea, crea dinámicamente una nueva tarea
+		//  dentro del <ul> con la misma estructura HTML que las existentes.
 		// Listener independiente para el botón “Nueva tarea” ya que no se puede acceder con el anterior
 		const nuevaBtn = document.getElementById("nueva");
 		nuevaBtn.addEventListener('click', function () {
-			const ul=document.getElementById("tareas");
+			const ul = document.getElementById("tareas");
 			const li = document.createElement("li");
 			li.innerHTML = '<span>Estudiar JS</span><button class="ok">✔</button><button class="delete">✖</button>';
 			ul.appendChild(li);

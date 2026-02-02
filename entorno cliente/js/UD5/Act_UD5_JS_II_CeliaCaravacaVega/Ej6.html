@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Ejercicio 6</title>
+	<meta charset="UTF-8">
+	<title>Ejercicio 6</title>
 </head>
+
 <body>
 	<div class="card">
 		<a href="https://example.com">Ir al informe</a>
 	</div>
-<script></script>
+	<script>
+		/*6. Prevención de eventos no deseados
+		En un dashboard hay enlaces dentro de tarjetas clicables.
+		Dado el Ej6.html realiza las siguientes tareas:*/
+		//1. Añade un listener a la tarjeta (.card) que muestre por consola el mensaje:"Card pulsada".
+		const card = document.querySelector(".card");
+		card.addEventListener('click', function (event) {
+			console.log("Card pulsada: " + event.target);
+		});
+		//2. Añade un listener al enlace <a> que muestre por consola el mensaje:"Enlace pulsado".
+		let a = document.querySelector(".card a");
+		a.addEventListener('click', function (event) {
+			console.log("Enlace pulsado");
+			//3. Al hacer clic en el enlace, evita que se ejecute el evento asociado a la card. Para ello, usa event.stopPropagation().
+			event.stopPropagation();
+		});
+		//4. Explica, mediante un comentario en el código, para qué se utiliza event.stopPropagation() y qué problema resuelve en este ejercicio.
+		// Evita el efecto burbujero, solventa el problema de que cuando pulsemos el enlace no salte tambien el listener de card
+	</script>
 </body>
+
 </html>

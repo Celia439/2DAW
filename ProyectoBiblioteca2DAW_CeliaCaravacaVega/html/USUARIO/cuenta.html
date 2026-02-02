@@ -1,0 +1,214 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial-Reservas</title>
+    <link rel="icon" href="../../img/LogoBiblioteca.svg">
+    <link rel="stylesheet" href="../../css/WebBiblioTech.css">
+</head>
+
+<body>
+    <!-- Cabecera -->
+    <header class="container-build bg-prymary">
+
+        <nav class="menu-principal">
+            <img class="logo-icon" src="../../img/LogoBiblioteca.svg">
+            <a class="seleccionado" href="#inicio">Inicio</a>
+            <a href="#contactos">Contactos</a>
+            <a href="#devoluciones">Devoluciones</a>
+            <a href="#prestamos">Prestamos</a>
+            <a href="#reservas">Reservas</a>
+            <button class="iconos-header"><img src="../../img/lupa.svg" /></button>
+            <button class="iconos-header"><img src="../../img/notificacion.svg" /></button>
+            <button class="iconos-header"><img src="../../img/lista.svg" /></button>
+            <button class="btn-general">Login</button>
+        </nav>
+
+        <hr>
+
+        <!-- Pestañas -->
+        <div class="pestanas container-build bg-prymary">
+            <div class="pestana ">Recientes</div>
+            <div class="pestana">Los número 1</div>
+            <div class="pestana">Categorias</div>
+            <div class="pestana">Recursos Académicos</div>
+        </div>
+    </header>
+    <!--main-->
+      <main class="contenedor-principal">
+
+        <!-- Sección de información del usuario -->
+        <section class="caja-cuenta">
+            <!-- Avatar y botón editar -->
+            <div class="seccion-avatar">
+                <div class="avatar">
+                    <!-- Icono de usuario genérico -->
+                    <svg width="337" height="333" viewBox="0 0 337 333" fill="none">
+                        <rect width="337" height="333" rx="100" fill="#EADDFF"/>
+                        <circle cx="168.5" cy="108.75" r="33.25" fill="#4F378A"/>
+                        <path d="M219.052 133.2C219.052 160.787 196.42 183.15 168.502 183.15C140.584 183.15 117.952 160.787 117.952 133.2C117.952 105.613 140.584 83.25 168.502 83.25C196.42 83.25 219.052 105.613 219.052 133.2ZM202.202 133.2C202.202 151.591 187.114 166.5 168.502 166.5C149.89 166.5 134.802 151.591 134.802 133.2C134.802 114.809 149.89 99.9 168.502 99.9C187.114 99.9 202.202 114.809 202.202 133.2Z" fill="#4F378A" fill-rule="evenodd" clip-rule="evenodd"/>
+                        <path d="M168.502 208.125C113.955 208.125 67.4802 239.997 49.7766 284.649C54.0893 288.88 58.6325 292.883 63.3858 296.637C76.5687 255.642 117.924 224.775 168.502 224.775C219.08 224.775 260.436 255.642 273.618 296.637C278.372 292.883 282.915 288.881 287.228 284.649C269.524 239.997 223.049 208.125 168.502 208.125Z" fill="#4F378A"/>
+                    </svg>
+                </div>
+                <button class="boton-editar">
+                    <!-- Icono lápiz -->
+                    <svg width="25" height="25" viewBox="0 0 31 29" fill="none">
+                        <path d="M2.58333 2.41667L21.3125 6.64583L23.25 15.7083L16.7917 21.75L7.10417 19.9375L2.58333 2.41667ZM2.58333 2.41667L12.3819 11.5831M15.5 22.9583L24.5417 14.5L28.4167 18.125L19.375 26.5833L15.5 22.9583ZM16.7917 13.2917C16.7917 14.6264 15.6351 15.7083 14.2083 15.7083C12.7816 15.7083 11.625 14.6264 11.625 13.2917C11.625 11.957 12.7816 10.875 14.2083 10.875C15.6351 10.875 16.7917 11.957 16.7917 13.2917Z" stroke="#1E1E1E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Editar
+                </button>
+            </div>
+
+            <!-- Datos del usuario en grid -->
+            <div class="datos-usuario">
+                <div class="campo">
+                    <p class="etiqueta">Nombre completo:</p>
+                    <p class="valor">Celia caravaca vega</p>
+                </div>
+                <div class="campo">
+                    <p class="etiqueta">Fecha de alta:</p>
+                    <p class="valor">01/01/2024</p>
+                </div>
+                <div class="campo">
+                    <p class="etiqueta">Dirección de residencia:</p>
+                    <p class="valor">Calle Principal 123, Madrid</p>
+                </div>
+                <div class="campo">
+                    <p class="etiqueta">Fecha de vencimiento del carnét:</p>
+                    <p class="valor">01/01/2025</p>
+                </div>
+                <div class="campo">
+                    <p class="etiqueta">TLF:</p>
+                    <p class="valor">+34 600 000 000</p>
+                </div>
+                <div class="campo">
+                    <p class="etiqueta">DNI:</p>
+                    <p class="valor">12345678A</p>
+                </div>
+                <div class="campo">
+                    <p class="etiqueta">Correo:</p>
+                    <p class="valor">celia@ejemplo.com</p>
+                </div>
+                <div class="campo">
+                    <p class="etiqueta">Fecha de nacimiento:</p>
+                    <p class="valor">15/03/1990</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Separador -->
+        <hr class="separador">
+
+        <!-- Historial de préstamos -->
+        <section class="caja-cuenta">
+            <h2 class="titulo-seccion">Historial de préstamos:</h2>
+            <div class="contenido-vacio">
+                <p class="mensaje-vacio">¡Tu historia lectora aún no ha comenzado!</p>
+                <button class="boton-general">Ver más</button>
+            </div>
+        </section>
+
+        <!-- Separador -->
+        <hr class="separador">
+
+        <!-- Historial de reservas -->
+        <section class="caja-cuenta">
+            <h2 class="titulo-seccion">Historial de reservas</h2>
+            <div class="contenido-vacio">
+                <p class="mensaje-vacio">No se encontraron reservas activas ni completadas.</p>
+                <button class="boton-general">Ver más</button>
+            </div>
+        </section>
+
+        <!-- Separador -->
+        <hr class="separador">
+
+        <!-- Multas -->
+        <section class="caja-cuenta">
+            <h2 class="titulo-seccion">Multas</h2>
+            <div class="contenido-vacio">
+                <p class="mensaje-vacio">¡Felicitaciones! Tu cuenta está en 0,00 €.</p>
+                <p class="texto-secundario">Eres un ejemplo de puntualidad (o simplemente no has sacado nada aún).</p>
+                <button class="boton-general">Ver más</button>
+            </div>
+        </section>
+
+        <!-- Separador -->
+        <hr class="separador">
+
+        <!-- Favoritos -->
+        <section class="caja-cuenta">
+            <div class="header-favoritos">
+                <h2 class="titulo-seccion">Favoritos</h2>
+                <!-- Icono corazón -->
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <path d="M41.68 9.22C40.6585 8.19801 39.4456 7.38729 38.1107 6.83417C36.7758 6.28104 35.345 5.99635 33.9 5.99635C32.455 5.99635 31.0242 6.28104 29.6893 6.83417C28.3544 7.38729 27.1415 8.19801 26.12 9.22L24 11.34L21.88 9.22C19.8166 7.15662 17.0181 5.99742 14.1 5.99742C11.1819 5.99742 8.38338 7.15662 6.32 9.22C4.25662 11.2834 3.09742 14.0819 3.09742 17C3.09742 19.9181 4.25662 22.7166 6.32 24.78L24 42.46L41.68 24.78C42.702 23.7585 43.5127 22.5456 44.0658 21.2107C44.619 19.8758 44.9037 18.445 44.9037 17C44.9037 15.555 44.619 14.1242 44.0658 12.7893C43.5127 11.4544 42.702 10.2415 41.68 9.22Z" stroke="#FF8C61" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="contenido-vacio">
+                <p class="mensaje-vacio">Aun no tienes favoritos</p>
+                <button class="boton-general">Ver más</button>
+            </div>
+        </section>
+
+    </main>
+
+
+
+
+        <!-- Footer -->
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-columna">
+                <h3>TÍTULO</h3>
+                <p>Un espacio sagrado donde las palabras encuentran paz y la lectura se convierte en una invitación
+                    a la
+                    serenidad.</p>
+                <div class="footer-logo"><img src="../../img/LogoBiblioteca.svg" /></div>
+            </div>
+
+            <div class="footer-columna">
+                <h4>Text Strong</h4>
+                <ul>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-columna">
+                <h4>Text Strong</h4>
+                <ul>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-columna">
+                <h4>Text Strong</h4>
+                <ul>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </footer>
+
+    <!--JS Boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,18 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Ejercicio 8</title>
+	<meta charset="UTF-8">
+	<title>Ejercicio 8</title>
 </head>
+
 <body>
-<section id="app">
-	<div class="bloque">
-		<button>Acción 1</button>
-	</div>
-	<div class="bloque">
-		<button>Acción 2</button>
-	</div>
-</section>
-<script></script>
+	<section id="app">
+		<div class="bloque">
+			<button>Acción 1</button>
+		</div>
+		<div class="bloque">
+			<button>Acción 2</button>
+		</div>
+	</section>
+	<script>
+		/*8. Auditoría de eventos
+		Se necesita una utilidad de depuración para saber dónde se producen los clics.
+		Dado el Ej8.html realiza las siguientes tareas:*/
+
+		//1. Añade un listener en fase de captura a #app.
+		const app =document.getElementById("app");
+		app.addEventListener('click',function(event){
+			//2. Registra por consola:
+			//● event.target
+			console.log(event.target);
+			//● event.currentTarget
+			console.log(event.currentTarget);
+			//● Fase del evento. 1 captura 2 target 3 bubbling
+			console.log(event.eventPhase);
+		},true);
+					
+		//3. Explica en un comentario para qué sería útil este sistema en un entorno real.
+
+		//-Para localizar eventos concretos dentro de nuestra página web, como por ejemplo:
+		// * Pponer en marcha una animación.
+		// * Al cargar la página mostrár documentación.
+		// * Controlar el comportamiento de los formularios inputs
+		
+		//4. Indica en un comentario qué cambiaría si el listener estuviera en burbujeo.
+
+		// En caso de burbujeo si hacemos un listener de algun elemento dentro del padre al tocar ese 
+		// va a burbujear hasta el padre y se va a ejecutar aunque toquemos solo el hijo.
+
+	</script>
 </body>
+
 </html>

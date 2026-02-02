@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial-Prestamos</title>
+    <link rel="icon" href="../../img/LogoBiblioteca.svg">
+    <link rel="stylesheet" href="../../css/WebBiblioTech.css">
+</head>
+
+<body>
+    <!-- Cabecera -->
+    <header class="container-build bg-prymary">
+
+        <nav class="menu-principal">
+            <img class="logo-icon" src="../../img/LogoBiblioteca.svg">
+            <a class="seleccionado" href="#inicio">Inicio</a>
+            <a href="#contactos">Contactos</a>
+            <a href="#devoluciones">Devoluciones</a>
+            <a href="#prestamos">Prestamos</a>
+            <a href="#reservas">Reservas</a>
+            <button class="iconos-header"><img src="../../img/lupa.svg" /></button>
+            <button class="iconos-header"><img src="../../img/notificacion.svg" /></button>
+            <button class="iconos-header"><img src="../../img/lista.svg" /></button>
+            <button class="btn-general">Login</button>
+        </nav>
+
+        <hr>
+
+        <!-- Pestañas -->
+        <div class="pestanas container-build bg-prymary">
+            <div class="pestana ">Recientes</div>
+            <div class="pestana">Los número 1</div>
+            <div class="pestana">Categorias</div>
+            <div class="pestana">Recursos Académicos</div>
+        </div>
+    </header>
+
+    <main class="container my-5">
+
+        <!-- Título de la página -->
+        <h1>Reservas</h1>
+
+        <!-- Sección: Libros a reservar -->
+        <section class="mb-5">
+            <h2>Libros a reservar</h2>
+
+            <form>
+                <!-- Campo texto -->
+                <div class="mb-3">
+                    <label for="notaEntrega" class="form-label">Delivery note</label>
+                    <div class="input-group">
+                        <input type="text" id="notaEntrega" class="form-control" placeholder="Value">
+                        <button class="btn btn-outline-secondary" type="button">+</button>
+                    </div>
+                </div>
+
+                <!-- Checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="terminos">
+                    <label class="form-check-label" for="terminos">
+                        I accept the terms
+                    </label>
+                </div>
+
+                <a href="#" class="d-block mt-1">Read our T&Cs</a>
+            </form>
+        </section>
+
+        <!-- Sección: Calendario -->
+        <section class="mb-5">
+            <h2>Días</h2>
+
+            <!-- Selector mes y año -->
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <button class="btn btn-light">&lt;</button>
+
+                <select class="form-select w-auto">
+                    <option>Dic</option>
+                </select>
+
+                <select class="form-select w-auto">
+                    <option>2025</option>
+                    <option>2026</option>
+                </select>
+
+                <button class="btn btn-light">&gt;</button>
+            </div>
+
+            <!-- Calendario -->
+            <div class="border rounded p-3">
+                <div class="row text-center fw-bold mb-2">
+                    <div class="col">L</div>
+                    <div class="col">M</div>
+                    <div class="col">X</div>
+                    <div class="col">J</div>
+                    <div class="col">V</div>
+                    <div class="col">S</div>
+                    <div class="col">D</div>
+                </div>
+
+                <!-- Semana -->
+                <div class="row text-center mb-2">
+                    <div class="col">1</div>
+                </div>
+
+                <!-- Repite filas según semanas -->
+            </div>
+        </section>
+
+        <!-- Botón final -->
+        <section class="text-start">
+            <button class="btn btn-warning">Enviar</button>
+        </section>
+
+    </main>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-columna">
+                <h3>TÍTULO</h3>
+                <p>Un espacio sagrado donde las palabras encuentran paz y la lectura se convierte en una invitación
+                    a la
+                    serenidad.</p>
+                <div class="footer-logo"><img src="../img/LogoBiblioteca.svg" /></div>
+            </div>
+
+            <div class="footer-columna">
+                <h4>Text Strong</h4>
+                <ul>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-columna">
+                <h4>Text Strong</h4>
+                <ul>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-columna">
+                <h4>Text Strong</h4>
+                <ul>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                    <li><a href="#">List item</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </footer>
+
+    <!--JS Boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
