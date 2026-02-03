@@ -1,0 +1,244 @@
+-- =============================================
+-- BiblioTech:
+-- Creación de Base de Datos
+-- =============================================
+
+-- Por si acaso se puede omitir la primera vez
+DROP DATABASE IF EXISTS BiblioTech;
+--Empezamos
+CREATE DATABASE BiblioTech;
+USE BiblioTech;
+
+-- =============================================
+-- TABLA: Usuarios
+-- Incluye lectores, bibliotecarios y administradores
+-- =============================================
+CREATE TABLE Usuarios (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100),
+    dni VARCHAR(20) UNIQUE,
+    email VARCHAR(150) UNIQUE NOT NULL,
+-- ==Me duda la password por seguridad== --
+    password VARCHAR(255) NOT NULL,
+    telefono VARCHAR(20),
+    direccion VARCHAR(255),
+    rol ENUM('lector', 'bibliotecario', 'admin') NOT NULL DEFAULT 'lector',
+    estado ENUM('activo', 'bloqueado') NOT NULL DEFAULT 'activo',
+-- Esto crea una fecha del momento creado(recuerda)(no se si usar datetime) --
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+-- Cuando se actualizo --
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- =============================================
+-- TABLA: Géneros
+-- Catálogo de géneros literarios
+-- =============================================
+CREATE TABLE Generos (
+    id_genero INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
+-- TEXT para descripciones--
+    descripcion TEXT
+);
+
+-- =============================================
+-- TABLA: Libros
+-- Información de la obra (no copias físicas)
+-- =============================================
+CREATE TABLE Libros (
+    id_libro INT PRIMARY KEY AUTO_INCREMENT,
+    isbn VARCHAR(20) UNIQUE NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    autor VARCHAR(150) NOT NULL,
+    editorial VARCHAR(100),
+    anio_publicacion YEAR,
+--Lo hice asi pero se puede quitar o cambiar (un poco de duda)
+    idioma VARCHAR(50) DEFAULT 'Español',
+    num_paginas INT,
+--Minimo 1--
+    cantidad INT NOT NULL DEFAULT 1,
+    descripcion TEXT,
+    estado ENUM('activo', 'deshabilitado') NOT NULL DEFAULT 'activo'
+);
+
+-- =============================================
+-- TABLA: Libro_Genero (Tabla intermedia N:M)
+-- Relaciona libros con sus géneros
+-- =============================================
+CREATE TABLE Libro_Genero (
+    id_libro INT NOT NULL,
+    id_genero INT NOT NULL,
+    PRIMARY KEY (id_libro, id_genero),
+    FOREIGN KEY (id_libro) REFERENCES Libros(id_libro) ON DELETE CASCADE,
+    FOREIGN KEY (id_genero) REFERENCES Generos(id_genero) ON DELETE CASCADE
+);
+
+-- =============================================
+-- TABLA: Estanterias
+-- Ubicación física de los ejemplares
+-- =============================================
+CREATE TABLE Estanterias (
+    id_estanteria INT PRIMARY KEY AUTO_INCREMENT,
+    codigo VARCHAR(20) UNIQUE NOT NULL,
+    pasillo VARCHAR(50),
+    seccion VARCHAR(50),
+    descripcion TEXT
+);
+
+-- =============================================
+-- TABLA: Ejemplares
+-- Copias físicas de los libros
+-- =============================================
+CREATE TABLE Ejemplares (
+    id_ejemplar INT PRIMARY KEY AUTO_INCREMENT,
+    id_libro INT NOT NULL,
+    codigo_barra VARCHAR(50) UNIQUE NOT NULL,
+    estado ENUM('disponible', 'prestado', 'reservado', 'perdido') NOT NULL DEFAULT 'disponible',
+    id_estanteria INT,
+    fecha_alta DATE DEFAULT (CURRENT_DATE),
+    FOREIGN KEY (id_libro) REFERENCES Libros(id_libro) ON DELETE CASCADE,
+    FOREIGN KEY (id_estanteria) REFERENCES Estanterias(id_estanteria) ON DELETE SET NULL
+);
+
+-- =============================================
+-- TABLA: Prestamos
+-- Registro de préstamos de ejemplares
+-- =============================================
+CREATE TABLE Prestamos (
+    id_prestamo INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario_lector INT NOT NULL,
+    id_ejemplar INT NOT NULL,
+    id_bibliotecario INT NOT NULL,
+    fecha_prestamo DATE NOT NULL,
+    fecha_limite DATE NOT NULL,
+    fecha_devolucion DATE,
+    observacion TEXT,
+    estado ENUM('activo', 'devuelto', 'retrasado') NOT NULL DEFAULT 'activo',
+    FOREIGN KEY (id_usuario_lector) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_ejemplar) REFERENCES Ejemplares(id_ejemplar) ON DELETE CASCADE,
+    FOREIGN KEY (id_bibliotecario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
+);
+
+-- =============================================
+-- TABLA: Reservas
+-- Reservas de ejemplares por usuarios
+-- =============================================
+CREATE TABLE Reservas (
+    id_reserva INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT NOT NULL,
+    id_ejemplar INT NOT NULL,
+    fecha_reserva DATE NOT NULL,
+    observacion TEXT,
+    estado ENUM('activa', 'caducada', 'cumplida', 'cancelada') NOT NULL DEFAULT 'activa',
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_ejemplar) REFERENCES Ejemplares(id_ejemplar) ON DELETE CASCADE
+);
+
+-- =============================================
+-- TABLA: Multas
+-- Multas generadas por préstamos con retraso
+-- Relación 1:1 con Préstamos
+-- =============================================
+CREATE TABLE Multas (
+    id_multa INT PRIMARY KEY AUTO_INCREMENT,
+    id_prestamo INT UNIQUE NOT NULL,
+    importe DECIMAL(10, 2) NOT NULL,
+    pagada BOOLEAN NOT NULL DEFAULT FALSE,
+    fecha DATE NOT NULL,
+    FOREIGN KEY (id_prestamo) REFERENCES Prestamos(id_prestamo) ON DELETE CASCADE
+);
+
+-- =============================================
+-- TABLA: Bibliotecarios (Datos de la empresa)
+-- Información de la biblioteca
+-- =============================================
+CREATE TABLE Empresa (
+    id_empresa INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20),
+    direccion VARCHAR(255),
+    email VARCHAR(150),
+    logo_url VARCHAR(255)
+);
+
+-- =============================================
+-- ÍNDICES ADICIONALES (para optimizar consultas)
+-- =============================================
+CREATE INDEX idx_usuarios_email ON Usuarios(email);
+CREATE INDEX idx_libros_isbn ON Libros(isbn);
+CREATE INDEX idx_ejemplares_estado ON Ejemplares(estado);
+CREATE INDEX idx_prestamos_estado ON Prestamos(estado);
+CREATE INDEX idx_prestamos_fecha ON Prestamos(fecha_prestamo);
+CREATE INDEX idx_reservas_estado ON Reservas(estado);
+
+-- =============================================
+-- DATOS DE EJEMPLO (opcional)
+-- =============================================
+
+-- Insertar empresa
+INSERT INTO Empresa (nombre, telefono, direccion, email) 
+VALUES ('BiblioTech Central', '912345678', 'Calle Ejemplo 123, Madrid', 'contacto@bibliotech.es');
+
+-- Insertar géneros
+INSERT INTO Generos (nombre, descripcion) VALUES
+('Ficción', 'Narrativa de ficción general'),
+('Drama', 'Obras dramáticas y teatrales'),
+('Acción', 'Aventuras y acción'),
+('Romance', 'Novelas románticas'),
+('Ciencia Ficción', 'Ficción científica y futurista'),
+('Fantasía', 'Mundos fantásticos y magia'),
+('Terror', 'Historias de miedo y suspense'),
+('Misterio', 'Novelas de misterio y detectives'),
+('Historia', 'Novelas históricas'),
+('Biografía', 'Biografías y autobiografías');
+
+-- Insertar usuario administrador
+INSERT INTO Usuarios (nombre, apellido, dni, email, password, telefono, direccion, rol, estado) 
+VALUES 
+('Admin', 'Principal', '12345678A', 'admin@bibliotech.es', '$2y$10$abcdefghijklmnopqrstuvwxyz123456', '600000000', 'Madrid', 'admin', 'activo'),
+('Celia', 'Vega', '44589762T', 'celia@example.com', '$2y$10$abcdefghijklmnopqrstuvwxyz123456', '678542315', 'Málaga', 'lector', 'activo'),
+('Juan', 'García', '87654321B', 'juan@bibliotech.es', '$2y$10$abcdefghijklmnopqrstuvwxyz123456', '611111111', 'Madrid', 'bibliotecario', 'activo');
+
+-- Insertar estanterías
+INSERT INTO Estanterias (codigo, pasillo, seccion, descripcion) VALUES
+('EST-A1', 'A', '1', 'Estantería de ficción general'),
+('EST-A2', 'A', '2', 'Estantería de drama y clásicos'),
+('EST-B1', 'B', '1', 'Estantería de ciencia ficción'),
+('EST-B2', 'B', '2', 'Estantería de fantasía');
+
+-- Insertar libros de ejemplo
+INSERT INTO Libros (isbn, titulo, autor, editorial, anio_publicacion, idioma, num_paginas, cantidad, descripcion, estado) VALUES
+('978-84-1107-123-9', 'El principio', 'Autor Ejemplo', 'Editorial Planeta', 2020, 'Español', 320, 5, 'Una historia fascinante sobre los orígenes', 'activo'),
+('978-84-9998-456-2', 'Aventuras sin fin', 'María López', 'Penguin Random House', 2019, 'Español', 450, 3, 'Aventuras épicas en tierras lejanas', 'activo'),
+('978-84-2233-789-1', 'Misterio en la noche', 'Carlos Ruiz', 'Alfaguara', 2021, 'Español', 280, 4, 'Un thriller apasionante', 'activo');
+
+-- Relacionar libros con géneros
+INSERT INTO Libro_Genero (id_libro, id_genero) VALUES
+(1, 1), -- El principio → Ficción
+(1, 2), -- El principio → Drama
+(2, 3), -- Aventuras sin fin → Acción
+(2, 6), -- Aventuras sin fin → Fantasía
+(3, 8), -- Misterio en la noche → Misterio
+(3, 7); -- Misterio en la noche → Terror
+
+-- Insertar ejemplares
+INSERT INTO Ejemplares (id_libro, codigo_barra, estado, id_estanteria) VALUES
+(1, 'EJ-001-001', 'disponible', 1),
+(1, 'EJ-001-002', 'disponible', 1),
+(1, 'EJ-001-003', 'prestado', 1),
+(2, 'EJ-002-001', 'disponible', 3),
+(2, 'EJ-002-002', 'reservado', 3),
+(3, 'EJ-003-001', 'disponible', 2);
+
+-- Insertar préstamo de ejemplo
+INSERT INTO Prestamos (id_usuario_lector, id_ejemplar, id_bibliotecario, fecha_prestamo, fecha_limite, fecha_devolucion, observacion, estado) VALUES
+(2, 3, 3, '2025-01-15', '2025-02-15', NULL, 'Esquina doblada en página 45', 'activo');
+
+-- Insertar reserva de ejemplo
+INSERT INTO Reservas (id_usuario, id_ejemplar, fecha_reserva, observacion, estado) VALUES
+(2, 5, '2025-02-01', 'Cliente esperando disponibilidad', 'activa');
+
+-- =============================================
+-- FIN DEL SCRIPT (/≧▽≦)/
+-- =============================================
