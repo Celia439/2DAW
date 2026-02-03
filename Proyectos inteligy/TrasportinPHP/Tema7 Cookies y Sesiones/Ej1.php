@@ -18,6 +18,8 @@ echo "
 if (isset($_POST['enviar'])) {
     $nombre = $_POST['nombre'];
     setcookie("nombre", $nombre);
+    header("Location: Ej1.php");
+    exit();
 
 } else if (isset($_POST['eliminar'])) {
     unset($_COOKIE["nombre"]);

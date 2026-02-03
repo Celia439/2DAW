@@ -5,7 +5,7 @@
 
 -- Por si acaso se puede omitir la primera vez
 DROP DATABASE IF EXISTS BiblioTech;
---Empezamos
+-- Empezamos
 CREATE DATABASE BiblioTech;
 USE BiblioTech;
 
@@ -53,10 +53,10 @@ CREATE TABLE Libros (
     autor VARCHAR(150) NOT NULL,
     editorial VARCHAR(100),
     anio_publicacion YEAR,
---Lo hice asi pero se puede quitar o cambiar (un poco de duda)
+-- Lo hice asi pero se puede quitar o cambiar (un poco de duda)
     idioma VARCHAR(50) DEFAULT 'Español',
     num_paginas INT,
---Minimo 1--
+-- Minimo 1--
     cantidad INT NOT NULL DEFAULT 1,
     descripcion TEXT,
     estado ENUM('activo', 'deshabilitado') NOT NULL DEFAULT 'activo'
