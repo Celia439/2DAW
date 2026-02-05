@@ -1,0 +1,9 @@
+{
+"empleados": [
+{ "id": 1, "nombre": "Ana Torres", "puesto": "Desarrolladora Frontend", "departamento": "IT", "salario": 28000 },
+{ "id": 2, "nombre": "Luis Martín", "puesto": "Administrador de sistemas", "departamento": "IT", "salario": 30000 },
+{ "id": 3, "nombre": "Marta López", "puesto": "Técnica de RRHH", "departamento": "RRHH", "salario": 25000 },
+{ "id": 4, "nombre": "Carlos Ruiz", "puesto": "Contable", "departamento": "Finanzas", "salario": 26000 },
+{ "id": 5, "nombre": "Laura Sánchez", "puesto": "Recruiter", "departamento": "RRHH", "salario": 24000 }
+]
+}

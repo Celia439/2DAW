@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Usuarios - JSON Server</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    ul {
+      max-width: 400px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Lista de usuarios</h2>
+  <ul id="listaUsuarios"></ul>
+
+  <script>
+	// Función para simular latencia de red
+	const fetchConRetardo = async (url, opciones = {}) => {
+		// Creamos una promesa que se resuelve tras 2 segundos
+		await new Promise(resolve => setTimeout(resolve, 2000));
+		return fetch(url, opciones);
+	};
+    async function cargarUsuarios() {
+      try {
+        const respuesta = await fetchConRetardo('http://localhost:3000/usuarios');
+
+        if (!respuesta.ok) {
+          throw new Error('Error al obtener usuarios: ' + respuesta.status);
+        }
+
+        const usuarios = await respuesta.json();
+
+        // Referencia al elemento UL
+        const lista = document.getElementById('listaUsuarios');
+        lista.innerHTML = '';
+
+        // Recorremos el array y lo mostramos en la web
+        usuarios.forEach(usuario => {
+          const li = document.createElement('li');
+          li.textContent = `${usuario.nombre} - ${usuario.email} (${usuario.edad} años)`;
+          lista.appendChild(li);
+        });
+
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    // Llamada a la función
+    cargarUsuarios();
+  </script>
+
+</body>
+</html>

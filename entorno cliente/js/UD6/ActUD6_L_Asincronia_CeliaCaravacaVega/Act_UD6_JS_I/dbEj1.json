@@ -1,0 +1,25 @@
+{
+    "empleados": [
+        {
+            "id": 1,
+            "nombre": "celia",
+            "puesto": 1,
+            "departamento": 1,
+            "salario": 500
+        },
+        {
+            "id": 2,
+            "nombre": "juanfri",
+            "puesto": 2,
+            "departamento": 5,
+            "salario": 496
+        },
+        {
+            "id": 3,
+            "nombre": "Pepe",
+            "puesto": 3,
+            "departamento": 16,
+            "salario": 4500
+        }
+    ]
+}

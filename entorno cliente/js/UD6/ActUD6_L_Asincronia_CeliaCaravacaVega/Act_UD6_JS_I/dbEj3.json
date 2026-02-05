@@ -1,0 +1,31 @@
+{
+"proyectos": [
+{
+"id": 1,
+"nombre": "Intranet corporativa",
+"cliente": "Grupo Alborán",
+"estado": "En desarrollo",
+"fechaInicio": "2025-01-15",
+"fechaFin": "2025-06-30",
+"responsable": "Laura Sánchez"
+},
+{
+"id": 2,
+"nombre": "Tienda online",
+"cliente": "TechMarket",
+"estado": "Activo",
+"fechaInicio": "2024-11-01",
+"fechaFin": "2025-04-15",
+"responsable": "Carlos Ruiz"
+},
+{
+"id": 3,
+"nombre": "App de reservas",
+"cliente": "Hotel Costa Sur",
+"estado": "En mantenimiento",
+"fechaInicio": "2024-05-10",
+"fechaFin": "2024-12-20",
+"responsable": "Marta López"
+}
+]
+}
