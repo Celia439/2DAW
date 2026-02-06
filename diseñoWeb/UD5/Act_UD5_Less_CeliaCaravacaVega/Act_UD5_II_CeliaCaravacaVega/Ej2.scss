@@ -1,0 +1,22 @@
+$colors : ("primary": #0d6efd,
+    "success": #198754,
+    "danger": #dc3545);
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+.btn-primary {
+    background-color: map-get($colors, "primary" );
+}
+
+.btn-success {
+    background-color: map-get($colors, "success" );
+}
+
+.btn-danger {
+    background-color: map-get($colors, "danger" );
+}

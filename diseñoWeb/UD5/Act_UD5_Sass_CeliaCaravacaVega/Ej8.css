@@ -27,6 +27,7 @@ nav ul li a {
 }
 nav ul li a:hover {
   color: #f1c40f;
+  text-decoration: underline;
 }
 
 .card-small {

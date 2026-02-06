@@ -16,9 +16,9 @@ print(f"\nproducto mas caro vendido: {df['producto']}")
 #5 Filtra las ventas de Madrid
 print(f"\nVentas de madrid\n{df[df['ciudad']=='Madrid']}")
 #6 Calcula el total de ventas por ciudad
-print(f"\nTotal de ventas por ciudad: \n{df.groupby('ciudad')['precio'].sum()}")
+print(f"\nTotal de ventas por ciudad: \n{df.groupby('ciudad')['cantidad'].sum()}")
 
 #7 Ordena las ciudades por ventas totales (de mayor a menor)
 ventas_por_ciudad = df.groupby('ciudad')['precio'].sum()
-odenado=ventas_por_ciudad.sort_values(ascending=False)
+odenado=ventas_por_ciudad.sort_values("total",ascending=False)
 print(f"Ciudades ordenadas por ventas totales:\n{odenado}")

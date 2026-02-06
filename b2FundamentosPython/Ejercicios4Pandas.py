@@ -31,3 +31,4 @@ df['categoria_precio']=df['precio_base'].apply(categorizar)
 # Muestra el DataFrame final
 print("despues")
 print(df)
+
