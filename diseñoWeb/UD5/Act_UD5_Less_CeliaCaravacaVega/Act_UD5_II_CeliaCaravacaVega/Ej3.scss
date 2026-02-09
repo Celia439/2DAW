@@ -1,5 +1,13 @@
 @mixin card-base {
 padding: 20px;
 border-radius: 8px;
-box-shadow: 0 2px 5px rgb(0,,0 green, blue)
+box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 };
+.card{
+    @include card-base;
+    width: 250px;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

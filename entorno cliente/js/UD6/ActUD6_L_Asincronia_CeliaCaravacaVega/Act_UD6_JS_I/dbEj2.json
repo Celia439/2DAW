@@ -1,5 +1,11 @@
 {
-    "incidendias":[
- 
-    ]
+  "incidencias": [
+    {
+      "id": 1,
+      "titulo": "s",
+      "descripción": "c",
+      "prioridad": "alta",
+      "fecha": "8/2/2026"
+    }
+  ]
 }

@@ -1,0 +1,15 @@
+ .configurar-boton(@color-fondo, @color-texto, @radio-borde: 4px){
+background-color: @color-fondo;
+color:@color-texto;
+border-radius: @radio-borde;
+transition: all 0.3s;
+};
+.btn-save{
+  .configurar-boton(#4CAF50, white);
+}
+.btn-delete{
+  .configurar-boton(#f44336, white);
+}
+.btn-cancel{
+  .configurar-boton(#9E9E9E, white);
+}

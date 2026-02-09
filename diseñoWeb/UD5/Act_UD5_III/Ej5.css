@@ -1,0 +1,21 @@
+.alert-success {
+  padding: 1em;
+  margin-bottom: 1em;
+  font-weight: bold;
+  border-left: 5px solid green;
+  color: green;
+}
+.alert-danger {
+  padding: 1em;
+  margin-bottom: 1em;
+  font-weight: bold;
+  border-left: 5px solid red;
+  color: red;
+}
+.alert-warning {
+  padding: 1em;
+  margin-bottom: 1em;
+  font-weight: bold;
+  border-left: 5px solid orange;
+  color: orange;
+}

@@ -1,0 +1,22 @@
+{
+  "clientes": [
+    {
+      "nombre": "Juan",
+      "email": "juan.perez@empresa.com",
+      "empresa": "Empresa S.A.",
+      "id": "c3ea"
+    },
+    {
+      "id": "4f8c",
+      "nombre": "celia",
+      "email": "randonyolo@gmail.com",
+      "empresa": "et"
+    },
+    {
+      "id": "ca91",
+      "nombre": "juanbbt92",
+      "email": "ccarveg3010@g.educaand.es",
+      "empresa": "et"
+    }
+  ]
+}

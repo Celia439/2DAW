@@ -1,0 +1,14 @@
+.product-card {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+.price {
+  font-size: 20px;
+  color: #198754;
+}
+
+.btn-primary:hover {
+  background-color: rgb(255, 249, 223);
+}/*# sourceMappingURL=Ej8.css.map */

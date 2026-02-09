@@ -4,13 +4,44 @@
 //--Sistema de login para acceder a la agenda
 //- *formulario de login con usuario y contraseña
 
-//EXPRESIONES REGULARES----
-//TITULO 3 CARACTER MINIMO
-//FECHA FORMATO YY-mm-dd
-//HORA VALIDA  NN:NN
-//CATEGORIA ES UNA LISTA []
+/**
+ * Función void que muestra el formulario
+ */
+function mostrarFormulario()
+{
+    echo "<form action='#' enctype='multipart/form-data' method='post'>
+<p>Login :D</p>
+<input name='usuario' type='text' placeholder='usuario' />
+<input name='pass' type='password' placeholder='contraseña'/>
+</form>";
+}
+
+
+/**
+ * Función para comprobar que el formulario este correcto
+ * @param $usuario
+ * @param $pass
+ * @return bool
+ */
+function comprobarLogin($usuario, $pass)
+{
+    $correcto = false;
+    if (preg_match("`^.{3,}$`", $usuario && preg_match("`^.{8,}$`", $pass))) {
+        $correcto = true;
+    }
+    return $correcto;
+}
 
 //- *Comprobar credenciales contra la base de datos
+//CREATE DATABASE if not EXISTS agendaPersonal;
+//use agendaPersonal;
+//create table usuarios(
+//	nombre varchar(50),
+//	rol SET("usuario","administrador"),
+//    pass varchar(50)
+//);
+$conexion = mysqli_connect("Localhost","root","","agendaPersonal");
+
 //- *Sesiones para mantener usuario conectado
 //- *una pag de logout que destruya la session
 //- *Que no accedas a ninguna página interna sin estar registrado
@@ -25,7 +56,6 @@
 //--CRUD de eventos(No admitir fecha pasadas ojo)
 
 
-
 //--Recordatorios basado en cookies avisa el más cercano
 //- * Al iniciar sesion:
 //      -_Comprobar si usuario tiene evento en 24h
@@ -38,7 +68,6 @@
 //--vista semanal generada por array multidimensionales
 
 
-
 //al realizar este punto cargar todos los eventos guardados en la base de datos
 //      listar eventos en labla html ordenada por fecha y hora
 //Creamos un array de objetos eventos  ordenado por fecha y hora antes de mostrar
@@ -49,7 +78,6 @@
 //VISTA MENSUAL?
 //AÑADIR CHECK CON EVENTOS IMPORTANTES
 //EXPORTARLOS A UN JSON
-
 
 
 //--Una clase evento que encapsule su loguica

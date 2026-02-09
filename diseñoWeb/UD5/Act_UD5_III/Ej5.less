@@ -1,0 +1,22 @@
+.estilo-alerta(){
+padding: 1em;
+margin-bottom: 1em;
+font-weight: bold;
+}
+.tipo-alerta(@color){
+border-left: 5px solid @color;
+color: @color;
+}
+
+.alert-success{
+.estilo-alerta();
+.tipo-alerta(green);
+}
+.alert-danger{
+.estilo-alerta();
+.tipo-alerta(red);
+}
+.alert-warning{
+.estilo-alerta();
+.tipo-alerta(orange);
+}

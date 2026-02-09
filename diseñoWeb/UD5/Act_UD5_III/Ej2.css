@@ -1,0 +1,18 @@
+.btn-save {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+.btn-cancel {
+  background-color: #9E9E9E;
+  color: white;
+  border-radius: 4px;
+  transition: all 0.3s;
+}

@@ -1,0 +1,23 @@
+@avatar-size: 100px;
+@rol:#7f8c8d;
+.redondear(@radio){
+    border-radius: @radio;
+}
+.avatar{
+    width: @avatar-size;
+    height: @avatar-size;
+    .redondear(50%);
+}
+.role{
+    background-color: @rol;
+}
+.employee-profile{
+     .name{
+        font-size: 20px;
+    }
+    &:hover{
+        .name{
+            font-size: 20px+2;
+        }
+    }
+}

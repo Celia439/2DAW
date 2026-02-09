@@ -1,0 +1,15 @@
+@bg-light: white;
+@text-light: black;
+@bg-dark: #2c2c2c;
+@text-dark: white;
+@sidebar-width: 250px;
+.dark-theme {
+  background-color: @bg-dark;
+  color: @text-dark;
+}
+.sidebar{
+    width: @sidebar-width;
+}
+.main-panel{
+    width: calc(100% - @sidebar-width);
+}

@@ -1,0 +1,11 @@
+.form-control, .input-password, .input-text {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.login {
+  width: 300px;
+  margin: 40px auto;
+}/*# sourceMappingURL=Ej4.css.map */

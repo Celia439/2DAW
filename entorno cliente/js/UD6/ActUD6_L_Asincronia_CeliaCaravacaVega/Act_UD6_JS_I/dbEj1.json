@@ -20,6 +20,18 @@
             "puesto": 3,
             "departamento": 16,
             "salario": 4500
+        }  ,{
+            "id": 4,
+            "nombre": "Juanfri",
+            "puesto": 5,
+            "departamento": 16,
+            "salario": 4500
+        }  ,{
+            "id": 5,
+            "nombre": "Marcos",
+            "puesto": 3,
+            "departamento": 13,
+            "salario": 45000
         }
     ]
 }

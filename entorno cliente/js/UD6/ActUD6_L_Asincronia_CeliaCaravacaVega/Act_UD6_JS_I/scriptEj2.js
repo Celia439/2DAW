@@ -24,13 +24,13 @@ boton.addEventListener('click', function () {
     let titulo =document.getElementById("titulo");
     let desc=document.getElementById("descripcion");
     let pri=document.getElementById("prioridad");
-    let fech=Date();
+    let fech=new Date().toLocaleDateString();
     id++;
     nuevaIncidencia={
             "id":id,
-            "titulo":titulo,
-            "descripción":desc,
-            "prioridad":pri,
+            "titulo":titulo.value,
+            "descripción":desc.value,
+            "prioridad":pri.value,
             "fecha":fech
     };
 

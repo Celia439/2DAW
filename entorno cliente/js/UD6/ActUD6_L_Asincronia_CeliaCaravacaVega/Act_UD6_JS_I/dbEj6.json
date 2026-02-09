@@ -1,6 +1,17 @@
 {
-"clientes": [
-{ "id": 1, "nombre": "Empresa Sol", "email": "contacto@empresasol.es" }
-],
-"proyectos": []
+  "clientes": [
+    {
+      "id": "26e2",
+      "nombre": "celia",
+      "email": "ccarveg3010@g.educaand.es"
+    }
+  ],
+  "proyectos": [
+    {
+      "id": "45e7",
+      "nombre": "celia",
+      "clienteId": "26e2",
+      "fechaRegistro": "2026-02-08T20:53:16.645Z"
+    }
+  ]
 }

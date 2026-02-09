@@ -1,0 +1,16 @@
+$screen-width: 768px;
+
+@if $screen-width >=768px {
+    .dashboard {
+        display: flex;
+        flex-direction: row;
+        background-color: #e3f2fd;
+
+    }
+}@else {
+    .dashboard {
+        flex-direction: column;
+        background-color: #fff3cd;
+    }
+
+}

@@ -1,0 +1,14 @@
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.role {
+  background-color: #7f8c8d;
+}
+.employee-profile .name {
+  font-size: 20px;
+}
+.employee-profile:hover .name {
+  font-size: 22px;
+}

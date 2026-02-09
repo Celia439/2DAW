@@ -1,0 +1,24 @@
+@basic: grey;
+@pro:purple;
+@enterprise: yellow;
+
+.formato-plan(@plan,@border:1px) {
+  padding: 3em;
+  text-align: center;
+  box-shadow: 0 1em 1em ;
+  background-color: @plan;
+    border: @border solid black;
+}
+.plan p{
+    font-size:1.75rem+0.875 ;
+}
+.basic{
+    .formato-plan(@basic,0.5em);
+}
+
+.pro{
+    .formato-plan(@pro,1em);
+}
+.enterprise{
+    .formato-plan(@enterprise,1.5em);
+}

@@ -1,0 +1,14 @@
+.card-title {
+  font-size: 32px;
+  width: 16px;
+}
+.card-body {
+  font-size: 16px;
+}
+.btn-primary {
+  padding: 16px 16px/2 16px 16px/2;
+  background-color: #3498db;
+}
+.card {
+  border: 1px solid #8bc4ea;
+}
