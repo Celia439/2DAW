@@ -1,0 +1,11 @@
+// Expresión regular para validar el email
+if (!preg_match("/^[a-z0-9.]+@[a-z0-9.]+\.[a-z]{2,3}$/i", $expReg)) {
+	throw new Exception("Formato de email no válido.");
+}        
+
+
+//Estilos para la incidencia resuelta:
+background-color: #d4edda; color: #155724;
+
+//Estilos para la incidencia con prioridad alta:
+background-color: #ffe6e6; color: #721c24; font-weight: bold;
