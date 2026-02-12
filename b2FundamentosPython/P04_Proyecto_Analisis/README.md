@@ -1,21 +1,22 @@
 # Análisis del PC Pokémon
 
-**Autor:** Tu nombre  
-**Fecha:** Febrero 2026  
-**Asignatura:** Análisis de Datos con Python
+**Autor:** Celia Caracaca Vega  
+**Fecha:** 11/02/2026  
+**Asignatura:** Optativa
 
 ---
 
 ## 1. Introducción
 
-Mi proyecto trata sobre analizar mi PC de Pokémon. Para quien no sepa, un PC es como un ordenador donde guardas los pokémon que capturas en el juego. Yo he estado jugando y he capturado varios pokémon, así que voy a analizar mis datos.
+Mi proyecto trata sobre analizar mi PC de Pokémon. Para quien no sepa, un PC es como un ordenador donde guardas los pokémon que capturas en el juego.
+Yo he estado jugando y he capturado varios pokémon, así que voy a analizar mis datos.
 
 **¿Qué voy a analizar?**
-- Qué tipos de pokémon me gustan más
-- Cuánto tiempo entreno cada pokémon  
-- Cuál es mi pokémon favorito
-- Relación entre el tiempo de entrenamiento y el nivel que tiene
-- Hacer un ranking de los pokémon que más uso
+- Qué tipos de pokémon me gustan más.
+- Cuánto tiempo entreno cada pokémon. 
+- Cuál es mi pokémon favorito.
+- Relación entre el tiempo de entrenamiento y el nivel que tiene.
+- Hacer un ranking de los pokémon que más uso.
 
 Básicamente quiero ver qué patrón sigo yo cuando juego y qué tipo de entrenador soy.
 
@@ -26,12 +27,12 @@ Básicamente quiero ver qué patrón sigo yo cuando juego y qué tipo de entrena
 Mi dataset tiene **30 pokémon** que he capturado entre el 11 y el 19 de febrero de 2026.
 
 **Las columnas que tiene mi CSV son:**
-- `nºpokedex`: El número del pokémon en la pokédex (ej: 025 es Pikachu)
-- `nombre`: Cómo se llama el pokémon
-- `tipos`: De qué tipo es (Fuego, Agua, Planta, etc.)
-- `fecha_captura`: Cuándo lo capturé
-- `tiempo_entrenamiento`: Cuánto tiempo lo he entrenado (formato: días-horas-minutos)
-- `nivel`: El nivel que tiene ahora mismo
+- `nºpokedex`: El número del pokémon en la pokédex (ej: 025 es Pikachu).
+- `nombre`: Cómo se llama el pokémon.
+- `tipos`: De qué tipo es (Fuego, Agua, Planta, etc.).
+- `fecha_captura`: Cuándo lo capturé.
+- `tiempo_entrenamiento`: Cuánto tiempo lo he entrenado (formato: días-horas-minutos).
+- `nivel`: El nivel que tiene ahora mismo.
 
 Los datos los he sacado de mi partida real del juego.
 
@@ -41,7 +42,7 @@ Los datos los he sacado de mi partida real del juego.
 
 ### Problemas que encontré:
 
-#### ❌ Valores nulos (NaN)
+#### Valores nulos (NaN)
 Algunos pokémon tenían datos que faltaban:
 - **Si falta el número de pokédex** → Lo puedo recuperar porque sé el nombre
 - **Si falta el nombre** → Lo recupero con el número de pokédex
@@ -50,10 +51,10 @@ Algunos pokémon tenían datos que faltaban:
 - **Si falta tiempo de entrenamiento** → Tampoco se puede recuperar
 - **Si falta el nivel** → Lo mismo, no es fiable estimarlo
 
-#### 🔁 Duplicados
+#### Duplicados
 Encontré pokémon duplicados exactamente iguales. Esto pasa cuando se guarda el mismo pokémon dos veces por error. Los he eliminado porque no pueden estar capturados dos veces a la vez.
 
-#### 📝 Formato de datos
+####  Formato de datos
 - Los tipos a veces venían con mayúsculas y otras con minúsculas → Lo normalicé todo a minúsculas
 - El tiempo de entrenamiento está en formato texto ("1D-2H-30M") → Lo convertí a horas totales para poder hacer cálculos
 
@@ -75,6 +76,7 @@ df = df.drop_duplicates()
 # Rellenar nulos recuperables (ejemplo con nombre)
 # Aquí iría el código de recuperación
 
+
 # Eliminar filas con nulos no recuperables
 df = df.dropna()
 ```
@@ -88,7 +90,7 @@ df = df.dropna()
 ```python
 df.describe()
 ```
-
+- # ojo*******************
 **Resultados:**
 - **Nivel promedio:** [Tu resultado]
 - **Tiempo promedio de entrenamiento:** [Tu resultado]  
