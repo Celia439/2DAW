@@ -70,6 +70,28 @@ if (isset($_POST["crear"])) {
         echo "<p>Fecha no good :(</p>";
     }
 }
+if (isset($_POST["editar"])) {
+    $titulo = $_POST["titulo"];
+    $descripcion = $_POST["descripcion"];
+    $fecha = $_POST["fecha"];
+    $hora = $_POST["hora"];
+    $categoria = $_POST["categoria"];
+    $fechaA=explode("-",$fecha);
+    //Validación de la fecha (todo implementa que si es  pasada es malo)
+    if(checkdate("$fechaA[1]","$fechaA[2]","$fechaA[0]")){
+        echo "<p>Fecha good</p>";
+        echo "<p>Te lo compruebo que ande bin rey</p>";
+        $conexion=new mysqli("localhost","root","","agendaPersonal");
+        $sentencia="update eventos set titulo=? descripcion=? fecha=? hora=? categoria=? where titulo=?";
+        $consulta=$conexion->prepare($sentencia);
+        $consulta->bind_param("sssss",$titulo,$descripcion,$fecha,$hora,$categoria);
+        $consulta->execute();
+
+        echo "<p>Ea listo</p>";
+    }else{
+        echo "<p>Fecha no good :(</p>";
+    }
+}
 
 //--Recordatorios basado en cookies avisa el más cercano
 

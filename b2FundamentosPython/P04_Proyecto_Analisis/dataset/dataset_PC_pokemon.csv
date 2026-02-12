@@ -1,0 +1,31 @@
+nºpokedex,nombre,tipos,fecha_captura,tiempo_entrenamiento,nivel
+001,Bulbasaur,Planta,2026-02-11 08:15:30,0D-4H-5M,10
+004,Charmander,Fuego,2026-02-11 08:15:30,1D-2H-30M,12
+007,Squirtle,Agua,2026-02-11 09:45:12,0D-5H-10M,11
+010,Caterpie,Bicho,2026-02-12 14:23:05,2D-1H-05M,8
+013,Weedle,"Bicho,Veneno",2026-02-12 15:10:44,0D-3H-45M,7
+016,Pidgey,"Normal,Volador",2026-02-12 16:05:18,1D-0H-20M,9
+019,Rattata,Normal,2026-02-13 07:30:22,0D-6H-15M,10
+021,Spearow,"Normal,Volador",2026-02-13 18:40:03,3D-4H-50M,13
+023,Ekans,Veneno,2026-02-13 19:15:50,0D-2H-30M,8
+025,Pikachu,Eléctrico,2026-02-14 10:00:10,1D-1H-00M,15
+027,Sandshrew,Tierra,2026-02-14 11:20:35,2D-3H-20M,11
+029,Nidoran♀,Veneno,2026-02-14 12:45:17,0D-4H-40M,9
+032,Nidoran♂,Veneno,2026-02-15 09:05:28,1D-5H-10M,10
+035,Clefairy,Hada,2026-02-15 10:30:40,0D-3H-55M,12
+037,Vulpix,Fuego,2026-02-15 11:45:00,2D-2H-00M,14
+039,Jigglypuff,"Normal,Hada",,1D-3H-15M,11
+041,,Veneno,2026-02-16 08:20:15,0D-5H-30M,9
+043,Oddish,"Planta,Veneno",2026-02-16 10:10:50,1D-6H-45M,10
+,Meowth,Normal,2026-02-16 14:30:22,2D-0H-10M,13
+054,Psyduck,Agua,2026-02-17 09:15:33,,12
+056,Mankey,Lucha,2026-02-17 11:05:44,0D-7H-20M,14
+058,Growlithe,fuego,2026-02-17 13:40:18,1D-4H-30M,11
+060,Poliwag,Agua,2026-02-17 15:25:09,0D-2H-50M,8
+063,Abra,Psíquico,2026-02-18 07:50:27,3D-1H-15M,
+066,Machop,Lucha,2026-02-18 10:20:55,1D-2H-40M,13
+025,Pikachu,Eléctrico,2026-02-14 10:00:10,1D-1H-00M,15
+069,Bellsprout,"Planta,Veneno",2026-02-18 12:35:40,0D-6H-25M,9
+072,Tentacool,"Agua,Veneno",2026-02-18 14:50:12,2D-3H-05M,10
+074,Geodude,"Roca,Tierra",2026-02-19 08:10:30,1D-0H-55M,12
+077,Ponyta,Fuego,2026-02-19 10:45:15,0D-4H-10M,11

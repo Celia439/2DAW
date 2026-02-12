@@ -1,26 +1,32 @@
 import pandas as pd
 
-# Cargar datos desde archivo indicando la "," como separador
-df =pd.read_csv('P04_Proyecto_Analisis/dataset/dataset_pokemon.csv', sep=',' , encoding='utf-8')
+print("="*60)
+print("ANÁLISIS DEL PC POKÉMON")
+print("="*60)
 
-#uso de info
-print("Info:\n")
+# Cargar datos
+df = pd.read_csv('P04_Proyecto_Analisis/dataset/dataset_PC_pokemon.csv', 
+                 sep=',', encoding='utf-8')
+
+print("\n1. PRIMEROS 5 REGISTROS")
+print(df.head())
+
+print("\n2. INFORMACIÓN DEL DATASET")
 df.info()
-print("\n")
 
-#uso de describe
-print("\n Describe:")
-print(f"{df.describe()}\n")
+print("\n3. ESTADÍSTICAS DESCRIPTIVAS")
+print(df.describe())
 
- #Verificación de tipos de datos 
-print(f"\nTipos de datos:\n {df.dtypes}")
+print("\n4. TIPOS DE DATOS")
+print(df.dtypes)
 
-#identificación y tratamiento de tipos nulos 
-print(f"Cantidad de reguistros nulos: {df.isnull().sum()}")
-#Detección de duplicados
-print(f"Cantidad de registros duplicados: {df.duplicated().sum()}")
+print("\n5. DETECCIÓN DE PROBLEMAS")
+print(f"\n Total de registros: {len(df)}")
+print(f"\n Valores nulos por columna:")
+print(df.isnull().sum())
+print(f"\n Registros duplicados: {df.duplicated().sum()}")
 
-#Normalización de datos (si aplica)
-#Aqui creo que se pondrían los datos ya limplitos o apartados
-
-# Conversión de tipos de datos (si necesario)
+# Ver las filas duplicadas si existen
+if df.duplicated().sum() > 0:
+    print("\nFilas duplicadas encontradas:")
+    print(df[df.duplicated(keep=False)])
