@@ -14,26 +14,65 @@ print("="*60)
 # Cargar datos
 df = pd.read_csv('dataset/dataset_PC_pokemon.csv',  sep=',', encoding='utf-8')
 
+
+
 print("\n1. PRIMEROS 5 REGISTROS")
+
 print(df.head())
+
+
 
 print("\n2. INFORMACIÓN DEL DATASET")
 
 df.info()
 
 print(f"\n Total de pokémon: {len(df)}")
+
 print(f"\n Columnas: {list(df.columns)}")
+
 print("\n Tipos de datos:")
+
 print(df.dtypes)
 
+
+
 print("\n3. ESTADÍSTICAS DESCRIPTIVAS")
+
 print(df.describe())
+
+
 
 print("\n4. LIMPIEZA DE DATOS")
 
+print(f"\n Normalizar columnas tipos a minúsculas")
+
+def normalizar(variable):
+    normalizado = variable.lower()
+    return normalizado
+
+df["tipos"]=df["tipos"].apply(normalizar)
+
+print(df["tipos"])
+
+print(f"\n Convertir formato día hora min a horas para caluclar")
+
+def dhmToH(variable):
+    #Creamos una lista separando por -
+    partes = variable.split('-')
+    #Quitamos las letras y recogemos dias horas y min
+    dias= int(partes[0].replace('D',''))
+    horas= int (partes[1].replace('H',''))
+    min= int(partes[2].replace('M',''))
+    total_horas=(dias*24)+horas+(min/60)
+    return round(total_horas,2)
+df['tiempo_entrenamiento']=df["tiempo_entrenamiento"].apply(dhmToH)
+
 print(f"\n Valores nulos por columna:")
+
 print(df.isnull().sum())
+
 numDuplicados =df.duplicated().sum()
+
 print(f"\n Registros duplicados: {numDuplicados}")
 
 # Ver las filas duplicadas si existen.
@@ -48,7 +87,4 @@ if numDuplicados > 0:
     # Pero primero pense en pillar las columnas como listas agrupar por columna 
     # y filtrarlas si se repetian .
     print(df.groupby(df.columns.tolist()).filter(lambda x: len(x) > 1))
-
-
-    #tienes que echarle un ojo a todo de aqui hay cosas que no hemos dado asi que piensa con la cabeza no con la pereza
-    
+#te as qudado por codigo de limpieza usado
