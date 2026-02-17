@@ -56,24 +56,35 @@ print(df["tipos"])
 
 print(f"\n Convertir formato día hora min a horas para caluclar")
 
+
 def dhmToH(variable):
+
+    #Primero si la variables es NaN va a ser 0
+    if pd.isna(variable):
+        return 0
     #Creamos una lista separando por -
     partes = variable.split('-')
     #Quitamos las letras y recogemos dias horas y min
     dias= int(partes[0].replace('D',''))
     horas= int (partes[1].replace('H',''))
-    min= int(partes[2].replace('M',''))
+    min= int(partes[2].replace('M',''))    
     total_horas=(dias*24)+horas+(min/60)
-    return round(total_horas,2)
-df['tiempo_entrenamiento']=df["tiempo_entrenamiento"].apply(dhmToH)
 
-print(f"\n Valores nulos por columna:")
+    return round(total_horas,2)
+
+
+df["tiempo_entrenamiento"] = df["tiempo_entrenamiento"].apply(dhmToH)
+
+print(df["tiempo_entrenamiento"])
+
+print(f"\n Ver cuantos valores nulos por columna:")
 
 print(df.isnull().sum())
 
 numDuplicados =df.duplicated().sum()
 
 print(f"\n Registros duplicados: {numDuplicados}")
+
 
 # Ver las filas duplicadas si existen.
 if numDuplicados > 0:
@@ -84,7 +95,24 @@ if numDuplicados > 0:
     
     #print(df[df.duplicated(keep=False)])
     
-    # Pero primero pense en pillar las columnas como listas agrupar por columna 
-    # y filtrarlas si se repetian .
+    # Pero primero pense en agrupa por todas las 
+    # columnas y mostrar solo los grupos con más de una
+    # fila (duplicados).
     print(df.groupby(df.columns.tolist()).filter(lambda x: len(x) > 1))
-#te as qudado por codigo de limpieza usado
+
+
+print(f"\nEliminar filas duplicadas")
+print(f"\nAntes de eliminar nulos: {len(df)} pokémon")
+
+df = df.drop_duplicates()
+
+print(f"\nTratar valores nulos\n")
+
+print(f"-En caso de que falla nºPokedex o nombre")
+#atascada como? 
+df.loc[df['nºpokedex'].isna(), df['nºpokedex']] = df[]
+print(f"-Si nos falla nivel, tiempo_entrenamiento, fecha_captura el pokémon está corrupto se elimina")
+
+df.dropna()
+
+print(f"\nDespués de eliminar nulos: {len(df)} pokémon")

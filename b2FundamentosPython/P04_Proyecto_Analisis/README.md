@@ -56,7 +56,7 @@ Encontré pokémon duplicados exactamente iguales. Esto pasa cuando se guarda el
 
 ####  Formato de datos
 - Los tipos a veces venían con mayúsculas y otras con minúsculas → Lo normalicé todo a minúsculas
-- El tiempo de entrenamiento está en formato texto ("1D-2H-30M") → Lo convertí a horas totales para poder hacer cálculos
+- El tiempo de entrenamiento está en formato texto ("1D-2H-30M") y contenia valores tenian algunos NaN → Los convertí a horas totales y los NaN los puse a 0, para poder hacer cálculos.
 
 ### Código de limpieza usado:
 
