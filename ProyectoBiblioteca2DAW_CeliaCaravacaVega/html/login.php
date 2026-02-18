@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-      <!--Icono de la web-->
-    <link rel="icon" href="../../img/LogoBiblioteca.svg">
-</head>
-<body>
+<!--Sin footer ni header-->
     <!-- Contenedor principal -->
-    <main class="login">
+    <main class="">
         
         <!-- Formulario de Login -->
         <div class="form-log-in">
@@ -75,5 +66,3 @@
             <!-- Chevron derecho -->
         </div>
     </div>
-</body>
-</html>

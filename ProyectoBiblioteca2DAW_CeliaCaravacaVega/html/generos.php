@@ -1,16 +1,19 @@
-<!--Sin footer-->
+<!--No tiene footer-->
     <main>
+        <div class="carrusel-puntos">
+            <a href="./webBiblioTech.html"><button class="btn-siguiente">‹</button></a>
+            <span class="punto activo"></span>general
+            <span class="punto"></span>Miedo
+            <span class="punto"></span>Acción
+            <span class="punto"></span>........
+        </div>
         <section class="seccion-generos">
 
             <div class="header-generos">
-                <h2>Prestamos</h2>
+                <h2>Genero</h2>
                 <p class="subtitulo">Resultados: X</p>
             </div>
-        </section>
-        <section class="seccion-generos">
-            <div class="header-generos">
-                <h2>10/15/25</h2>
-            </div>
+
             <div class="grid-tarjetas">
                 <div class="tarjeta">
                     <div class="tarjeta-imagen"></div>
@@ -23,5 +26,4 @@
                     </div>
                 </div>
         </section>
-
     </main>

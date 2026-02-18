@@ -1,0 +1,6 @@
+{
+  "alumnos": [
+    { "id": 1, "nombre": "Ana", "email": "ana@email.com", "curso": "2º DAW" },
+    { "id": 2, "nombre": "Luis", "email": "luis@email.com", "curso": "2º DAW" }
+  ]
+}
