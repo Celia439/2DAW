@@ -16,10 +16,18 @@
         <ul id="alumnosList">
 
         </ul>
-        <form id="formularioAlumno" action="#">
-            <input type="text" id="nombreAlumno" placeholder="Nombre del alumno">
-            <input type="email" id="emailAlumno" placeholder="Email del alumno">
-            <input type="number" id="cursoAlumno" placeholder="Curso del alumno">
+        <!--
+        - 3. Crear alumnos.
+
+            //1. Añade al index.html un formulario para crear alumnos con:
+                //○ Nombre.
+                //○ Email.
+                //○ Curso.
+        -->
+        <form id="formularioAlumno" >
+            <input type="text" id="nombreAlumno" placeholder="Nombre del alumno" required>
+            <input type="email" id="emailAlumno" placeholder="Email del alumno" required>
+            <input type="text" id="cursoAlumno" placeholder="Curso del alumno" required>
             <button type="submit">Agregar Alumno</button>
 
         </form>

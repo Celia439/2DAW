@@ -1,6 +1,22 @@
 {
   "alumnos": [
-    { "id": 1, "nombre": "Ana", "email": "ana@email.com", "curso": "2º DAW" },
-    { "id": 2, "nombre": "Luis", "email": "luis@email.com", "curso": "2º DAW" }
+    {
+      "id": "1",
+      "nombre": "celia",
+      "email": "celia@email.com",
+      "curso": "4ºC"
+    },
+    {
+      "id": "2",
+      "nombre": "Simon",
+      "email": "simon@email.com",
+      "curso": "2ºDAW"
+    },
+    {
+      "id": "3",
+      "nombre": "Luis",
+      "email": "luis@email.com",
+      "curso": "2ºDAW"
+    }
   ]
 }
