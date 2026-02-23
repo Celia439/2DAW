@@ -1,0 +1,15 @@
+# Entornos virtuales
+env/
+venv/
+.venv/
+
+# Archivos de Python que no deben subirse
+__pycache__/
+*.pyc
+
+# Archivos de VSCode
+.vscode/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db

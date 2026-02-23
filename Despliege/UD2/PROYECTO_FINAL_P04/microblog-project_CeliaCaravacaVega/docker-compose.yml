@@ -1,0 +1,82 @@
+services:
+  proxy:
+    image: nginx:1.25
+    ports:
+      - "${PROXY_PORT}:80"
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - phpmyadmin
+    networks:
+      - microblog-net
+
+  frontend:
+    image: microblog-frontend:v1.0
+    build: ./frontend
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+    depends_on:
+      - db
+      - redis
+    networks:
+      - microblog-net
+  api:
+    build: ./api
+    container_name: microblog-api
+    ports:
+      - "9000:9000"
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - db
+      - redis
+    networks:
+      - microblog-net
+
+  db:
+    image: mariadb:11.3
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - microblog-net
+
+  redis:
+    image: redis:7.2
+    networks:
+      - microblog-net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.2
+    environment:
+      PMA_HOST: ${PMA_HOST}
+      PMA_USER: ${PMA_USER}
+      PMA_PASSWORD: ${PMA_PASSWORD}
+    ports:
+      - "${PHPMYADMIN_PORT}:80"
+    depends_on:
+      - db
+    networks:
+      - microblog-net
+
+networks:
+  microblog-net:
+
+volumes:
+  db-data:

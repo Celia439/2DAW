@@ -173,6 +173,16 @@ CREATE INDEX idx_prestamos_fecha ON Prestamos(fecha_prestamo);
 CREATE INDEX idx_reservas_estado ON Reservas(estado);
 
 -- =============================================
+-- ÍNDICES PARA RANKINGS Y TOP
+-- =============================================
+
+-- Para encontrar el libro más prestado
+CREATE INDEX idx_prestamos_libro_count ON Prestamos(id_ejemplar, fecha_prestamo);
+
+-- Para encontrar el libro más nuevo
+CREATE INDEX idx_libros_fecha_alta ON Libros(anio_publicacion DESC);
+
+-- =============================================
 -- DATOS DE EJEMPLO (opcional)
 -- =============================================
 
