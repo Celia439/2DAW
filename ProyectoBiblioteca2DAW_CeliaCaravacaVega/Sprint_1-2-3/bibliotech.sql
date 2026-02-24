@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-02-2026 a las 19:41:10
+-- Tiempo de generación: 20-02-2026 a las 19:46:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -261,9 +261,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `dni`, `email`, `password`, `telefono`, `direccion`, `rol`, `estado`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'Principal', '12345678A', 'admin@bibliotech.es', '$2y$10$abcdefghijklmnopqrstuvwxyz123456', '600000000', 'Madrid', 'admin', 'activo', '2026-02-20 18:31:30', '2026-02-20 18:31:30'),
-(2, 'Celia', 'Vega', '44589762T', 'celia@example.com', '$2y$10$abcdefghijklmnopqrstuvwxyz123456', '678542315', 'Málaga', 'lector', 'activo', '2026-02-20 18:31:30', '2026-02-20 18:31:30'),
-(3, 'Juan', 'García', '87654321B', 'juan@bibliotech.es', '$2y$10$abcdefghijklmnopqrstuvwxyz123456', '611111111', 'Madrid', 'bibliotecario', 'activo', '2026-02-20 18:31:30', '2026-02-20 18:31:30');
+(1, 'Admin', 'Principal', '12345678A', 'admin@bibliotech.es', '$2y$10$abcdefghijklmnopqrstuvwxyz123456', '600000000', 'Madrid', 'admin', 'activo', '2026-02-20 18:44:45', '2026-02-20 18:44:45'),
+(2, 'Celia', 'Vega', '44589762T', 'celia@example.com', '$2y$10$abcdefghijklmnopqrstuvwxyz123456', '678542315', 'Málaga', 'lector', 'activo', '2026-02-20 18:44:45', '2026-02-20 18:44:45'),
+(3, 'Juan', 'García', '87654321B', 'juan@bibliotech.es', '$2y$10$abcdefghijklmnopqrstuvwxyz123456', '611111111', 'Madrid', 'bibliotecario', 'activo', '2026-02-20 18:44:45', '2026-02-20 18:44:45');
 
 --
 -- Índices para tablas volcadas
@@ -305,7 +305,8 @@ ALTER TABLE `generos`
 ALTER TABLE `libros`
   ADD PRIMARY KEY (`id_libro`),
   ADD UNIQUE KEY `isbn` (`isbn`),
-  ADD KEY `idx_libros_isbn` (`isbn`);
+  ADD KEY `idx_libros_isbn` (`isbn`),
+  ADD KEY `idx_libros_fecha_alta` (`anio_publicacion`);
 
 --
 -- Indices de la tabla `libro_genero`
@@ -326,11 +327,11 @@ ALTER TABLE `multas`
 --
 ALTER TABLE `prestamos`
   ADD PRIMARY KEY (`id_prestamo`),
-  ADD KEY `id_usuario_lector` (`id_usuario_lector`),
-  ADD KEY `id_ejemplar` (`id_ejemplar`),
   ADD KEY `id_bibliotecario` (`id_bibliotecario`),
   ADD KEY `idx_prestamos_estado` (`estado`),
-  ADD KEY `idx_prestamos_fecha` (`fecha_prestamo`);
+  ADD KEY `idx_prestamos_fecha` (`fecha_prestamo`),
+  ADD KEY `idx_prestamos_libro_count` (`id_ejemplar`,`fecha_prestamo`),
+  ADD KEY `idx_prestamos_usuario_count` (`id_usuario_lector`,`estado`);
 
 --
 -- Indices de la tabla `reservas`
