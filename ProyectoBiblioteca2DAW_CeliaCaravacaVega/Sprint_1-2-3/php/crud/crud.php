@@ -1,74 +1,109 @@
 <?php
 /**
- * Consultar 
- * Debes de tener dentro de parametros 
- * Campos(si no introduces ninguno te los da todos)
- * Tabla
- * Condiciones(opcional)
- * @param mixed $parametros
- * @return void
+ * CONSULTAR (SELECT)
+ * 
+ * Parámetros esperados:
+ * - campos: array con los nombres de columnas (opcional)
+ * - tabla: nombre de la tabla
+ * - where: condición WHERE (opcional)
+ * 
+ * Devuelve:
+ * - array asociativo con los resultados
  */
 function consultar($parametros)
 {
-    include_once "../conexion.php";
-    if ($parametros->campos) {
-        $campos = implode(",", $parametros->campos);
-    } else {
-        $campos = "*";
-    }
-    if ($parametros->where) {
-        $were = " WHERE " . $parametros->where;
-    }
+    include_once __DIR__ . "/../conexion.php";
 
-    $sentencia = "SELECT " . $campos . " FROM " . $parametros->tabla . $were;
-    $pdo->prepare($sentencia);
+    // Si no se especifican campos, se seleccionan todos
+    $campos = !empty($parametros->campos)
+        ? implode(",", $parametros->campos)
+        : "*";
 
+    // Condición WHERE opcional
+    $where = !empty($parametros->where)
+        ? " WHERE " . $parametros->where
+        : "";
+
+    $sentencia = "SELECT $campos FROM {$parametros->tabla} $where";
+
+    $stm = $pdo->prepare($sentencia);
+    $stm->execute();
+
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
- * Eliminar
- * @param mixed $parametros
- * @return void
+ * ELIMINAR (DELETE)
+ * 
+ * Parámetros esperados:
+ * - tabla: nombre de la tabla
+ * - where: condición WHERE obligatoria
+ * 
+ * Devuelve:
+ * - número de filas afectadas
  */
 function eliminar($parametros)
 {
-    include_once "../conexion.php";
-    $sentencia = "DELETE FROM ".$parametros->tabla ." WHERE ".$parametros->where;
-    $pdo->prepare($sentencia);
-    $pdo->execute();
+    include_once __DIR__ . "/../conexion.php";
 
+    $sentencia = "DELETE FROM {$parametros->tabla} WHERE {$parametros->where}";
+
+    $stm = $pdo->prepare($sentencia);
+    $stm->execute();
+
+    return $stm->rowCount();
 }
+
 /**
- * Actualizar 
- * Tabla
- * Campos a acutalizar
- * @param mixed $parametros
- * @return void
+ * ACTUALIZAR (UPDATE)
+ * 
+ * Parámetros esperados:
+ * - tabla: nombre de la tabla
+ * - campos: string con los campos a actualizar (ej: "nombre='Juan', edad=20")
+ * - where: condición WHERE opcional
+ * 
+ * Devuelve:
+ * - número de filas afectadas
  */
 function actualizar($parametros)
 {
-    include_once "../conexion.php";
-    $sentencia = "UPDATE ".$parametros->tabla." SET ".$parametros->campos;
-    $pdo->prepare($sentencia);
+    include_once __DIR__ . "/../conexion.php";
 
+    $sentencia = "UPDATE {$parametros->tabla} SET {$parametros->campos}";
+
+    if (!empty($parametros->where)) {
+        $sentencia .= " WHERE " . $parametros->where;
+    }
+
+    $stm = $pdo->prepare($sentencia);
+    $stm->execute();
+
+    return $stm->rowCount();
 }
-//todo: Debes de realizar lo que pone aqui en las demas 
+
 /**
+ * INSERTAR (INSERT)
  * 
- * Insertar dentro de bibliotech
- * Debes de introducir un objeto con 
- * -tabla
- * -campos
- * -valores
- * @param mixed $parametros
- * @return void
+ * Parámetros esperados:
+ * - tabla: nombre de la tabla
+ * - arrayCampos: array con los nombres de columnas
+ * - campos: array con los valores (ya preparados entre comillas)
+ * 
+ * Devuelve:
+ * - id del último registro insertado
  */
 function insertar($parametros)
 {
-    include_once "../conexion.php";
-    $sentencia = "INSERT INTO " . $parametros->tabla . "(" . implode(",", $parametros->arrayCampos) . ") VALUES (" . implode(",", $parametros->campos) . ")";
+    include_once __DIR__ . "/../conexion.php";
 
-    $stm=$pdo->prepare($sentencia);
+    $sentencia = "INSERT INTO {$parametros->tabla} (" .
+        implode(",", $parametros->arrayCampos) .
+        ") VALUES (" .
+        implode(",", $parametros->campos) .
+        ")";
+
+    $stm = $pdo->prepare($sentencia);
     $stm->execute();
-    echo $sentencia;
+
+    return $pdo->lastInsertId();
 }

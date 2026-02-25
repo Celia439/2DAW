@@ -1,7 +1,7 @@
 <?php
 try {
     $pdo = new PDO("mysql:host=localhost;dbname=bibliotech;charset=utf8", "root", "");
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo $e->getMessage();
 }
