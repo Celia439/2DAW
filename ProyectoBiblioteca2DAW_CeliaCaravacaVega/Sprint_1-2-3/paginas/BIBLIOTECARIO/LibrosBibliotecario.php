@@ -1,3 +1,8 @@
+<?php
+include_once "../../php/crud/crud.php";
+include_once "../../php/crud/Parametros.php";
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,43 +14,44 @@
     <link rel="stylesheet" href="../../css/estilos-bibliotecario.css">
 </head>
 <body>
-
-<!-- ========== NAVBAR ========== -->
-<nav class="navbar navbar-biblioteca navbar-expand-lg">
-    <a class="navbar-brand" href="./IniciBibliotecario.html">
-        <img src="../img/LogoBiblioteca.svg" alt="Logo">
-    </a>
-    <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMenu">
-        <ul class="navbar-nav ms-3">
-            <li class="nav-item">
-                <a class="nav-link" href="PrestamosBibliotecario.html">
-                    <span class="nav-icon">+</span> Préstamos
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="ReservasBibliotecario.html">
-                    <span class="nav-icon"><i class="bi bi-calendar3"></i></span> Reservas
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="MultasBibliotecario.html">
-                    <span class="nav-icon"><i class="bi bi-clock"></i></span> Multas
-                </a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ms-auto align-items-center">
-            <li class="nav-item">
-                <button class="btn-notificacion"><i class="bi bi-bell"></i></button>
-            </li>
-            <li class="nav-item">
-                <button class="btn-login">Login</button>
-            </li>
-        </ul>
-    </div>
-</nav>
+   <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-biblioteca navbar-expand-lg">
+        <a class="navbar-brand" href="./IniciBibliotecario.php">
+            <img src="../img/LogoBiblioteca.svg" alt="Logo">
+        </a>
+        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="PrestamosBibliotecario.php"
+                        style="background: rgba(255,255,255,0.12); border-radius:4px;">
+                        <span class="nav-icon">+</span> Préstamos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ReservasBibliotecario.php">
+                        <span class="nav-icon"><i class="bi bi-calendar3"></i></span> Reservas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="MultasBibliotecario.php">
+                        <span class="nav-icon"><i class="bi bi-clock"></i></span> Multas
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <button class="btn-notificacion"><i class="bi bi-bell"></i></button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn-login">Login</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
 <!-- ========== BARRA SECUNDARIA ========== -->
 <div class="barra-secundaria">
@@ -79,6 +85,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                      <?php
+                        $datos = [
+                            "tabla" => "libros"
+                        ];
+                        $parametros = new Parametros($datos);
+                        $resultado = consultar($parametros);
+                        foreach ($resultado as $campo) {
+                            echo "<tr>";
+                            foreach ($campo as $valor) {
+                                echo "<td>$valor</td>";
+                            }
+                            echo "</tr>";
+
+                        }
+
+                        ?>
                     <tr>
                         <td>01</td>
                         <td>978-84-1107-123-9</td>
@@ -94,36 +116,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>...</td>
-                        <td>Dirección</td>
-                        <td>...</td>
-                        <td><span class="estado-badge estado-deshabilitado">Deshabilitado</span></td>
-                        <td>
-                            <div class="acciones-tabla">
-                                <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
-                                <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>190</td>
-                        <td>Menu Label</td>
-                        <td>Menu Label</td>
-                        <td>190</td>
-                        <td>Menu Label</td>
-                        <td>Menu Label</td>
-                        <td><span class="estado-badge">Menu Label</span></td>
-                        <td>
-                            <div class="acciones-tabla">
-                                <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
-                                <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                   
                 </tbody>
             </table>
         </div>
