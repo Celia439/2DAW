@@ -1,0 +1,5 @@
+con composer para arrancar laravel
+php artisan serve
+en 
+http://127.0.0.1:8000
+
