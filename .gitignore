@@ -1,7 +1,4 @@
-# Entornos virtuales
-env/
-venv/
-.venv/
+
 
 # Archivos de Python que no deben subirse
 __pycache__/
@@ -13,3 +10,5 @@ __pycache__/
 # Archivos de sistema
 .DS_Store
 Thumbs.db
+
+P04_Proyecto_Analisis_CeliaCaravacaVega
