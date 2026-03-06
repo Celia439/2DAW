@@ -53,17 +53,17 @@
 
     <!-- Sidebar -->
     <div class="sidebar" style="width: 160px; min-height: calc(100vh - 60px); background-color: #fff; border-right: 1px solid #eee; padding-top: 0.8rem; flex-shrink: 0;">
-        <a href="UsuariosBibliotecario.html" class="d-block px-3 py-2 text-decoration-none" style="color: var(--color-texto-oscuro); font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;"
+        <a href="UsuariosBibliotecario.php" class="d-block px-3 py-2 text-decoration-none" style="color: var(--color-texto-oscuro); font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;"
            onmouseover="this.style.borderLeftColor='var(--color-navbar)'; this.style.background='#f0f8f8';"
            onmouseout="this.style.borderLeftColor='transparent'; this.style.background='transparent';">
             Usuarios
         </a>
-        <a href="LibrosBibliotecario.html" class="d-block px-3 py-2 text-decoration-none" style="color: var(--color-texto-oscuro); font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;"
+        <a href="LibrosBibliotecario.php" class="d-block px-3 py-2 text-decoration-none" style="color: var(--color-texto-oscuro); font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;"
            onmouseover="this.style.borderLeftColor='var(--color-navbar)'; this.style.background='#f0f8f8';"
            onmouseout="this.style.borderLeftColor='transparent'; this.style.background='transparent';">
             Libros
         </a>
-        <a href="EmpresaBibliotecario.html" class="d-block px-3 py-2 text-decoration-none" style="color: var(--color-texto-oscuro); font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;"
+        <a href="EmpresaBibliotecario.php" class="d-block px-3 py-2 text-decoration-none" style="color: var(--color-texto-oscuro); font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;"
            onmouseover="this.style.borderLeftColor='var(--color-navbar)'; this.style.background='#f0f8f8';"
            onmouseout="this.style.borderLeftColor='transparent'; this.style.background='transparent';">
             Empresa
