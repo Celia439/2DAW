@@ -8,6 +8,7 @@ class Parametros
     public $arrayCampos;  // Array de columnas (INSERT)
     public $valores;      // Array de valores (INSERT)
     public $camposUpdate; // String con campos para UPDATE
+    public $orden;
 
     public function __construct($datos = [])
     {
@@ -18,5 +19,6 @@ class Parametros
         $this->arrayCampos = $datos["arrayCampos"] ?? null;
         $this->valores = $datos["valores"] ?? null;
         $this->camposUpdate = $datos["camposUpdate"] ?? null;
+        $this->orden = $datos["orden"]??null;
     }
 }

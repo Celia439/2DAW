@@ -13,10 +13,13 @@ include_once "../../php/crud/Parametros.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/estilos-bibliotecario.css">
+    <!--jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../../js/usuario.js"></script>
 </head>
 
 <body>
-   <!-- ========== NAVBAR ========== -->
+    <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-biblioteca navbar-expand-lg">
         <a class="navbar-brand" href="./IniciBibliotecario.php">
             <img src="../img/LogoBiblioteca.svg" alt="Logo">
@@ -75,13 +78,21 @@ include_once "../../php/crud/Parametros.php";
                 <table class="tabla-biblioteca">
                     <thead>
                         <tr>
-                            <th>Id Targeta</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Dni</th>
-                            <th>Dirección</th>
-                            <th>Teléfono</th>
-                            <th>Estado</th>
+                            <?php
+                            $datos = [
+                                "tabla" => "INFORMATION_SCHEMA.COLUMNS",
+                                "campos" => ["COLUMN_NAME"],
+                                "where" => "TABLE_SCHEMA = 'bibliotech' AND TABLE_NAME = 'usuarios'",
+                                "order" => "ORDINAL_POSITION"
+                            ];
+                            $parametrosC = new Parametros($datos);
+                            $resultado = consultar($parametrosC);
+                            foreach ($resultado as $campo) {
+                                foreach ($campo as $valor) {
+                                    echo "<th>$valor</th>";
+                                }
+                            }
+                            ?>
                             <th style="width: 80px;">Acciones</th>
                         </tr>
                     </thead>
@@ -91,13 +102,20 @@ include_once "../../php/crud/Parametros.php";
                         $datos = [
                             "tabla" => "usuarios"
                         ];
-                        $parametros = new Parametros($datos);
-                        $resultado = consultar($parametros);
+                        $parametrosF = new Parametros($datos);
+                        $resultado = consultar($parametrosF);
                         foreach ($resultado as $campo) {
                             echo "<tr>";
                             foreach ($campo as $valor) {
                                 echo "<td>$valor</td>";
                             }
+                            echo '<td>
+                                <div class="acciones-tabla">
+                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>';
+
                             echo "</tr>";
 
                         }
@@ -142,62 +160,88 @@ include_once "../../php/crud/Parametros.php";
 
                 <!-- Body -->
                 <div class="modal-body">
-                    <div class="row g-3">
-                        <!-- Nombre -->
-                        <div class="col-6">
-                            <label class="form-label"><i class="bi bi-person label-icon"></i>Nombre</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <!-- Dirección -->
-                        <div class="col-6">
-                            <label class="form-label"><i class="bi bi-geo-alt label-icon"></i>Dirección</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <!-- Correo Electrónico -->
-                        <div class="col-6">
-                            <label class="form-label"><i class="bi bi-envelope label-icon"></i>Correo
-                                Electrónico</label>
-                            <input type="email" class="form-control" placeholder="">
-                        </div>
-                        <!-- Teléfono -->
-                        <div class="col-6">
-                            <label class="form-label"><i class="bi bi-telephone label-icon"></i>Teléfono</label>
-                            <input type="tel" class="form-control" placeholder="">
-                        </div>
-                        <!-- DNI -->
-                        <div class="col-6">
-                            <label class="form-label"><i class="bi bi-credit-card label-icon"></i>Dni</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <!-- Roles -->
-                        <div class="col-6">
-                            <label class="form-label">Roles</label>
-                            <select class="form-select">
-                                <option value="" selected disabled></option>
-                                <option value="usuario">Usuario</option>
-                                <option value="bibliotecario">Bibliotecario</option>
-                                <option value="admin">Administrador</option>
-                            </select>
-                        </div>
-                        <!-- Estado -->
-                        <div class="col-12">
-                            <label class="form-label">Estado</label>
-                            <select class="form-select">
-                                <option value="" selected disabled></option>
-                                <option value="activo">Activo</option>
-                                <option value="deshabilitado">Deshabilitado</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <!-- Botón registrar -->
-                    <div class="mt-3">
-                        <button class="btn-registrar">Registrar</button>
-                    </div>
+                    <!-- FORMULARIO -->
+                    <form id="formNuevoUsuario" method="POST" action="procesarNuevoUsuario.php">
+                        <div class="row g-3">
+
+                            <!-- Nombre -->
+                            <div class="col-6">
+                                <label class="form-label"><i class="bi bi-person label-icon"></i>Nombre</label>
+                                <input type="text" class="form-control" id="usr_nom" name="usr_nom">
+                            </div>
+
+                            <!-- Apellidos -->
+                            <div class="col-6">
+                                <label class="form-label"><i class="bi bi-person label-icon"></i>Apellidos</label>
+                                <input type="text" class="form-control" id="usr_ape" name="usr_ape">
+                            </div>
+
+                            <!-- DNI -->
+                            <div class="col-6">
+                                <label class="form-label"><i class="bi bi-person label-icon"></i>DNI</label>
+                                <input type="text" class="form-control" id="usr_dni" name="usr_dni" maxlength="9">
+                            </div>
+
+                            <!-- Correo -->
+                            <div class="col-6">
+                                <label class="form-label"><i class="bi bi-envelope label-icon"></i>Correo
+                                    Electrónico</label>
+                                <input type="email" class="form-control" id="usr_cor" name="usr_cor">
+                            </div>
+
+                            <!-- Password -->
+                            <div class="col-6">
+                                <label class="form-label"><i class="bi bi-lock label-icon"></i>Password</label>
+                                <input type="password" class="form-control" id="usr_pass" name="usr_pass">
+                            </div>
+
+                            <!-- Teléfono -->
+                            <div class="col-6">
+                                <label class="form-label"><i class="bi bi-telephone label-icon"></i>Teléfono</label>
+                                <input type="tel" class="form-control" id="usr_tel" name="usr_tel">
+                            </div>
+
+                            <!-- Dirección -->
+                            <div class="col-6">
+                                <label class="form-label"><i class="bi bi-geo-alt label-icon"></i>Dirección</label>
+                                <input type="text" class="form-control" id="usr_dir" name="usr_dir">
+                            </div>
+
+                            <!-- Roles -->
+                            <div class="col-6">
+                                <label class="form-label">Roles</label>
+                                <select class="form-select" id="usr_rol" name="usr_rol">
+                                    <option value="" selected disabled></option>
+                                    <option value="usuario">Usuario</option>
+                                    <option value="bibliotecario">Bibliotecario</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                            </div>
+
+                            <!-- Estado -->
+                            <div class="col-12">
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" id="usr_est" name="usr_est">
+                                    <option value="" selected disabled></option>
+                                    <option value="activo">Activo</option>
+                                    <option value="deshabilitado">Deshabilitado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Botón registrar -->
+                        <div class="mt-3">
+                            <button type="submit" class="btn-registrar">Registrar</button>
+                        </div>
+                    </form>
+                    <!-- FIN FORMULARIO -->
+
                 </div>
             </div>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

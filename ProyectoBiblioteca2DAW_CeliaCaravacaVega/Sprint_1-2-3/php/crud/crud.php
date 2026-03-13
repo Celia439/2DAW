@@ -6,6 +6,7 @@
  * - campos: array con los nombres de columnas (opcional)
  * - tabla: nombre de la tabla
  * - where: condición WHERE (opcional)
+ * - order: condición ORDER BY (opcional)
  * 
  * Devuelve:
  * - array asociativo con los resultados
@@ -13,7 +14,7 @@
 function consultar($parametros)
 {
     include_once __DIR__ . "/../conexion.php";
-
+    $pdo = conectar();
     // Si no se especifican campos, se seleccionan todos
     $campos = !empty($parametros->campos)
         ? implode(",", $parametros->campos)
@@ -24,7 +25,11 @@ function consultar($parametros)
         ? " WHERE " . $parametros->where
         : "";
 
-    $sentencia = "SELECT $campos FROM {$parametros->tabla} $where";
+    // Condición ORDER BY opcional
+    $order = !empty($parametros->order)
+        ? "ORDER BY " . $parametros->order
+        : "";
+    $sentencia = "SELECT $campos FROM {$parametros->tabla} $where $order";
 
     $stm = $pdo->prepare($sentencia);
     $stm->execute();
@@ -45,6 +50,8 @@ function consultar($parametros)
 function eliminar($parametros)
 {
     include_once __DIR__ . "/../conexion.php";
+
+    $pdo = conectar();
 
     $sentencia = "DELETE FROM {$parametros->tabla} WHERE {$parametros->where}";
 
@@ -68,6 +75,8 @@ function eliminar($parametros)
 function actualizar($parametros)
 {
     include_once __DIR__ . "/../conexion.php";
+
+    $pdo = conectar();
 
     $sentencia = "UPDATE {$parametros->tabla} SET {$parametros->campos}";
 
@@ -95,6 +104,8 @@ function actualizar($parametros)
 function insertar($parametros)
 {
     include_once __DIR__ . "/../conexion.php";
+
+    $pdo = conectar();
 
     $sentencia = "INSERT INTO {$parametros->tabla} (" .
         implode(",", $parametros->arrayCampos) .

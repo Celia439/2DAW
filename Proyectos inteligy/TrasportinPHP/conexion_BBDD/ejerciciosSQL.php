@@ -16,7 +16,7 @@ $consulta = "select dni,nombre,edad from alumnos";
 // obtener consulta
 $resultado = $conexion->query($consulta);
 
-while ($fila = $resultado->fetch_array(MYSQLI_ASSOC)) {
+while ($fila = $resultado->(MYSQLI_ASSOC)) {
     echo " DNI: $fila[dni]  $fila[nombre] tienen $fila[edad]<br>";
 }
 

@@ -5,6 +5,7 @@ include_once "../../php/crud/Parametros.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +14,9 @@ include_once "../../php/crud/Parametros.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/estilos-bibliotecario.css">
 </head>
+
 <body>
-   <!-- ========== NAVBAR ========== -->
+    <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-biblioteca navbar-expand-lg">
         <a class="navbar-brand" href="./IniciBibliotecario.php">
             <img src="../img/LogoBiblioteca.svg" alt="Logo">
@@ -53,48 +55,57 @@ include_once "../../php/crud/Parametros.php";
         </div>
     </nav>
 
-<!-- ========== BARRA SECUNDARIA ========== -->
-<div class="barra-secundaria">
-    <button class="btn-mas"><i class="bi bi-chevron-down"></i> Más</button>
-    <div class="input-group input-busqueda">
-        <span class="input-group-text"><i class="bi bi-search"></i></span>
-        <input type="text" class="form-control" placeholder="Buscar...">
+    <!-- ========== BARRA SECUNDARIA ========== -->
+    <div class="barra-secundaria">
+        <button class="btn-mas"><i class="bi bi-chevron-down"></i> Más</button>
+        <div class="input-group input-busqueda">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control" placeholder="Buscar...">
+        </div>
+        <button class="btn-nuevo">+ Nuevo</button>
     </div>
-    <button class="btn-nuevo">+ Nuevo</button>
-</div>
 
-<!-- ========== CONTENIDO ========== -->
-<div class="contenido-principal">
-    <div class="card-biblioteca">
+    <!-- ========== CONTENIDO ========== -->
+    <div class="contenido-principal">
+        <div class="card-biblioteca">
 
-        <!-- Título + Toggle filtro -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="card-titulo mb-0">Multas</div>
-            <div class="toggle-filtro">
-                <span>Sin pagar</span>
-                <div class="form-check form-switch mb-0">
-                    <input class="form-check-input" type="checkbox" id="toggleSinPagar" style="width:2.5rem; height:1.3rem; cursor:pointer;">
+            <!-- Título + Toggle filtro -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="card-titulo mb-0">Multas</div>
+                <div class="toggle-filtro">
+                    <span>Sin pagar</span>
+                    <div class="form-check form-switch mb-0">
+                        <input class="form-check-input" type="checkbox" id="toggleSinPagar"
+                            style="width:2.5rem; height:1.3rem; cursor:pointer;">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Tabla de Multas -->
-        <div class="table-responsive">
-            <table class="tabla-biblioteca">
-                <thead>
-                    <tr>
-                        <th>Id Préstamo</th>
-                        <th>Fecha Multa</th>
-                        <th>Importe</th>
-                        <th>Usuario</th>
-                        <th>Días retraso</th>
-                        <th>Motivo</th>
-                        <th>Estado</th>
-                        <th style="width: 80px;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                         <?php
+            <!-- Tabla de Multas -->
+            <div class="table-responsive">
+                <table class="tabla-biblioteca">
+                    <thead>
+                        <tr>
+                            <?php
+                            $datos = [
+                                "tabla" => "INFORMATION_SCHEMA.COLUMNS",
+                                "campos" => ["COLUMN_NAME"],
+                                "where" => "TABLE_SCHEMA = 'bibliotech' AND TABLE_NAME = 'multas'",
+                                "order" => "ORDINAL_POSITION"
+                            ];
+                            $parametrosC = new Parametros($datos);
+                            $resultado = consultar($parametrosC);
+                            foreach ($resultado as $campo) {
+                                foreach ($campo as $valor) {
+                                    echo "<th>$valor</th>";
+                                }
+                            }
+                            ?>
+                            <th style="width: 80px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
                         $datos = [
                             "tabla" => "multas"
                         ];
@@ -105,32 +116,39 @@ include_once "../../php/crud/Parametros.php";
                             foreach ($campo as $valor) {
                                 echo "<td>$valor</td>";
                             }
+                            echo '<td>
+                                <div class="acciones-tabla">
+                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>';
                             echo "</tr>";
 
                         }
 
                         ?>
-                    <tr>
-                        <td>05</td>
-                        <td>10/11/2025</td>
-                        <td>3€</td>
-                        <td>Celia</td>
-                        <td>1</td>
-                        <td>Retraso</td>
-                        <td><span class="estado-badge estado-pagada">Pagada</span></td>
-                        <td>
-                            <div class="acciones-tabla">
-                                <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
-                                <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        <tr>
+                            <td>05</td>
+                            <td>10/11/2025</td>
+                            <td>3€</td>
+                            <td>Celia</td>
+                            <td>1</td>
+                            <td>Retraso</td>
+                            <td><span class="estado-badge estado-pagada">Pagada</span></td>
+                            <td>
+                                <div class="acciones-tabla">
+                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

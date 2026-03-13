@@ -5,6 +5,7 @@ include_once "../../php/crud/Parametros.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +14,9 @@ include_once "../../php/crud/Parametros.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/estilos-bibliotecario.css">
 </head>
+
 <body>
-   <!-- ========== NAVBAR ========== -->
+    <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-biblioteca navbar-expand-lg">
         <a class="navbar-brand" href="./IniciBibliotecario.php">
             <img src="../img/LogoBiblioteca.svg" alt="Logo">
@@ -53,39 +55,47 @@ include_once "../../php/crud/Parametros.php";
         </div>
     </nav>
 
-<!-- ========== BARRA SECUNDARIA ========== -->
-<div class="barra-secundaria">
-    <button class="btn-mas"><i class="bi bi-chevron-down"></i> Más</button>
-    <div class="input-group input-busqueda">
-        <span class="input-group-text"><i class="bi bi-search"></i></span>
-        <input type="text" class="form-control" placeholder="Buscar...">
+    <!-- ========== BARRA SECUNDARIA ========== -->
+    <div class="barra-secundaria">
+        <button class="btn-mas"><i class="bi bi-chevron-down"></i> Más</button>
+        <div class="input-group input-busqueda">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control" placeholder="Buscar...">
+        </div>
+        <!-- Abre el modal Nuevo Libro -->
+        <button class="btn-nuevo" data-bs-toggle="modal" data-bs-target="#modalNuevoLibro">+ Nuevo</button>
     </div>
-    <!-- Abre el modal Nuevo Libro -->
-    <button class="btn-nuevo" data-bs-toggle="modal" data-bs-target="#modalNuevoLibro">+ Nuevo</button>
-</div>
 
-<!-- ========== CONTENIDO ========== -->
-<div class="contenido-principal">
-    <div class="card-biblioteca">
-        <div class="card-titulo">Libros</div>
+    <!-- ========== CONTENIDO ========== -->
+    <div class="contenido-principal">
+        <div class="card-biblioteca">
+            <div class="card-titulo">Libros</div>
 
-        <!-- Tabla de Libros -->
-        <div class="table-responsive">
-            <table class="tabla-biblioteca">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>ISBN</th>
-                        <th>Título</th>
-                        <th>Cantidad</th>
-                        <th>Autor</th>
-                        <th>Géneros</th>
-                        <th>Estado</th>
-                        <th style="width: 80px;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                      <?php
+            <!-- Tabla de Libros -->
+            <div class="table-responsive">
+                <table class="tabla-biblioteca">
+                    <thead>
+                        <tr>
+                            <?php
+                            $datos = [
+                                "tabla" => "INFORMATION_SCHEMA.COLUMNS",
+                                "campos" => ["COLUMN_NAME"],
+                                "where" => "TABLE_SCHEMA = 'bibliotech' AND TABLE_NAME = 'libros'",
+                                "order" => "ORDINAL_POSITION"
+                            ];
+                            $parametrosC = new Parametros($datos);
+                            $resultado = consultar($parametrosC);
+                            foreach ($resultado as $campo) {
+                                foreach ($campo as $valor) {
+                                    echo "<th>$valor</th>";
+                                }
+                            }
+                            ?>
+                            <th style="width: 80px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
                         $datos = [
                             "tabla" => "libros"
                         ];
@@ -96,89 +106,98 @@ include_once "../../php/crud/Parametros.php";
                             foreach ($campo as $valor) {
                                 echo "<td>$valor</td>";
                             }
+                            echo '<td>
+                                <div class="acciones-tabla">
+                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>';
                             echo "</tr>";
 
                         }
 
                         ?>
-                    <tr>
-                        <td>01</td>
-                        <td>978-84-1107-123-9</td>
-                        <td>TituloEj</td>
-                        <td>15</td>
-                        <td>Celia</td>
-                        <td>Acción, Drama</td>
-                        <td><span class="estado-badge estado-activo">Activo</span></td>
-                        <td>
-                            <div class="acciones-tabla">
-                                <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
-                                <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                   
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                        <tr>
+                            <td>01</td>
+                            <td>978-84-1107-123-9</td>
+                            <td>TituloEj</td>
+                            <td>15</td>
+                            <td>Celia</td>
+                            <td>Acción, Drama</td>
+                            <td><span class="estado-badge estado-activo">Activo</span></td>
+                            <td>
+                                <div class="acciones-tabla">
+                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
 
-<!-- ========== MODAL: Nuevo Libro ========== -->
-<div class="modal fade modal-biblioteca" id="modalNuevoLibro" tabindex="-1" aria-labelledby="modalNuevoLibroLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
-        <div class="modal-content" style="border-radius: 8px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.18);">
-
-            <!-- Header -->
-            <div class="modal-header d-flex justify-content-between align-items-center">
-                <h5 class="modal-title" id="modalNuevoLibroLabel">
-                    Nuevo Libro <i class="bi bi-book"></i>
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-
-            <!-- Body -->
-            <div class="modal-body">
-                <div class="row g-3">
-                    <!-- ISBN -->
-                    <div class="col-6">
-                        <label class="form-label"><span class="label-icon"></span>ISBN</label>
-                        <input type="text" class="form-control" placeholder="">
-                    </div>
-                    <!-- Título -->
-                    <div class="col-6">
-                        <label class="form-label">Título</label>
-                        <input type="text" class="form-control" placeholder="">
-                    </div>
-                    <!-- Cantidad -->
-                    <div class="col-6">
-                        <label class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" placeholder="">
-                    </div>
-                    <!-- Géneros -->
-                    <div class="col-6">
-                        <label class="form-label">Géneros</label>
-                        <input type="text" class="form-control" placeholder="">
-                    </div>
-                    <!-- Estado -->
-                    <div class="col-12">
-                        <label class="form-label">Estado</label>
-                        <select class="form-select">
-                            <option value="" selected disabled></option>
-                            <option value="activo">Activo</option>
-                            <option value="deshabilitado">Deshabilitado</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Botón registrar -->
-                <div class="mt-3">
-                    <button class="btn-registrar">Registrar</button>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- ========== MODAL: Nuevo Libro ========== -->
+    <div class="modal fade modal-biblioteca" id="modalNuevoLibro" tabindex="-1" aria-labelledby="modalNuevoLibroLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+            <div class="modal-content"
+                style="border-radius: 8px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.18);">
+
+                <!-- Header -->
+                <div class="modal-header d-flex justify-content-between align-items-center">
+                    <h5 class="modal-title" id="modalNuevoLibroLabel">
+                        Nuevo Libro <i class="bi bi-book"></i>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <!-- ISBN -->
+                        <div class="col-6">
+                            <label class="form-label"><span class="label-icon"></span>ISBN</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <!-- Título -->
+                        <div class="col-6">
+                            <label class="form-label">Título</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <!-- Cantidad -->
+                        <div class="col-6">
+                            <label class="form-label">Cantidad</label>
+                            <input type="number" class="form-control" placeholder="">
+                        </div>
+                        <!-- Géneros -->
+                        <div class="col-6">
+                            <label class="form-label">Géneros</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <!-- Estado -->
+                        <div class="col-12">
+                            <label class="form-label">Estado</label>
+                            <select class="form-select">
+                                <option value="" selected disabled></option>
+                                <option value="activo">Activo</option>
+                                <option value="deshabilitado">Deshabilitado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Botón registrar -->
+                    <div class="mt-3">
+                        <button class="btn-registrar">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

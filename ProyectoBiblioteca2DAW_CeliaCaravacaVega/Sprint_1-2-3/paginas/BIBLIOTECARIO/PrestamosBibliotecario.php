@@ -77,14 +77,21 @@ include_once "../../php/crud/Parametros.php";
                 <table class="tabla-biblioteca">
                     <thead>
                         <tr>
-                            <th>Id Préstamo</th>
-                            <th>Id Libro</th>
-                            <th>Título</th>
-                            <th>Fecha Préstamo</th>
-                            <th>Fecha Devolución</th>
-                            <th>Observación</th>
-                            <th>Usuario</th>
-                            <th>Estado</th>
+                            <?php
+                            $datos = [
+                                "tabla" => "INFORMATION_SCHEMA.COLUMNS",
+                                "campos" => ["COLUMN_NAME"],
+                                "where" => "TABLE_SCHEMA = 'bibliotech' AND TABLE_NAME = 'prestamos'",
+                                "order" => "ORDINAL_POSITION"
+                            ];
+                            $parametrosC = new Parametros($datos);
+                            $resultado = consultar($parametrosC);
+                            foreach ($resultado as $campo) {
+                                foreach ($campo as $valor) {
+                                    echo "<th>$valor</th>";
+                                }
+                            }
+                            ?>
                             <th style="width: 80px;">Acciones</th>
                         </tr>
                     </thead>
@@ -100,6 +107,12 @@ include_once "../../php/crud/Parametros.php";
                             foreach ($campo as $valor) {
                                 echo "<td>$valor</td>";
                             }
+                            echo '<td>
+                                <div class="acciones-tabla">
+                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>';
                             echo "</tr>";
 
                         }
