@@ -46,7 +46,7 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav> 
 
 <!-- ========== SIDEBAR + CONTENIDO ========== -->
 <div class="d-flex">
