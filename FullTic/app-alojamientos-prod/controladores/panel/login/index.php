@@ -14,7 +14,6 @@ echo json_encode([
 exit;
 
 */
-require_once MODELOS_LOGIN;
 
 if (isset($_REQUEST['usuario']) && isset($_REQUEST['pass'])) {
 

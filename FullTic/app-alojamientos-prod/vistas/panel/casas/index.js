@@ -45,6 +45,7 @@ var casas = {
                 dataType: "json",
                 data: {
                     pagina: "controladores/panel/casas/index.php",
+                    modelo: "modelos/panel/casas/index.php",
                     datos,
                     action
                 },
@@ -88,7 +89,7 @@ var casas = {
         console.log("acaso esto carga");
 
         //En caso de pulsar algun boton de eliminar
-        $(".delete").on("click", function (event) {
+        $(".borrarCasa").on("click", function (event) {
             console.log("clic en borrar");
             //Preguntar si realmente lo quiere borrar 
             if (!confirm("¿Seguro que quieres eliminar este registro?")) {
@@ -109,6 +110,7 @@ var casas = {
                 dataType: "json",
                 data: {
                     pagina: "controladores/panel/casas/index.php",
+                    modelo: "modelos/panel/casas/index.php",
                     id,
                     action: "delete"
                 },
@@ -139,19 +141,20 @@ var casas = {
         })
     },
     //Evento editar 
-    actualizarResumen:function(){
-         $.ajax({
-        url: ROOT_AJAX,
-        type: "POST",
-        dataType: "json",
-        data: {
-            pagina: "controladores/panel/casas/index.php",
-            action:"actualizarResumen"
-        },
-        success: function(data){
-            $("#resumen").html(data.HTML);
-        }
-    });
+    actualizarResumen: function () {
+        $.ajax({
+            url: ROOT_AJAX,
+            type: "POST",
+            dataType: "json",
+            data: {
+                pagina: "controladores/panel/casas/index.php",
+                modelo: "modelos/panel/casas/index.php",
+                action: "actualizarResumen"
+            },
+            success: function (data) {
+                $("#resumen").html(data.HTML);
+            }
+        });
     }
 };
 

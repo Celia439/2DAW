@@ -1,6 +1,4 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/app-alojamientos-prod/config/index.php";
-require_once MODELOS_CHECKIN . "/index.php";
 
 header("Content-Type: application/json; charset=utf-8");
 

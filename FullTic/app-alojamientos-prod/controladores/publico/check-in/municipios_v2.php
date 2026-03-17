@@ -1,6 +1,5 @@
 <?php
 
-require_once MODELOS_CHECKIN . "/index.php";
 
 // Recoger provincia desde AJAX ((null coalescing) Sí provincia no está vacío o null o si no "")
 $provincia = $_REQUEST["seleccionado"] ?? "";

@@ -45,6 +45,7 @@ var reservas = {
                 dataType: "json",
                 data: {
                     pagina: "controladores/panel/reservas/index.php",
+                    modelo: "modelos/panel/reservas/index.php",
                     datos,
                     action
                 },
@@ -55,17 +56,52 @@ var reservas = {
                 },
 
                 success: function (respuesta) {
-                    console.log("URL que se está usando:", ROOT_AJAX);
 
                     console.log("Respuesta EXITOSA del servidor:", respuesta);
 
                     if (respuesta.ok === true) {
-                        comun.mostrarAlerta("¡Login correcto! Redirigiendo...", "success");
-                        setTimeout(function () {
-                            window.location.href = ROOT_URL + "panel/reservas";
-                        }, 1500);
+
+                        //cambiar por modalv2
+                        comun.mostrarAlerta("añadido correctamente", "success");
+
+                        // Actualizar resumen
+                        $("#total_huespedes").text(respuesta.resumen.total_huespedes);
+                        $("#total_bruto").text(respuesta.resumen.total_bruto);
+                        $("#total_descuento").text(respuesta.resumen.total_descuento);
+                        $("#total_comision").text(respuesta.resumen.total_comision);
+                        $("#total_final").text(respuesta.resumen.total_final);
+
+                        //limpiar formulario
+                        $("#formReservas")[0].reset();
+                        $("#formReservas").removeClass("was-validated");
+                        $("#formReservas").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+
+                        // añadir registro para que se muestre
+                        let r = respuesta.reserva;
+
+                        let nuevaFila = `
+<tr>
+    <td>${r.id}</td>
+    <td>${r.canal}</td>
+    <td>${r.total_huespedes}</td>
+    <td>${r.fecha_entrada}</td>
+    <td>${r.fecha_salida}</td>
+    <td>${r.importe_bruto}</td>
+    <td>${r.descuento}%</td>
+    <td>${r.comision}%</td>
+    <td>${r.importe_final}</td>
+    <td>${r.num_reserva}</td>
+    <td><button class="btn btn-outline-danger borrarReserva">Eliminar</button></td>
+    <td><button class="btn btn-outline-primary update">Editar</button></td>
+</tr>
+`;
+
+
+                        $("#tablaReservas tbody").append(nuevaFila);
+
+
                     } else {
-                        comun.mostrarAlerta("Error: " + (respuesta.message || "Credenciales inválidas"), "danger");
+                        comun.mostrarAlerta("Error: " + (respuesta.error || "Credenciales inválidas"), "danger");
                     }
                 },
 
@@ -88,7 +124,7 @@ var reservas = {
         console.log("acaso esto carga");
 
         //En caso de pulsar algun boton de eliminar
-        $(".delete").on("click", function (event) {
+        $(".borrarReserva").on("click", function (event) {
             console.log("clic en borrar");
             //Preguntar si realmente lo quiere borrar 
             if (!confirm("¿Seguro que quieres eliminar este registro?")) {
@@ -98,17 +134,18 @@ var reservas = {
             let tr = event.currentTarget.closest("tr");
             let id = tr.querySelector("td").textContent.trim();
 
+            // Eliminar el tr 
             $(event.currentTarget).closest("tr").remove();
+            //Actualizamos el resumen
+            //reservas.actualizarResumen();
 
-            alert(tr.firstChild);
-
-            alert(id);
             $.ajax({
                 url: ROOT_AJAX,
                 type: "POST",
                 dataType: "json",
                 data: {
                     pagina: "controladores/panel/reservas/index.php",
+                    modelo: "modelos/panel/reservas/index.php",
                     id,
                     action: "delete"
                 },
@@ -117,6 +154,14 @@ var reservas = {
                     comun.bloquearUI();
                 },
                 success: function (data) {
+                    // Actualizar resumen
+                    $("#total_huespedes").text(data.resumen.total_huespedes);
+                    $("#total_bruto").text(data.resumen.total_bruto);
+                    $("#total_descuento").text(data.resumen.total_descuento);
+                    $("#total_comision").text(data.resumen.total_comision);
+                    $("#total_final").text(data.resumen.total_final);
+
+
                     comun.mostrarModal_v2({
                         titulo: "Registro eliminado",
                         HTML: data.HTML
@@ -137,22 +182,23 @@ var reservas = {
                 }
             });
         })
-    },
-    //Evento editar 
-    actualizarResumen:function(){
-         $.ajax({
-        url: ROOT_AJAX,
-        type: "POST",
-        dataType: "json",
-        data: {
-            pagina: "controladores/panel/reservas/index.php",
-            action:"actualizarResumen"
-        },
-        success: function(data){
-            $("#resumen").html(data.HTML);
-        }
-    });
     }
+    /*Evento editar (Doble petición AJAX otra opción menos eficiente)
+    actualizarResumen: function () {
+        $.ajax({
+            url: ROOT_AJAX,
+            type: "POST",
+            dataType: "json",
+            data: {
+                pagina: "controladores/panel/reservas/index.php",
+                modelo:"modelos/panel/reservas/index.php",
+                action: "actualizarResumen"
+            },
+            success: function (data) {
+                $("#resumen").html(data.HTML);
+            }
+        });
+    }*/
 };
 
 $(document).ready(function () {

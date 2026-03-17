@@ -4,9 +4,6 @@
         <?php echo $reserva["id"] ?>
     </td>
     <td>
-        <?php echo $reserva["num_reserva"] ?>
-    </td>
-    <td>
         <?php echo $reserva["canal"] ?>
     </td>
     <td>
@@ -32,7 +29,10 @@
     <td>
         <?php echo number_format($reserva["importe_final"], 2, ",", ".") ?>
     </td>
-    <td><button class="btn btn-outline-danger delete">">Eliminar</button></td> 
+    <td>
+        <?php echo $reserva["num_reserva"] ?>
+    </td>
+    <td><button class="btn btn-outline-danger delete borrarReserva">Eliminar</button></td>
     <td><button class="btn btn-outline-primary update">Editar</button></td>
 
 </tr>

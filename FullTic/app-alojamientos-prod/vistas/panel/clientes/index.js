@@ -21,6 +21,21 @@ var clientes = {
         console.log("Validación del form:", esValido ? "VÁLIDO" : "INVÁLIDO");
         return esValido;
     },
+    eventoCargarPaginador: function () {
+        $(".pagination");
+        let pagina = $_POST["p"];
+        $.ajax({
+            url: ROOT_AJAX,
+            type: "POST",
+            dataType:"json",
+            data:{
+                pagina:"controladores/panel/clientes/index.php",
+                modelo:"modelos/panel/clientes/index.php",
+                action:"cargarPaginador",
+                pagAct: pagina
+            }
+        })
+    },
 
     eventoEnviar: function () {
         $("#formclientes").on("submit", function (event) {
@@ -45,6 +60,7 @@ var clientes = {
                 dataType: "json",
                 data: {
                     pagina: "controladores/panel/clientes/index.php",
+                    modelo: "modelos/panel/clientes/index.php",
                     datos,
                     action
                 },
@@ -61,9 +77,48 @@ var clientes = {
 
                     if (respuesta.ok === true) {
                         comun.mostrarAlerta("¡Login correcto! Redirigiendo...", "success");
-                        setTimeout(function () {
-                            window.location.href = ROOT_URL + "panel/clientes";
-                        }, 1500);
+                        //limpiar formulario
+                        $("#formReservas")[0].reset();
+                        $("#formReservas").removeClass("was-validated");
+                        $("#formReservas").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+                        // añadir registro para que se muestre
+                        let r = respuesta.cliente;
+
+                        let nuevaFila = `
+<tr>
+    <td>${r.id}</td>
+    <td>${r.created_at}</td>
+    <td>${r.nombre}</td>
+    <td>${r.primer_apellido}</td>
+    <td>${r.segundo_apellido}</td>
+    <td>${r.sexo}</td>
+    <td>${r.numero_documento_identidad}</td>
+    <td>${r.tipo_documentacion}</td>
+    <td>${r.numero_soporte_documento}</td>
+    <td>${r.nacionalidad_id}</td>
+    <td>${r.fecha_nacimiento}</td>
+    <td>${r.telefono_fijo}</td>
+    <td>${r.telefono_movil}</td>
+    <td>${r.correo}</td>
+    <td>${r.menores_edad}</td>
+    <td>${r.pais}</td>
+    <td>${r.provincia}</td>
+    <td>${r.localidad}</td>
+    <td>${r.direccion}</td>
+    <td>${r.codigo_postal}</td>
+
+    <td>
+        <button class="btn btn-outline-danger borrarCliente">Eliminar</button>
+    </td>
+    <td>
+        <button class="btn btn-outline-primary updateCliente">Editar</button>
+    </td>
+</tr>
+
+`;
+
+
+                        $("#tablaCliente tbody").append(nuevaFila);
                     } else {
                         comun.mostrarAlerta("Error: " + (respuesta.message || "Credenciales inválidas"), "danger");
                     }
@@ -109,6 +164,7 @@ var clientes = {
                 dataType: "json",
                 data: {
                     pagina: "controladores/panel/clientes/index.php",
+                    modelo: "modelos/panel/clientes/index.php",
                     id,
                     action: "delete"
                 },
@@ -139,19 +195,19 @@ var clientes = {
         })
     },
     //Evento editar 
-    actualizarResumen:function(){
-         $.ajax({
-        url: ROOT_AJAX,
-        type: "POST",
-        dataType: "json",
-        data: {
-            pagina: "controladores/panel/clientes/index.php",
-            action:"actualizarResumen"
-        },
-        success: function(data){
-            $("#resumen").html(data.HTML);
-        }
-    });
+    actualizarResumen: function () {
+        $.ajax({
+            url: ROOT_AJAX,
+            type: "POST",
+            dataType: "json",
+            data: {
+                pagina: "controladores/panel/clientes/index.php",
+                action: "actualizarResumen"
+            },
+            success: function (data) {
+                $("#resumen").html(data.HTML);
+            }
+        });
     }
 };
 

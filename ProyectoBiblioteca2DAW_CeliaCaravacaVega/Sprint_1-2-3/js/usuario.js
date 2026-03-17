@@ -1,16 +1,37 @@
 let usuario = {
     guardarUsuario: function () {
         $(".btn-registrar").on("click", function () {
-            let nombre = document.getElementById("usr_nom").value;
-            let apellido = document.getElementById("usr_ape").value;
-            let dni = document.getElementById("usr_dni").value;
-            let email = document.getElementById("usr_cor").value;
-            let password = document.getElementById("usr_pass").value;
-            let telefono = document.getElementById("usr_tel").value;
-            let direccion = document.getElementById("usr_dir").value;
-            let rol = document.getElementById("usr_rol").value;
-            let estado = document.getElementById("usr_est").value;
+            e.preventDefault(); // evita que el form recargue la página
 
+            let datos = {
+                nombre: $("#usr_nom").val(),
+                apellido: $("#usr_ape").val(),
+                dni: $("#usr_dni").val(),
+                email: $("#usr_cor").val(),
+                password: $("#usr_pass").val(),
+                telefono: $("#usr_tel").val(),
+                direccion: $("#usr_dir").val(),
+                rol: $("#usr_rol").val(),
+                estado: $("#usr_est").val()
+            };
+            //TODO: crear un modal para mostrar el resultado 
+            $.ajax({
+                url: "../../php/usuarios/insertarUsuario.php",
+                type: "POST",
+                data: datos,
+                dataType: "json",
+                success: function (respuesta) {
+                    if (respuesta.ok) {
+                        alert("Usuario registrado correctamente");
+                        $("#modalNuevoUsuario").modal("hide");
+                    } else {
+                        alert("Error: " + respuesta.error);
+                    }
+                },
+                error: function () {
+                    alert("Error en la comunicación con el servidor");
+                }
+            });
         });
 
     }

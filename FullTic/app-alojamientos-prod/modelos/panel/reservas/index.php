@@ -42,15 +42,36 @@ class reservas
         $p->tabla = "reservas";
         return $db->select($p)[0];
     }
+    function guardarReserva($form)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas";
+        $parametros->datosInsert = [
+            [
+                "canal" => $form["canal"],
+                "total_huespedes" => $form["total_huespedes"],
+                "fecha_entrada" => $form["fecha_entrada"],
+                "fecha_salida" => $form["fecha_salida"],
+                "importe_bruto" => $form["importe_bruto"],
+                "descuento" => $form["descuento"],
+                "comision" => $form["comision"],
+                "num_reserva" => $form["num_reserva"]
+            ]
+        ];
 
+        $ids = $dbControl->insert($parametros);
+        return $ids[0];
+    }
     function eliminarPorId($id)
     {
         require_once CONSULTAS;
         $dbControl = new Database();
         $parametros = new stdClass();
-        $parametros->tabla="reservas";
-        $parametros->where="id = $id";
-        $dbControl->delete($parametros);        
+        $parametros->tabla = "reservas";
+        $parametros->where = "id = $id";
+        $dbControl->delete($parametros);
 
     }
 }

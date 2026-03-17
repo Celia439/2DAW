@@ -9,7 +9,7 @@ if (!$_SESSION["id_user"]) {
     <main>
         <h3 class="d-flex justify-content-between p-3">Reservas<button class="btn btn-outline-success"
                 data-bs-toggle="modal" data-bs-target="#modalReserva">Nuevo</button></h3>
-        <table class="table table-hover">
+        <table id="tablaReservas" class="table table-hover">
             <thead>
                 <tr>
                     <?php
@@ -33,13 +33,13 @@ if (!$_SESSION["id_user"]) {
                 <tr class="table-secondary fw-bold">
                     <td>TOTAL</td>
                     <td></td>
-                    <td><?= $resumen["total_huespedes"] ?></td>
+                    <td id="total_huespedes"><?= $resumen["total_huespedes"] ?></td>
                     <td></td>
                     <td></td>
-                    <td><?= $resumen["total_bruto"] ?></td>
-                    <td><?= $resumen["total_descuento"] ?></td>
-                    <td><?= $resumen["total_comision"] ?></td>
-                    <td><?= $resumen["total_final"] ?></td>
+                    <td id="total_bruto"><?= $resumen["total_bruto"] ?></td>
+                    <td id="total_descuento"><?= $resumen["total_descuento"] ?></td>
+                    <td id="total_comisión"><?= $resumen["total_comision"] ?></td>
+                    <td id="total_final"><?= $resumen["total_final"] ?></td>
                     <td></td>
                 </tr>
             </tfoot>
@@ -56,10 +56,10 @@ if (!$_SESSION["id_user"]) {
         <label class="form-label">Canal</label>
         <select class="form-select" name="canal">
             <option value="" selected disabled>Seleccione canal</option>
-            <option value="Booking">Booking</option>
-            <option value="Airbnb">Airbnb</option>
-            <option value="Web">Web</option>
-            <option value="Directo">Directo</option>
+            <option value="B">Booking</option>
+            <option value="A">Airbnb</option>
+            <option value="D">Direct</option>
+            <option value="O">Otro</option>
         </select>
     </div>
 

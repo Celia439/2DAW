@@ -1,5 +1,4 @@
 <?php
-require_once MODELOS_CHECKIN . "/index.php";
 
 $checkinControl = new checkin();
 

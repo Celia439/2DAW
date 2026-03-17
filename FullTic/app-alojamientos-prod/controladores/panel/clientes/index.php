@@ -19,14 +19,18 @@ switch ($_POST["action"]) {
         //Gestionar formulario 
         parse_str($_POST["datos"], $form);
 
+        //guardar el cliente 
+        $guardado= $clientesControl->guardarCliente($form);
 
+        //Actualizar contenido 
+        
 
     case "update":
 
     case "delete":
         $id = $_POST["id"];
 
-        $reservasControl->eliminarPorId($id);
+        $clientesControl->eliminarPorId($id);
 
         echo json_encode([
             "HTML" => "El  con ID $id ha sido eliminado correctamente."

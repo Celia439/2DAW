@@ -14,6 +14,7 @@ var comun = {
             url: ROOT_AJAX,
             data: {
                 pagina: "controladores/publico/check-in/municipios_v2.php",
+                modelo: "modelos/publico/check-in/index.php",
                 seleccionado: param.seleccinado,
             },
             beforeSend: function () {
@@ -67,7 +68,7 @@ var comun = {
 
                 $(".modal-footer #botones-extras").html("");
                 if (propiedades.botonesExtras) {
-                    for (var i in  propiedades.botonesExtras) {
+                    for (var i in propiedades.botonesExtras) {
                         var html = '<button id="modal-button-"' + i + ' type="button" onclick="' + propiedades.botonesExtras[i].click + '" class="btn btn-primary" data-dismiss="modal">' + propiedades.botonesExtras[i].texto + '</button>'
                         $(".modal-footer #botones-extras").append(html)
                     }
@@ -88,12 +89,12 @@ var comun = {
                     })
                 }
 
-//                $("#modal").on("hidden.bs.modal", function () {
-//                    $("#botones-extras").html("");
-//                    $(".modal-body").html("");
-//                    if (!data)
-//                        return e.preventDefault() // stops modal from being shown
-//                });
+                //                $("#modal").on("hidden.bs.modal", function () {
+                //                    $("#botones-extras").html("");
+                //                    $(".modal-body").html("");
+                //                    if (!data)
+                //                        return e.preventDefault() // stops modal from being shown
+                //                });
             }
         })
     },

@@ -9,6 +9,6 @@
     <td><?php echo $casa["provincia"] ?></td>
     <td><?php echo $casa["decripcion"] ?></td>
     <td><?php echo $casa["precio_noche"] ?></td>
-    <td><button class="btn btn-outline-danger delete">Eliminar</button></td>
+    <td><button class="btn btn-outline-danger delete borrarCasa">Eliminar</button></td>
     <td><button class="btn btn-outline-primary update">Editar</button></td>
 </tr>

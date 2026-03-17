@@ -48,6 +48,7 @@ var login = {
                 dataType: "json",
                 data: {
                     pagina: "controladores/panel/login/index.php",
+                    modelo: "modelos/panel/login/index.php",
                     usuario: usuario,
                     pass: pass
                 },

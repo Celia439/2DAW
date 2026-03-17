@@ -1,13 +1,13 @@
 <?php
 //paginador
 $totalPaginas = ceil($total / $porPag);
-$pagina = isset($_GET["p"]) ? intval($_GET["p"]) : 1;
+$pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
 
 ?>
 <div class="container mt-5">
     <h3 class="d-flex justify-content-between p-3">Clientes<button class="btn btn-outline-success"
             data-bs-toggle="modal" data-bs-target="#modalCliente">Nuevo</button></h3>
-    <table class="table table-hover">
+    <table id="tablaClientes" class="table table-hover">
         <thead>
             <tr>
                 <?php

@@ -79,6 +79,7 @@ include_once "../../php/crud/Parametros.php";
                     <thead>
                         <tr>
                             <?php
+                            // Pedir los nombres de las columnas de una tabla usando la tabla del sistema.
                             $datos = [
                                 "tabla" => "INFORMATION_SCHEMA.COLUMNS",
                                 "campos" => ["COLUMN_NAME"],
