@@ -1,12 +1,26 @@
+<?php
+include_once "../../modelo/crud.php";
+include_once "../../librerias/php/Parametros.php";
+
+?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca Online - Inicio Bibliotecario</title>
+    <title>Biblioteca Online - Usuarios Bibliotecario</title>
+    <!--Boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--Iconos de Boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/estilos-bibliotecario.css">
+    <!--Estilos del bibliotecario-->
+    <link rel="stylesheet" href="../../librerias/css/estilos-bibliotecario.css">
+
+    <!--jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!--JS Asincrono-->
+    <script src="../../librerias/js/usuario.js"></script>
 </head>
 <body>
    <!-- ========== NAVBAR ========== -->

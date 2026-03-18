@@ -1,23 +1,29 @@
 <?php
-include_once "../../php/crud/crud.php";
-include_once "../../php/crud/Parametros.php";
+include_once "../../modelo/crud.php";
+include_once "../../librerias/php/Parametros.php";
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca Online - Préstamos Bibliotecario</title>
+    <title>Biblioteca Online - Usuarios Bibliotecario</title>
+    <!--Boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--Iconos de Boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/estilos-bibliotecario.css">
+    <!--Estilos del bibliotecario-->
+    <link rel="stylesheet" href="../../librerias/css/estilos-bibliotecario.css">
+
+    <!--jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!--JS Asincrono-->
+    <script src="../../librerias/js/usuario.js"></script>
 </head>
 
 <body>
-
     <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-biblioteca navbar-expand-lg">
         <a class="navbar-brand" href="./IniciBibliotecario.php">
@@ -64,15 +70,16 @@ include_once "../../php/crud/Parametros.php";
             <span class="input-group-text"><i class="bi bi-search"></i></span>
             <input type="text" class="form-control" placeholder="Buscar...">
         </div>
-        <button class="btn-nuevo" data-bs-toggle="modal" data-bs-target="#modalNuevoPrestamo">+ Nuevo</button>
+        <!-- Abre el modal Nuevo Libro -->
+        <button class="btn-nuevo" data-bs-toggle="modal" data-bs-target="#modalNuevoLibro">+ Nuevo</button>
     </div>
 
     <!-- ========== CONTENIDO ========== -->
     <div class="contenido-principal">
         <div class="card-biblioteca">
-            <div class="card-titulo">Préstamos</div>
+            <div class="card-titulo">Libros</div>
 
-            <!-- Tabla de Préstamos -->
+            <!-- Tabla de Libros -->
             <div class="table-responsive">
                 <table class="tabla-biblioteca">
                     <thead>
@@ -81,7 +88,7 @@ include_once "../../php/crud/Parametros.php";
                             $datos = [
                                 "tabla" => "INFORMATION_SCHEMA.COLUMNS",
                                 "campos" => ["COLUMN_NAME"],
-                                "where" => "TABLE_SCHEMA = 'bibliotech' AND TABLE_NAME = 'prestamos'",
+                                "where" => "TABLE_SCHEMA = 'bibliotech' AND TABLE_NAME = 'libros'",
                                 "order" => "ORDINAL_POSITION"
                             ];
                             $parametrosC = new Parametros($datos);
@@ -98,7 +105,7 @@ include_once "../../php/crud/Parametros.php";
                     <tbody>
                         <?php
                         $datos = [
-                            "tabla" => "prestamos"
+                            "tabla" => "libros"
                         ];
                         $parametros = new Parametros($datos);
                         $resultado = consultar($parametros);
@@ -119,14 +126,13 @@ include_once "../../php/crud/Parametros.php";
 
                         ?>
                         <tr>
-                            <td>05</td>
-                            <td>05</td>
-                            <td>El principio</td>
-                            <td>10/11/2025</td>
-                            <td>01/01/2026</td>
-                            <td>esquina doblada</td>
+                            <td>01</td>
+                            <td>978-84-1107-123-9</td>
+                            <td>TituloEj</td>
+                            <td>15</td>
                             <td>Celia</td>
-                            <td><span class="estado-badge estado-devuelto">Devuelto</span></td>
+                            <td>Acción, Drama</td>
+                            <td><span class="estado-badge estado-activo">Activo</span></td>
                             <td>
                                 <div class="acciones-tabla">
                                     <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
@@ -134,55 +140,24 @@ include_once "../../php/crud/Parametros.php";
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>...</td>
-                            <td>...</td>
-                            <td>...</td>
-                            <td>...</td>
-                            <td>...</td>
-                            <td>...</td>
-                            <td>...</td>
-                            <td><span class="estado-badge estado-prestado">Prestado</span></td>
-                            <td>
-                                <div class="acciones-tabla">
-                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
-                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>190</td>
-                            <td>190</td>
-                            <td>Menu Label</td>
-                            <td>Menu Label</td>
-                            <td>Menu Label</td>
-                            <td>Menu Label</td>
-                            <td>Menu Label</td>
-                            <td><span class="estado-badge">Menu Label</span></td>
-                            <td>
-                                <div class="acciones-tabla">
-                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
-                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- ========== MODAL: Nuevo Préstamo ========== -->
-    <div class="modal fade modal-biblioteca" id="modalNuevoPrestamo" tabindex="-1"
-        aria-labelledby="modalNuevoPrestamoLabel" aria-hidden="true">
+    <!-- ========== MODAL: Nuevo Libro ========== -->
+    <div class="modal fade modal-biblioteca" id="modalNuevoLibro" tabindex="-1" aria-labelledby="modalNuevoLibroLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
             <div class="modal-content"
                 style="border-radius: 8px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.18);">
 
                 <!-- Header -->
                 <div class="modal-header d-flex justify-content-between align-items-center">
-                    <h5 class="modal-title" id="modalNuevoPrestamoLabel">
-                        Nuevo Préstamo <i class="bi bi-plus-lg"></i>
+                    <h5 class="modal-title" id="modalNuevoLibroLabel">
+                        Nuevo Libro <i class="bi bi-book"></i>
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
@@ -190,42 +165,33 @@ include_once "../../php/crud/Parametros.php";
                 <!-- Body -->
                 <div class="modal-body">
                     <div class="row g-3">
-                        <!-- Libro (select) -->
+                        <!-- ISBN -->
                         <div class="col-6">
-                            <label class="form-label"><i class="bi bi-book label-icon"></i>Libro</label>
-                            <select class="form-select">
-                                <option value="" selected disabled></option>
-                                <option value="1">El principio</option>
-                                <option value="2">TituloEj</option>
-                            </select>
-                        </div>
-                        <!-- Usuario -->
-                        <div class="col-6">
-                            <label class="form-label"><i class="bi bi-person label-icon"></i>Usuario</label>
+                            <label class="form-label"><span class="label-icon"></span>ISBN</label>
                             <input type="text" class="form-control" placeholder="">
                         </div>
-                        <!-- Fecha de préstamo -->
+                        <!-- Título -->
                         <div class="col-6">
-                            <label class="form-label">Fecha de préstamo</label>
-                            <input type="date" class="form-control">
+                            <label class="form-label">Título</label>
+                            <input type="text" class="form-control" placeholder="">
                         </div>
-                        <!-- Fecha de devolución -->
+                        <!-- Cantidad -->
                         <div class="col-6">
-                            <label class="form-label">Fecha de devolución</label>
-                            <input type="date" class="form-control">
+                            <label class="form-label">Cantidad</label>
+                            <input type="number" class="form-control" placeholder="">
                         </div>
-                        <!-- Observación -->
-                        <div class="col-12">
-                            <label class="form-label">Observación</label>
-                            <textarea class="form-control" rows="2" placeholder=""></textarea>
+                        <!-- Géneros -->
+                        <div class="col-6">
+                            <label class="form-label">Géneros</label>
+                            <input type="text" class="form-control" placeholder="">
                         </div>
                         <!-- Estado -->
                         <div class="col-12">
                             <label class="form-label">Estado</label>
                             <select class="form-select">
                                 <option value="" selected disabled></option>
-                                <option value="prestado">Prestado</option>
-                                <option value="devuelto">Devuelto</option>
+                                <option value="activo">Activo</option>
+                                <option value="deshabilitado">Deshabilitado</option>
                             </select>
                         </div>
                     </div>

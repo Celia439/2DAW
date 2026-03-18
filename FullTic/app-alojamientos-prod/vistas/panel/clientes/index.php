@@ -177,22 +177,27 @@ $pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
         <ul class="pagination">
 
             <!-- Botón anterior -->
-            <li class="page-item <?= $pagina <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="?p=<?= $pagina - 1 ?>">Anterior</a>
+            <li id="btnAnterior" class="page-item <?= $pagina <= 1 ? 'disabled' : '' ?>">
+                <a class="page-link paginar" data-p="<?= $pagina - 1 ?>">Anterior</a>
             </li>
 
             <!-- Números -->
             <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
                 <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
-                    <a class="page-link" href="?p=<?= $i ?>"><?= $i ?></a>
+                    <a class="page-link paginar" data-p="<?= $i ?>"><?= $i ?></a>
                 </li>
             <?php endfor; ?>
 
             <!-- Botón siguiente -->
-            <li class="page-item <?= $pagina >= $totalPaginas ? 'disabled' : '' ?>">
-                <a class="page-link" href="?p=<?= $pagina + 1 ?>">Siguiente</a>
+            <li id="btnSiguiente" class="page-item <?= $pagina >= $totalPaginas ? 'disabled' : '' ?>">
+                <a class="page-link paginar" data-p="<?= $pagina + 1 ?>">Siguiente</a>
             </li>
 
         </ul>
     </nav>
+    <script>
+        clientes.paginaActual = <?= $pagina ?>;
+        clientes.totalPaginas = <?= $totalPaginas ?>;
+    </script>
+
 </div>

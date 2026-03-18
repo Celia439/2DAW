@@ -21,22 +21,53 @@ var clientes = {
         console.log("Validación del form:", esValido ? "VÁLIDO" : "INVÁLIDO");
         return esValido;
     },
-    eventoCargarPaginador: function () {
-        $(".pagination");
-        let pagina = $_POST["p"];
-        $.ajax({
-            url: ROOT_AJAX,
-            type: "POST",
-            dataType:"json",
-            data:{
-                pagina:"controladores/panel/clientes/index.php",
-                modelo:"modelos/panel/clientes/index.php",
-                action:"cargarPaginador",
-                pagAct: pagina
-            }
-        })
-    },
+    ActualizaPaginador: function (pagina, totalPaginas) {
+        // Quitar el active de todas las páginas
+        $(".page-item").removeClass("active");
 
+        //Poner active en el que tenga data-p pagina
+        $(`.page-link[data-p='${pagina}']`).parent().addClass("active");
+
+        //Activar o desactivar anterior y sigiente 
+        if (pagina <= 1) {
+            $("#btnAnterior").addClass("disabled");
+        } else {
+            $("#btnAnterior").removeClass("disabled");
+        }
+
+        if (pagina >= totalPaginas) {
+            $("#btnSiguiente").addClass("disabled");
+        } else {
+            $("#btnSiguiente").removeClass("disabled");
+        }
+    },
+    eventosPaginador: function () {
+        $(document).on("click", ".paginar", function () {
+            let pagina = $(this).data("p");
+
+            $.ajax({
+                url: "ROOT_AJAX",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "controladores/panel/clientes/index.php",
+                    modelo: "modelos/panel/clientes/index.php",
+                    action: "listar",
+                    p: pagina
+                },
+                success: function (respuesta) {
+                    //Actualizar la tabla 
+                    $("#tablaCliente tbody").html(respuesta.HTML);
+                    // Guardar valores
+                    clientes.paginaActual = respuesta.pagina;
+                    clientes.totalPaginas = respuesta.totalPaginas;
+                    // Actualizar paginador
+                    clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
+                }
+            });
+        });
+
+    },
     eventoEnviar: function () {
         $("#formclientes").on("submit", function (event) {
             event.preventDefault();
@@ -76,7 +107,14 @@ var clientes = {
                     console.log("Respuesta EXITOSA del servidor:", respuesta);
 
                     if (respuesta.ok === true) {
+
                         comun.mostrarAlerta("¡Login correcto! Redirigiendo...", "success");
+
+                        //  Actualizar el paginador
+
+                        clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
+
+
                         //limpiar formulario
                         $("#formReservas")[0].reset();
                         $("#formReservas").removeClass("was-validated");
@@ -173,6 +211,9 @@ var clientes = {
                     comun.bloquearUI();
                 },
                 success: function (data) {
+                    //Actualizar el paginador 
+                    clientes.ActualizaPaginador(data.pagina, data.totalPaginas);
+
                     comun.mostrarModal_v2({
                         titulo: "Registro eliminado",
                         HTML: data.HTML
@@ -216,4 +257,6 @@ $(document).ready(function () {
     clientes.eventosInicio();
     clientes.eventoEnviar();
     clientes.eventoEliminar();
+
+    clientes.eventosPaginador();
 });

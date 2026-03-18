@@ -60,7 +60,6 @@ var reservas = {
                     console.log("Respuesta EXITOSA del servidor:", respuesta);
 
                     if (respuesta.ok === true) {
-
                         //cambiar por modalv2
                         comun.mostrarAlerta("añadido correctamente", "success");
 

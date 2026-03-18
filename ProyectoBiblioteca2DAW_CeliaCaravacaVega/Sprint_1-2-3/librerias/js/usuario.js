@@ -16,7 +16,7 @@ let usuario = {
             };
             //TODO: crear un modal para mostrar el resultado 
             $.ajax({
-                url: "../../php/usuarios/insertarUsuario.php",
+                url: "../php/usuarios/insertarUsuario.php",
                 type: "POST",
                 data: datos,
                 dataType: "json",

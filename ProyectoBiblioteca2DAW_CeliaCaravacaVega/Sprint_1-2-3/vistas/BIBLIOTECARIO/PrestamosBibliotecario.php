@@ -1,6 +1,6 @@
 <?php
-include_once "../../php/crud/crud.php";
-include_once "../../php/crud/Parametros.php";
+include_once "../../modelo/crud.php";
+include_once "../../librerias/php/Parametros.php";
 
 ?>
 <!DOCTYPE html>
@@ -10,15 +10,21 @@ include_once "../../php/crud/Parametros.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Online - Usuarios Bibliotecario</title>
+    <!--Boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--Iconos de Boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/estilos-bibliotecario.css">
+    <!--Estilos del bibliotecario-->
+    <link rel="stylesheet" href="../../librerias/css/estilos-bibliotecario.css">
+
     <!--jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="../../js/usuario.js"></script>
+    <!--JS Asincrono-->
+    <script src="../../librerias/js/usuario.js"></script>
 </head>
 
 <body>
+
     <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-biblioteca navbar-expand-lg">
         <a class="navbar-brand" href="./IniciBibliotecario.php">
@@ -65,25 +71,24 @@ include_once "../../php/crud/Parametros.php";
             <span class="input-group-text"><i class="bi bi-search"></i></span>
             <input type="text" class="form-control" placeholder="Buscar...">
         </div>
-        <button class="btn-nuevo" data-bs-toggle="modal" data-bs-target="#modalNuevoUsuario">+ Nuevo</button>
+        <button class="btn-nuevo" data-bs-toggle="modal" data-bs-target="#modalNuevoPrestamo">+ Nuevo</button>
     </div>
 
     <!-- ========== CONTENIDO ========== -->
     <div class="contenido-principal">
         <div class="card-biblioteca">
-            <div class="card-titulo">Usuarios</div>
+            <div class="card-titulo">Préstamos</div>
 
-            <!-- Tabla de Usuarios -->
+            <!-- Tabla de Préstamos -->
             <div class="table-responsive">
                 <table class="tabla-biblioteca">
                     <thead>
                         <tr>
                             <?php
-                            // Pedir los nombres de las columnas de una tabla usando la tabla del sistema.
                             $datos = [
                                 "tabla" => "INFORMATION_SCHEMA.COLUMNS",
                                 "campos" => ["COLUMN_NAME"],
-                                "where" => "TABLE_SCHEMA = 'bibliotech' AND TABLE_NAME = 'usuarios'",
+                                "where" => "TABLE_SCHEMA = 'bibliotech' AND TABLE_NAME = 'prestamos'",
                                 "order" => "ORDINAL_POSITION"
                             ];
                             $parametrosC = new Parametros($datos);
@@ -98,13 +103,12 @@ include_once "../../php/crud/Parametros.php";
                         </tr>
                     </thead>
                     <tbody>
-
                         <?php
                         $datos = [
-                            "tabla" => "usuarios"
+                            "tabla" => "prestamos"
                         ];
-                        $parametrosF = new Parametros($datos);
-                        $resultado = consultar($parametrosF);
+                        $parametros = new Parametros($datos);
+                        $resultado = consultar($parametros);
                         foreach ($resultado as $campo) {
                             echo "<tr>";
                             foreach ($campo as $valor) {
@@ -116,20 +120,20 @@ include_once "../../php/crud/Parametros.php";
                                     <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
                                 </div>
                             </td>';
-
                             echo "</tr>";
 
                         }
 
                         ?>
                         <tr>
-                            <td>01</td>
+                            <td>05</td>
+                            <td>05</td>
+                            <td>El principio</td>
+                            <td>10/11/2025</td>
+                            <td>01/01/2026</td>
+                            <td>esquina doblada</td>
                             <td>Celia</td>
-                            <td>Vega</td>
-                            <td>44589762T</td>
-                            <td>Málaga</td>
-                            <td>678542315</td>
-                            <td><span class="estado-badge estado-activo">Activo</span></td>
+                            <td><span class="estado-badge estado-devuelto">Devuelto</span></td>
                             <td>
                                 <div class="acciones-tabla">
                                     <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
@@ -137,112 +141,110 @@ include_once "../../php/crud/Parametros.php";
                                 </div>
                             </td>
                         </tr>
-
+                        <tr>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td><span class="estado-badge estado-prestado">Prestado</span></td>
+                            <td>
+                                <div class="acciones-tabla">
+                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>190</td>
+                            <td>190</td>
+                            <td>Menu Label</td>
+                            <td>Menu Label</td>
+                            <td>Menu Label</td>
+                            <td>Menu Label</td>
+                            <td>Menu Label</td>
+                            <td><span class="estado-badge">Menu Label</span></td>
+                            <td>
+                                <div class="acciones-tabla">
+                                    <button class="btn-editar" title="Editar"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn-eliminar" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- ========== MODAL: Nuevo Usuario ========== -->
-    <div class="modal fade modal-biblioteca" id="modalNuevoUsuario" tabindex="-1"
-        aria-labelledby="modalNuevoUsuarioLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 520px;">
+    <!-- ========== MODAL: Nuevo Préstamo ========== -->
+    <div class="modal fade modal-biblioteca" id="modalNuevoPrestamo" tabindex="-1"
+        aria-labelledby="modalNuevoPrestamoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
             <div class="modal-content"
                 style="border-radius: 8px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.18);">
 
                 <!-- Header -->
                 <div class="modal-header d-flex justify-content-between align-items-center">
-                    <h5 class="modal-title" id="modalNuevoUsuarioLabel">
-                        Nuevo usuario <i class="bi bi-people"></i>
+                    <h5 class="modal-title" id="modalNuevoPrestamoLabel">
+                        Nuevo Préstamo <i class="bi bi-plus-lg"></i>
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
 
                 <!-- Body -->
                 <div class="modal-body">
-
-                    <!-- FORMULARIO -->
-                    <form id="formNuevoUsuario" method="POST" action="procesarNuevoUsuario.php">
-                        <div class="row g-3">
-
-                            <!-- Nombre -->
-                            <div class="col-6">
-                                <label class="form-label"><i class="bi bi-person label-icon"></i>Nombre</label>
-                                <input type="text" class="form-control" id="usr_nom" name="usr_nom">
-                            </div>
-
-                            <!-- Apellidos -->
-                            <div class="col-6">
-                                <label class="form-label"><i class="bi bi-person label-icon"></i>Apellidos</label>
-                                <input type="text" class="form-control" id="usr_ape" name="usr_ape">
-                            </div>
-
-                            <!-- DNI -->
-                            <div class="col-6">
-                                <label class="form-label"><i class="bi bi-person label-icon"></i>DNI</label>
-                                <input type="text" class="form-control" id="usr_dni" name="usr_dni" maxlength="9">
-                            </div>
-
-                            <!-- Correo -->
-                            <div class="col-6">
-                                <label class="form-label"><i class="bi bi-envelope label-icon"></i>Correo
-                                    Electrónico</label>
-                                <input type="email" class="form-control" id="usr_cor" name="usr_cor">
-                            </div>
-
-                            <!-- Password -->
-                            <div class="col-6">
-                                <label class="form-label"><i class="bi bi-lock label-icon"></i>Password</label>
-                                <input type="password" class="form-control" id="usr_pass" name="usr_pass">
-                            </div>
-
-                            <!-- Teléfono -->
-                            <div class="col-6">
-                                <label class="form-label"><i class="bi bi-telephone label-icon"></i>Teléfono</label>
-                                <input type="tel" class="form-control" id="usr_tel" name="usr_tel">
-                            </div>
-
-                            <!-- Dirección -->
-                            <div class="col-6">
-                                <label class="form-label"><i class="bi bi-geo-alt label-icon"></i>Dirección</label>
-                                <input type="text" class="form-control" id="usr_dir" name="usr_dir">
-                            </div>
-
-                            <!-- Roles -->
-                            <div class="col-6">
-                                <label class="form-label">Roles</label>
-                                <select class="form-select" id="usr_rol" name="usr_rol">
-                                    <option value="" selected disabled></option>
-                                    <option value="usuario">Usuario</option>
-                                    <option value="bibliotecario">Bibliotecario</option>
-                                    <option value="admin">Administrador</option>
-                                </select>
-                            </div>
-
-                            <!-- Estado -->
-                            <div class="col-12">
-                                <label class="form-label">Estado</label>
-                                <select class="form-select" id="usr_est" name="usr_est">
-                                    <option value="" selected disabled></option>
-                                    <option value="activo">Activo</option>
-                                    <option value="deshabilitado">Deshabilitado</option>
-                                </select>
-                            </div>
+                    <div class="row g-3">
+                        <!-- Libro (select) -->
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-book label-icon"></i>Libro</label>
+                            <select class="form-select">
+                                <option value="" selected disabled></option>
+                                <option value="1">El principio</option>
+                                <option value="2">TituloEj</option>
+                            </select>
                         </div>
-
-                        <!-- Botón registrar -->
-                        <div class="mt-3">
-                            <button type="submit" class="btn-registrar">Registrar</button>
+                        <!-- Usuario -->
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-person label-icon"></i>Usuario</label>
+                            <input type="text" class="form-control" placeholder="">
                         </div>
-                    </form>
-                    <!-- FIN FORMULARIO -->
+                        <!-- Fecha de préstamo -->
+                        <div class="col-6">
+                            <label class="form-label">Fecha de préstamo</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <!-- Fecha de devolución -->
+                        <div class="col-6">
+                            <label class="form-label">Fecha de devolución</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <!-- Observación -->
+                        <div class="col-12">
+                            <label class="form-label">Observación</label>
+                            <textarea class="form-control" rows="2" placeholder=""></textarea>
+                        </div>
+                        <!-- Estado -->
+                        <div class="col-12">
+                            <label class="form-label">Estado</label>
+                            <select class="form-select">
+                                <option value="" selected disabled></option>
+                                <option value="prestado">Prestado</option>
+                                <option value="devuelto">Devuelto</option>
+                            </select>
+                        </div>
+                    </div>
 
+                    <!-- Botón registrar -->
+                    <div class="mt-3">
+                        <button class="btn-registrar">Registrar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

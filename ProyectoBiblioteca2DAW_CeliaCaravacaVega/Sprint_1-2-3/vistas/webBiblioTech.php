@@ -1,5 +1,5 @@
-<?php $paginaActual = 'multas';
-include '../php/bloques/header.php';
+<?php $paginaActual = 'webBibliotech';
+include '../bloques/headerWeb.php';
 ?>
 <main>
     <!-- Banner Principal -->
@@ -30,7 +30,7 @@ include '../php/bloques/header.php';
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="../img/ImagenAnuncioEj.png" class="d-block w-100 rounded" alt="Ejemplo de anuncio">
+                <img src="../librerias/img/ImagenAnuncioEj.png" class="d-block w-100 rounded" alt="Ejemplo de anuncio">
             </div>
         </div>
         <!--Botones de siguiente y anterior-->
@@ -89,3 +89,6 @@ include '../php/bloques/header.php';
             </div>
     </section>
 </main>
+<?php
+include '../bloques/footerWeb.php';
+?>
