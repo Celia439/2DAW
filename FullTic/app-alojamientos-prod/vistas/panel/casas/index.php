@@ -4,18 +4,28 @@
     <table class="table table-hover">
         <thead>
             <tr>
+                <th>ID</th>
+                <th>Nombre del alojamiento</th>
+                <th>Capacidad máxima</th>
+                <th>Número de habitaciones</th>
+                <th>Número de baños</th>
+                <th>Dirección completa</th>
+                <th>Localidad</th>
+                <th>Provincia</th>
+                <th>Descripción detallada</th>
+                <th>Precio por noche (€)</th>
                 <?php
-                foreach ($columnas as $columna) {
+                /*foreach ($columnas as $columna) {
                     foreach ($columna as $detalle) {
                         echo "<th>$detalle</th>";
                     }
-                }
+                }*/
                 ?>
             </tr>
         </thead>
         <tbody>
             <?php
-            if($casas) {
+            if ($casas) {
                 foreach ($casas as $casa)
                     include ROOT . "vistas/panel/reservas/fila_casa.php";
             }

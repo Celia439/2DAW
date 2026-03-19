@@ -66,6 +66,7 @@ class clientes
         $ids = $dbControl->insert($parametros);
         return $ids[0];
     }
+
     function eliminarPorId($id)
     {
         require_once CONSULTAS;

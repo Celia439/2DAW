@@ -1,13 +1,14 @@
 <?php
+require_once __DIR__ . "/../../../modelos/comun/ubicaciones.php";
+
+$paises = getNacionalidades();
+$provincias = getProvincias();
+
 
 
 $checkinControl = new checkin();
 //De manera asíncrona
 //$municipios = $checkinControl->getMunicipiosPorProvincia_v2();
-
-$provincias = $checkinControl->getProvincias();
-
-$nacionalidades= $checkinControl->getNacionalidades();
 
 $resultado= $checkinControl->n_huespedes_registrados($_SESSION["id_reserva"]);
 

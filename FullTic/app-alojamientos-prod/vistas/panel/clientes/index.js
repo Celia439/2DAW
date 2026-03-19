@@ -5,10 +5,44 @@ var clientes = {
         $("#modalCheckin").on("hidden.bs.modal", function () {
             document.activeElement.blur();
         });
+        document.addEventListener("shown.bs.modal", function (e) {
+
+            if (e.target.id !== "modalCliente") return;
+
+            console.log("Modal cliente abierto — registrando eventos dinámicos");
+
+            // Evento para cargar municipios
+            $(document).off("change", "select[name='provincia']");
+            $(document).on("change", "select[name='provincia']", function () {
+
+                let idProvincia = $(this).val();
+
+                $.ajax({
+                    url: ROOT_AJAX,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        pagina: "controladores/panel/clientes/municipios.php",
+                        provincia: idProvincia
+                    },
+                    success: function (data) {
+
+                        let html = '<option value="" disabled selected>Seleccione una localidad</option>';
+
+                        data.municipios.forEach(m => {
+                            html += `<option value="${m.id}">${m.Municipio}</option>`;
+                        });
+
+                        $("select[name='localidad']").html(html);
+                    }
+                });
+            });
+
+        });
     },
 
     validarForm: function () {
-        const form = document.getElementById("formclientes");
+        const form = document.getElementById("formClientes");
         if (!form) {
             console.error("No se encuentra el formulario con id='clientes'");
             return false;
@@ -44,9 +78,8 @@ var clientes = {
     eventosPaginador: function () {
         $(document).on("click", ".paginar", function () {
             let pagina = $(this).data("p");
-
             $.ajax({
-                url: "ROOT_AJAX",
+                url: ROOT_AJAX,
                 type: "POST",
                 dataType: "json",
                 data: {
@@ -55,7 +88,11 @@ var clientes = {
                     action: "listar",
                     p: pagina
                 },
+                beforeSend: function () {
+                    comun.bloquearUI();
+                },
                 success: function (respuesta) {
+
                     //Actualizar la tabla 
                     $("#tablaCliente tbody").html(respuesta.HTML);
                     // Guardar valores
@@ -63,13 +100,17 @@ var clientes = {
                     clientes.totalPaginas = respuesta.totalPaginas;
                     // Actualizar paginador
                     clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
+                },
+                complete: function () {
+                    comun.desbloquearUI();
                 }
+
             });
         });
 
     },
     eventoEnviar: function () {
-        $("#formclientes").on("submit", function (event) {
+        $("#formClientes").on("submit", function (event) {
             event.preventDefault();
             event.stopPropagation();
 
@@ -107,18 +148,14 @@ var clientes = {
                     console.log("Respuesta EXITOSA del servidor:", respuesta);
 
                     if (respuesta.ok === true) {
-
-                        comun.mostrarAlerta("¡Login correcto! Redirigiendo...", "success");
-
                         //  Actualizar el paginador
 
                         clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
 
-
                         //limpiar formulario
-                        $("#formReservas")[0].reset();
-                        $("#formReservas").removeClass("was-validated");
-                        $("#formReservas").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+                        $("#formClientes")[0].reset();
+                        $("#formClientes").removeClass("was-validated");
+                        $("#formClientes").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
                         // añadir registro para que se muestre
                         let r = respuesta.cliente;
 
@@ -234,22 +271,9 @@ var clientes = {
                 }
             });
         })
-    },
-    //Evento editar 
-    actualizarResumen: function () {
-        $.ajax({
-            url: ROOT_AJAX,
-            type: "POST",
-            dataType: "json",
-            data: {
-                pagina: "controladores/panel/clientes/index.php",
-                action: "actualizarResumen"
-            },
-            success: function (data) {
-                $("#resumen").html(data.HTML);
-            }
-        });
     }
+    //Evento editar 
+
 };
 
 $(document).ready(function () {

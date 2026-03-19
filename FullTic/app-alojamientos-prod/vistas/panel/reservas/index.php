@@ -12,18 +12,29 @@ if (!$_SESSION["id_user"]) {
         <table id="tablaReservas" class="table table-hover">
             <thead>
                 <tr>
+                    <th>ID</th>
+                    <th>Número</th>
+                    <th>Canal</th>
+                    <th>Huéspedes</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                    <th>Bruto</th>
+                    <th>Descuento</th>
+                    <th>Comisión</th>
+                    <th>Importe final</th>
                     <?php
+                    /*
                     foreach ($columnas as $columna) {
                         foreach ($columna as $detalle) {
                             echo "<th>$detalle</th>";
                         }
-                    }
+                    }*/
                     ?>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                if($reservas){
+                if ($reservas) {
                     foreach ($reservas as $reserva)
                         include ROOT . "vistas/panel/reservas/fila_reserva.php";
                 }
@@ -48,66 +59,80 @@ if (!$_SESSION["id_user"]) {
         <!--Modal nueva casa-->
         <?php
         $contenidoFormulario = '
-    <form id="formReservas" action="#" method="post" class="needs-validation" novalidate>
-      <div class="row g-3">
+<form id="formReservas" action="#" method="post" class="needs-validation" novalidate>
+    <div class="row g-3">
 
-    <!-- canal -->
-    <div class="col-6">
-        <label class="form-label">Canal</label>
-        <select class="form-select" name="canal">
-            <option value="" selected disabled>Seleccione canal</option>
-            <option value="B">Booking</option>
-            <option value="A">Airbnb</option>
-            <option value="D">Direct</option>
-            <option value="O">Otro</option>
-        </select>
+        <!-- canal -->
+        <div class="col-6">
+            <label class="form-label">Canal</label>
+            <select class="form-select" name="canal" required>
+                <option value="" selected disabled>Seleccione canal</option>
+                <option value="B">Booking</option>
+                <option value="A">Airbnb</option>
+                <option value="D">Direct</option>
+                <option value="O">Otro</option>
+            </select>
+            <div class="invalid-feedback">Seleccione un canal válido.</div>
+        </div>
+
+        <!-- total_huespedes -->
+        <div class="col-6">
+            <label class="form-label">Total huéspedes</label>
+            <input type="number" class="form-control" name="total_huespedes"
+                   required min="1" max="50">
+            <div class="invalid-feedback">Introduzca el número total de huéspedes.</div>
+        </div>
+
+        <!-- fecha_entrada -->
+        <div class="col-6">
+            <label class="form-label">Fecha de entrada</label>
+            <input type="date" class="form-control" name="fecha_entrada" required>
+            <div class="invalid-feedback">Seleccione una fecha de entrada válida.</div>
+        </div>
+
+        <!-- fecha_salida -->
+        <div class="col-6">
+            <label class="form-label">Fecha de salida</label>
+            <input type="date" class="form-control" name="fecha_salida" required>
+            <div class="invalid-feedback">Seleccione una fecha de salida válida.</div>
+        </div>
+
+        <!-- importe_bruto -->
+        <div class="col-6">
+            <label class="form-label">Importe bruto</label>
+            <input type="number" step="0.01" class="form-control" name="importe_bruto"
+                   required min="0">
+            <div class="invalid-feedback">Introduzca un importe bruto válido.</div>
+        </div>
+
+        <!-- descuento -->
+        <div class="col-6">
+            <label class="form-label">Descuento</label>
+            <input type="number" step="0.01" class="form-control" name="descuento"
+                   required min="0">
+            <div class="invalid-feedback">Introduzca un descuento válido.</div>
+        </div>
+
+        <!-- comision -->
+        <div class="col-6">
+            <label class="form-label">Comisión</label>
+            <input type="number" step="0.01" class="form-control" name="comision"
+                   required min="0">
+            <div class="invalid-feedback">Introduzca una comisión válida.</div>
+        </div>
+
+        <!-- num_reserva -->
+        <div class="col-6">
+            <label class="form-label">Número de reserva</label>
+            <input type="text" class="form-control" name="num_reserva"
+                   required maxlength="30">
+            <div class="invalid-feedback">Introduzca un número de reserva válido.</div>
+        </div>
+
     </div>
 
-    <!-- total_huespedes -->
-    <div class="col-6">
-        <label class="form-label">Total huéspedes</label>
-        <input type="number" class="form-control" name="total_huespedes">
-    </div>
-
-    <!-- fecha_entrada -->
-    <div class="col-6">
-        <label class="form-label">Fecha de entrada</label>
-        <input type="date" class="form-control" name="fecha_entrada">
-    </div>
-
-    <!-- fecha_salida -->
-    <div class="col-6">
-        <label class="form-label">Fecha de salida</label>
-        <input type="date" class="form-control" name="fecha_salida">
-    </div>
-
-    <!-- importe_bruto -->
-    <div class="col-6">
-        <label class="form-label">Importe bruto</label>
-        <input type="number" step="0.01" class="form-control" name="importe_bruto">
-    </div>
-
-    <!-- descuento -->
-    <div class="col-6">
-        <label class="form-label">Descuento</label>
-        <input type="number" step="0.01" class="form-control" name="descuento">
-    </div>
-
-    <!-- comision -->
-    <div class="col-6">
-        <label class="form-label">Comisión</label>
-        <input type="number" step="0.01" class="form-control" name="comision">
-    </div>
-
-    <!-- num_reserva -->
-    <div class="col-6">
-        <label class="form-label">Número de reserva</label>
-        <input type="text" class="form-control" name="num_reserva">
-    </div>
-
-</div>
-<div class="mt-3">
-    <button type="submit" class="btn btn-outline-success">Registrar</button>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-outline-success">Registrar</button>
     </div>
 </form>
 ';

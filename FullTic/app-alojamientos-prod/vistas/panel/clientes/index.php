@@ -7,15 +7,36 @@ $pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
 <div class="container mt-5">
     <h3 class="d-flex justify-content-between p-3">Clientes<button class="btn btn-outline-success"
             data-bs-toggle="modal" data-bs-target="#modalCliente">Nuevo</button></h3>
-    <table id="tablaClientes" class="table table-hover">
+    <table id="tablaCliente" class="table table-hover">
         <thead>
             <tr>
+                <th>ID</th>
+                <th>Creación</th>
+                <th>Nombre</th>
+                <th>1º apellido</th>
+                <th>2º apellido</th>
+                <th>Sexo</th>
+                <th>DNI/NIE</th>
+                <th>Tipo doc.</th>
+                <th>Soporte</th>
+                <th>Nacionalidad</th>
+                <th>Nacimiento</th>
+                <th>Tlf. fijo</th>
+                <th>Tlf. móvil</th>
+                <th>Email</th>
+                <th>Menores</th>
+                <th>País</th>
+                <th>Provincia</th>
+                <th>Localidad</th>
+                <th>Dirección</th>
+                <th>CP</th>
                 <?php
+                /* Campos autimaticamente 
                 foreach ($columnas as $columna) {
                     foreach ($columna as $detalles) {
                         echo "<th>$detalles</th>";
                     }
-                }
+                }*/
                 ?>
             </tr>
         </thead>
@@ -23,7 +44,7 @@ $pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
             <?php
             if ($clientes) {
                 foreach ($clientes as $cliente) {
-                    include ROOT . "vistas/panel/reservas/fila_cliente.php";
+                    include ROOT . "vistas/panel/clientes/fila_cliente.php";
                 }
             }
             ?>
@@ -32,141 +53,184 @@ $pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
     <!--Modal nueva casa-->
     <?php
     $contenidoFormulario = '
-    <form id="formClientes" action="#" method="post" class="needs-validation" novalidate>
-      <div class="row g-3">
+   <form id="formClientes" action="#" method="post" class="needs-validation" novalidate>
+    <div class="row g-3">
 
-    <!-- nombre -->
-    <div class="col-6">
-        <label class="form-label"><i class="bi bi-person label-icon"></i>Nombre</label>
-        <input type="text" class="form-control" name="nombre">
+        <!-- nombre -->
+        <div class="col-6">
+            <label class="form-label"><i class="bi bi-person label-icon"></i>Nombre</label>
+            <input type="text" class="form-control" name="nombre"
+                   required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" maxlength="50">
+            <div class="invalid-feedback">Introduce un nombre válido.</div>
+        </div>
+
+        <!-- primer_apellido -->
+        <div class="col-6">
+            <label class="form-label"><i class="bi bi-person label-icon"></i>Primer apellido</label>
+            <input type="text" class="form-control" name="primer_apellido"
+                   required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" maxlength="50">
+            <div class="invalid-feedback">Introduce un primer apellido válido.</div>
+        </div>
+
+        <!-- segundo_apellido -->
+        <div class="col-6">
+            <label class="form-label"><i class="bi bi-person label-icon"></i>Segundo apellido</label>
+            <input type="text" class="form-control" name="segundo_apellido"
+                   required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" maxlength="50">
+            <div class="invalid-feedback">Introduce un segundo apellido válido.</div>
+        </div>
+
+        <!-- sexo -->
+        <div class="col-6">
+            <label class="form-label"><i class="bi bi-gender-ambiguous label-icon"></i>Sexo</label>
+            <select class="form-select" name="sexo" required>
+                <option value="" disabled selected></option>
+                <option value="H">Hombre</option>
+                <option value="M">Mujer</option>
+                <option value="X">Otro</option>
+            </select>
+            <div class="invalid-feedback">Selecciona un sexo.</div>
+        </div>
+
+        <!-- numero_documento_identidad -->
+        <div class="col-6">
+            <label class="form-label"><i class="bi bi-credit-card label-icon"></i>Número de documento</label>
+            <input type="text" class="form-control" name="numero_documento_identidad"
+                   required pattern="^[0-9]{8}[A-Z]$" placeholder="12345678A">
+            <div class="invalid-feedback">Introduce un número de documento válido.</div>
+        </div>
+
+        <!-- tipo_documentacion -->
+        <div class="col-6">
+            <label class="form-label">Tipo de documentación</label>
+            <select class="form-select" name="tipo_documentacion" required>
+                <option value="" disabled selected></option>
+                <option value="DNI">DNI</option>
+                <option value="NIE">NIE</option>
+                <option value="PASAPORTE">Pasaporte</option>
+            </select>
+            <div class="invalid-feedback">Selecciona un tipo de documentación.</div>
+        </div>
+
+        <!-- numero_soporte_documento -->
+        <div class="col-6">
+            <label class="form-label">Número de soporte</label>
+            <input type="text" class="form-control" name="numero_soporte_documento"
+                   required maxlength="20">
+            <div class="invalid-feedback">Introduce un número de soporte válido.</div>
+        </div>
+
+        <!-- nacionalidad_id -->
+        <div class="col-6">
+            <label class="form-label">Nacionalidad</label>
+            <select class="form-select" name="nacionalidad_id" required>
+                <option value="" disabled selected>Seleccione una nación</option>';
+    foreach ($paises as $p) {
+        $contenidoFormulario .= "<option value=\"{$p['id']}\">{$p['nombre']}</option>";
+    }
+    $contenidoFormulario .= '
+            </select>
+            <div class="invalid-feedback">Introduce una nacionalidad.</div>
+        </div>
+
+        <!-- fecha_nacimiento -->
+        <div class="col-6">
+            <label class="form-label">Fecha de nacimiento</label>
+            <input type="date" class="form-control" name="fecha_nacimiento" required>
+            <div class="invalid-feedback">Introduce una fecha válida.</div>
+        </div>
+
+        <!-- telefono_fijo -->
+        <div class="col-6">
+            <label class="form-label">Teléfono fijo</label>
+            <input type="text" class="form-control" name="telefono_fijo"
+                   pattern="^[0-9]{9}$" placeholder="912345678">
+            <div class="invalid-feedback">Introduce un teléfono fijo válido.</div>
+        </div>
+
+        <!-- telefono_movil -->
+        <div class="col-6">
+            <label class="form-label">Teléfono móvil</label>
+            <input type="text" class="form-control" name="telefono_movil"
+                   required pattern="^[0-9]{9}$" placeholder="612345678">
+            <div class="invalid-feedback">Introduce un teléfono móvil válido.</div>
+        </div>
+
+        <!-- correo -->
+        <div class="col-6">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" name="correo" required>
+            <div class="invalid-feedback">Introduce un correo válido.</div>
+        </div>
+
+        <!-- menores_de_edad -->
+        <div class="col-6">
+            <label class="form-label">¿Menor de edad?</label>
+            <select class="form-select" name="menores_de_edad" required>
+                <option value="" disabled selected></option>
+                <option value="0">No</option>
+                <option value="1">Sí</option>
+            </select>
+            <div class="invalid-feedback">Selecciona una opción.</div>
+        </div>
+
+        <!-- País -->
+        <div class="col-6">
+            <label class="form-label">País</label>
+            <select class="form-select" name="pais" required>
+                <option value="" disabled selected>Seleccione un país</option>';
+    foreach ($paises as $p) {
+        $contenidoFormulario .= "<option value=\"{$p['id']}\">{$p['nombre']}</option>";
+    }
+    $contenidoFormulario .= '
+            </select>
+            <div class="invalid-feedback">Selecciona un país.</div>
+        </div>
+
+        <!-- Provincia -->
+        <div class="col-6">
+            <label class="form-label">Provincia</label>
+            <select class="form-select" name="provincia" required>
+                <option value="" disabled selected>Seleccione una provincia</option>';
+    foreach ($provincias as $prov) {
+        $contenidoFormulario .= "<option value=\"{$prov['id']}\">{$prov['Provincia']}</option>";
+    }
+    $contenidoFormulario .= '
+
+            </select>
+            <div class="invalid-feedback">Selecciona una provincia.</div>
+        </div>
+
+        <!-- Localidad -->
+        <div class="col-6">
+            <label class="form-label">Localidad</label>
+            <select class="form-select" name="localidad" required>
+                <option value="" disabled selected>Seleccione una localidad</option>
+            </select>
+            <div class="invalid-feedback">Selecciona una localidad.</div>
+        </div>
+
+        <!-- direccion -->
+        <div class="col-6">
+            <label class="form-label">Dirección</label>
+            <input type="text" class="form-control" name="direccion"
+                   required maxlength="100">
+            <div class="invalid-feedback">Introduce una dirección válida.</div>
+        </div>
+
+        <!-- codigo_postal -->
+        <div class="col-6">
+            <label class="form-label">Código postal</label>
+            <input type="text" class="form-control" name="codigo_postal"
+                   required pattern="^[0-9]{5}$">
+            <div class="invalid-feedback">Introduce un código postal válido.</div>
+        </div>
+
     </div>
 
-    <!-- primer_apellido -->
-    <div class="col-6">
-        <label class="form-label"><i class="bi bi-person label-icon"></i>Primer apellido</label>
-        <input type="text" class="form-control" name="primer_apellido">
+    <div class="mt-3">
+        <button class="btn btn-outline-success">Registrar</button>
     </div>
-
-    <!-- segundo_apellido -->
-    <div class="col-6">
-        <label class="form-label"><i class="bi bi-person label-icon"></i>Segundo apellido</label>
-        <input type="text" class="form-control" name="segundo_apellido">
-    </div>
-
-    <!-- sexo -->
-    <div class="col-6">
-        <label class="form-label"><i class="bi bi-gender-ambiguous label-icon"></i>Sexo</label>
-        <select class="form-select" name="sexo">
-            <option value="" selected disabled></option>
-            <option value="H">Hombre</option>
-            <option value="M">Mujer</option>
-            <option value="X">Otro</option>
-        </select>
-    </div>
-
-    <!-- numero_documento_identidad -->
-    <div class="col-6">
-        <label class="form-label"><i class="bi bi-credit-card label-icon"></i>Número de documento</label>
-        <input type="text" class="form-control" name="numero_documento_identidad">
-    </div>
-
-    <!-- tipo_documentacion -->
-    <div class="col-6">
-        <label class="form-label">Tipo de documentación</label>
-        <select class="form-select" name="tipo_documentacion">
-            <option value="" selected disabled></option>
-            <option value="DNI">DNI</option>
-            <option value="NIE">NIE</option>
-            <option value="PASAPORTE">Pasaporte</option>
-        </select>
-    </div>
-
-    <!-- numero_soporte_documento -->
-    <div class="col-6">
-        <label class="form-label">Número de soporte</label>
-        <input type="text" class="form-control" name="numero_soporte_documento">
-    </div>
-
-    <!-- nacionalidad_id -->
-    <div class="col-6">
-        <label class="form-label">Nacionalidad</label>
-        <input type="text" class="form-control" name="nacionalidad_id">
-    </div>
-
-    <!-- fecha_nacimiento -->
-    <div class="col-6">
-        <label class="form-label">Fecha de nacimiento</label>
-        <input type="date" class="form-control" name="fecha_nacimiento">
-    </div>
-
-    <!-- telefono_fijo -->
-    <div class="col-6">
-        <label class="form-label">Teléfono fijo</label>
-        <input type="text" class="form-control" name="telefono_fijo">
-    </div>
-
-    <!-- telefono_movil -->
-    <div class="col-6">
-        <label class="form-label">Teléfono móvil</label>
-        <input type="text" class="form-control" name="telefono_movil">
-    </div>
-
-    <!-- correo -->
-    <div class="col-6">
-        <label class="form-label">Correo electrónico</label>
-        <input type="email" class="form-control" name="correo">
-    </div>
-
-    <!-- menores_de_edad -->
-    <div class="col-6">
-        <label class="form-label">¿Menor de edad?</label>
-        <select class="form-select" name="menores_de_edad">
-            <option value="" selected disabled></option>
-            <option value="0">No</option>
-            <option value="1">Sí</option>
-        </select>
-    </div>
-
-  <!-- País -->
-<div class="col-6">
-    <label class="form-label">País</label>
-    <select class="form-select" name="pais">
-        <option value="" selected disabled>Seleccione un país</option>
-    </select>
-</div>
-
-  <!-- Provincia -->
-<div class="col-6">
-    <label class="form-label">Provincia</label>
-    <select class="form-select" name="provincia">
-        <option value="" selected disabled>Seleccione una provincia</option>
-    </select>
-</div>
-
-<!-- Localidad -->
-<div class="col-6">
-    <label class="form-label">Localidad</label>
-    <select class="form-select" name="localidad">
-        <option value="" selected disabled>Seleccione una localidad</option>
-    </select>
-</div>
-    <!-- direccion -->
-    <div class="col-6">
-        <label class="form-label">Dirección</label>
-        <input type="text" class="form-control" name="direccion">
-    </div>
-
-    <!-- codigo_postal -->
-    <div class="col-6">
-        <label class="form-label">Código postal</label>
-        <input type="text" class="form-control" name="codigo_postal">
-    </div>
-
-</div>
-
-<div class="mt-3">
-    <button class="btn btn-outline-success">Registrar</button>
-</div>
 </form>
 ';
     $titulo = "Nuevo Cliente";
@@ -195,9 +259,11 @@ $pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
 
         </ul>
     </nav>
+    <!--Script de Clientes-->
+    <script type="text/javascript" src="<?php echo ROOT_URL . "vistas/panel/clientes/index.js" ?>"></script>
+
     <script>
         clientes.paginaActual = <?= $pagina ?>;
         clientes.totalPaginas = <?= $totalPaginas ?>;
     </script>
-
 </div>

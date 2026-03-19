@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . "/../../../modelos/comun/ubicaciones.php";
+
+$paises = getNacionalidades();
+$provincias = getProvincias();
 
 
 $clientesControl = new clientes();
@@ -12,6 +16,14 @@ function cargarPaginador()
     $clientes = $clientesControl->getClientesPaginado($porPag, $offset);
     $total = $clientesControl->getTotalClientes();
     return [$clientes, $total, $pagina];
+}
+function renderizarFilas($clientes)
+{
+    ob_start();
+    foreach ($clientes as $cliente) {
+        include __DIR__ . "/../../../vistas/panel/clientes/fila_cliente.php";
+    }
+    return ob_get_clean();
 }
 
 $columnas = $clientesControl->getColumnas();
@@ -42,9 +54,9 @@ switch ($_POST["action"]) {
             "clientes" => $datos[0],
             "totalPaginas" => ceil($datos[1] / $porPag)
         ]);
-
+        break;
     case "update":
-
+        break;
     case "delete":
         $id = $_POST["id"];
 
@@ -58,13 +70,14 @@ switch ($_POST["action"]) {
             "clientes" => $datos[0],
             "totalPaginas" => ceil($datos[1] / $porPag)
         ]);
-        exit;
+        break;
+
     case "listar":
         $datos = cargarPaginador();
         echo json_encode([
             "pagina" => $datos[2],
             "totalPaginas" => ceil($datos[1] / $porPag),
-            "HTML" => renderizarFilas($datos[0])
+            "HTML" => renderizarFilas($datos[0]),
         ]);
-        exit;
+        break;
 }
