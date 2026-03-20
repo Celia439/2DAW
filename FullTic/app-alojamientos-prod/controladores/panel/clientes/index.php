@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../../../modelos/comun/ubicaciones.php";
+require_once LIBRERIA_PHP . "comun.php";
 
 $paises = getNacionalidades();
 $provincias = getProvincias();
@@ -10,7 +10,11 @@ $clientesControl = new clientes();
 function cargarPaginador()
 {
     global $clientesControl;
-    $pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
+    $pagina = isset($_POST["p"])
+        ? intval($_POST["p"])
+        : (isset($_SESSION["pagina_actual"])
+            ? intval($_SESSION["pagina_actual"])
+            : 1);
     $porPag = 25;
     $offset = ($pagina - 1) * $porPag;
     $clientes = $clientesControl->getClientesPaginado($porPag, $offset);
@@ -21,14 +25,19 @@ function renderizarFilas($clientes)
 {
     ob_start();
     foreach ($clientes as $cliente) {
-        include __DIR__ . "/../../../vistas/panel/clientes/fila_cliente.php";
+        include VISTA_FILA_CLIENTES;
     }
     return ob_get_clean();
 }
 
 $columnas = $clientesControl->getColumnas();
 
-$pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
+$pagina = isset($_POST["p"])
+    ? intval($_POST["p"])
+    : (isset($_SESSION["pagina_actual"])
+        ? intval($_SESSION["pagina_actual"])
+        : 1);
+
 $porPag = 25;
 $offset = ($pagina - 1) * $porPag;
 $clientes = $clientesControl->getClientesPaginado($porPag, $offset);
@@ -43,13 +52,13 @@ switch ($_POST["action"]) {
 
         //guardar el cliente 
         $guardado = $clientesControl->guardarCliente($form);
-
+        var_dump($guardado);
         //Actualizar contenido 
         $datos = cargarPaginador();
 
         echo json_encode([
             "ok" => !empty($guardado),
-            "cliente" => $guardado,//ultimo cliente insertado
+            "cliente" => $datos[0][count($datos[0]) - 1],//ultimo cliente insertado
             "pagina" => $datos[2],
             "clientes" => $datos[0],
             "totalPaginas" => ceil($datos[1] / $porPag)
@@ -73,6 +82,9 @@ switch ($_POST["action"]) {
         break;
 
     case "listar":
+        if (isset($_POST["p"])) {
+            $_SESSION["pagina_actual"] = intval($_POST["p"]);
+        }
         $datos = cargarPaginador();
         echo json_encode([
             "pagina" => $datos[2],

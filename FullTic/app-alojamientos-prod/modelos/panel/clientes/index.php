@@ -54,7 +54,7 @@ class clientes
                 "telefono_fijo" => $form["telefono_fijo"],
                 "telefono_movil" => $form["telefono_movil"],
                 "correo" => $form["correo"],
-                "menores_edad" => $form["menores_edad"],
+                "menores_de_edad" => $form["menores_de_edad"],
                 "pais" => $form["pais"],
                 "provincia" => $form["provincia"],
                 "localidad" => $form["localidad"],

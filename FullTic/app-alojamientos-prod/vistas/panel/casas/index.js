@@ -5,7 +5,42 @@ var casas = {
         $("#modalCheckin").on("hidden.bs.modal", function () {
             document.activeElement.blur();
         });
+        document.addEventListener("shown.bs.modal", function (e) {
+
+            if (e.target.id !== "modalCasas") return;
+
+            console.log("Modal casas abierto — registrando eventos dinámicos");
+
+            // Evento para cargar municipios
+            $(document).off("change", "select[name='provincia']");
+            $(document).on("change", "select[name='provincia']", function () {
+
+                let idProvincia = $(this).val();
+
+                $.ajax({
+                    url: ROOT_AJAX,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        pagina: "controladores/panel/casas/municipios.php",
+                        provincia: idProvincia
+                    },
+                    success: function (data) {
+
+                        let html = '<option value="" disabled selected>Seleccione una localidad</option>';
+
+                        data.municipios.forEach(m => {
+                            html += `<option value="${m.id}">${m.Municipio}</option>`;
+                        });
+
+                        $("select[name='localidad']").html(html);
+                    }
+                });
+            });
+
+        });
     },
+
 
     validarForm: function () {
         const form = document.getElementById("formCasas");
@@ -23,7 +58,7 @@ var casas = {
     },
 
     eventoEnviar: function () {
-        $("#formCasas").on("submit", function (event) {
+        $(document).on("submit", "#formCasas", function (event) {
             event.preventDefault();
             event.stopPropagation();
 
@@ -61,10 +96,36 @@ var casas = {
                     console.log("Respuesta EXITOSA del servidor:", respuesta);
 
                     if (respuesta.ok === true) {
-                        comun.mostrarAlerta("¡Login correcto! Redirigiendo...", "success");
-                        setTimeout(function () {
-                            window.location.href = ROOT_URL + "panel/casas";
-                        }, 1500);
+                        //limpiar formulario
+                        $("#formCasas")[0].reset();
+                        $("#formCasas").removeClass("was-validated");
+                        $("#formCasas").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+                        //Añadir registro en la tabla 
+                        let r = respuesta.casa;
+                        let nuevaFila = `
+                        <tr>
+    <td>${r.id}</td>
+    <td>${r.nombre}</td>
+    <td>${r.max_huespedes}</td>
+    <td>${r.hab}</td>
+    <td>${r.banios}</td>
+    <td>${r.direccion}</td>
+    <td>${r.localidad}</td>
+    <td>${r.provincia}</td>
+    <td>${r.descripcion}</td>
+    <td>${r.precio_noche}</td>
+
+    <td>
+        <button class="btn btn-outline-danger borrarCasa">Eliminar</button>
+    </td>
+    <td>
+        <button class="btn btn-outline-primary updateCasa">Editar</button>
+    </td>
+</tr>
+
+                       `;
+                        $("#tablaCasas tbody").append(nuevaFila);
+
                     } else {
                         comun.mostrarAlerta("Error: " + (respuesta.message || "Credenciales inválidas"), "danger");
                     }
@@ -89,7 +150,7 @@ var casas = {
         console.log("acaso esto carga");
 
         //En caso de pulsar algun boton de eliminar
-        $(".borrarCasa").on("click", function (event) {
+        $(document).on("click",".borrarCasa", function (event) {
             console.log("clic en borrar");
             //Preguntar si realmente lo quiere borrar 
             if (!confirm("¿Seguro que quieres eliminar este registro?")) {
@@ -141,21 +202,7 @@ var casas = {
         })
     },
     //Evento editar 
-    actualizarResumen: function () {
-        $.ajax({
-            url: ROOT_AJAX,
-            type: "POST",
-            dataType: "json",
-            data: {
-                pagina: "controladores/panel/casas/index.php",
-                modelo: "modelos/panel/casas/index.php",
-                action: "actualizarResumen"
-            },
-            success: function (data) {
-                $("#resumen").html(data.HTML);
-            }
-        });
-    }
+   
 };
 
 $(document).ready(function () {

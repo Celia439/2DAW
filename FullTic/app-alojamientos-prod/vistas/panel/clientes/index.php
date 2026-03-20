@@ -1,7 +1,6 @@
 <?php
 //paginador
 $totalPaginas = ceil($total / $porPag);
-$pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
 
 ?>
 <div class="container mt-5">
@@ -44,7 +43,7 @@ $pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
             <?php
             if ($clientes) {
                 foreach ($clientes as $cliente) {
-                    include ROOT . "vistas/panel/clientes/fila_cliente.php";
+                    include VISTA_FILA_CLIENTES;
                 }
             }
             ?>
@@ -242,19 +241,19 @@ $pagina = isset($_POST["p"]) ? intval($_POST["p"]) : 1;
 
             <!-- Botón anterior -->
             <li id="btnAnterior" class="page-item <?= $pagina <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link paginar" data-p="<?= $pagina - 1 ?>">Anterior</a>
+                <a class="page-link paginar"  href="#" data-p="<?= $pagina - 1 ?>">Anterior</a>
             </li>
 
             <!-- Números -->
             <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
                 <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
-                    <a class="page-link paginar" data-p="<?= $i ?>"><?= $i ?></a>
+                    <a class="page-link paginar" href="#" data-p="<?= $i ?>"><?= $i ?></a>
                 </li>
             <?php endfor; ?>
 
             <!-- Botón siguiente -->
             <li id="btnSiguiente" class="page-item <?= $pagina >= $totalPaginas ? 'disabled' : '' ?>">
-                <a class="page-link paginar" data-p="<?= $pagina + 1 ?>">Siguiente</a>
+                <a class="page-link paginar" href="#" data-p="<?= $pagina + 1 ?>">Siguiente</a>
             </li>
 
         </ul>

@@ -110,7 +110,7 @@ var clientes = {
 
     },
     eventoEnviar: function () {
-        $("#formClientes").on("submit", function (event) {
+        $(document).on("submit", "#formClientes", function (event) {
             event.preventDefault();
             event.stopPropagation();
 
@@ -156,7 +156,7 @@ var clientes = {
                         $("#formClientes")[0].reset();
                         $("#formClientes").removeClass("was-validated");
                         $("#formClientes").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
-                        // añadir registro para que se muestre
+                        // Añadir registro en la tabla
                         let r = respuesta.cliente;
 
                         let nuevaFila = `
@@ -218,7 +218,7 @@ var clientes = {
         console.log("acaso esto carga");
 
         //En caso de pulsar algun boton de eliminar
-        $(".delete").on("click", function (event) {
+        $(document).on("click", ".delete", function (event) {
             console.log("clic en borrar");
             //Preguntar si realmente lo quiere borrar 
             if (!confirm("¿Seguro que quieres eliminar este registro?")) {

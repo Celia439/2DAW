@@ -33,3 +33,6 @@ define("PANEL_URL", "/app-alojamientos-prod/panel");
 define("MODELOS_LOGIN", ROOT . "modelos/panel/login/index.php");
 //Ruta para acceder a modelos reservas?
 define("MODELOS_RESERVAS", ROOT . "modelos/panel/reservas/index.php");
+
+//Ruta para acceder al fila cliente de vista 
+define("VISTA_FILA_CLIENTES",ROOT. "vistas/panel/clientes/fila_cliente.php");
