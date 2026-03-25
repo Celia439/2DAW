@@ -42,9 +42,24 @@ switch ($_POST["action"]) {
             "resumen" => $contenido[1],
             "error" => $guardado ? null : "no se pudo gurardar"
         ]);
-        exit;
-
+        break;
     case "update":
+
+        parse_str($_POST["datos"], $form);
+        //TODO: Es ineficiente debo pensar en otra cosa.
+        $reservaNoActualizada = $reservasControl->getReservaById($form["id"]);
+
+        $reservasControl->editarReserva($form);
+
+        $reservaActualizada = $reservasControl->getReservaById($form["id"]);
+        
+        $ok = $reservaActualizada === $reservaNoActualizada ? false : true;
+      echo json_encode([
+            "ok" => $ok,
+            "reserva" => $reservaActualizada
+        ]);
+
+        break;
 
     case "delete":
         $id = $_POST["id"];
@@ -59,7 +74,7 @@ switch ($_POST["action"]) {
             "reservas" => $contenido[0],
             "resumen" => $contenido[1]
         ]);
-        exit;
+        break;
     /*
 case "actualizarResumen":
     $resumen = $reservasControl->getResumenReservas();

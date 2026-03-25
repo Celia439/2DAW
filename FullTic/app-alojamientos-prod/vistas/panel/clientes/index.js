@@ -22,7 +22,7 @@ var clientes = {
                     type: "POST",
                     dataType: "json",
                     data: {
-                        pagina: "controladores/panel/clientes/municipios.php",
+                        pagina: "libreria/php/municipios.php",
                         provincia: idProvincia
                     },
                     success: function (data) {
@@ -143,7 +143,6 @@ var clientes = {
                 },
 
                 success: function (respuesta) {
-                    console.log("URL que se está usando:", ROOT_AJAX);
 
                     console.log("Respuesta EXITOSA del servidor:", respuesta);
 
@@ -175,7 +174,7 @@ var clientes = {
     <td>${r.telefono_fijo}</td>
     <td>${r.telefono_movil}</td>
     <td>${r.correo}</td>
-    <td>${r.menores_edad}</td>
+    <td>${r.menores_de_edad}</td>
     <td>${r.pais}</td>
     <td>${r.provincia}</td>
     <td>${r.localidad}</td>
@@ -215,11 +214,9 @@ var clientes = {
             });
         });
     }, eventoEliminar: function () {
-        console.log("acaso esto carga");
 
         //En caso de pulsar algun boton de eliminar
-        $(document).on("click", ".delete", function (event) {
-            console.log("clic en borrar");
+        $(document).on("click", ".deleteCliente", function (event) {
             //Preguntar si realmente lo quiere borrar 
             if (!confirm("¿Seguro que quieres eliminar este registro?")) {
                 return; // el usuario canceló
@@ -230,9 +227,7 @@ var clientes = {
 
             $(event.currentTarget).closest("tr").remove();
 
-            alert(tr.firstChild);
 
-            alert(id);
             $.ajax({
                 url: ROOT_AJAX,
                 type: "POST",

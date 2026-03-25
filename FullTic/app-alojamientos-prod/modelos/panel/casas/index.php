@@ -23,33 +23,37 @@ class casas
         return $dbControl->select($parametros);
     }
 
-      function eliminarPorId($id)
-    {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $parametros = new stdClass();
-        $parametros->tabla="casas";
-        $parametros->where="id = $id";
-        $dbControl->delete($parametros);        
-
-    }
-    function insert($id, $nombre, $maxH, $hab, $banios, $dic, $local, $pro, $desc, $precio)
-    {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $parametros = new stdClass();
-        $parametros->tabla = "casas";
-        $parametros->datosInsert = [$id, $nombre, $maxH, $hab, $banios, $dic, $local, $pro, $desc, $precio];
-        return $dbControl->insert($parametros);
-    }
-    function update($id, $nombre, $maxH, $hab, $banios, $dic, $local, $pro, $desc, $precio)
+    function eliminarPorId($id)
     {
         require_once CONSULTAS;
         $dbControl = new Database();
         $parametros = new stdClass();
         $parametros->tabla = "casas";
         $parametros->where = "id = $id";
-        $parametros->datosUpdate=["id"=>$id,"nombre"=>$nombre,"max_huespedes"=>$maxH,"hab"=>$hab,"banios"=>$banios,"direccion"=>$dic,"localidad"=>$local,"provincia"=>$pro,"descripcion"=>$desc,"precio_noche"=>$precio];
-        return $dbControl->update($parametros);
+        $dbControl->delete($parametros);
+
     }
+    function guardarCasas($form)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "casas";
+        $parametros->datosInsert = [
+            [
+                "nombre" => $form["nombre"],
+                "max_huespedes" => $form["max_huespedes"],
+                "hab" => $form["hab"],
+                "banios" => $form["banios"],
+                "direccion" => $form["direccion"],
+                "localidad" => $form["localidad"],
+                "provincia" => $form["provincia"],
+                "descripcion" => $form["descripcion"],
+                "precio_noche" => $form["precio_noche"]
+            ]
+        ];
+        $ids=$dbControl->insert($parametros);
+        return $ids[0];
+    }
+    
 }

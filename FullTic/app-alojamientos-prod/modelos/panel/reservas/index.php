@@ -74,4 +74,34 @@ class reservas
         $dbControl->delete($parametros);
 
     }
+    function editarReserva($form)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas";
+        $parametros->where = "id = " . $form["id"];
+        $parametros->datosUpdate = [
+            "canal" => $form["canal"],
+            "total_huespedes" => $form["total_huespedes"],
+            "fecha_entrada" => $form["fecha_entrada"],
+            "fecha_salida" => $form["fecha_salida"],
+            "importe_bruto" => $form["importe_bruto"],
+            "descuento" => $form["descuento"],
+            "comision" => $form["comision"],
+            "importe_final" => $form["importe_final"],
+            "num_reserva" => $form["num_reserva"],
+        ];
+        return $dbControl->update($parametros);
+    }
+    function getReservaById($id)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas";
+        $parametros->where = "id = " . $form["id"];
+        return $dbControl->select($parametros);
+
+    }
 }

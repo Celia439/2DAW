@@ -5,24 +5,23 @@ var casas = {
         $("#modalCheckin").on("hidden.bs.modal", function () {
             document.activeElement.blur();
         });
-        document.addEventListener("shown.bs.modal", function (e) {
+          document.addEventListener("shown.bs.modal", function (e) {
 
-            if (e.target.id !== "modalCasas") return;
+            if (e.target.id !== "modalCasa") return;
 
-            console.log("Modal casas abierto — registrando eventos dinámicos");
+            console.log("Modal casa abierto — registrando eventos dinámicos");
 
             // Evento para cargar municipios
             $(document).off("change", "select[name='provincia']");
             $(document).on("change", "select[name='provincia']", function () {
 
                 let idProvincia = $(this).val();
-
                 $.ajax({
                     url: ROOT_AJAX,
                     type: "POST",
                     dataType: "json",
                     data: {
-                        pagina: "controladores/panel/casas/municipios.php",
+                        pagina: "libreria/php/municipios.php",
                         provincia: idProvincia
                     },
                     success: function (data) {
@@ -32,7 +31,7 @@ var casas = {
                         data.municipios.forEach(m => {
                             html += `<option value="${m.id}">${m.Municipio}</option>`;
                         });
-
+                        console.log(html);
                         $("select[name='localidad']").html(html);
                     }
                 });
@@ -162,9 +161,6 @@ var casas = {
 
             $(event.currentTarget).closest("tr").remove();
 
-            alert(tr.firstChild);
-
-            alert(id);
             $.ajax({
                 url: ROOT_AJAX,
                 type: "POST",

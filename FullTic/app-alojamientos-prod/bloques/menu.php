@@ -2,12 +2,20 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . "/app-alojamientos-prod/config/index.php");
 ?>
 <nav class="navbar bg-body-tertiary ">
-    <div class="container-fluid">
+    <div class="container">
         <a class="navbar-brand" href="#">Administración</a>
+<!--me quede por hacer un boton para los filtros de la derecha-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar" aria-label="Buscar">
+            <i class="bi bi-search" style="font-size: 1.5rem;"></i>
+        </button>
+
+
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>

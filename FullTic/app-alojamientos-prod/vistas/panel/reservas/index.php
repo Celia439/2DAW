@@ -44,6 +44,7 @@ if (!$_SESSION["id_user"]) {
                 <tr class="table-secondary fw-bold">
                     <td>TOTAL</td>
                     <td></td>
+                    <td></td>
                     <td id="total_huespedes"><?= $resumen["total_huespedes"] ?></td>
                     <td></td>
                     <td></td>
@@ -51,7 +52,6 @@ if (!$_SESSION["id_user"]) {
                     <td id="total_descuento"><?= $resumen["total_descuento"] ?></td>
                     <td id="total_comisión"><?= $resumen["total_comision"] ?></td>
                     <td id="total_final"><?= $resumen["total_final"] ?></td>
-                    <td></td>
                 </tr>
             </tfoot>
         </table>
@@ -64,8 +64,8 @@ if (!$_SESSION["id_user"]) {
 
         <!-- canal -->
         <div class="col-6">
-            <label class="form-label">Canal</label>
-            <select class="form-select" name="canal" required>
+            <label class="form-label" for="canal">Canal</label>
+            <select id="canal" class="form-select" name="canal" required>
                 <option value="" selected disabled>Seleccione canal</option>
                 <option value="B">Booking</option>
                 <option value="A">Airbnb</option>
@@ -77,54 +77,54 @@ if (!$_SESSION["id_user"]) {
 
         <!-- total_huespedes -->
         <div class="col-6">
-            <label class="form-label">Total huéspedes</label>
-            <input type="number" class="form-control" name="total_huespedes"
+            <label class="form-label" for="total_huespedes">Total huéspedes</label>
+            <input id="total_huespedes" type="number" class="form-control" name="total_huespedes"
                    required min="1" max="50">
             <div class="invalid-feedback">Introduzca el número total de huéspedes.</div>
         </div>
 
         <!-- fecha_entrada -->
         <div class="col-6">
-            <label class="form-label">Fecha de entrada</label>
-            <input type="date" class="form-control" name="fecha_entrada" required>
+            <label class="form-label" for="fecha_entrada">Fecha de entrada</label>
+            <input id="fecha_entrada" type="date" class="form-control" name="fecha_entrada" required>
             <div class="invalid-feedback">Seleccione una fecha de entrada válida.</div>
         </div>
 
         <!-- fecha_salida -->
         <div class="col-6">
-            <label class="form-label">Fecha de salida</label>
-            <input type="date" class="form-control" name="fecha_salida" required>
+            <label class="form-label" for="fecha_salida">Fecha de salida</label>
+            <input id="fecha_salida" type="date" class="form-control" name="fecha_salida" required>
             <div class="invalid-feedback">Seleccione una fecha de salida válida.</div>
         </div>
 
         <!-- importe_bruto -->
         <div class="col-6">
-            <label class="form-label">Importe bruto</label>
-            <input type="number" step="0.01" class="form-control" name="importe_bruto"
+            <label class="form-label" for="importe_bruto">Importe bruto</label>
+            <input id="importe_bruto" type="number" step="0.01" class="form-control" name="importe_bruto"
                    required min="0">
             <div class="invalid-feedback">Introduzca un importe bruto válido.</div>
         </div>
 
         <!-- descuento -->
         <div class="col-6">
-            <label class="form-label">Descuento</label>
-            <input type="number" step="0.01" class="form-control" name="descuento"
+            <label class="form-label" for="descuento">Descuento</label>
+            <input id="descuento" type="number" step="0.01" class="form-control" name="descuento"
                    required min="0">
             <div class="invalid-feedback">Introduzca un descuento válido.</div>
         </div>
 
         <!-- comision -->
         <div class="col-6">
-            <label class="form-label">Comisión</label>
-            <input type="number" step="0.01" class="form-control" name="comision"
+            <label class="form-label" for="comision">Comisión</label>
+            <input id="comision" type="number" step="0.01" class="form-control" name="comision"
                    required min="0">
             <div class="invalid-feedback">Introduzca una comisión válida.</div>
         </div>
 
         <!-- num_reserva -->
         <div class="col-6">
-            <label class="form-label">Número de reserva</label>
-            <input type="text" class="form-control" name="num_reserva"
+            <label class="form-label" for="num_reserva">Número de reserva</label>
+            <input id="num_reserva" type="text" class="form-control" name="num_reserva"
                    required maxlength="30">
             <div class="invalid-feedback">Introduzca un número de reserva válido.</div>
         </div>
