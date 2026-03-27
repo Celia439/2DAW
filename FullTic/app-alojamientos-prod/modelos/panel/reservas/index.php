@@ -31,7 +31,7 @@ class reservas
     {
         require_once CONSULTAS;
         $dbControl = new Database();
-        $parametros = new stdClass();
+        $p = new stdClass();
         $p->campos = [
             "SUM(total_huespedes) AS total_huespedes",
             "SUM(importe_bruto) AS total_bruto",

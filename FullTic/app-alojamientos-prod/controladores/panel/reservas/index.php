@@ -47,14 +47,14 @@ switch ($_POST["action"]) {
 
         parse_str($_POST["datos"], $form);
         //TODO: Es ineficiente debo pensar en otra cosa.
-        $reservaNoActualizada = $reservasControl->getReservaById($form["id"]);
+        $reservasControl->getReservaById($form["id"]);
 
         $reservasControl->editarReserva($form);
 
         $reservaActualizada = $reservasControl->getReservaById($form["id"]);
-        
+
         $ok = $reservaActualizada === $reservaNoActualizada ? false : true;
-      echo json_encode([
+        echo json_encode([
             "ok" => $ok,
             "reserva" => $reservaActualizada
         ]);
@@ -75,6 +75,7 @@ switch ($_POST["action"]) {
             "resumen" => $contenido[1]
         ]);
         break;
+    
     /*
 case "actualizarResumen":
     $resumen = $reservasControl->getResumenReservas();

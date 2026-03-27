@@ -7,7 +7,7 @@ var reservas = {
         });
     },
 
-    validarFormEditar: function () {
+    validarForm: function () {
         const form = document.getElementById("formEditarReservas");
         if (!form) {
             console.error("No se encuentra el formulario con id='formEditarReservas'");
@@ -123,6 +123,7 @@ var reservas = {
     },
     eventoEditar: function () {
         console.log("evento editar activo");
+
         $(document).on("click", ".editarReserva", function (event) {
             console.log("click en editar");
 
@@ -133,85 +134,77 @@ var reservas = {
             }).get();
             let idReserva = datosReserva[0]; // ID de la reserva
 
+            //realizar la consulta de de la fila y devolver el formulario con la fila con action  
 
-
-            // Mostrar modal con HTML
+            // Mostrar modal 
             comun.mostrarModal_v2({
-                pagina: "vistas/panel/reservas/form_editar.php",
+                pagina: "controladores/panel/reservas/formModal.php",
+                modelo: "modelos/panel/reservas/index.php",
                 titulo: "Editar reserva",
-                id: idReserva,
-                funccionAntesMostrar: function () {
-                    // Llenar campos con datos
-                    $("#canal").val(datosReserva[2]);
-                    $("#num_reserva").val(datosReserva[1]);
-                    $("#total_huespedes").val(datosReserva[3]);
-                    $("#fecha_entrada").val(datosReserva[4]);
-                    $("#fecha_salida").val(datosReserva[5]);
-                    $("#importe_bruto").val(datosReserva[6]);
-                    $("#descuento").val(datosReserva[7]);
-                    $("#comision").val(datosReserva[8]);
-                }
+                id: idReserva
             });
-            
 
-            // Escuchar submit del form editar
-            $(document).off("submit", "#formEditarReservas").on("submit", "#formEditarReservas", function (e) {
-                e.preventDefault();
-                console.log("editando registro");
+        });
+        // Escuchar submit del form editar
+        $(document).off("submit", "#formEditarReservas").on("submit", "#formEditarReservas", function (e) {
+            e.preventDefault();
+            console.log("editando registro");
 
-                if (!reservas.validarFormEditar()) return; // Valida este form
+            if (!reservas.validarForm()) return; // Valida este form
 
-                let datos = $(this).serialize();
+            let datos = $(this).serialize();
 
-                $.ajax({
-                    url: ROOT_AJAX,
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        pagina: "controladores/panel/reservas/index.php",
-                        modelo: "modelos/panel/reservas/index.php",
-                        datos: datos + "&id=" + idReserva, // Agregar ID
-                        action: "update"
-                    },
-                    beforeSend: function () {
-                        comun.bloquearUI();
-                    },
-                    success: function (respuesta) {
-                        if (respuesta.ok) {
-                            comun.mostrarAlerta("Actualizado correctamente", "success");
-                            $("#modal").modal("hide");
-                            // Actualizar fila 
-                            let registro = `
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "controladores/panel/reservas/index.php",
+                    modelo: "modelos/panel/reservas/index.php",
+                    datos: datos + "&id=" + idReserva, // Agregar ID
+                    action: "update"
+                },
+                beforeSend: function () {
+                    console.log("Iniciando petición AJAX...");
+                    comun.bloquearUI();
+                },
+                success: function (respuesta) {
+                    if (respuesta.ok) {
+                        comun.mostrarAlerta("Actualizado correctamente", "success");
+                        $("#modal").modal("hide");
+                        // Actualizar fila 
+                        let r = respuesta.reserva;
+                        let registro = `
 <tr>
-    <td>${respuesta.id}</td>
-    <td>${respuesta.num_reserva}</td>
-    <td>${respuesta.canal}</td>
-    <td>${respuesta.total_huespedes}</td>
-    <td>${respuesta.fecha_entrada}</td>
-    <td>${respuesta.fecha_salida}</td>
-    <td>${respuesta.importe_bruto}</td>
-    <td>${respuesta.descuento}%</td>
-    <td>${respuesta.comision}%</td>
-    <td>${respuesta.importe_final}</td>
+    <td>${r.id}</td>
+    <td>${r.num_reserva}</td>
+    <td>${r.canal}</td>
+    <td>${r.total_huespedes}</td>
+    <td>${r.fecha_entrada}</td>
+    <td>${r.fecha_salida}</td>
+    <td>${r.importe_bruto}</td>
+    <td>${r.descuento}%</td>
+    <td>${r.comision}%</td>
+    <td>${r.importe_final}</td>
     <td><button class="btn btn-outline-danger borrarReserva">Eliminar</button></td>
-    <td><button class="btn btn-outline-primary update">Editar</button></td>
+    <td><button class="btn btn-outline-primary update editarReserva">Editar</button></td>
 </tr>
 `;
-                            $(tr).html(registro);
+                        $(tr).html(registro);
 
-                        } else {
-                            comun.mostrarAlerta("Error: " + respuesta.error, "danger");
-                        }
-                    },
-                    error: function () {
-                        comun.mostrarAlerta("Error de conexión", "danger");
-                    },
-                    complete: function () {
-                        comun.desbloquearUI();
+                    } else {
+                        comun.mostrarAlerta("Error: " + respuesta.error, "danger");
                     }
-                });
+                },
+                error: function () {
+                    comun.mostrarAlerta("Error de conexión", "danger");
+                },
+                complete: function () {
+                    comun.desbloquearUI();
+                }
             });
         });
+
     },
     eventoEliminar: function () {
 

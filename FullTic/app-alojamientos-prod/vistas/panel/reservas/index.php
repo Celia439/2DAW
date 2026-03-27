@@ -9,6 +9,48 @@ if (!$_SESSION["id_user"]) {
     <main>
         <h3 class="d-flex justify-content-between p-3">Reservas<button class="btn btn-outline-success"
                 data-bs-toggle="modal" data-bs-target="#modalReserva">Nuevo</button></h3>
+
+        <hr>
+         <form novalidate>
+            <fieldset class="p-3">
+                <legend>
+                    <h4>Filtros</h4>
+                </legend>
+                <hr>
+                <div class="row g-3">
+
+                    <div class="col-12 col-md-3">
+                        <label for="numero">Número</label>
+                        <input id="numero" class="form-control" type="number" placeholder="Número">
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label for="anio">Año</label>
+                        <input id="anio" class="form-control" type="number" maxlength="4" minlength="4"
+                            placeholder="Año">
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label for="desde">Desde</label>
+                        <input id="desde" class="form-control" type="date">
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label for="hasta">Hasta</label>
+                        <input id="hasta" class="form-control" type="date">
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success me-2">Buscar</button>
+                    <button type="reset" class="btn btn-secondary">Restablecer Filtros</button>
+                </div>
+            </fieldset>
+        </form>
+
+
+        <!--Tabla de reservas -->
         <table id="tablaReservas" class="table table-hover">
             <thead>
                 <tr>
