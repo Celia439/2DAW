@@ -52,7 +52,6 @@ switch ($_POST["action"]) {
 
         //guardar el cliente 
         $guardado = $clientesControl->guardarCliente($form);
-        var_dump($guardado);
         //Actualizar contenido 
         $datos = cargarPaginador();
 
@@ -63,9 +62,9 @@ switch ($_POST["action"]) {
             "clientes" => $datos[0],
             "totalPaginas" => ceil($datos[1] / $porPag)
         ]);
-        break;
+        exit;
     case "update":
-        break;
+        exit;
     case "delete":
         $id = $_POST["id"];
 
@@ -79,7 +78,7 @@ switch ($_POST["action"]) {
             "clientes" => $datos[0],
             "totalPaginas" => ceil($datos[1] / $porPag)
         ]);
-        break;
+        exit;
 
     case "listar":
         if (isset($_POST["p"])) {
@@ -91,5 +90,5 @@ switch ($_POST["action"]) {
             "totalPaginas" => ceil($datos[1] / $porPag),
             "HTML" => renderizarFilas($datos[0]),
         ]);
-        break;
+        exit;
 }

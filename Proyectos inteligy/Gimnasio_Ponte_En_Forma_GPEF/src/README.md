@@ -19,8 +19,7 @@
 ### Usuarios
 * Administrador: CRUD (clases, horarios, reservas) más estadisticas.
 * Cliente: Ver clases (disponible OJO), reservar clases, cancelar reservas, ver historial y editar perfil. 
-* Entrenador: Ver clases que imparte, lista de alumnos, consultar horario.
-* *DUDA* todos los alumos y los que tengo inscritos o solos los de la clase?  
+* Entrenador: Ver clases que imparte, lista de alumnos, consultar horario que tenga inscritos de su clase  
 
 ## Base de datos
 - Campos minimos de usuario:
