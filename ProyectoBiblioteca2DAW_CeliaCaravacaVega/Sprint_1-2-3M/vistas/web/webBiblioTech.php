@@ -1,5 +1,5 @@
 <?php $paginaActual = 'webBibliotech';
-include '../bloques/headerWeb.php';
+include '../../bloques/headerWeb.php';
 ?>
 <main>
     <!-- Banner Principal -->
@@ -30,7 +30,7 @@ include '../bloques/headerWeb.php';
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="../librerias/img/ImagenAnuncioEj.png" class="d-block w-100 rounded" alt="Ejemplo de anuncio">
+                <img src="<?= $baseUrl ?>/librerias/img/ImagenAnuncioEj.png" class="d-block w-100 rounded" alt="Ejemplo de anuncio">
             </div>
         </div>
         <!--Botones de siguiente y anterior-->
@@ -47,48 +47,95 @@ include '../bloques/headerWeb.php';
     </section>
 
     <!-- Panel con Imagen y Contenido -->
-    <section class="panel-imagen-contenido">
-        <div class="panel-imagen"></div>
-        <div class="panel-texto">
-            <h2>1º Libro</h2>
-            <p class="subtitulo">Subheading</p>
-            <p class="descripcion">Body text for your whole article or post. We'll put in some lorem ipsum to show
-                how a
-                filled-out page might look:</p>
-            <p class="texto-completo">Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
-                conversation exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
-                ut.
-                Punctual adipisicing, essential lovely queen tempor eiusmod irure.</p>
-        </div>
-    </section>
-    <div class="carrusel-puntos">
-        <span class="punto activo"></span>general
-        <span class="punto"></span>Miedo
-        <span class="punto"></span>Acción
-        <span class="punto"></span>...........
-        <a href="./generos.html"><button class="btn-siguiente">›</button></a>
+    <div class="container my-5">
+        <section class="panel-imagen-contenido m-0">
+            <div class="panel-imagen"></div>
+            <div class="panel-texto">
+                <h2>1º Libro</h2>
+                <p class="subtitulo">Subheading</p>
+                <p class="descripcion">Body text for your whole article or post. We'll put in some lorem ipsum to show how a filled-out page might look:</p>
+                <p class="texto-completo">Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla ut. Punctual adipisicing, essential lovely queen tempor eiusmod irure.</p>
+            </div>
+        </section>
     </div>
-    <!-- Sección de Géneros Limite 9 libros-->
-    <section class="seccion-generos">
 
-        <div class="header-generos">
-            <h2>Genero</h2>
-            <p class="subtitulo">Subheading</p>
-        </div>
+    <!-- Navegación de Géneros con Inputs -->
+    <div class="container mt-5">
+        <form class="carrusel-puntos d-flex align-items-center justify-content-center gap-4">
+            <div class="form-check p-0 m-0 d-flex align-items-center">
+                <input class="form-check-input d-none" type="radio" name="generoPref" id="genGeneral" checked>
+                <label class="form-check-label d-flex align-items-center cursor-pointer" for="genGeneral">
+                    <span class="punto me-2"></span> <span class="fw-bold" style="color:var(--color-header)">General</span>
+                </label>
+            </div>
+            <div class="form-check p-0 m-0 d-flex align-items-center">
+                <input class="form-check-input d-none" type="radio" name="generoPref" id="genMiedo">
+                <label class="form-check-label d-flex align-items-center cursor-pointer" for="genMiedo">
+                    <span class="punto me-2"></span> <span class="text-muted">Miedo</span>
+                </label>
+            </div>
+            <div class="form-check p-0 m-0 d-flex align-items-center">
+                <input class="form-check-input d-none" type="radio" name="generoPref" id="genAccion">
+                <label class="form-check-label d-flex align-items-center cursor-pointer" for="genAccion">
+                    <span class="punto me-2"></span> <span class="text-muted">Acción</span>
+                </label>
+            </div>
+            <div class="form-check p-0 m-0 d-flex align-items-center">
+                <input class="form-check-input d-none" type="radio" name="generoPref" id="genRomance">
+                <label class="form-check-label d-flex align-items-center cursor-pointer" for="genRomance">
+                    <span class="punto me-2"></span> <span class="text-muted">Romance</span>
+                </label>
+            </div>
+            
+            <a href="./generos.php" class="ms-3"><button type="button" class="btn-siguiente">›</button></a>
+        </form>
+    </div>
 
-        <div class="grid-tarjetas">
-            <div class="tarjeta">
-                <div class="tarjeta-imagen"></div>
-                <div class="tarjeta-contenido">
-                    <h3>Title</h3>
-                    <p>Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or
-                        even a
-                        very short story.</p>
-                    <button class="btn-favorito">♥</button>
+    <!-- Sección de Géneros (Sincronizada con generos.php) -->
+    <div class="container my-5">
+        <section class="agrupacion-contenido">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <h2 class="mb-1">Género</h2>
+                    <p class="subtitulo text-white opacity-75 mb-0" style="font-size: 0.95rem;">Resultados: 3</p>
                 </div>
             </div>
-    </section>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="tarjeta-item">
+                        <div class="tarjeta-imagen">
+                            <i class="bi bi-image text-white opacity-25 fs-1"></i>
+                        </div>
+                        <h3>Title</h3>
+                        <p>Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes.</p>
+                        <button class="btn-favorito"><i class="bi bi-heart"></i></button>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="tarjeta-item">
+                        <div class="tarjeta-imagen">
+                            <i class="bi bi-image text-white opacity-25 fs-1"></i>
+                        </div>
+                        <h3>Title</h3>
+                        <p>Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes.</p>
+                        <button class="btn-favorito"><i class="bi bi-heart"></i></button>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="tarjeta-item">
+                        <div class="tarjeta-imagen">
+                            <i class="bi bi-image text-white opacity-25 fs-1"></i>
+                        </div>
+                        <h3>Title</h3>
+                        <p>Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes.</p>
+                        <button class="btn-favorito"><i class="bi bi-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </main>
 <?php
-include '../bloques/footerWeb.php';
+include '../../bloques/footerWeb.php';
 ?>

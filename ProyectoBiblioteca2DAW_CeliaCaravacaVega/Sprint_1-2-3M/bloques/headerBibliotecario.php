@@ -1,13 +1,11 @@
 <?php
-include_once __DIR__ . "/../modelo/crud.php";
-include_once __DIR__ . "/../librerias/php/Parametros.php";
-
+require_once __DIR__ . '/../librerias/php/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    <?php $baseUrl = '/biblioteca/Sprint_1-2-3'; ?>
+    <?php $baseUrl = BASE_URL; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Online - Usuarios Bibliotecario</title>
@@ -15,13 +13,13 @@ include_once __DIR__ . "/../librerias/php/Parametros.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--Iconos de Boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!--Estilos del bibliotecario-->
-    <link rel="stylesheet" href="<?= $baseUrl ?>/librerias/css/estilos-bibliotecario.css">
+    <!--Estilos del proyecto-->
+    <link rel="stylesheet" href="<?= $baseUrl ?>/librerias/css/main.css">
 
     <!--jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!--JS Asincrono-->
-    <script src="<?= $baseUrl ?>/librerias/js/usuario.js"></script>
+    <script src="<?= $baseUrl ?>/librerias/js/bibliotecario.js"></script>
 </head>
 
 <body>

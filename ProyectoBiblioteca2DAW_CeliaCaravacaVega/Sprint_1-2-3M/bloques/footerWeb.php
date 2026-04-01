@@ -5,7 +5,7 @@
                 <p>Un espacio sagrado donde las palabras encuentran paz y la lectura se convierte en una invitación
                     a la
                     serenidad.</p>
-                <div class="footer-logo"><img src="../img/LogoBiblioteca.svg" /></div>
+                <div class="footer-logo"><img src="<?= BASE_URL ?>/librerias/img/LogoBiblioteca.svg" /></div>
             </div>
 
             <div class="footer-columna">

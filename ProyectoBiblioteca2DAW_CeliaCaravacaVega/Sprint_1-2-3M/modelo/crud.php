@@ -25,11 +25,16 @@ function consultar($parametros)
         ? " WHERE " . $parametros->where
         : "";
 
-    // Condición ORDER BY opcional
+    // Condición ORDER BY opcional (se busca usar orden, pero se mantiene order para compatibilidad)
     $order = !empty($parametros->order)
         ? "ORDER BY " . $parametros->order
         : "";
-    $sentencia = "SELECT $campos FROM {$parametros->tabla} $where $order";
+    $orden = !empty($parametros->orden)
+        ? "ORDER BY " . $parametros->orden
+        : "";
+    $orderBy = $order ?: $orden;
+
+    $sentencia = "SELECT $campos FROM {$parametros->tabla} $where $orderBy";
 
     $stm = $pdo->prepare($sentencia);
     $stm->execute();
