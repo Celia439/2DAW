@@ -8,9 +8,9 @@ var reservas = {
     },
 
     validarForm: function () {
-        const form = document.getElementById("formEditarReservas");
+        const form = document.getElementById("formReservas");
         if (!form) {
-            console.error("No se encuentra el formulario con id='formEditarReservas'");
+            console.error("No se encuentra el formulario con id='formReservas'");
             return false;
         }
 
@@ -21,9 +21,35 @@ var reservas = {
         console.log("Validación del form editar:", esValido ? "VÁLIDO" : "INVÁLIDO");
         return esValido;
     },
+    RellenarTabla: function (r) {
+        //vaciar el tbody
+        $("#tablaReservas tbody").empty();
+
+        //rellenar la tabla
+        r.forEach(res => {
+            let fila = `
+                             <tr>
+                                <td>${res.id}</td>
+                                <td>${res.num_reserva}</td>
+                                <td>${res.canal}</td>
+                                <td>${res.total_huespedes}</td>
+                                <td>${res.fecha_entrada}</td>
+                                <td>${res.fecha_salida}</td>
+                                <td>${res.importe_bruto}</td>
+                                <td>${res.descuento}%</td>
+                                <td>${res.comision}%</td>
+                                <td>${res.importe_final}</td>
+                                <td><button class="btn btn-outline-danger borrarReserva">Eliminar</button></td>
+                                <td><button class="btn btn-outline-primary editarReserva">Editar</button></td>
+                            </tr>
+                            `;
+            $("#tablaReservas tbody").append(fila);
+        });
+    },
 
     eventoEnviar: function () {
-        $("#formReservas").on("submit", function (event) {
+
+        $(document).on("submit", "#formReservas", function (event) {
             event.preventDefault();
             event.stopPropagation();
 
@@ -33,6 +59,7 @@ var reservas = {
                 console.log("Form inválido - No enviamos AJAX");
                 return;
             }
+
             let datos = $(this).serialize();
 
             console.log("Datos preparados para enviar:" + datos);
@@ -76,29 +103,14 @@ var reservas = {
                         $("#formReservas").removeClass("was-validated");
                         $("#formReservas").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
 
-                        // añadir registro para que se muestre
-                        let r = respuesta.reserva;
+                        // mostrar la tabla con todo su contenido 
+                        let r = respuesta.reservas;
 
-                        let nuevaFila = `
-<tr>
-    <td>${r.id}</td>
-    <td>${r.num_reserva}</td>
-    <td>${r.canal}</td>
-    <td>${r.total_huespedes}</td>
-    <td>${r.fecha_entrada}</td>
-    <td>${r.fecha_salida}</td>
-    <td>${r.importe_bruto}</td>
-    <td>${r.descuento}%</td>
-    <td>${r.comision}%</td>
-    <td>${r.importe_final}</td>
-    <td><button class="btn btn-outline-danger borrarReserva">Eliminar</button></td>
-    <td><button class="btn btn-outline-primary update">Editar</button></td>
-</tr>
-`;
+                        //Mostrar todo el contenido
+                        console.log(r);
 
-
-                        $("#tablaReservas tbody").append(nuevaFila);
-
+                        //rellenar los datos de la tabla
+                        reservas.RellenarTabla(r);
 
                     } else {
                         comun.mostrarAlerta("Error: " + (respuesta.error || "Credenciales inválidas"), "danger");
@@ -172,25 +184,9 @@ var reservas = {
                     if (respuesta.ok) {
                         comun.mostrarAlerta("Actualizado correctamente", "success");
                         $("#modal").modal("hide");
-                        // Actualizar fila 
-                        let r = respuesta.reserva;
-                        let registro = `
-<tr>
-    <td>${r.id}</td>
-    <td>${r.num_reserva}</td>
-    <td>${r.canal}</td>
-    <td>${r.total_huespedes}</td>
-    <td>${r.fecha_entrada}</td>
-    <td>${r.fecha_salida}</td>
-    <td>${r.importe_bruto}</td>
-    <td>${r.descuento}%</td>
-    <td>${r.comision}%</td>
-    <td>${r.importe_final}</td>
-    <td><button class="btn btn-outline-danger borrarReserva">Eliminar</button></td>
-    <td><button class="btn btn-outline-primary update editarReserva">Editar</button></td>
-</tr>
-`;
-                        $(tr).html(registro);
+
+                        //Actualizar la tabla
+                        reservas.RellenarTabla(respuesta.reservas);
 
                     } else {
                         comun.mostrarAlerta("Error: " + respuesta.error, "danger");
@@ -209,7 +205,7 @@ var reservas = {
     eventoEliminar: function () {
 
         //En caso de pulsar algun boton de eliminar
-        $(".borrarReserva").on("click", function (event) {
+        $(document).on("click", ".borrarReserva", function (event) {
             console.log("clic en borrar");
             //Preguntar si realmente lo quiere borrar 
             if (!confirm("¿Seguro que quieres eliminar este registro?")) {
@@ -219,10 +215,6 @@ var reservas = {
             let tr = event.currentTarget.closest("tr");
             let id = tr.querySelector("td").textContent.trim();
 
-            // Eliminar el tr 
-            $(event.currentTarget).closest("tr").remove();
-            //Actualizamos el resumen
-            //reservas.actualizarResumen();
 
             $.ajax({
                 url: ROOT_AJAX,
@@ -246,11 +238,14 @@ var reservas = {
                     $("#total_comision").text(data.resumen.total_comision);
                     $("#total_final").text(data.resumen.total_final);
 
+                    //Actualizar la tabla
+                    reservas.RellenarTabla(data.reservas);
 
                     comun.mostrarModal_v2({
                         titulo: "Registro eliminado",
                         HTML: data.HTML
                     });
+
                 },
                 error: function (xhr, status, error) {
 

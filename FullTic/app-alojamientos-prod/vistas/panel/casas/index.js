@@ -5,7 +5,7 @@ var casas = {
         $("#modalCheckin").on("hidden.bs.modal", function () {
             document.activeElement.blur();
         });
-          document.addEventListener("shown.bs.modal", function (e) {
+        document.addEventListener("shown.bs.modal", function (e) {
 
             if (e.target.id !== "modalCasa") return;
 
@@ -55,7 +55,35 @@ var casas = {
         console.log("Validación del form:", esValido ? "VÁLIDO" : "INVÁLIDO");
         return esValido;
     },
+    RellenarTabla: function (r) {
+        //vaciar el tbody
+        $("#tablaCasas tbody").empty();
 
+        //rellenar la tabla
+        r.forEach(res => {
+            let fila = `
+    <tr>
+        <td>${res.id}</td>
+        <td>${res.nombre}</td>
+        <td>${res.max_huespedes}</td>
+        <td>${res.hab}</td>
+        <td>${res.banios}</td>
+        <td>${res.direccion}</td>
+        <td>${res.localidad}</td>
+        <td>${res.provincia}</td>
+        <td>${res.descripcion}</td>
+        <td>${res.precio_noche}</td>
+    <td>
+        <button class="btn btn-outline-danger borrarCasa">Eliminar</button>
+    </td>
+    <td>
+        <button class="btn btn-outline-primary updateCasa">Editar</button>
+    </td>
+</tr>
+                            `;
+            $("#tablaCasas tbody").append(fila);
+        });
+    },
     eventoEnviar: function () {
         $(document).on("submit", "#formCasas", function (event) {
             event.preventDefault();
@@ -100,30 +128,8 @@ var casas = {
                         $("#formCasas").removeClass("was-validated");
                         $("#formCasas").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
                         //Añadir registro en la tabla 
-                        let r = respuesta.casa;
-                        let nuevaFila = `
-                        <tr>
-    <td>${r.id}</td>
-    <td>${r.nombre}</td>
-    <td>${r.max_huespedes}</td>
-    <td>${r.hab}</td>
-    <td>${r.banios}</td>
-    <td>${r.direccion}</td>
-    <td>${r.localidad}</td>
-    <td>${r.provincia}</td>
-    <td>${r.descripcion}</td>
-    <td>${r.precio_noche}</td>
-
-    <td>
-        <button class="btn btn-outline-danger borrarCasa">Eliminar</button>
-    </td>
-    <td>
-        <button class="btn btn-outline-primary updateCasa">Editar</button>
-    </td>
-</tr>
-
-                       `;
-                        $("#tablaCasas tbody").append(nuevaFila);
+                        let r = respuesta.casas;
+                        casas.RellenarTabla(r);
 
                     } else {
                         comun.mostrarAlerta("Error: " + (respuesta.message || "Credenciales inválidas"), "danger");
@@ -149,7 +155,7 @@ var casas = {
         console.log("acaso esto carga");
 
         //En caso de pulsar algun boton de eliminar
-        $(document).on("click",".borrarCasa", function (event) {
+        $(document).on("click", ".borrarCasa", function (event) {
             console.log("clic en borrar");
             //Preguntar si realmente lo quiere borrar 
             if (!confirm("¿Seguro que quieres eliminar este registro?")) {
@@ -158,8 +164,6 @@ var casas = {
             //Recoger el id 
             let tr = event.currentTarget.closest("tr");
             let id = tr.querySelector("td").textContent.trim();
-
-            $(event.currentTarget).closest("tr").remove();
 
             $.ajax({
                 url: ROOT_AJAX,
@@ -176,6 +180,9 @@ var casas = {
                     comun.bloquearUI();
                 },
                 success: function (data) {
+                    //Rellenar la tabla
+                    casas.RellenarTabla(data.casas);
+
                     comun.mostrarModal_v2({
                         titulo: "Registro eliminado",
                         HTML: data.HTML
@@ -198,7 +205,7 @@ var casas = {
         })
     },
     //Evento editar 
-   
+
 };
 
 $(document).ready(function () {

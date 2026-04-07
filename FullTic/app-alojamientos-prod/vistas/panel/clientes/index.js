@@ -2,9 +2,11 @@ console.log("JS Clientes Cargado");
 
 var clientes = {
     eventosInicio: function () {
+
         $("#modalCheckin").on("hidden.bs.modal", function () {
             document.activeElement.blur();
         });
+
         document.addEventListener("shown.bs.modal", function (e) {
 
             if (e.target.id !== "modalCliente") return;
@@ -75,6 +77,7 @@ var clientes = {
             $("#btnSiguiente").removeClass("disabled");
         }
     },
+    //Aquí es donde debes de incar el pie para actualizar la tabla
     eventosPaginador: function () {
         $(document).on("click", ".paginar", function () {
             let pagina = $(this).data("p");
@@ -108,6 +111,46 @@ var clientes = {
             });
         });
 
+    },
+    RellenarTabla: function (r) {
+        //vaciar el tbody
+        $("#tablaCliente tbody").empty();
+//NOTA: debes de rellenar otra vez pero con el paginador no borrando todo y ya sino rellenar con el paginador
+        //rellenar la tabla
+        r.forEach(res => {
+            let fila = `
+                          <tr>
+    <td>${r.id}</td>
+    <td>${r.created_at.substring(0,10)}</td>
+    <td>${r.nombre}</td>
+    <td>${r.primer_apellido}</td>
+    <td>${r.segundo_apellido}</td>
+    <td>${r.sexo}</td>
+    <td>${r.numero_documento_identidad}</td>
+    <td>${r.tipo_documentacion}</td>
+    <td>${r.numero_soporte_documento}</td>
+    <td>${r.nacionalidad_id}</td>
+    <td>${r.fecha_nacimiento}</td>
+    <td>${r.telefono_fijo}</td>
+    <td>${r.telefono_movil}</td>
+    <td>${r.correo}</td>
+    <td>${r.menores_de_edad}</td>
+    <td>${r.pais}</td>
+    <td>${r.provincia}</td>
+    <td>${r.localidad}</td>
+    <td>${r.direccion}</td>
+    <td>${r.codigo_postal}</td>
+
+    <td>
+        <button class="btn btn-outline-danger borrarCliente">Eliminar</button>
+    </td>
+    <td>
+        <button class="btn btn-outline-primary updateCliente">Editar</button>
+    </td>
+</tr>
+                            `;
+            $("#tablaClientes tbody").append(fila);
+        });
     },
     eventoEnviar: function () {
         $(document).on("submit", "#formClientes", function (event) {
@@ -156,43 +199,11 @@ var clientes = {
                         $("#formClientes").removeClass("was-validated");
                         $("#formClientes").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
                         // Añadir registro en la tabla
-                        let r = respuesta.cliente;
+                        let r = respuesta.clientes;
 
-                        let nuevaFila = `
-<tr>
-    <td>${r.id}</td>
-    <td>${r.created_at}</td>
-    <td>${r.nombre}</td>
-    <td>${r.primer_apellido}</td>
-    <td>${r.segundo_apellido}</td>
-    <td>${r.sexo}</td>
-    <td>${r.numero_documento_identidad}</td>
-    <td>${r.tipo_documentacion}</td>
-    <td>${r.numero_soporte_documento}</td>
-    <td>${r.nacionalidad_id}</td>
-    <td>${r.fecha_nacimiento}</td>
-    <td>${r.telefono_fijo}</td>
-    <td>${r.telefono_movil}</td>
-    <td>${r.correo}</td>
-    <td>${r.menores_de_edad}</td>
-    <td>${r.pais}</td>
-    <td>${r.provincia}</td>
-    <td>${r.localidad}</td>
-    <td>${r.direccion}</td>
-    <td>${r.codigo_postal}</td>
+                        //Rellenar la tabla de nuevo
+                        clientes.RellenarTabla(r);
 
-    <td>
-        <button class="btn btn-outline-danger borrarCliente">Eliminar</button>
-    </td>
-    <td>
-        <button class="btn btn-outline-primary updateCliente">Editar</button>
-    </td>
-</tr>
-
-`;
-
-
-                        $("#tablaCliente tbody").append(nuevaFila);
                     } else {
                         comun.mostrarAlerta("Error: " + (respuesta.message || "Credenciales inválidas"), "danger");
                     }
@@ -225,9 +236,6 @@ var clientes = {
             let tr = event.currentTarget.closest("tr");
             let id = tr.querySelector("td").textContent.trim();
 
-            $(event.currentTarget).closest("tr").remove();
-
-
             $.ajax({
                 url: ROOT_AJAX,
                 type: "POST",
@@ -245,6 +253,9 @@ var clientes = {
                 success: function (data) {
                     //Actualizar el paginador 
                     clientes.ActualizaPaginador(data.pagina, data.totalPaginas);
+
+                    // Rellenar la tabla 
+                    clientes.RellenarTabla(data.clientes); 
 
                     comun.mostrarModal_v2({
                         titulo: "Registro eliminado",

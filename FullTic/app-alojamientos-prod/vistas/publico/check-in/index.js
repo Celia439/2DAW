@@ -4,19 +4,57 @@ var checkin = {
 
 
     eventosIncio: function () {
+        // Esto es para el formulario actual pero se debe de cambiar para uno externo
         $("#provincias").change(function () {
-            var provinciaSelect = $(this).val();
-            comun.listarMunicipios({
-                seleccinado: provinciaSelect,
-                IDcontenedor: "localidades"
+
+            console.log("Modal cliente abierto — registrando eventos dinámicos");
+
+            // Evento para cargar municipios
+            $(document).off("change", "select[name='provincia']");
+            $(document).on("change", "select[name='provincia']", function () {
+
+                let idProvincia = $(this).val();
+
+                $.ajax({
+                    url: ROOT_AJAX,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        pagina: "libreria/php/municipios.php",
+                        provincia: idProvincia
+                    },
+                    success: function (data) {
+
+                        let html = '<option value="" disabled selected>Seleccione una localidad</option>';
+
+                        data.municipios.forEach(m => {
+                            html += `<option value="${m.id}">${m.Municipio}</option>`;
+                        });
+
+                        $("select[name='localidad']").html(html);
+                    }
+                });
             });
 
-        })
+
+        });
+
         //cuando el modal se haya cerrado correctamente 
         $("#modalCheckin").on("hidden.bs.modal", function () {
             //Quitar el foco del elemento modal
             document.activeElement.blur();
         });
+
+        //TODO: Mostrar el formulario de la libreria html 
+        /*
+        $.ajax({
+            url: ROOT_AJAX,
+            type: "POST",
+            dataType: "json",
+            data: {
+                pagina: "libreria/html/form_editar_reservas.html",
+            }
+        });*/
     },
     validarForm: function () {
 
@@ -60,9 +98,11 @@ var checkin = {
                     comun.bloquearUI();
                 },
                 success: function (respuesta) {
+
                     //ver que recogemos (comentar cuando no se utilice)
                     console.log(respuesta);
-                    //si no esta bien 
+                    
+                    //Comprobar datos
                     if (!respuesta.ok) {
                         comun.mostrarAlerta("Error: " + respuesta.error, "danger");
                         return;

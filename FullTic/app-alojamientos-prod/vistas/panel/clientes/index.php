@@ -49,7 +49,7 @@ $totalPaginas = ceil($total / $porPag);
             ?>
         </tbody>
     </table>
-    <!--Modal nueva casa-->
+    <!--Modal nuevo cliente-->
     <?php
     $contenidoFormulario = '
    <form id="formClientes" action="#" method="post" class="needs-validation" novalidate>

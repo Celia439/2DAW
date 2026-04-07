@@ -1,24 +1,4 @@
-<?php
-//obtener los datos por url
-#$n_huespedes = $_GET['n_huespedes'] ?? 1; ahora se obtiene por el parametro $n_huespedes del controlador
-$id_reserva = $_GET['id_reserva'];
-$id_casa = $_GET["id_casa"];
-//guardar las variables en session
-$_SESSION['id_reserva'] = $id_reserva;
-$_SESSION['id_casa'] = $id_casa;
-?>
-<main class="flex-grow-1 py-4">
-    <div class="container">
-        <?php
-        // comprobar si quedan huespedes que registrar
-        if ($registrados < $totalHuespedes) {
-            ?>
-            <!--Para mensajes bootstrap (Errores, avisos, confirmaciones rápidas)-->
-            <div id="alertas"></div>
-            <!--Para mensajes de insección-->
-            <div id="mensajeCheckin"></div>
-
-            <form id="formCliente" action="#" method="post" class="needs-validation" novalidate>
+<form id="formCliente" action="#" method="post" class="needs-validation" novalidate>
                 <h1>Formulario para clientes </h1>
                 <hr />
                 <div class="row g-4">
@@ -95,9 +75,9 @@ $_SESSION['id_casa'] = $id_casa;
                                     <option value="">Seleccione nacionalidad</option>
                                     <?php
                                     //  Mostrar la nacionalidad 
-                                    if ($paises) {
-                                        foreach ($paises as $p) {
-                                            echo "<option value=" . $p["id"] . ">" . $p["nombre"] . "</option>";
+                                    if ($nacionalidades) {
+                                        foreach ($nacionalidades as $key => $fila) {
+                                            echo "<option value=" . $fila["id"] . ">" . $fila["nombre"] . "</option>";
                                         }
                                     }
                                     ?>
@@ -149,9 +129,9 @@ $_SESSION['id_casa'] = $id_casa;
                                     <option value="">Introduzca un país</option>
 
                                     <?php
-                                    if ($paises) {
-                                        foreach ($paises as $p) {
-                                            echo "<option value=" . $p["id"] . ">" . $p["nombre"] . "</option>";
+                                    if ($nacionalidades) {
+                                        foreach ($nacionalidades as $key => $fila) {
+                                            echo "<option value=" . $fila["id"] . ">" . $fila["nombre"] . "</option>";
                                         }
                                     }
                                     ?>
@@ -165,8 +145,8 @@ $_SESSION['id_casa'] = $id_casa;
                                     <option value="">Introduzca un provincia</option>
                                     <?php
                                     if ($provincias) {
-                                        foreach ($provincias as $prov) {
-                                            echo "<option value=" . $prov["id"] . ">" . $prov["Provincia"] . "</option>";
+                                        foreach ($provincias as $key => $fila) {
+                                            echo "<option value=" . $fila["id"] . ">" . $fila["Provincia"] . "</option>";
                                         }
                                     }
                                     ?>
@@ -180,12 +160,11 @@ $_SESSION['id_casa'] = $id_casa;
                                     <option value="">Introduzca una localidad</option>
                                     <!-- Mostrar municipios de forma síncrona-->
                                     <?php
-                                    /*
                                     if ($municipios) {
                                         foreach ($municipios as $key => $fila) {
                                             echo "<option value=" . $fila["id"] . ">" . $fila["Municipio"] . "</option>";
                                         }
-                                    }*/
+                                    }
                                     ?>
                                 </select>
                                 <div class="invalid-feedback">Por favor, introduce tu localidad.</div>
@@ -218,17 +197,3 @@ $_SESSION['id_casa'] = $id_casa;
                 <input name="reserva_id" type="hidden" id="reserva_id" value="<?php echo $id_reserva; ?>">
 
             </form>
-
-            <?php
-        } else if ($registrados == $_SESSION['total_huespedes']) {
-            //mensaje de alerta de boostrap cuando terminar de rellenar los formularios.
-            ?>
-                <div class="alert alert-success alert-dismissible fade show m-5" role="alert">
-                    <strong>¡Perfecto!</strong> Los datos se han guardado correctamente.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php
-        }
-        ?>
-    </div>
-</main>

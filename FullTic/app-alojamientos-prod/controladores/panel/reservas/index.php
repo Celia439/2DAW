@@ -38,7 +38,7 @@ switch ($_POST["action"]) {
 
         echo json_encode([
             "ok" => !empty($guardado),
-            "reserva" => $contenido[0][count($contenido[0]) - 1], // última reserva insertada            
+            "reservas" => $contenido[0],
             "resumen" => $contenido[1],
             "error" => $guardado ? null : "no se pudo gurardar"
         ]);
@@ -53,10 +53,14 @@ switch ($_POST["action"]) {
 
         $reservaActualizada = $reservasControl->getReservaById($form["id"]);
 
+        //Actualizamos el contenido 
+        $contenido = actualizar();
+
         $ok = $reservaActualizada === $reservaNoActualizada ? false : true;
         echo json_encode([
             "ok" => $ok,
-            "reserva" => $reservaActualizada
+            "reserva" => $reservaActualizada,
+            "reservas" => $contenido[0]
         ]);
 
         break;
@@ -75,7 +79,7 @@ switch ($_POST["action"]) {
             "resumen" => $contenido[1]
         ]);
         break;
-    
+
     /*
 case "actualizarResumen":
     $resumen = $reservasControl->getResumenReservas();
