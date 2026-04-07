@@ -1,0 +1,193 @@
+/* ----- ESTILOS ESPECÍFICOS DE LA WEB (Vistas Públicas) ----- */
+
+/* Separadores */
+hr.separador-verde {
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-linea-separador);
+    border: none;
+    margin: 0;
+}
+
+/* ---Pestañas debajo de Header--- */
+.pestanas {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    padding-top: 10px;
+}
+
+.pestana {
+    padding: 8px 20px;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 2px solid transparent;
+    transition: 0.2s;
+}
+
+.pestana:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.pestana.activa, .pestana.seleccionado {
+    border-bottom: 2px solid var(--color-texto-muted);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Banner Principal */
+.banner-contenido {
+    background: linear-gradient(135deg, #6a709a, #4a4e69);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    padding: 3rem;
+    margin-bottom: 2rem;
+}
+
+.banner-imagen {
+    width: 250px;
+    height: 200px;
+    background-color: rgba(240, 248, 247, 0.2);
+    border-radius: 10px;
+}
+
+.banner-descuento {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ffd166;
+}
+
+.banner-descripcion p {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.banner-promo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* Layout de Secciones de la Web (Restauración) */
+.panel-imagen-contenido {
+    background-color: var(--color-bloque-fondo);
+    display: flex;
+    padding: 3rem;
+    border-radius: 15px;
+    margin-bottom: 3rem;
+    color: white;
+    gap: 3rem;
+    align-items: center;
+}
+
+.panel-imagen {
+    flex: 1;
+    height: 300px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+}
+
+.panel-texto {
+    flex: 1.5;
+}
+
+.seccion-generos {
+    background-color: var(--color-bloque-fondo);
+    padding: 3rem;
+    border-radius: 15px;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.grid-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.tarjeta {
+    background-color: var(--color-tarjeta);
+    padding: 1.5rem;
+    border-radius: 10px;
+    position: relative;
+}
+
+.tarjeta-imagen {
+    width: 100%;
+    height: 200px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.btn-favorito {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+/* Carrusel y otros */
+.carrusel-puntos {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    color: var(--color-header);
+    font-weight: bold;
+}
+
+.punto {
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-header);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.punto.activo {
+    background-color: var(--color-btn-primario);
+}
+
+.btn-siguiente {
+    background-color: var(--color-header);
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.btn-siguiente:hover {
+    background-color: #036368;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Interactividad de Selección de Géneros */
+.carrusel-puntos input[type="radio"]:checked + label .punto {
+    background-color: var(--color-btn-primario);
+}
+
+.carrusel-puntos input[type="radio"]:checked + label span:not(.punto) {
+    color: var(--color-header) !important;
+    font-weight: bold;
+}
+
+.panel-imagen-contenido.m-0 {
+    width: 100%;
+}

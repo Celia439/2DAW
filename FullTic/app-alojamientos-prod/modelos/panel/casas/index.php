@@ -8,6 +8,7 @@ class casas
         $dbControl = new Database();
         $parametros = new stdClass();
         $parametros->tabla = "casas";
+        $parametros->order="id DESC";
         return $dbControl->select($parametros);
     }
 

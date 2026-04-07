@@ -1,0 +1,17 @@
+:root {
+    --color-fondo: #f0f8f7;
+    --color-header: #024d52;
+    --color-bloque-fondo: #4a4e69;
+    --color-tarjeta: #6a709a;
+    --color-btn-primario: #ff6b5b;
+    --color-btn-primario-hover: #ff5544;
+    --color-texto-claro: #f3f3f3;
+    --color-texto-muted: #e2e2e2;
+    --color-linea-separador: rgb(184, 217, 124);
+}
+
+body {
+    background-color: var(--color-fondo);
+    font-family: Arial, sans-serif;
+    color: #333;
+}

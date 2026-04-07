@@ -57,9 +57,8 @@ switch ($_POST["action"]) {
 
         echo json_encode([
             "ok" => !empty($guardado),
-            "cliente" => $datos[0][count($datos[0]) - 1],//ultimo cliente insertado
+            "HTML" => renderizarFilas($datos[0]),
             "pagina" => $datos[2],
-            "clientes" => $datos[0],
             "totalPaginas" => ceil($datos[1] / $porPag)
         ]);
         exit;
@@ -73,10 +72,10 @@ switch ($_POST["action"]) {
         $datos = cargarPaginador();
 
         echo json_encode([
-            "HTML" => "El  con ID $id ha sido eliminado correctamente.",
+            "HTML" => renderizarFilas($datos[0]),
             "pagina" => $datos[2],
-            "clientes" => $datos[0],
-            "totalPaginas" => ceil($datos[1] / $porPag)
+            "totalPaginas" => ceil($datos[1] / $porPag),
+
         ]);
         exit;
 

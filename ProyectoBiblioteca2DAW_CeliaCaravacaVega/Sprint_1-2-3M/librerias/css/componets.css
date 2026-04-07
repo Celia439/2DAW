@@ -1,0 +1,192 @@
+/* Contenedores y Utilidades de Colores (Restauración) */
+.container-build {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.bg-prymary {
+    background-color: var(--color-header) !important;
+}
+
+/* Contenedor morado oscuro que agrupa las secciones (Inicio, Géneros, Libros, etc.) */
+.agrupacion-contenido {
+    background-color: var(--color-bloque-fondo) !important;
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin: 2rem 0;
+    color: var(--color-texto-claro);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.agrupacion-contenido h2 {
+    color: var(--color-texto-claro);
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.agrupacion-contenido .subtitulo {
+    color: var(--color-texto-muted);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+/* Tarjeta individual (Libro, Género...) */
+.tarjeta-item {
+    background-color: var(--color-tarjeta) !important;
+    border-radius: 10px;
+    padding: 1.2rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.tarjeta-item h3, .tarjeta-item h4 {
+    color: #fff;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.tarjeta-item p {
+    color: #ebffee;
+    font-size: 0.95rem;
+}
+
+/* Placeholder para imagen dentro de la tarjeta */
+.tarjeta-imagen {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: rgba(240, 248, 247, 0.2);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botones Naranjas (Login, Ver más) */
+.btn-naranja {
+    background-color: var(--color-btn-primario) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-weight: bold;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.btn-naranja:hover {
+    background-color: var(--color-btn-primario-hover) !important;
+}
+
+/* Re-definición de Estilos para Header y Footer (Restauración) */
+.menu-principal {
+    background-color: var(--color-header);
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    gap: 1.5rem;
+}
+
+.menu-principal a {
+    color: white !important;
+    text-decoration: none;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.menu-principal a:hover, .menu-principal a.seleccionado {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.logo-icon {
+    width: 50px !important; /* Limitando el tamaño del logo */
+    height: auto;
+    object-fit: contain;
+}
+
+.iconos-header {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.iconos-header img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1); /* Asegurando que los iconos se vean sobre fondo oscuro */
+}
+
+.btn-general {
+    background-color: var(--color-btn-primario);
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+footer {
+    background-color: var(--color-header);
+    color: white;
+    padding: 3rem 0;
+    margin-top: 4rem;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.footer-columna {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-columna h3, .footer-columna h4 {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.footer-columna ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-columna li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-columna a {
+    color: var(--color-texto-muted);
+    text-decoration: none;
+}
+
+.footer-columna a:hover {
+    color: white;
+}
+
+.footer-logo img {
+    width: 80px; /* Tamaño del logo del footer */
+    height: auto;
+    margin-top: 1rem;
+}

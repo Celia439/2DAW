@@ -9,6 +9,7 @@ class clientes
         $parametros = new stdClass();
 
         $parametros->tabla = "clientes";
+        $parametros->order = "id DESC";
         $parametros->limit = "$offset,$porPag";
         return $dbControl->select($parametros);
     }

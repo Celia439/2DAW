@@ -77,7 +77,7 @@ var clientes = {
             $("#btnSiguiente").removeClass("disabled");
         }
     },
-    //Aquí es donde debes de incar el pie para actualizar la tabla
+
     eventosPaginador: function () {
         $(document).on("click", ".paginar", function () {
             let pagina = $(this).data("p");
@@ -111,46 +111,6 @@ var clientes = {
             });
         });
 
-    },
-    RellenarTabla: function (r) {
-        //vaciar el tbody
-        $("#tablaCliente tbody").empty();
-//NOTA: debes de rellenar otra vez pero con el paginador no borrando todo y ya sino rellenar con el paginador
-        //rellenar la tabla
-        r.forEach(res => {
-            let fila = `
-                          <tr>
-    <td>${r.id}</td>
-    <td>${r.created_at.substring(0,10)}</td>
-    <td>${r.nombre}</td>
-    <td>${r.primer_apellido}</td>
-    <td>${r.segundo_apellido}</td>
-    <td>${r.sexo}</td>
-    <td>${r.numero_documento_identidad}</td>
-    <td>${r.tipo_documentacion}</td>
-    <td>${r.numero_soporte_documento}</td>
-    <td>${r.nacionalidad_id}</td>
-    <td>${r.fecha_nacimiento}</td>
-    <td>${r.telefono_fijo}</td>
-    <td>${r.telefono_movil}</td>
-    <td>${r.correo}</td>
-    <td>${r.menores_de_edad}</td>
-    <td>${r.pais}</td>
-    <td>${r.provincia}</td>
-    <td>${r.localidad}</td>
-    <td>${r.direccion}</td>
-    <td>${r.codigo_postal}</td>
-
-    <td>
-        <button class="btn btn-outline-danger borrarCliente">Eliminar</button>
-    </td>
-    <td>
-        <button class="btn btn-outline-primary updateCliente">Editar</button>
-    </td>
-</tr>
-                            `;
-            $("#tablaClientes tbody").append(fila);
-        });
     },
     eventoEnviar: function () {
         $(document).on("submit", "#formClientes", function (event) {
@@ -202,7 +162,8 @@ var clientes = {
                         let r = respuesta.clientes;
 
                         //Rellenar la tabla de nuevo
-                        clientes.RellenarTabla(r);
+                        $("#tablaCliente tbody").html(respuesta.HTML);
+                        clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
 
                     } else {
                         comun.mostrarAlerta("Error: " + (respuesta.message || "Credenciales inválidas"), "danger");
@@ -255,12 +216,10 @@ var clientes = {
                     clientes.ActualizaPaginador(data.pagina, data.totalPaginas);
 
                     // Rellenar la tabla 
-                    clientes.RellenarTabla(data.clientes); 
+                    $("#tablaCliente tbody").html(data.HTML);
+                    clientes.ActualizaPaginador(data.pagina, data.totalPaginas);
 
-                    comun.mostrarModal_v2({
-                        titulo: "Registro eliminado",
-                        HTML: data.HTML
-                    });
+
                 },
                 error: function (xhr, status, error) {
 
