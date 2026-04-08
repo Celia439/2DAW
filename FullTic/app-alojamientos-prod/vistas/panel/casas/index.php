@@ -14,6 +14,8 @@
                 <th>Provincia</th>
                 <th>Descripción detallada</th>
                 <th>Precio por noche (€)</th>
+                <th></th>
+                <th></th>
                 <?php
                 /*foreach ($columnas as $columna) {
                     foreach ($columna as $detalle) {

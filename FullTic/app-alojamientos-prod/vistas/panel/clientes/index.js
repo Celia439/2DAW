@@ -1,6 +1,7 @@
 console.log("JS Clientes Cargado");
 
 var clientes = {
+    
     eventosInicio: function () {
 
         $("#modalCheckin").on("hidden.bs.modal", function () {

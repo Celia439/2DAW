@@ -4,40 +4,6 @@ var checkin = {
 
 
     eventosIncio: function () {
-        // Esto es para el formulario actual pero se debe de cambiar para uno externo
-        $("#provincias").change(function () {
-
-            console.log("Modal cliente abierto — registrando eventos dinámicos");
-
-            // Evento para cargar municipios
-            $(document).off("change", "select[name='provincia']");
-            $(document).on("change", "select[name='provincia']", function () {
-
-                let idProvincia = $(this).val();
-
-                $.ajax({
-                    url: ROOT_AJAX,
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        pagina: "libreria/php/municipios.php",
-                        provincia: idProvincia
-                    },
-                    success: function (data) {
-
-                        let html = '<option value="" disabled selected>Seleccione una localidad</option>';
-
-                        data.municipios.forEach(m => {
-                            html += `<option value="${m.id}">${m.Municipio}</option>`;
-                        });
-
-                        $("select[name='localidad']").html(html);
-                    }
-                });
-            });
-
-
-        });
 
         //cuando el modal se haya cerrado correctamente 
         $("#modalCheckin").on("hidden.bs.modal", function () {
@@ -45,7 +11,33 @@ var checkin = {
             document.activeElement.blur();
         });
 
-        //TODO: Mostrar el formulario de la libreria html 
+        // Evento para cargar municipios
+        $(document).off("change", "select[name='provincia']");
+        $(document).on("change", "select[name='provincia']", function () {
+
+            let idProvincia = $(this).val();
+
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "libreria/php/municipios.php",
+                    provincia: idProvincia
+                },
+                success: function (data) {
+
+                    let html = '<option value="" disabled selected>Seleccione una localidad</option>';
+
+                    data.municipios.forEach(m => {
+                        html += `<option value="${m.id}">${m.Municipio}</option>`;
+                    });
+
+                    $("select[name='localidad']").html(html);
+                }
+            });
+        });
+
         /*
         $.ajax({
             url: ROOT_AJAX,
@@ -101,7 +93,7 @@ var checkin = {
 
                     //ver que recogemos (comentar cuando no se utilice)
                     console.log(respuesta);
-                    
+
                     //Comprobar datos
                     if (!respuesta.ok) {
                         comun.mostrarAlerta("Error: " + respuesta.error, "danger");

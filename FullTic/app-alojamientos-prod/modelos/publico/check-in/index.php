@@ -2,7 +2,25 @@
 
 class checkin
 {
-    
+   /* function getMunicipiosPorProvincia($provincia = false)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        // enlazamos las tablas
+        $parametros->tabla = "municipios m INNER JOIN provincias p ON m.idProvincia = p.id";
+        // el campo municipio
+        $parametros->campos = ["m.Municipio"];
+        // Si provincia no esta vacia 
+        if ($provincia) {
+            //comparamos por el nombre de provincia
+            $parametros->where = "p.id = :id";
+            $parametros->valoresWhere = ["id" => "$provincia"];
+        }
+        // y regresamos la consulta
+        return $dbControl->select($parametros);
+    }*/
+
     function getMunicipiosPorProvincia_v2($ID_provincia = false)
     {
         require_once CONSULTAS;
@@ -22,7 +40,27 @@ class checkin
         return $dbControl->select($parametros);
     }
 
-   
+   /* function getNacionalidades()
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "nacionalidades";
+        //$parametros->whereArray = array();
+        $result = $dbControl->select($parametros);
+        return $result;
+    }*/
+
+   /* function getProvincias()
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "provincias";
+        $parametros->whereArray = array();
+        $result = $dbControl->select($parametros);
+        return $result;
+    }*/
 
     function guardarReservasHuespedes($id_reserva, $id_casa, $id_cliente, $es_titular)
     {

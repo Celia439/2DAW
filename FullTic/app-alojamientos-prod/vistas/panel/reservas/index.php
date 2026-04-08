@@ -64,6 +64,8 @@ if (!$_SESSION["id_user"]) {
                     <th>Descuento</th>
                     <th>Comisión</th>
                     <th>Importe final</th>
+                    <th></th>
+                    <th></th>
                     <?php
                     /*
                     foreach ($columnas as $columna) {
@@ -94,6 +96,8 @@ if (!$_SESSION["id_user"]) {
                     <td id="total_descuento"><?= $resumen["total_descuento"] ?></td>
                     <td id="total_comisión"><?= $resumen["total_comision"] ?></td>
                     <td id="total_final"><?= $resumen["total_final"] ?></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </tfoot>
         </table>
