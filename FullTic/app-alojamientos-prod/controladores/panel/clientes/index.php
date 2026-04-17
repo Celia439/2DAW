@@ -1,8 +1,10 @@
 <?php
+/*
+Ahora se hace desde comun php hacia el index.js de la vista
 require_once LIBRERIA_PHP . "comun.php";
 
 $paises = getNacionalidades();
-$provincias = getProvincias();
+$provincias = getProvincias();*/
 
 
 $clientesControl = new clientes();
@@ -15,10 +17,19 @@ function cargarPaginador()
         : (isset($_SESSION["pagina_actual"])
             ? intval($_SESSION["pagina_actual"])
             : 1);
+    
+    // Recoger filtros
+    $filtros = [
+        "nombre" => $_POST["nombre"] ?? "",
+        "telefono" => $_POST["telefono"] ?? "",
+        "DNI" => $_POST["DNI"] ?? "",
+        "email" => $_POST["email"] ?? ""
+    ];
+
     $porPag = 25;
     $offset = ($pagina - 1) * $porPag;
-    $clientes = $clientesControl->getClientesPaginado($porPag, $offset);
-    $total = $clientesControl->getTotalClientes();
+    $clientes = $clientesControl->getClientesPaginado($porPag, $offset, $filtros);
+    $total = $clientesControl->getTotalClientes($filtros);
     return [$clientes, $total, $pagina];
 }
 function renderizarFilas($clientes)
@@ -63,6 +74,15 @@ switch ($_POST["action"]) {
         ]);
         exit;
     case "update":
+        parse_str($_POST["datos"], $form);
+        $clientesControl->editarCliente($form);
+        $datos = cargarPaginador();
+        echo json_encode([
+            "ok" => true,
+            "HTML" => renderizarFilas($datos[0]),
+            "pagina" => $datos[2],
+            "totalPaginas" => ceil($datos[1] / $porPag)
+        ]);
         exit;
     case "delete":
         $id = $_POST["id"];

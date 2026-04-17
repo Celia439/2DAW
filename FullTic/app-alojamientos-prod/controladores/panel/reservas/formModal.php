@@ -1,26 +1,47 @@
 <?php
-        $id = $_POST["id"];
-        
-        $reserva = $reservasControl->getReservaById($id);
-        
-        ob_start();
+// Recoger ID de la petición (si existe es edición, si no es nuevo)
+$id = $_POST["id"] ?? null;
 
-        $canal = $reserva['canal'];
-        $total_huespedes = $reserva['total_huespedes'];
-        $fecha_entrada = $reserva['fecha_entrada'];
-        $fecha_salida = $reserva['fecha_salida'];
-        $importe_bruto = $reserva['importe_bruto'];
-        $descuento = $reserva['descuento'];
-        $comision = $reserva['comision'];
-        $num_reserva = $reserva['num_reserva'];
+if ($id) {
+    // Si hay id, es EDICIÓN: buscamos la reserva en la base de datos
+    $reservasControl = new reservas();
+    $reserva = $reservasControl->getReservaById($id)[0];
 
-        $selected_B = $canal == 'B' ? 'selected' : '';
-        $selected_A = $canal == 'A' ? 'selected' : '';
-        $selected_D = $canal == 'D' ? 'selected' : '';
-        $selected_O = $canal == 'O' ? 'selected' : '';
+    $canal = $reserva['canal'];
+    $total_huespedes = $reserva['total_huespedes'];
+    $fecha_entrada = $reserva['fecha_entrada'];
+    $fecha_salida = $reserva['fecha_salida'];
+    $importe_bruto = $reserva['importe_bruto'];
+    $descuento = $reserva['descuento'];
+    $comision = $reserva['comision'];
+    $num_reserva = $reserva['num_reserva'];
+    $textoBoton = "Actualizar";
+    $accion = "update";
+} else {
+    // Si NO hay id, es NUEVO: todos los campos van vacíos
+    $canal = '';
+    $total_huespedes = '';
+    $fecha_entrada = '';
+    $fecha_salida = '';
+    $importe_bruto = '';
+    $descuento = '';
+    $comision = '';
+    $num_reserva = '';
+    $textoBoton = "Registrar";
+    $accion = "insert";
+}
 
-        echo <<<HTML
-<form id="formEditarReservas" action="#" method="post" class="needs-validation" novalidate>
+ob_start();
+
+$selected_B = $canal == 'B' ? 'selected' : '';
+$selected_A = $canal == 'A' ? 'selected' : '';
+$selected_D = $canal == 'D' ? 'selected' : '';
+$selected_O = $canal == 'O' ? 'selected' : '';
+
+echo <<<HTML
+<form id="formReservaModal" action="#" method="post" class="needs-validation" novalidate>
+    <!-- Enviamos la acción (insert o update) y el ID de forma oculta para procesarlo en JS -->
+    <input type="hidden" name="action" id="reservaAccion" value="{$accion}">
     <input type="hidden" name="id" value="{$id}">
 
     <div class="row g-3">
@@ -81,11 +102,11 @@
     </div>
 
     <div class="mt-3">
-        <button type="submit" class="btn btn-outline-success">Actualizar</button>
+        <button type="submit" class="btn btn-outline-success">{$textoBoton}</button>
     </div>
 </form>
 HTML;
-        $form = ob_get_clean();
-        echo json_encode([
-            "HTML" => $form
-        ]);
+$form = ob_get_clean();
+echo json_encode([
+    "HTML" => $form
+]);

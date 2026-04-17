@@ -5,46 +5,39 @@ var casas = {
         $("#modalCheckin").on("hidden.bs.modal", function () {
             document.activeElement.blur();
         });
-        document.addEventListener("shown.bs.modal", function (e) {
 
-            if (e.target.id !== "modalCasa") return;
+        // Evento global para cargar municipios cuando cambia la provincia
+        $(document).off("change", "select[name='provincia']").on("change", "select[name='provincia']", function () {
+            let selectProvincia = $(this);
+            let idProvincia = selectProvincia.val();
+            let selectLocalidad = selectProvincia.closest('form').find("select[name='localidad']");
 
-            console.log("Modal casa abierto — registrando eventos dinámicos");
-
-            // Evento para cargar municipios
-            $(document).off("change", "select[name='provincia']");
-            $(document).on("change", "select[name='provincia']", function () {
-
-                let idProvincia = $(this).val();
-                $.ajax({
-                    url: ROOT_AJAX,
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        pagina: "libreria/php/municipios.php",
-                        provincia: idProvincia
-                    },
-                    success: function (data) {
-
-                        let html = '<option value="" disabled selected>Seleccione una localidad</option>';
-
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "libreria/php/municipios.php",
+                    provincia: idProvincia
+                },
+                success: function (data) {
+                    let html = '<option value="" disabled selected>Seleccione una localidad</option>';
+                    if (data.municipios) {
                         data.municipios.forEach(m => {
                             html += `<option value="${m.id}">${m.Municipio}</option>`;
                         });
-                        console.log(html);
-                        $("select[name='localidad']").html(html);
                     }
-                });
+                    selectLocalidad.html(html);
+                }
             });
-
         });
     },
 
 
-    validarForm: function () {
-        const form = document.getElementById("formCasas");
+    validarForm: function (idForm) {
+        const form = document.getElementById(idForm);
         if (!form) {
-            console.error("No se encuentra el formulario con id='casas'");
+            console.error("No se encuentra el formulario con id='" + idForm + "'");
             return false;
         }
 
@@ -52,7 +45,7 @@ var casas = {
         if (!esValido) {
             form.classList.add("was-validated");
         }
-        console.log("Validación del form:", esValido ? "VÁLIDO" : "INVÁLIDO");
+        console.log("Validación del form " + idForm + ":", esValido ? "VÁLIDO" : "INVÁLIDO");
         return esValido;
     },
     RellenarTabla: function (r) {
@@ -77,29 +70,79 @@ var casas = {
         <button class="btn btn-outline-danger borrarCasa">Eliminar</button>
     </td>
     <td>
-        <button class="btn btn-outline-primary updateCasa">Editar</button>
+        <button class="btn btn-outline-primary editarCasa">Editar</button>
     </td>
 </tr>
                             `;
             $("#tablaCasas tbody").append(fila);
         });
     },
+    eventoFiltrar: function () {
+        $(document).on("submit", "#filtrosCasas", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            let id = $("#idF").val();
+            let alojamiento = $("#alojamientoF").val();
+            let provincia = $("#provinciaF").val();
+            let localidad = $("#localidadF").val();
+
+
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "controladores/panel/casas/filtros.php",
+                    modelo: "modelos/panel/casas/index.php",
+                    id: id,
+                    alojamiento: alojamiento,
+                    provincia: provincia,
+                    localidad: localidad
+
+                },
+                beforeSend: function () {
+                    comun.bloquearUI();
+                },
+                success: function (respuesta) {
+                    //Actualizar la tabla
+                    casas.RellenarTabla(respuesta.registros || []);
+                },
+                error: function () {
+                    //mandar un mensaje con modalv2
+                },
+                complete: function () {
+                    comun.desbloquearUI();
+
+                }
+            });
+
+        });
+
+    },
     eventoEnviar: function () {
-        $(document).on("submit", "#formCasas", function (event) {
+        // Abrir modal vacío para "Nuevo"
+        $(document).on("click", "#btnNuevaCasa", function (event) {
+            comun.mostrarModal_v2({
+                pagina: "controladores/panel/casas/formModal.php",
+                modelo: "modelos/panel/casas/index.php",
+                titulo: "Nueva casa",
+            });
+        });
+
+        // Escuchar el submit unificado del modal dinámico
+        $(document).off("submit", "#formCasaModal").on("submit", "#formCasaModal", function (event) {
             event.preventDefault();
             event.stopPropagation();
 
-            console.log("Submit capturado - Validando...");
-
-            if (!casas.validarForm()) {
+            if (!casas.validarForm("formCasaModal")) {
                 console.log("Form inválido - No enviamos AJAX");
                 return;
             }
+
             let datos = $(this).serialize();
+            let action = $("#casaAccion").val(); // 'insert' o 'update'
 
-            console.log("Datos preparados para enviar:" + datos);
-
-            let action = "insert";
+            console.log("Submit capturado con acción:", action);
 
             $.ajax({
                 url: ROOT_AJAX,
@@ -108,45 +151,36 @@ var casas = {
                 data: {
                     pagina: "controladores/panel/casas/index.php",
                     modelo: "modelos/panel/casas/index.php",
-                    datos,
-                    action
+                    datos: datos,
+                    action: action
                 },
-
                 beforeSend: function () {
-                    console.log("Iniciando petición AJAX...");
                     comun.bloquearUI();
                 },
-
                 success: function (respuesta) {
-                    console.log("URL que se está usando:", ROOT_AJAX);
-
-                    console.log("Respuesta EXITOSA del servidor:", respuesta);
-
                     if (respuesta.ok === true) {
-                        //limpiar formulario
-                        $("#formCasas")[0].reset();
-                        $("#formCasas").removeClass("was-validated");
-                        $("#formCasas").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
-                        //Añadir registro en la tabla 
-                        let r = respuesta.casas;
-                        casas.RellenarTabla(r);
+                        comun.mostrarAlerta(action === "insert" ? "Casa añadida correctamente" : "Casa actualizada correctamente", "success");
 
+                        // Ocultar modal genérico
+                        const modalElement = document.getElementById('modal');
+                        if (modalElement) {
+                            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                            if (modal) modal.hide();
+                        }
+
+                        // Rellenar los datos de la tabla
+                        if (respuesta.casas) {
+                            casas.RellenarTabla(respuesta.casas);
+                        }
                     } else {
-                        comun.mostrarAlerta("Error: " + (respuesta.message || "Credenciales inválidas"), "danger");
+                        comun.mostrarAlerta("Error: " + (respuesta.message || "Datos inválidos enviados"), "danger");
                     }
                 },
-
                 error: function (xhr, status, error) {
-                    console.error("ERROR EN AJAX:", {
-                        status: status,
-                        error: error,
-                        responseText: xhr.responseText || "(sin respuesta)"
-                    });
-                    comun.mostrarAlerta("Error de conexión o servidor: " + (xhr.responseText || error), "danger");
+                    console.error("ERROR EN AJAX:", xhr.responseText);
+                    comun.mostrarAlerta("Error de conexión al guardar", "danger");
                 },
-
                 complete: function () {
-                    console.log("Petición AJAX completada");
                     comun.desbloquearUI();
                 }
             });
@@ -204,8 +238,19 @@ var casas = {
             });
         })
     },
-    //Evento editar 
+    eventoEditar: function () {
+        $(document).on("click", ".editarCasa", function (event) {
+            let tr = event.currentTarget.closest("tr");
+            let id = $(tr).find("td:first").text().trim();
 
+            comun.mostrarModal_v2({
+                pagina: "controladores/panel/casas/formModal.php",
+                modelo: "modelos/panel/casas/index.php",
+                titulo: "Editar casa",
+                id: id
+            });
+        });
+    },
 };
 
 $(document).ready(function () {
@@ -213,4 +258,6 @@ $(document).ready(function () {
     casas.eventosInicio();
     casas.eventoEnviar();
     casas.eventoEliminar();
+    casas.eventoFiltrar();
+    casas.eventoEditar();
 });

@@ -20,5 +20,5 @@
     <td><?php echo $cliente["direccion"] ?></td>
     <td><?php echo $cliente["codigo_postal"] ?></td>
     <td><button class="btn btn-outline-danger delete deleteCliente">Eliminar</button></td>
-    <td><button class="btn btn-outline-primary update">Editar</button></td>
+    <td><button class="btn btn-outline-primary editarCliente">Editar</button></td>
 </tr>

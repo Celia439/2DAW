@@ -1,5 +1,9 @@
 <?php
-function getNacionalidades()
+class comun
+{
+
+
+    function getNacionalidades()
     {
         require_once CONSULTAS;
         $dbControl = new Database();
@@ -20,15 +24,19 @@ function getNacionalidades()
         $result = $dbControl->select($parametros);
         return $result;
     }
-        function getMunicipiosPorProvincia($provincia = false)
+
+
+
+
+    function getMunicipiosPorProvincia($provincia = false)
     {
         require_once CONSULTAS;
         $dbControl = new Database();
         $parametros = new stdClass();
         // enlazamos las tablas
         $parametros->tabla = "municipios m INNER JOIN provincias p ON m.idProvincia = p.id";
-        // el campo municipio
-        $parametros->campos = ["m.Municipio"];
+        // el campo municipio y su ID
+        $parametros->campos = ["m.id", "m.Municipio"];
         // Si provincia no esta vacia 
         if ($provincia) {
             //comparamos por el nombre de provincia
@@ -38,3 +46,4 @@ function getNacionalidades()
         // y regresamos la consulta
         return $dbControl->select($parametros);
     }
+}

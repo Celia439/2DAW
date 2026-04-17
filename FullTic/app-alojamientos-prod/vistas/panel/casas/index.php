@@ -1,6 +1,50 @@
 <div class="container mt-5 d-flex flex-column">
-    <h3 class="d-flex justify-content-between p-3">Casas<button class="btn btn-outline-success" data-bs-toggle="modal"
-            data-bs-target="#modalCasa">Nuevo</button></h3>
+    <h3 class="d-flex justify-content-between p-3">Casas<button id="btnNuevaCasa" class="btn btn-outline-success">Nuevo</button></h3>
+            
+    <form id="filtrosCasas" novalidate>
+        <fieldset class="p-3">
+            <legend>
+                <h4>Filtros</h4>
+            </legend>
+            <hr>
+            <div class="row g-3">
+                <div class="col-12 col-md-3">
+                    <label for="idF">ID</label>
+                    <input id="idF" class="form-control" type="number" minlength="1" min="0">
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <label for="alojamientoF">Nombre alojamiento</label>
+                    <input id="alojamientoF" class="form-control" type="text" placeholder="alojamiento">
+                </div>
+
+
+                <div class="col-12 col-md-3">
+                    <label for="provinciaF">Provincia</label>
+                    <select id="provinciaF" name="provincia"  class="form-control">
+                        <option value="" disabled selected>Seleccione una provincia</option>
+                        <?php
+                        foreach ($provincias as $prov) {
+                            $contenidoFormulario .= "<option value=\"{$prov['id']}\">{$prov['Provincia']}</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="localidadF">Localidad</label>
+                    <select id="localidadF" name="localidad" class="form-control">
+
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success me-2">Buscar</button>
+                <button type="reset" class="btn btn-secondary">Restablecer Filtros</button>
+            </div>
+        </fieldset>
+    </form>
     <table id="tablaCasas" class="table table-hover">
         <thead>
             <tr>

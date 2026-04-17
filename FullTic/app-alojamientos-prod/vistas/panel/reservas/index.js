@@ -7,10 +7,10 @@ var reservas = {
         });
     },
 
-    validarForm: function () {
-        const form = document.getElementById("formReservas");
+    validarForm: function (idForm) {
+        const form = document.getElementById(idForm);
         if (!form) {
-            console.error("No se encuentra el formulario con id='formReservas'");
+            console.error("No se encuentra el formulario con id='" + idForm + "'");
             return false;
         }
 
@@ -18,7 +18,7 @@ var reservas = {
         if (!esValido) {
             form.classList.add("was-validated");
         }
-        console.log("Validación del form editar:", esValido ? "VÁLIDO" : "INVÁLIDO");
+        console.log("Validación del form " + idForm + ":", esValido ? "VÁLIDO" : "INVÁLIDO");
         return esValido;
     },
     RellenarTabla: function (r) {
@@ -46,25 +46,73 @@ var reservas = {
             $("#tablaReservas tbody").append(fila);
         });
     },
+    eventoFiltrar: function () {
 
+        $(document).on("submit", "#filtrosReservas", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            let numero = $("#numeroF").val();
+            let anio = $("#anioF").val();
+            let desde = $("#desdeF").val();
+            let hasta = $("#hastaF").val();
+
+
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "controladores/panel/reservas/filtros.php",
+                    modelo: "modelos/panel/reservas/index.php",
+                    numero: numero,
+                    anio: anio,
+                    desde: desde,
+                    hasta: hasta
+
+                },
+                beforeSend: function () {
+                    comun.bloquearUI();
+                },
+                success: function (respuesta) {
+                    //Actualizar la tabla
+                    reservas.RellenarTabla(respuesta.registros || []);
+                },
+                error: function () {
+                    //mandar un mensaje con modalv2
+                },
+                complete: function () {
+                    comun.desbloquearUI();
+
+                }
+            });
+
+        });
+
+    },
     eventoEnviar: function () {
+        // Abrir modal vacío para "Nuevo"
+        $(document).on("click", "#btnNuevaReserva", function (event) {
+            comun.mostrarModal_v2({
+                pagina: "controladores/panel/reservas/formModal.php",
+                modelo: "modelos/panel/reservas/index.php",
+                titulo: "Nueva reserva",
+            });
+        });
 
-        $(document).on("submit", "#formReservas", function (event) {
+        // Escuchar el submit unificado del modal dinámico
+        $(document).off("submit", "#formReservaModal").on("submit", "#formReservaModal", function (event) {
             event.preventDefault();
             event.stopPropagation();
 
-            console.log("Submit capturado - Validando...");
-
-            if (!reservas.validarForm()) {
+            if (!reservas.validarForm("formReservaModal")) {
                 console.log("Form inválido - No enviamos AJAX");
                 return;
             }
 
             let datos = $(this).serialize();
+            let action = $("#reservaAccion").val(); // 'insert' o 'update'
 
-            console.log("Datos preparados para enviar:" + datos);
-
-            let action = "insert";
+            console.log("Submit capturado con acción:", action);
 
             $.ajax({
                 url: ROOT_AJAX,
@@ -73,134 +121,62 @@ var reservas = {
                 data: {
                     pagina: "controladores/panel/reservas/index.php",
                     modelo: "modelos/panel/reservas/index.php",
-                    datos,
-                    action
+                    datos: datos,
+                    action: action
                 },
-
                 beforeSend: function () {
-                    console.log("Iniciando petición AJAX...");
                     comun.bloquearUI();
                 },
-
                 success: function (respuesta) {
-
-                    console.log("Respuesta EXITOSA del servidor:", respuesta);
-
                     if (respuesta.ok === true) {
+                        comun.mostrarAlerta(action === "insert" ? "Reserva añadida correctamente" : "Reserva actualizada correctamente", "success");
 
-                        //cambiar por modalv2
-                        comun.mostrarAlerta("añadido correctamente", "success");
+                        // Ocultar modal genérico
+                        const modalElement = document.getElementById('modal');
+                        if (modalElement) {
+                            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                            if (modal) modal.hide();
+                        }
 
-                        // Actualizar resumen
-                        $("#total_huespedes").text(respuesta.resumen.total_huespedes);
-                        $("#total_bruto").text(respuesta.resumen.total_bruto);
-                        $("#total_descuento").text(respuesta.resumen.total_descuento);
-                        $("#total_comision").text(respuesta.resumen.total_comision);
-                        $("#total_final").text(respuesta.resumen.total_final);
+                        // Actualizar resumen al pie de la tabla
+                        if (respuesta.resumen) {
+                            $("#total_huespedes_resumen").text(respuesta.resumen.total_huespedes);
+                            $("#total_bruto_resumen").text(respuesta.resumen.total_bruto);
+                            $("#total_descuento_resumen").text(respuesta.resumen.total_descuento);
+                            $("#total_comision_resumen").text(respuesta.resumen.total_comision);
+                            $("#total_final_resumen").text(respuesta.resumen.total_final);
+                        }
 
-                        //limpiar formulario
-                        $("#formReservas")[0].reset();
-                        $("#formReservas").removeClass("was-validated");
-                        $("#formReservas").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
-
-                        // mostrar la tabla con todo su contenido 
-                        let r = respuesta.reservas;
-
-                        //Mostrar todo el contenido
-                        console.log(r);
-
-                        //rellenar los datos de la tabla
-                        reservas.RellenarTabla(r);
-
+                        // Rellenar los datos de la tabla
+                        if (respuesta.reservas) {
+                            reservas.RellenarTabla(respuesta.reservas);
+                        }
                     } else {
-                        comun.mostrarAlerta("Error: " + (respuesta.error || "Credenciales inválidas"), "danger");
+                        comun.mostrarAlerta("Error: " + (respuesta.error || "Datos inválidos enviados"), "danger");
                     }
                 },
-
                 error: function (xhr, status, error) {
-                    console.error("ERROR EN AJAX:", {
-                        status: status,
-                        error: error,
-                        responseText: xhr.responseText || "(sin respuesta)"
-                    });
-                    comun.mostrarAlerta("Error de conexión o servidor: " + (xhr.responseText || error), "danger");
+                    console.error("ERROR EN AJAX:", xhr.responseText);
+                    comun.mostrarAlerta("Error de conexión al guardar", "danger");
                 },
-
                 complete: function () {
-                    console.log("Petición AJAX completada");
                     comun.desbloquearUI();
                 }
             });
         });
     },
     eventoEditar: function () {
-        console.log("evento editar activo");
-
         $(document).on("click", ".editarReserva", function (event) {
-            console.log("click en editar");
-
-            // Recopilar datos de la fila
             let tr = event.currentTarget.closest("tr");
-            let datosReserva = $(tr).find("td").map(function () {
-                return $(this).text().replace("%", "").trim();
-            }).get();
-            let idReserva = datosReserva[0]; // ID de la reserva
+            let idReserva = $(tr).find("td:first").text().trim();
 
-            //realizar la consulta de de la fila y devolver el formulario con la fila con action  
-
-            // Mostrar modal 
             comun.mostrarModal_v2({
                 pagina: "controladores/panel/reservas/formModal.php",
                 modelo: "modelos/panel/reservas/index.php",
                 titulo: "Editar reserva",
                 id: idReserva
             });
-
         });
-        // Escuchar submit del form editar
-        $(document).off("submit", "#formEditarReservas").on("submit", "#formEditarReservas", function (e) {
-            e.preventDefault();
-            console.log("editando registro");
-
-            if (!reservas.validarForm()) return; // Valida este form
-
-            let datos = $(this).serialize();
-
-            $.ajax({
-                url: ROOT_AJAX,
-                type: "POST",
-                dataType: "json",
-                data: {
-                    pagina: "controladores/panel/reservas/index.php",
-                    modelo: "modelos/panel/reservas/index.php",
-                    datos: datos + "&id=" + idReserva, // Agregar ID
-                    action: "update"
-                },
-                beforeSend: function () {
-                    console.log("Iniciando petición AJAX...");
-                    comun.bloquearUI();
-                },
-                success: function (respuesta) {
-                    if (respuesta.ok) {
-                        comun.mostrarAlerta("Actualizado correctamente", "success");
-                        $("#modal").modal("hide");
-
-                        //Actualizar la tabla
-                        reservas.RellenarTabla(respuesta.reservas);
-
-                    } else {
-                        comun.mostrarAlerta("Error: " + respuesta.error, "danger");
-                    }
-                },
-                error: function () {
-                    comun.mostrarAlerta("Error de conexión", "danger");
-                },
-                complete: function () {
-                    comun.desbloquearUI();
-                }
-            });
-        });
-
     },
     eventoEliminar: function () {
 
@@ -241,11 +217,6 @@ var reservas = {
                     //Actualizar la tabla
                     reservas.RellenarTabla(data.reservas);
 
-                    comun.mostrarModal_v2({
-                        titulo: "Registro eliminado",
-                        HTML: data.HTML
-                    });
-
                 },
                 error: function (xhr, status, error) {
 
@@ -284,6 +255,7 @@ var reservas = {
 $(document).ready(function () {
     console.log("Document ready - Registrando eventos");
     reservas.eventosInicio();
+    reservas.eventoFiltrar();
     reservas.eventoEnviar();
     reservas.eventoEditar();
     reservas.eventoEliminar();

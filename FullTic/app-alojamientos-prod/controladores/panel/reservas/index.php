@@ -47,7 +47,7 @@ switch ($_POST["action"]) {
 
         parse_str($_POST["datos"], $form);
         //TODO: Es ineficiente debo pensar en otra cosa.
-        $reservasControl->getReservaById($form["id"]);
+        $reservaNoActualizada = $reservasControl->getReservaById($form["id"]);
 
         $reservasControl->editarReserva($form);
 

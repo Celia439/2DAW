@@ -1,8 +1,9 @@
 <?php
 
 require_once LIBRERIA_PHP . "comun.php";
+$comun=new comun();
 
-$provincias = getProvincias();
+$provincias =$comun->getProvincias();
 
 $casasControl = new casas();
 
@@ -30,6 +31,13 @@ switch ($_POST["action"]) {
         ]);
         break;
     case "update":
+        parse_str($_POST["datos"], $form);
+        $casasControl->editarCasa($form);
+        $casas = $casasControl->getCasas();
+        echo json_encode([
+            "ok" => true,
+            "casas" => $casas
+        ]);
         break;
 
     case "delete":
@@ -40,7 +48,7 @@ switch ($_POST["action"]) {
         $casas = $casasControl->getCasas();
 
         echo json_encode([
-            "HTML" => "El  con ID $id ha sido eliminado correctamente.",
+            "HTML" => "El registro con ID $id ha sido eliminado correctamente.",
             "casas" => $casas
         ]);
         break;

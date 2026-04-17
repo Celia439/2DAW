@@ -1,53 +1,79 @@
 console.log("JS Clientes Cargado");
 
 var clientes = {
-    
-    eventosInicio: function () {
 
+    eventosInicio: function () {
         $("#modalCheckin").on("hidden.bs.modal", function () {
             document.activeElement.blur();
         });
 
-        document.addEventListener("shown.bs.modal", function (e) {
+        // Evento para cargar municipios (Globalmente para cualquier select de provincia en Clientes)
+        $(document).off("change", "select[name='provincia']").on("change", "select[name='provincia']", function () {
+            let selectProvincia = $(this);
+            let idProvincia = selectProvincia.val();
+            let selectLocalidad = selectProvincia.closest('form').find("select[name='localidad']");
 
-            if (e.target.id !== "modalCliente") return;
-
-            console.log("Modal cliente abierto — registrando eventos dinámicos");
-
-            // Evento para cargar municipios
-            $(document).off("change", "select[name='provincia']");
-            $(document).on("change", "select[name='provincia']", function () {
-
-                let idProvincia = $(this).val();
-
-                $.ajax({
-                    url: ROOT_AJAX,
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        pagina: "libreria/php/municipios.php",
-                        provincia: idProvincia
-                    },
-                    success: function (data) {
-
-                        let html = '<option value="" disabled selected>Seleccione una localidad</option>';
-
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "libreria/php/municipios.php",
+                    provincia: idProvincia
+                },
+                success: function (data) {
+                    let html = '<option value="" disabled selected>Seleccione una localidad</option>';
+                    if (data.municipios) {
                         data.municipios.forEach(m => {
                             html += `<option value="${m.id}">${m.Municipio}</option>`;
                         });
-
-                        $("select[name='localidad']").html(html);
                     }
-                });
+                    selectLocalidad.html(html);
+                }
             });
+        });
 
+        document.addEventListener("shown.bs.modal", function (e) {
+            if (e.target.id !== "modalCliente") return;
+
+            console.log("Modal cliente abierto — reservando carga de datos iniciales");
+
+            // Cargar países y provincias (solo para el modal de nuevo cliente)
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "libreria/php/comunAJAX.php",
+                    action: "NaciProv"
+                },
+                success: function (data) {
+                    let htmlP = '<option value="" disabled selected>Seleccione una Provincia</option>';
+                    let htmlN = '<option value="" disabled selected>Seleccione un País</option>';
+
+                    if (data.paises) {
+                        data.paises.forEach(m => {
+                            htmlN += `<option value="${m.id}">${m.nombre}</option>`;
+                        });
+                    }
+                    $("select[name='nacionalidad_id']").html(htmlN);
+                    $("select[id='pais']").html(htmlN);
+
+                    if (data.provincias) {
+                        data.provincias.forEach(m => {
+                            htmlP += `<option value="${m.id}">${m.Provincia}</option>`;
+                        });
+                    }
+                    $("select[name='provincia']").html(htmlP);
+                }
+            });
         });
     },
 
-    validarForm: function () {
-        const form = document.getElementById("formClientes");
+    validarForm: function (idForm) {
+        const form = document.getElementById(idForm);
         if (!form) {
-            console.error("No se encuentra el formulario con id='clientes'");
+            console.error("No se encuentra el formulario con id='" + idForm + "'");
             return false;
         }
 
@@ -55,7 +81,7 @@ var clientes = {
         if (!esValido) {
             form.classList.add("was-validated");
         }
-        console.log("Validación del form:", esValido ? "VÁLIDO" : "INVÁLIDO");
+        console.log("Validación del form " + idForm + ":", esValido ? "VÁLIDO" : "INVÁLIDO");
         return esValido;
     },
     ActualizaPaginador: function (pagina, totalPaginas) {
@@ -79,37 +105,73 @@ var clientes = {
         }
     },
 
+    cargarClientes: function (pagina) {
+        let nombre = $("#nombreF").val();
+        let telefono = $("#telefonoF").val();
+        let DNI = $("#DNIF").val();
+        let email = $("#emailF").val();
+
+        $.ajax({
+            url: ROOT_AJAX,
+            type: "POST",
+            dataType: "json",
+            data: {
+                pagina: "controladores/panel/clientes/index.php",
+                modelo: "modelos/panel/clientes/index.php",
+                action: "listar",
+                p: pagina,
+                nombre: nombre,
+                telefono: telefono,
+                DNI: DNI,
+                email: email
+            },
+            beforeSend: function () {
+                comun.bloquearUI();
+            },
+            success: function (respuesta) {
+                //Actualizar la tabla 
+                $("#tablaCliente tbody").html(respuesta.HTML);
+                // Guardar valores
+                clientes.paginaActual = respuesta.pagina;
+                clientes.totalPaginas = respuesta.totalPaginas;
+                // Actualizar paginador
+                clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
+            },
+            complete: function () {
+                comun.desbloquearUI();
+            }
+        });
+    },
+
     eventosPaginador: function () {
-        $(document).on("click", ".paginar", function () {
-            let pagina = $(this).data("p");
-            $.ajax({
-                url: ROOT_AJAX,
-                type: "POST",
-                dataType: "json",
-                data: {
-                    pagina: "controladores/panel/clientes/index.php",
-                    modelo: "modelos/panel/clientes/index.php",
-                    action: "listar",
-                    p: pagina
-                },
-                beforeSend: function () {
-                    comun.bloquearUI();
-                },
-                success: function (respuesta) {
+        $(document).on("click", ".paginar", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-                    //Actualizar la tabla 
-                    $("#tablaCliente tbody").html(respuesta.HTML);
-                    // Guardar valores
-                    clientes.paginaActual = respuesta.pagina;
-                    clientes.totalPaginas = respuesta.totalPaginas;
-                    // Actualizar paginador
-                    clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
-                },
-                complete: function () {
-                    comun.desbloquearUI();
-                }
+            let $boton = $(this);
+            let pagina = $boton.data("p");
 
-            });
+            //Al pulsar en anterior o siguiente, se calcula la pagina dependiendo de la actual.
+            if ($boton.parent().attr('id') === 'btnAnterior') {
+                pagina = clientes.paginaActual - 1;
+            } else if ($boton.parent().attr('id') === 'btnSiguiente') {
+                pagina = clientes.paginaActual + 1;
+            }
+
+            // Evitar que baje de 1 o pase del total
+            if (pagina < 1 || pagina > clientes.totalPaginas) return;
+
+            clientes.cargarClientes(pagina);
+        });
+    },
+    eventoFiltrar: function () {
+
+        $(document).on("submit", "#filtrosClientes", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            // Siempre que se filtra, empezamos por la página 1
+            clientes.cargarClientes(1);
         });
 
     },
@@ -120,7 +182,7 @@ var clientes = {
 
             console.log("Submit capturado - Validando...");
 
-            if (!clientes.validarForm()) {
+            if (!clientes.validarForm("formClientes")) {
                 console.log("Form inválido - No enviamos AJAX");
                 return;
             }
@@ -186,7 +248,71 @@ var clientes = {
                 }
             });
         });
-    }, eventoEliminar: function () {
+    },
+    eventoEditar: function () {
+        console.log("evento editar clientes activo");
+
+        $(document).on("click", ".editarCliente", function (event) {
+            console.log("click en editar cliente");
+
+            let tr = event.currentTarget.closest("tr");
+            let id = $(tr).find("td:first").text().trim();
+
+            comun.mostrarModal_v2({
+                pagina: "controladores/panel/clientes/formModal.php",
+                modelo: "modelos/panel/clientes/index.php",
+                titulo: "Editar cliente",
+                id: id
+            });
+        });
+
+        $(document).off("submit", "#formEditarClientes").on("submit", "#formEditarClientes", function (e) {
+            e.preventDefault();
+            console.log("editando registro de cliente");
+
+            if (!clientes.validarForm("formEditarClientes")) return;
+
+            let datos = $(this).serialize();
+
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "controladores/panel/clientes/index.php",
+                    modelo: "modelos/panel/clientes/index.php",
+                    datos: datos,
+                    action: "update",
+                    p: clientes.paginaActual // Mantener la página actual tras el update
+                },
+                beforeSend: function () {
+                    comun.bloquearUI();
+                },
+                success: function (respuesta) {
+                    if (respuesta.ok) {
+                        comun.mostrarAlerta("Cliente actualizado correctamente", "success");
+                        const modalElement = document.getElementById('modal');
+                        if (modalElement) {
+                            const modal = bootstrap.Modal.getInstance(modalElement);
+                            if (modal) modal.hide();
+                        }
+                        // Refrescar tabla y paginador
+                        $("#tablaCliente tbody").html(respuesta.HTML);
+                        clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
+                    } else {
+                        comun.mostrarAlerta("Error al actualizar el cliente", "danger");
+                    }
+                },
+                error: function () {
+                    comun.mostrarAlerta("Error de conexión", "danger");
+                },
+                complete: function () {
+                    comun.desbloquearUI();
+                }
+            });
+        });
+    },
+    eventoEliminar: function () {
 
         //En caso de pulsar algun boton de eliminar
         $(document).on("click", ".deleteCliente", function (event) {
@@ -249,4 +375,6 @@ $(document).ready(function () {
     clientes.eventoEliminar();
 
     clientes.eventosPaginador();
+    clientes.eventoFiltrar();
+    clientes.eventoEditar();
 });

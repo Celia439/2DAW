@@ -31,18 +31,17 @@ class reservas
 
     function getResumenReservas()
     {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $p = new stdClass();
-        $p->campos = [
+        $db = new Database();
+        $parametros = new stdClass();
+        $parametros->campos = [
             "SUM(total_huespedes) AS total_huespedes",
             "SUM(importe_bruto) AS total_bruto",
             "SUM(descuento) AS total_descuento",
             "SUM(comision) AS total_comision",
             "SUM(importe_final) AS total_final"
         ];
-        $p->tabla = "reservas";
-        return $db->select($p)[0];
+        $parametros->tabla = "reservas";
+        return $db->select($parametros)[0];
     }
     function guardarReserva($form)
     {
@@ -74,7 +73,6 @@ class reservas
         $parametros->tabla = "reservas";
         $parametros->where = "id = $id";
         $dbControl->delete($parametros);
-
     }
     function editarReserva($form)
     {
@@ -102,8 +100,35 @@ class reservas
         $dbControl = new Database();
         $parametros = new stdClass();
         $parametros->tabla = "reservas";
-        $parametros->where = "id = " . $form["id"];
+        $parametros->where = "id = " . $id;
         return $dbControl->select($parametros);
-
     }
+    function consultarReservas($datos)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas";
+
+        $where = [];
+        if (!empty($datos["numero"])) {
+            $where[] = "num_reserva = '" . $datos["numero"] . "'";
+        }
+        if (!empty($datos["anio"])) {
+            $where[] = "fecha_entrada LIKE '" . $datos["anio"] . "-%'";
+        }
+        if (!empty($datos["desde"])) {
+            $where[] = "fecha_entrada >= '" . $datos["desde"] . "'";
+        }
+        if (!empty($datos["hasta"])) {
+            $where[] = "fecha_entrada <= '" . $datos["hasta"] . "'";
+        }
+
+        if (!empty($where)) {
+            $parametros->whereArray = $where;
+        }
+
+        return $dbControl->select($parametros);
+    }
+
 }

@@ -7,11 +7,10 @@ if (!$_SESSION["id_user"]) {
 ?>
 <div class="container mt-5">
     <main>
-        <h3 class="d-flex justify-content-between p-3">Reservas<button class="btn btn-outline-success"
-                data-bs-toggle="modal" data-bs-target="#modalReserva">Nuevo</button></h3>
+        <h3 class="d-flex justify-content-between p-3">Reservas<button id="btnNuevaReserva" class="btn btn-outline-success">Nuevo</button></h3>
 
-        <hr>
-         <form novalidate>
+
+        <form id="filtrosReservas" novalidate>
             <fieldset class="p-3">
                 <legend>
                     <h4>Filtros</h4>
@@ -20,24 +19,34 @@ if (!$_SESSION["id_user"]) {
                 <div class="row g-3">
 
                     <div class="col-12 col-md-3">
-                        <label for="numero">Número</label>
-                        <input id="numero" class="form-control" type="number" placeholder="Número">
+                        <label for="numeroF">Número</label>
+                        <input id="numeroF" class="form-control" type="number" placeholder="Número" min="0">
                     </div>
 
                     <div class="col-12 col-md-3">
-                        <label for="anio">Año</label>
-                        <input id="anio" class="form-control" type="number" maxlength="4" minlength="4"
-                            placeholder="Año">
+                        <label for="anioF">Año</label>
+                        <select id="anioF" class="form-control">
+                            <option value="">Seleccione un año</option>
+
+                            <?php
+                            $anio = 2022;
+                            $anioAct = date("Y");
+
+                            for ($i = $anio; $i <= $anioAct; $i++) {
+                                echo "<option value='" . $i . "'> " . $i . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
 
                     <div class="col-12 col-md-3">
-                        <label for="desde">Desde</label>
-                        <input id="desde" class="form-control" type="date">
+                        <label for="desdeF">Desde</label>
+                        <input id="desdeF" class="form-control" type="date">
                     </div>
 
                     <div class="col-12 col-md-3">
-                        <label for="hasta">Hasta</label>
-                        <input id="hasta" class="form-control" type="date">
+                        <label for="hastaF">Hasta</label>
+                        <input id="hastaF" class="form-control" type="date">
                     </div>
 
                 </div>
@@ -48,6 +57,8 @@ if (!$_SESSION["id_user"]) {
                 </div>
             </fieldset>
         </form>
+
+
 
 
         <!--Tabla de reservas -->
@@ -89,13 +100,13 @@ if (!$_SESSION["id_user"]) {
                     <td>TOTAL</td>
                     <td></td>
                     <td></td>
-                    <td id="total_huespedes"><?= $resumen["total_huespedes"] ?></td>
+                    <td id="total_huespedes_resumen"><?= $resumen["total_huespedes"] ?></td>
                     <td></td>
                     <td></td>
-                    <td id="total_bruto"><?= $resumen["total_bruto"] ?></td>
-                    <td id="total_descuento"><?= $resumen["total_descuento"] ?></td>
-                    <td id="total_comisión"><?= $resumen["total_comision"] ?></td>
-                    <td id="total_final"><?= $resumen["total_final"] ?></td>
+                    <td id="total_bruto_resumen"><?= $resumen["total_bruto"] ?></td>
+                    <td id="total_descuento_resumen"><?= $resumen["total_descuento"] ?></td>
+                    <td id="total_comision_resumen"><?= $resumen["total_comision"] ?></td>
+                    <td id="total_final_resumen"><?= $resumen["total_final"] ?></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -104,7 +115,7 @@ if (!$_SESSION["id_user"]) {
 
         <!--Modal nueva casa-->
         <?php
-        $contenidoFormulario = '
+       /* $contenidoFormulario = '
 <form id="formReservas" action="#" method="post" class="needs-validation" novalidate>
     <div class="row g-3">
 
@@ -183,7 +194,7 @@ if (!$_SESSION["id_user"]) {
 </form>
 ';
         $titulo = "Nueva reserva";
-        $idModal = "modalReserva";
+        $idModal = "modalReserva";*/
         ?>
     </main>
 </div>

@@ -6,6 +6,43 @@ $totalPaginas = ceil($total / $porPag);
 <div class="container mt-5">
     <h3 class="d-flex justify-content-between p-3">Clientes<button class="btn btn-outline-success"
             data-bs-toggle="modal" data-bs-target="#modalCliente">Nuevo</button></h3>
+ 
+    <form id="filtrosClientes" novalidate>
+        <fieldset class="p-3">
+            <legend>
+                <h4>Filtros</h4>
+            </legend>
+            <hr>
+            <div class="row g-3">
+
+                <div class="col-12 col-md-3">
+                    <label for="nombreF">Nombre</label>
+                    <input id="nombreF" class="form-control" type="text" placeholder="Nombre">
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <label for="telefonoF">Telefono</label>
+                    <input id="telefonoF"  pattern="^[0-9]{9}$" class="form-control" type="tel" placeholder="Telefono">
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <label for="DNIF">DNI</label>
+                    <input id="DNIF" type="text" pattern="^[0-9]{8}[A-Z]$" class="form-control" maxlength="9" minlength="9">
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <label for="emailF">email</label>
+                    <input id="emailF" class="form-control" type="email">
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success me-2">Buscar</button>
+                <button type="reset" class="btn btn-secondary">Restablecer Filtros</button>
+            </div>
+        </fieldset>
+    </form>
     <table id="tablaCliente" class="table table-hover">
         <thead>
             <tr>
