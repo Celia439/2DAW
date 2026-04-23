@@ -2,36 +2,8 @@
 
 class clientes
 {
-    function getClientesPaginado($porPag, $offset, $filtros = [])
-    {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $parametros = new stdClass();
-
-        $parametros->tabla = "clientes";
-        $parametros->order = "id DESC";
-        $parametros->limit = "$offset,$porPag";
-
-        $where = [];
-        if (!empty($filtros["nombre"])) {
-            $where[] = "nombre LIKE '%" . $filtros["nombre"] . "%'";
-        }
-        if (!empty($filtros["telefono"])) {
-            $where[] = "(telefono_fijo LIKE '%" . $filtros["telefono"] . "%' OR telefono_movil LIKE '%" . $filtros["telefono"] . "%')";
-        }
-        if (!empty($filtros["DNI"])) {
-            $where[] = "numero_documento_identidad LIKE '%" . $filtros["DNI"] . "%'";
-        }
-        if (!empty($filtros["email"])) {
-            $where[] = "correo LIKE '%" . $filtros["email"] . "%'";
-        }
-
-        if (!empty($where)) {
-            $parametros->whereArray = $where;
-        }
-
-        return $dbControl->select($parametros);
-    }
+ //Get cliente paginado ahora esta dentro de comun.php
+ 
     function getTotalClientes($filtros = [])
     {
         require_once CONSULTAS;

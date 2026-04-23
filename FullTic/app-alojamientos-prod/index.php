@@ -46,6 +46,8 @@ class manejador
         if (file_exists(ROOT . "modelos/" . $this->uri . "/index.php")) {
             include ROOT . "modelos/" . $this->uri . "/index.php";
         }
+
+        
         if (file_exists(ROOT . "controladores/" . $this->uri . "/index.php")) {
             include ROOT . "controladores/" . $this->uri . "/index.php";
         }

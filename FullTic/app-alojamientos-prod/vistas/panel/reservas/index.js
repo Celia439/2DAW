@@ -5,6 +5,68 @@ var reservas = {
         $("#modalCheckin").on("hidden.bs.modal", function () {
             document.activeElement.blur();
         });
+        //Evento para cargar casas 
+        $(document).on("shown.bs.modal", function (e) {
+            // Comprobamos que el elemento instanciado sea el modal genérico Y además contenga nuestro formulario de reservas
+            if (e.target.id !== "modal" || $(e.target).find('#formReservaModal').length === 0) return;
+            console.log("ok");
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "libreria/php/comunAjax.php",
+                    action: "casas"
+                },
+                success: function (data) {
+                    console.log("Respuesta de AJAX:", data);
+                    let html = '<option value="" disabled selected>Elija una casa</option>';
+
+                    if (data.casas) {
+                        data.casas.forEach(m => {
+                            html += `<option value="${m.id}">${m.nombre}</option>`;
+                        });
+                    }
+
+                    $("select[id='casa']").html(html);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error en AJAX casas:", error);
+                    console.log("Respuesta:", xhr.responseText);
+                }
+            });
+            $(document).on("input", "#cliente", function (event) {
+
+                let input = event.target.value;
+
+                $.ajax({
+                    url: ROOT_AJAX,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        pagina: "libreria/php/comunAjax.php",
+                        action: "clientes",
+                        input: input
+                    },
+                    success: function (data) {
+                        console.log("Respuesta de AJAX:", data);
+                        let html="";
+                        if (data.clientes) {
+                            data.clientes.forEach(m => {
+                                html += `<option value="${m.nombre} ${m.primer_apellido} ${m.segundo_apellido} | ${m.correo} | ${m.telefono_movil}"></option>`;
+                            });
+                        }
+
+                        $("datalist[id='clientes']").html(html);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error en AJAX casas:", error);
+                        console.log("Respuesta:", xhr.responseText);
+                    }
+                });
+            });
+        });
+
     },
 
     validarForm: function (idForm) {
@@ -88,6 +150,43 @@ var reservas = {
 
         });
 
+    },
+    eventoFactura: function () {
+
+        $(document).on("click", ".facturaReserva", function (event) {
+            let tr = event.currentTarget.closest("tr");
+            let idReserva = $(tr).find("td:first").text().trim();
+
+            console.log("Generando factura...");
+
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "controladores/panel/reservas/facturaReservas.php",
+                    modelo: "modelos/panel/reservas/index.php",
+                    id: idReserva
+                },
+                beforeSend: function () {
+                    comun.bloquearUI();
+                },
+                success: function (respuesta) {
+                    if (respuesta.ok === true) {
+                        comun.mostrarAlerta("Factura con id " + respuesta.registro.id + " realizada correctamente", "success");
+                    } else {
+                        comun.mostrarAlerta("Error: " + (respuesta.error || "Datos inválidos enviados"), "danger");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("ERROR EN AJAX:", xhr.responseText);
+                    comun.mostrarAlerta("Error de conexión al generar la factura", "danger");
+                },
+                complete: function () {
+                    comun.desbloquearUI();
+                }
+            });
+        });
     },
     eventoEnviar: function () {
         // Abrir modal vacío para "Nuevo"
@@ -258,5 +357,6 @@ $(document).ready(function () {
     reservas.eventoFiltrar();
     reservas.eventoEnviar();
     reservas.eventoEditar();
+    reservas.eventoFactura();
     reservas.eventoEliminar();
 });

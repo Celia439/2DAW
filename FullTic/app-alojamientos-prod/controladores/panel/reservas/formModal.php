@@ -98,6 +98,19 @@ echo <<<HTML
             <input id="num_reserva" type="text" class="form-control" 
                    name="num_reserva" value="{$num_reserva}" required maxlength="30">
         </div>
+        <!--Como puedo hacer editar..?-->
+        <div class="col-6">
+            <label class="form-label" for="casa">Casa</label>
+            <select id="casa" class="form-select" name="casa" required>
+            </select>
+        </div>
+
+        <div class="col-6">
+            <label class="form-label" for="cliente">Cliente</label>
+            <input id="cliente" class="form-control" name="cliente" placeholder="nombre, apellidos, tlf, email" list="clientes">
+            <datalist id="clientes">
+            </datalist>
+        </div>
 
     </div>
 

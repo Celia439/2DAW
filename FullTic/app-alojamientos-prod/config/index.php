@@ -2,17 +2,20 @@
 
 ini_set("session.cookie_lifetime", "115200");
 ini_set("session.gc_maxlifetime", "115200");
-session_start();
 $protocolo = "https";
-
-//Creamos los accesos a la libreria
 define("DEBUG", true);
+
 //DECLARACIONES
 if (DEBUG) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ERROR);
 }
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 define("PROTOCOLO", $protocolo);
 define("ROOT", $_SERVER["DOCUMENT_ROOT"] . "/app-alojamientos-prod/");
 define("ROOT_URL", "$protocolo://$_SERVER[HTTP_HOST]/app-alojamientos-prod/");

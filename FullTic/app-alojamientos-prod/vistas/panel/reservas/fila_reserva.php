@@ -35,5 +35,6 @@
 
     <td><button class="btn btn-outline-danger delete borrarReserva">Eliminar</button></td>
     <td><button class="btn btn-outline-primary update editarReserva">Editar</button></td>
+    <td><button class="btn btn-outline-success factura facturaReserva">Generar facturas</button></td>
 
 </tr>

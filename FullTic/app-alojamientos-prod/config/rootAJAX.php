@@ -3,7 +3,9 @@
 //ini_set('display_errors', 1);
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ERROR | E_WARNING | E_PARSE);
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once ($_SERVER["DOCUMENT_ROOT"] . "/app-alojamientos-prod/config/index.php");
 
@@ -22,7 +24,9 @@ if (empty($modelo) && !empty($pagina)) {
     $modelo = "modelos/" . $carpeta . "/index.php";          // modelos/panel/clientes/index.php
 }
 
-include ROOT . $modelo;
+if (!empty($modelo) && file_exists(ROOT . $modelo)) {
+    include ROOT . $modelo;
+}
 include ROOT . $pagina;
 
 ?>

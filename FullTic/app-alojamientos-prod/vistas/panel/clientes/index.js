@@ -44,7 +44,7 @@ var clientes = {
                 type: "POST",
                 dataType: "json",
                 data: {
-                    pagina: "libreria/php/comunAJAX.php",
+                    pagina: "libreria/php/comunAjax.php",
                     action: "NaciProv"
                 },
                 success: function (data) {

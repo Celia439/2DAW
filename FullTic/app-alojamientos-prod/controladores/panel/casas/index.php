@@ -7,7 +7,9 @@ $provincias =$comun->getProvincias();
 
 $casasControl = new casas();
 
-$casas = $casasControl->getCasas();
+
+$casas = $comun->getCasas();
+
 //$columnas= $casasControl->getColumnas();
 
 switch ($_POST["action"]) {
@@ -17,10 +19,10 @@ switch ($_POST["action"]) {
         parse_str($_POST["datos"], $form);
 
         $guardado = $casasControl->guardarCasas($form);
-
+ 
         //Ultima casa insertada
 
-        $casas = $casasControl->getCasas();
+        $casas = $comun->getCasas();
 
         $ultCasa = $casas[count($casas) - 1];
 
@@ -33,7 +35,7 @@ switch ($_POST["action"]) {
     case "update":
         parse_str($_POST["datos"], $form);
         $casasControl->editarCasa($form);
-        $casas = $casasControl->getCasas();
+        $casas = $comun->getCasas();
         echo json_encode([
             "ok" => true,
             "casas" => $casas
@@ -45,7 +47,7 @@ switch ($_POST["action"]) {
 
         $casasControl->eliminarPorId($id);
 
-        $casas = $casasControl->getCasas();
+        $casas = $comun->getCasas();
 
         echo json_encode([
             "HTML" => "El registro con ID $id ha sido eliminado correctamente.",

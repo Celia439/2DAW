@@ -2,15 +2,7 @@
 
 class casas
 {
-    function getCasas()
-    {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $parametros = new stdClass();
-        $parametros->tabla = "casas";
-        $parametros->order="id DESC";
-        return $dbControl->select($parametros);
-    }
+ //Ahora casas se consultan desde comunAjax
 
     function getColumnas()
     {
