@@ -35,36 +35,7 @@ var reservas = {
                     console.log("Respuesta:", xhr.responseText);
                 }
             });
-            $(document).on("input", "#cliente", function (event) {
 
-                let input = event.target.value;
-
-                $.ajax({
-                    url: ROOT_AJAX,
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        pagina: "libreria/php/comunAjax.php",
-                        action: "clientes",
-                        input: input
-                    },
-                    success: function (data) {
-                        console.log("Respuesta de AJAX:", data);
-                        let html="";
-                        if (data.clientes) {
-                            data.clientes.forEach(m => {
-                                html += `<option value="${m.nombre} ${m.primer_apellido} ${m.segundo_apellido} | ${m.correo} | ${m.telefono_movil}"></option>`;
-                            });
-                        }
-
-                        $("datalist[id='clientes']").html(html);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error en AJAX casas:", error);
-                        console.log("Respuesta:", xhr.responseText);
-                    }
-                });
-            });
         });
 
     },

@@ -32,26 +32,7 @@ switch ($_POST["action"]) {
         }
 
         exit;
-    case 'clientes':
 
-        $input = !empty($_POST["input"]) ? $_POST["input"] : "";
-
-        $filtros = [
-            "nombre" => $input,
-            "primer_apellido" => $input,
-            "segundo_apellido" => $input,
-            "telefono" => $input,
-            "email" => $input,
-            "DNI" => $input
-        ];
-
-        $clientes = $comun->getClientesPaginado(null, null, $filtros);
-
-        echo json_encode([
-            "clientes"=>$clientes
-        ]);
-
-        exit;
     case 'NaciProv':
 
         $paises = $comun->getNacionalidades();
@@ -66,5 +47,4 @@ switch ($_POST["action"]) {
     default:
         echo "Acción no reconocida";
         exit;
-
 }

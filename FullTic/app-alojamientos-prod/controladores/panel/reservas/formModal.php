@@ -1,6 +1,11 @@
 <?php
+
+require_once LIBRERIA_PHP . 'comun.php'; 
+$comunControl = new comun();            
+
+
 // Recoger ID de la petición (si existe es edición, si no es nuevo)
-$id = $_POST["id"] ?? null;
+$id = $_POST["id"] ?? false;
 
 if ($id) {
     // Si hay id, es EDICIÓN: buscamos la reserva en la base de datos
@@ -14,11 +19,12 @@ if ($id) {
     $importe_bruto = $reserva['importe_bruto'];
     $descuento = $reserva['descuento'];
     $comision = $reserva['comision'];
-    $num_reserva = $reserva['num_reserva'];
+    $id_cliente = $reserva['id_cliente'] ?? null;
     $textoBoton = "Actualizar";
     $accion = "update";
 } else {
     // Si NO hay id, es NUEVO: todos los campos van vacíos
+    $id_cliente = false;
     $canal = '';
     $total_huespedes = '';
     $fecha_entrada = '';
@@ -30,6 +36,14 @@ if ($id) {
     $textoBoton = "Registrar";
     $accion = "insert";
 }
+
+// Preparamos el componente de búsqueda en vivo de clientes
+ob_start();
+$paramsBusqueda = new stdClass();
+$paramsBusqueda->idClienteMarcado = $id_cliente;
+var_dump($id_cliente);
+$comunControl->mostrarBusquedaClienteenVivo($paramsBusqueda);
+$buscadorClientesHTML = ob_get_clean();
 
 ob_start();
 
@@ -105,12 +119,12 @@ echo <<<HTML
             </select>
         </div>
 
-        <div class="col-6">
-            <label class="form-label" for="cliente">Cliente</label>
-            <input id="cliente" class="form-control" name="cliente" placeholder="nombre, apellidos, tlf, email" list="clientes">
-            <datalist id="clientes">
-            </datalist>
+        <div class="col-12">
+            <label class="form-label">Cliente</label>
+            {$buscadorClientesHTML}
         </div>
+
+    </div>
 
     </div>
 

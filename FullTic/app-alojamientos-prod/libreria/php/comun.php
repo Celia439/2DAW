@@ -55,53 +55,19 @@ class comun
         $parametros->order = "id DESC";
         return $dbControl->select($parametros);
     }
-    function getClientesPaginado($porPag = null, $offset = null, $filtros = [])
+    function mostrarBusquedaClienteenVivo($parametros = null)
     {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $parametros = new stdClass();
-
-        $parametros->tabla = "clientes";
-        $parametros->order = "id DESC";
-
-
-        if (!empty($offset) && !empty($porPag)) {
-            $parametros->limit = "$offset,$porPag";
-        }
-
-        $where = [];
-
-        if (!empty($filtros)) {
-            $searchTerms = [];
-            if (!empty($filtros["nombre"])) {
-                $searchTerms[] = "nombre LIKE '%" . $filtros["nombre"] . "%'";
-            }
-            if (!empty($filtros["primer_apellido"])) {
-                $searchTerms[] = "primer_apellido LIKE '%" . $filtros["primer_apellido"] . "%'";
-            }
-            if (!empty($filtros["segundo_apellido"])) {
-                $searchTerms[] = "segundo_apellido LIKE '%" . $filtros["segundo_apellido"] . "%'";
-            }
-            if (!empty($filtros["telefono"])) {
-                $searchTerms[] = "telefono_fijo LIKE '%" . $filtros["telefono"] . "%'";
-                $searchTerms[] = "telefono_movil LIKE '%" . $filtros["telefono"] . "%'";
-            }
-            if (!empty($filtros["email"])) {
-                $searchTerms[] = "correo LIKE '%" . $filtros["email"] . "%'";
-            }
-            if (!empty($filtros["DNI"])) {
-                $searchTerms[] = "numero_documento_identidad LIKE '%" . $filtros["DNI"] . "%'";
-            }
-
-            if (!empty($searchTerms)) {
-                $where[] = "(" . implode(" OR ", $searchTerms) . ")";
+        $seleccionado = "";
+        if (is_object($parametros) && isset($parametros->idClienteMarcado) && !empty($parametros->idClienteMarcado)) {
+            // Aquí llamas a tu modelo de Clientes
+            require_once ROOT . "modelos/panel/clientes/index.php";
+            $clientesControl = new clientes();
+            $res = $clientesControl->getClienteById($parametros->idClienteMarcado);
+            if (!empty($res)) {
+                $clienteMarcado = $res[0];
+                $seleccionado = $clienteMarcado["nombre"] . " " . $clienteMarcado["primer_apellido"];
             }
         }
-
-        if (!empty($where)) {
-            $parametros->whereArray = $where;
-        }
-
-        return $dbControl->select($parametros);
+        require_once LIBRERIA_HTML . "busqueda-cliente-vivo.php";
     }
 }

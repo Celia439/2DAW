@@ -1,0 +1,10 @@
+24/04/2026
+
+Ya hemos hecho varias cosas con la ia que mas o menos entendemos vamos a ver que es lo que toca despues de los modelos controladores vistas semillas(seeders) y rutas env
+y no se que mas.
+
+-Hay que crear mas componentes para las cosas que se repiten[]Los libros son componentes lul targetas formulario
+
+-php
+// En la línea 23, quita las barras //
+$request->session()->regenerate();

@@ -2,21 +2,19 @@
 
 //Ahora paises y provincias se accede desde comun php hacia el index.js de la vista
 
-require_once LIBRERIA_PHP . "comun.php";
-$comun=new comun();
+
 
 $clientesControl = new clientes();
-//La función get clientes páginado esta en comun.php
+
 function cargarPaginador()
 {
     global $clientesControl;
-    global $comun;
     $pagina = isset($_POST["p"])
         ? intval($_POST["p"])
         : (isset($_SESSION["pagina_actual"])
             ? intval($_SESSION["pagina_actual"])
             : 1);
-    
+
     // Recoger filtros
     $filtros = [
         "nombre" => $_POST["nombre"] ?? "",
@@ -27,7 +25,7 @@ function cargarPaginador()
 
     $porPag = 25;
     $offset = ($pagina - 1) * $porPag;
-    $clientes = $comun->getClientesPaginado($porPag, $offset, $filtros);
+    $clientes = $clientesControl->getClientesPaginado($porPag, $offset, $filtros);
     $total = $clientesControl->getTotalClientes($filtros);
     return [$clientes, $total, $pagina];
 }
@@ -50,7 +48,7 @@ $pagina = isset($_POST["p"])
 
 $porPag = 25;
 $offset = ($pagina - 1) * $porPag;
-$clientes = $comun->getClientesPaginado($porPag, $offset);
+$clientes = $clientesControl->getClientesPaginado($porPag, $offset);
 $total = $clientesControl->getTotalClientes();
 
 
