@@ -33,6 +33,8 @@ switch ($_POST["action"]) {
         //Guardar la reserva creada.
         $guardado = $reservasControl->guardarReserva($form);
 
+        //Guardar cliente casa e idReserva en la tabla reservas_huespedes
+
         //Actualizamos el contenido 
         $contenido = actualizar();
 
@@ -44,24 +46,27 @@ switch ($_POST["action"]) {
         ]);
         break;
     case "update":
+        try {
+            parse_str($_POST["datos"], $form);
 
-        parse_str($_POST["datos"], $form);
-        //TODO: Es ineficiente debo pensar en otra cosa.
-        $reservaNoActualizada = $reservasControl->getReservaById($form["id"]);
+            $reservasControl->editarReserva($form);
 
-        $reservasControl->editarReserva($form);
+            $reservaActualizada = $reservasControl->getReservaById($form["id"]);
 
-        $reservaActualizada = $reservasControl->getReservaById($form["id"]);
+            //Actualizamos el contenido 
+            $contenido = actualizar();
 
-        //Actualizamos el contenido 
-        $contenido = actualizar();
-
-        $ok = $reservaActualizada === $reservaNoActualizada ? false : true;
-        echo json_encode([
-            "ok" => $ok,
-            "reserva" => $reservaActualizada,
-            "reservas" => $contenido[0]
-        ]);
+            echo json_encode([
+                "ok" => true,
+                "reserva" => $reservaActualizada,
+                "reservas" => $contenido[0]
+            ]);
+        } catch (Exception $e) {
+            echo json_encode([
+                "ok" => false,
+                "error" => "No se pudo actualizar la reserva: " . $e->getMessage()
+            ]);
+        }
 
         break;
 
@@ -80,7 +85,7 @@ switch ($_POST["action"]) {
         ]);
         break;
 
-    /*
+        /*
 case "actualizarResumen":
     $resumen = $reservasControl->getResumenReservas();
     ob_start();

@@ -49,12 +49,12 @@ var casas = {
         return esValido;
     },
     RellenarTabla: function (r) {
-        //vaciar el tbody
-        $("#tablaCasas tbody").empty();
-
+        //vaciar el tbody no hace falta 
+        // $("#tablaCasas tbody").empty();
+        let html = "";
         //rellenar la tabla
         r.forEach(res => {
-            let fila = `
+            html += `
     <tr>
         <td>${res.id}</td>
         <td>${res.nombre}</td>
@@ -74,7 +74,8 @@ var casas = {
     </td>
 </tr>
                             `;
-            $("#tablaCasas tbody").append(fila);
+                            //realizar una variable y hacer un put directamente
+            $("#tablaCasas tbody").html(fila);
         });
     },
     eventoFiltrar: function () {

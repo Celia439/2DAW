@@ -1,4 +1,4 @@
-<li class="list-group-item list-group-item-action" 
+<li class="list-group-item list-group-item-action mt-4 mb-4" 
     data-name="<?php echo $fila["nombre"] . " " . $fila["primer_apellido"] . " " . $fila["segundo_apellido"]; ?>" 
     id="busqueda-<?php echo $fila["id"] ?>" 
     onclick='clienteEnVivo.setCliente(<?php echo $fila["id"] ?>,"<?php echo $fila["nombre"] . " " . $fila["primer_apellido"] ?>")'
