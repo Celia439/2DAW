@@ -120,6 +120,28 @@ var reservas = {
             });
 
         });
+            //Limpiar los filtros
+        $(document).on("click","#resetF",function(){
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "controladores/panel/reservas/filtros.php",
+                    modelo: "modelos/panel/reservas/index.php"
+                },
+                beforeSend: function () {
+                    comun.bloquearUI();
+                },
+                success: function (respuesta) {
+                    //Actualizar la tabla
+                    reservas.RellenarTabla(respuesta.registros || []);
+                },
+                complete: function () {
+                    comun.desbloquearUI();
+                },
+            });
+        });
 
     },
     eventoFactura: function () {
@@ -128,7 +150,7 @@ var reservas = {
             let tr = event.currentTarget.closest("tr");
             let idReserva = $(tr).find("td:first").text().trim();
 
-            console.log("Generando factura...");
+            console.log("Generando factura... "+idReserva);
 
             $.ajax({
                 url: ROOT_AJAX,
@@ -249,77 +271,53 @@ var reservas = {
         });
     },
     eventoEliminar: function () {
-
-        //En caso de pulsar algun boton de eliminar
         $(document).on("click", ".borrarReserva", function (event) {
-            console.log("clic en borrar");
-            //Preguntar si realmente lo quiere borrar 
-            if (!confirm("¿Seguro que quieres eliminar este registro?")) {
-                return; // el usuario canceló
-            }
-            //Recoger el id 
             let tr = event.currentTarget.closest("tr");
             let id = tr.querySelector("td").textContent.trim();
 
+            comun.mostrarModal_v2({
+                titulo: "Confirmar eliminación",
+                HTML: "¿Estás seguro de que quieres eliminar esta reserva?",
+                funcionAceptar: function () {
+                    $.ajax({
+                        url: ROOT_AJAX,
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            pagina: "controladores/panel/reservas/index.php",
+                            modelo: "modelos/panel/reservas/index.php",
+                            id: id,
+                            action: "delete"
+                        },
+                        beforeSend: function () {
+                            comun.bloquearUI();
+                        },
+                        success: function (data) {
+                            const modalEl = document.getElementById('modal');
+                            const modal = bootstrap.Modal.getInstance(modalEl);
+                            if (modal) modal.hide();
 
-            $.ajax({
-                url: ROOT_AJAX,
-                type: "POST",
-                dataType: "json",
-                data: {
-                    pagina: "controladores/panel/reservas/index.php",
-                    modelo: "modelos/panel/reservas/index.php",
-                    id,
-                    action: "delete"
-                },
-                beforeSend: function () {
-                    console.log("Iniciando petición AJAX...");
-                    comun.bloquearUI();
-                },
-                success: function (data) {
-                    // Actualizar resumen
-                    $("#total_huespedes").text(data.resumen.total_huespedes);
-                    $("#total_bruto").text(data.resumen.total_bruto);
-                    $("#total_descuento").text(data.resumen.total_descuento);
-                    $("#total_comision").text(data.resumen.total_comision);
-                    $("#total_final").text(data.resumen.total_final);
+                            $("#total_huespedes_resumen").text(data.resumen.total_huespedes);
+                            $("#total_bruto_resumen").text(data.resumen.total_bruto);
+                            $("#total_descuento_resumen").text(data.resumen.total_descuento);
+                            $("#total_comision_resumen").text(data.resumen.total_comision);
+                            $("#total_final_resumen").text(data.resumen.total_final);
 
-                    //Actualizar la tabla
-                    reservas.RellenarTabla(data.reservas);
-
-                },
-                error: function (xhr, status, error) {
-
-                    console.error("ERROR EN AJAX:", {
-                        status: status,
-                        error: error,
-                        responseText: xhr.responseText || "(sin respuesta)"
+                            reservas.RellenarTabla(data.reservas);
+                            comun.mostrarAlerta("Reserva eliminada correctamente", "success");
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("ERROR EN AJAX:", error);
+                            comun.mostrarAlerta("Error al eliminar la reserva", "danger");
+                        },
+                        complete: function () {
+                            comun.desbloquearUI();
+                        }
                     });
-                },
-
-                complete: function () {
-                    console.log("Petición AJAX completada se a borrado correctamete");
-                    comun.desbloquearUI();
                 }
             });
         })
     }
-    /*Evento editar (Doble petición AJAX otra opción menos eficiente)
-    actualizarResumen: function () {
-        $.ajax({
-            url: ROOT_AJAX,
-            type: "POST",
-            dataType: "json",
-            data: {
-                pagina: "controladores/panel/reservas/index.php",
-                modelo:"modelos/panel/reservas/index.php",
-                action: "actualizarResumen"
-            },
-            success: function (data) {
-                $("#resumen").html(data.HTML);
-            }
-        });
-    }*/
 };
 
 $(document).ready(function () {

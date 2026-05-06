@@ -74,9 +74,9 @@ var casas = {
     </td>
 </tr>
                             `;
-                            //realizar una variable y hacer un put directamente
-            $("#tablaCasas tbody").html(fila);
         });
+        //realizar una variable y hacer un put directamente
+        $("#tablaCasas tbody").html(html);
     },
     eventoFiltrar: function () {
         $(document).on("submit", "#filtrosCasas", function (event) {
@@ -117,6 +117,28 @@ var casas = {
                 }
             });
 
+        });
+        //Limpiar los filtros
+        $(document).on("click", "#resetF", function () {
+            $.ajax({
+                url: ROOT_AJAX,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pagina: "controladores/panel/casas/filtros.php",
+                    modelo: "modelos/panel/casas/index.php"
+                },
+                beforeSend: function () {
+                    comun.bloquearUI();
+                },
+                success: function (respuesta) {
+                    //Actualizar la tabla
+                    casas.RellenarTabla(respuesta.registros || []);
+                },
+                complete: function () {
+                    comun.desbloquearUI();
+                },
+            });
         });
 
     },
@@ -186,55 +208,47 @@ var casas = {
                 }
             });
         });
-    }, eventoEliminar: function () {
-        console.log("acaso esto carga");
-
-        //En caso de pulsar algun boton de eliminar
+    },
+    eventoEliminar: function () {
         $(document).on("click", ".borrarCasa", function (event) {
-            console.log("clic en borrar");
-            //Preguntar si realmente lo quiere borrar 
-            if (!confirm("¿Seguro que quieres eliminar este registro?")) {
-                return; // el usuario canceló
-            }
-            //Recoger el id 
             let tr = event.currentTarget.closest("tr");
             let id = tr.querySelector("td").textContent.trim();
 
-            $.ajax({
-                url: ROOT_AJAX,
-                type: "POST",
-                dataType: "json",
-                data: {
-                    pagina: "controladores/panel/casas/index.php",
-                    modelo: "modelos/panel/casas/index.php",
-                    id,
-                    action: "delete"
-                },
-                beforeSend: function () {
-                    console.log("Iniciando petición AJAX...");
-                    comun.bloquearUI();
-                },
-                success: function (data) {
-                    //Rellenar la tabla
-                    casas.RellenarTabla(data.casas);
+            comun.mostrarModal_v2({
+                titulo: "Confirmar eliminación",
+                HTML: "¿Estás seguro de eliminar este registro?",
+                funcionAceptar: function () {
+                    $.ajax({
+                        url: ROOT_AJAX,
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            pagina: "controladores/panel/casas/index.php",
+                            modelo: "modelos/panel/casas/index.php",
+                            id: id,
+                            action: "delete"
+                        },
+                        beforeSend: function () {
+                            comun.bloquearUI();
+                        },
+                        success: function (data) {
+                            // Cerrar modal
+                            const modalEl = document.getElementById('modal');
+                            const modal = bootstrap.Modal.getInstance(modalEl);
+                            if (modal) modal.hide();
 
-                    comun.mostrarModal_v2({
-                        titulo: "Registro eliminado",
-                        HTML: data.HTML
+                            // Rellenar la tabla
+                            casas.RellenarTabla(data.casas);
+                            comun.mostrarAlerta("Casa eliminada correctamente", "success");
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("ERROR EN AJAX:", error);
+                            comun.mostrarAlerta("Error al eliminar el registro", "danger");
+                        },
+                        complete: function () {
+                            comun.desbloquearUI();
+                        }
                     });
-                },
-                error: function (xhr, status, error) {
-
-                    console.error("ERROR EN AJAX:", {
-                        status: status,
-                        error: error,
-                        responseText: xhr.responseText || "(sin respuesta)"
-                    });
-                },
-
-                complete: function () {
-                    console.log("Petición AJAX completada se a borrado correctamete");
-                    comun.desbloquearUI();
                 }
             });
         })

@@ -2,7 +2,7 @@
 
 class clientes
 {
- //Get cliente paginado ahora esta dentro de comun.php
+ //Get cliente paginado y getClienteById ahora esta dentro de comun.php
  
     function getTotalClientes($filtros = [])
     {
@@ -88,15 +88,7 @@ class clientes
         $dbControl->delete($parametros);
     }
 
-    function getClienteById($id)
-    {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $parametros = new stdClass();
-        $parametros->tabla = "clientes";
-        $parametros->where = "id = $id";
-        return $dbControl->select($parametros);
-    }
+
 
     function editarCliente($form)
     {

@@ -2,7 +2,7 @@
 
 class casas
 {
- //Ahora casas se consultan desde comunAjax
+ //Ahora casas se consultan desde comunAjax y getCasaById está en comun
 
     function getColumnas()
     {
@@ -76,15 +76,7 @@ class casas
         return $dbControl->select($parametros);
     }
 
-    function getCasaById($id)
-    {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $parametros = new stdClass();
-        $parametros->tabla = "casas";
-        $parametros->where = "id = $id";
-        return $dbControl->select($parametros);
-    }
+    
 
     function editarCasa($form)
     {

@@ -1,9 +1,5 @@
 <?php
 
-//Ahora paises y provincias se accede desde comun php hacia el index.js de la vista
-
-
-
 $clientesControl = new clientes();
 
 function cargarPaginador()

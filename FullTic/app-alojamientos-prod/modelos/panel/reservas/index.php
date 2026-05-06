@@ -1,20 +1,8 @@
 <?php
-
+// getReservaById y getReservas se encuentra en comun.php
 class reservas
 {
-    function getReservas()
-    {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $parametros = new stdClass();
-        $parametros->tabla = "reservas";
-        //Año actual 
-        $anio = date('Y');
-        //Ordenar por fecha de entrada
-        $parametros->order = "fecha_entrada";
-        $parametros->where = 'fecha_entrada LIKE "' . $anio . '-%%-%%"';
-        return $dbControl->select($parametros);
-    }
+
 
     function getColums()
     {
@@ -94,15 +82,7 @@ class reservas
         ];
         return $dbControl->update($parametros);
     }
-    function getReservaById($id)
-    {
-        require_once CONSULTAS;
-        $dbControl = new Database();
-        $parametros = new stdClass();
-        $parametros->tabla = "reservas";
-        $parametros->where = "id = " . $id;
-        return $dbControl->select($parametros);
-    }
+  
     function consultarReservas($datos)
     {
         require_once CONSULTAS;

@@ -1,4 +1,6 @@
 <?php
+require_once LIBRERIA_PHP . "comun.php";
+$comun = new comun();
 
 $reservasControl = new reservas();
 /**
@@ -9,8 +11,8 @@ $reservasControl = new reservas();
  */
 function actualizar()
 {
-    global $reservasControl;
-    $reservas = $reservasControl->getReservas();
+    global $reservasControl, $comun;
+    $reservas = $comun->getReservas();
     $resumen = $reservasControl->getResumenReservas();
     $contenido = [$reservas, $resumen];
     return $contenido;
@@ -19,7 +21,7 @@ function actualizar()
 
 
 //Para la primera vez que se carge la página.
-$reservas = $reservasControl->getReservas();
+$reservas = $comun->getReservas();
 $columnas = $reservasControl->getColums();
 $resumen = $reservasControl->getResumenReservas();
 
@@ -51,7 +53,7 @@ switch ($_POST["action"]) {
 
             $reservasControl->editarReserva($form);
 
-            $reservaActualizada = $reservasControl->getReservaById($form["id"]);
+            $reservaActualizada = $comun->getReservaById($form["id"]);
 
             //Actualizamos el contenido 
             $contenido = actualizar();

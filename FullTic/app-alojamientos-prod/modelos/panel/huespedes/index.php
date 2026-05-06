@@ -2,6 +2,15 @@
 
 class huespedes
 {
+    function getHuespedes()
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas_huespedes";
+
+        return $dbControl->select($parametros);
+    }
 
     function guardarHuesped($form)
     {
@@ -15,7 +24,7 @@ class huespedes
                 "id_reserva" => $form["id_reserva"],
                 "id_casa" => $form["id_casa"],
                 "id_cliente" => $form["id_cliente"],
-                "esTitular" => $form["esTitular"]
+                "es_titular" => $form["es_titular"]
             ]
         ];
 
@@ -43,7 +52,7 @@ class huespedes
         return $dbControl->select($parametros);
     }
 
-    function editarCliente($form)
+    function editarHuesped($form)
     {
         require_once CONSULTAS;
         $dbControl = new Database();
@@ -54,7 +63,7 @@ class huespedes
             "id_reserva" => $form["id_reserva"],
             "id_casa" => $form["id_casa"],
             "id_cliente" => $form["id_cliente"],
-            "esTitular" => $form["esTitular"]
+            "es_titular" => $form["es_titular"]
         ];
         return $dbControl->update($parametros);
     }

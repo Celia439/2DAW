@@ -3,6 +3,42 @@ class comun
 {
 
 
+    function getReservaById($id)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas";
+        $parametros->where = "id = " . $id;
+        return $dbControl->select($parametros);
+    }
+    function getClienteById($id)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "clientes";
+        $parametros->where = "id = $id";
+        return $dbControl->select($parametros);
+    }
+    function getCasaById($id)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "casas";
+        $parametros->where = "id = $id";
+        return $dbControl->select($parametros);
+    }
+    function getTitularReserva($id)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas_huespedes";
+        $parametros->where = "id_reserva = $id AND es_titular = 1";
+        return $dbControl->select($parametros);
+    }
     function getNacionalidades()
     {
         require_once CONSULTAS;
@@ -46,6 +82,28 @@ class comun
         // y regresamos la consulta
         return $dbControl->select($parametros);
     }
+    function getClientes()
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "clientes";
+        $parametros->order = "id DESC";
+        return $dbControl->select($parametros);
+    }
+    function getReservas()
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas";
+        //Año actual 
+        $anio = date('Y');
+        //Ordenar por fecha de entrada
+        $parametros->order = "fecha_entrada";
+        $parametros->where = 'fecha_entrada LIKE "' . $anio . '-%%-%%"';
+        return $dbControl->select($parametros);
+    }
     function getCasas()
     {
         require_once CONSULTAS;
@@ -59,15 +117,23 @@ class comun
     {
         $seleccionado = "";
         if (is_object($parametros) && isset($parametros->idClienteMarcado) && !empty($parametros->idClienteMarcado)) {
-            // Aquí llamas a tu modelo de Clientes
-            require_once ROOT . "modelos/panel/clientes/index.php";
-            $clientesControl = new clientes();
-            $res = $clientesControl->getClienteById($parametros->idClienteMarcado);
+            $res = $this->getClienteById($parametros->idClienteMarcado);
             if (!empty($res)) {
                 $clienteMarcado = $res[0];
                 $seleccionado = $clienteMarcado["nombre"] . " " . $clienteMarcado["primer_apellido"];
             }
         }
         require_once LIBRERIA_HTML . "busqueda-cliente-vivo.php";
+    }
+
+    function getHuespedesByReserva($idReserva)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas_huespedes";
+        $parametros->where = "id_reserva = $idReserva";
+        $parametros->order = "es_titular DESC";
+        return $dbControl->select($parametros);
     }
 }

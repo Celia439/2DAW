@@ -52,8 +52,8 @@ if (!$_SESSION["id_user"]) {
                 </div>
 
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-success me-2">Buscar</button>
-                    <button type="reset" class="btn btn-secondary">Restablecer Filtros</button>
+                    <button id="buscar" type="submit" class="btn btn-success me-2">Buscar</button>
+                    <button id="resetF" type="reset" class="btn btn-secondary">Restablecer Filtros</button>
                 </div>
             </fieldset>
         </form>

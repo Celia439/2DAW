@@ -173,7 +173,10 @@ var clientes = {
             // Siempre que se filtra, empezamos por la página 1
             clientes.cargarClientes(1);
         });
-
+        //Limpiar los filtros
+        $(document).on("click", "#resetF", function () {
+            clientes.cargarClientes(1);
+        });
     },
     eventoEnviar: function () {
         $(document).on("submit", "#formClientes", function (event) {
@@ -313,63 +316,51 @@ var clientes = {
         });
     },
     eventoEliminar: function () {
-
-        //En caso de pulsar algun boton de eliminar
         $(document).on("click", ".deleteCliente", function (event) {
-            //Preguntar si realmente lo quiere borrar 
-            if (!confirm("¿Seguro que quieres eliminar este registro?")) {
-                return; // el usuario canceló
-            }
-            //Recoger el id 
             let tr = event.currentTarget.closest("tr");
             let id = tr.querySelector("td").textContent.trim();
 
-            $.ajax({
-                url: ROOT_AJAX,
-                type: "POST",
-                dataType: "json",
-                data: {
-                    pagina: "controladores/panel/clientes/index.php",
-                    modelo: "modelos/panel/clientes/index.php",
-                    id,
-                    action: "delete"
-                },
-                beforeSend: function () {
-                    console.log("Iniciando petición AJAX...");
-                    comun.bloquearUI();
-                },
-                success: function (data) {
-                    //Actualizar el paginador 
-                    clientes.ActualizaPaginador(data.pagina, data.totalPaginas);
+            comun.mostrarModal_v2({
+                titulo: "Confirmar eliminación",
+                HTML: "¿Estás seguro de eliminar este registro?",
+                funcionAceptar: function () {
+                    $.ajax({
+                        url: ROOT_AJAX,
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            pagina: "controladores/panel/clientes/index.php",
+                            modelo: "modelos/panel/clientes/index.php",
+                            id: id,
+                            action: "delete"
+                        },
+                        beforeSend: function () {
+                            comun.bloquearUI();
+                        },
+                        success: function (data) {
+                            const modalEl = document.getElementById('modal');
+                            const modal = bootstrap.Modal.getInstance(modalEl);
+                            if (modal) modal.hide();
 
-                    // Rellenar la tabla 
-                    $("#tablaCliente tbody").html(data.HTML);
-                    clientes.ActualizaPaginador(data.pagina, data.totalPaginas);
-
-
-                },
-                error: function (xhr, status, error) {
-
-                    console.error("ERROR EN AJAX:", {
-                        status: status,
-                        error: error,
-                        responseText: xhr.responseText || "(sin respuesta)"
+                            clientes.ActualizaPaginador(data.pagina, data.totalPaginas);
+                            $("#tablaCliente tbody").html(data.HTML);
+                            comun.mostrarAlerta("Cliente eliminado correctamente", "success");
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("ERROR EN AJAX:", error);
+                            comun.mostrarAlerta("Error al eliminar el cliente", "danger");
+                        },
+                        complete: function () {
+                            comun.desbloquearUI();
+                        }
                     });
-                },
-
-                complete: function () {
-                    console.log("Petición AJAX completada se a borrado correctamete");
-                    comun.desbloquearUI();
                 }
             });
         })
     }
-    //Evento editar 
-
 };
 
 $(document).ready(function () {
-    console.log("Document ready - Registrando eventos");
     clientes.eventosInicio();
     clientes.eventoEnviar();
     clientes.eventoEliminar();
