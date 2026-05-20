@@ -10,7 +10,7 @@ $id = $_POST["id"] ?? false;
 if ($id) {
     // Si hay id, es EDICIÓN: buscamos la reserva en la base de datos
     $reservasControl = new reservas();
-    $reserva = $reservasControl->getReservaById($id)[0];
+    $reserva = $comunControl->getReservaById($id)[0];
 
     $canal = $reserva['canal'];
     $total_huespedes = $reserva['total_huespedes'];
@@ -19,7 +19,13 @@ if ($id) {
     $importe_bruto = $reserva['importe_bruto'];
     $descuento = $reserva['descuento'];
     $comision = $reserva['comision'];
-    $id_cliente = $reserva['id_cliente'] ?? null;
+    $num_reserva = $reserva['num_reserva'];
+
+    // Buscar la casa y el cliente del titular para preseleccionarlos
+    $titular = $comunControl->getTitularReserva($id);
+    $id_casa = !empty($titular[0]['id_casa']) ? $titular[0]['id_casa'] : '';
+    $id_cliente = !empty($titular[0]['id_cliente']) ? $titular[0]['id_cliente'] : null;
+
     $textoBoton = "Actualizar";
     $accion = "update";
 } else {
@@ -33,6 +39,7 @@ if ($id) {
     $descuento = '';
     $comision = '';
     $num_reserva = '';
+    $id_casa = '';
     $textoBoton = "Registrar";
     $accion = "insert";
 }
@@ -41,7 +48,6 @@ if ($id) {
 ob_start();
 $paramsBusqueda = new stdClass();
 $paramsBusqueda->idClienteMarcado = $id_cliente;
-var_dump($id_cliente);
 $comunControl->mostrarBusquedaClienteenVivo($paramsBusqueda);
 $buscadorClientesHTML = ob_get_clean();
 
@@ -112,15 +118,16 @@ echo <<<HTML
             <input id="num_reserva" type="text" class="form-control" 
                    name="num_reserva" value="{$num_reserva}" required maxlength="30">
         </div>
-        <!--Como puedo hacer editar..?-->
+        <!--Cliente y casa-->
         <div class="col-6">
             <label class="form-label" for="casa">Casa</label>
             <select id="casa" class="form-select" name="casa" required>
             </select>
+            <input type="hidden" id="casa-seleccionada" value="{$id_casa}">
         </div>
 
         <div class="col-12">
-            <label class="form-label">Cliente</label>
+            <label for="cliente-vivo-texto" class="form-label">Cliente</label>
             {$buscadorClientesHTML}
         </div>
 

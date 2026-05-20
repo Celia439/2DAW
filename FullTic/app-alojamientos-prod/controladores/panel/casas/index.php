@@ -1,14 +1,14 @@
 <?php
 
 require_once LIBRERIA_PHP . "comun.php";
-$comun=new comun();
+$comun = new comun();
 
-$provincias =$comun->getProvincias();
+$provincias = $comun->getProvincias();
 
 $casasControl = new casas();
 
-
-$casas = $comun->getCasas();
+// Con el JOIN en comun.php, ya tenemos provinciaN y localidadN disponibles
+$casas = $comun->getCasas([]); 
 
 //$columnas= $casasControl->getColumnas();
 
@@ -19,10 +19,10 @@ switch ($_POST["action"]) {
         parse_str($_POST["datos"], $form);
 
         $guardado = $casasControl->guardarCasas($form);
- 
+
         //Ultima casa insertada
 
-        $casas = $comun->getCasas();
+        $casas = $comun->getCasas([]);
 
         $ultCasa = $casas[count($casas) - 1];
 
@@ -35,7 +35,7 @@ switch ($_POST["action"]) {
     case "update":
         parse_str($_POST["datos"], $form);
         $casasControl->editarCasa($form);
-        $casas = $comun->getCasas();
+        $casas = $comun->getCasas([]);
         echo json_encode([
             "ok" => true,
             "casas" => $casas
@@ -47,8 +47,7 @@ switch ($_POST["action"]) {
 
         $casasControl->eliminarPorId($id);
 
-        $casas = $comun->getCasas();
-
+        $casas = $comun->getCasas([]);
         echo json_encode([
             "HTML" => "El registro con ID $id ha sido eliminado correctamente.",
             "casas" => $casas

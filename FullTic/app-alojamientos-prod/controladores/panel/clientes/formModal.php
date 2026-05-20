@@ -57,9 +57,9 @@ ob_start();
                     <div class="col-md-6">
                         <label class="form-label" for="tipo_documentacion_e">Tipo de documentación</label>
                         <select class="form-select" id="tipo_documentacion_e" name="tipo_documentacion" required>
-                            <option value="DNI" <?= $cliente['tipo_documentacion'] == 'DNI' ? 'selected' : '' ?>>DNI</option>
-                            <option value="NIE" <?= $cliente['tipo_documentacion'] == 'NIE' ? 'selected' : '' ?>>NIE</option>
-                            <option value="PASAPORTE" <?= $cliente['tipo_documentacion'] == 'PASAPORTE' ? 'selected' : '' ?>>Pasaporte</option>
+                            <option value="D" <?= $cliente['tipo_documentacion'] == 'D' ? 'selected' : '' ?>>DNI</option>
+                            <option value="N" <?= $cliente['tipo_documentacion'] == 'N' ? 'selected' : '' ?>>NIE</option>
+                            <option value="P" <?= $cliente['tipo_documentacion'] == 'P' ? 'selected' : '' ?>>Pasaporte</option>
                         </select>
                         <div class="invalid-feedback">Selecciona un tipo de documentación.</div>
                     </div>

@@ -33,6 +33,17 @@
         <?php echo number_format($reserva["importe_final"], 2, ",", ".") ?>
     </td>
 
+    <td>
+        <!--Copiar la url para mandar al cliente-->
+        <?php if (isset($comun)) { ?>
+
+            <button class="btn btn-outline-info btn-sm copiar-link"
+                data-url="<?php echo htmlspecialchars($comun->Get_url_customer_booking($reserva["id"])); ?>"
+                title="Copiar link de check-in">
+                Link
+            </button>
+        <?php } ?>
+    </td>
     <td><button class="btn btn-outline-danger delete borrarReserva">Eliminar</button></td>
     <td><button class="btn btn-outline-primary update editarReserva">Editar</button></td>
     <td><button class="btn btn-outline-success factura facturaReserva">Generar facturas</button></td>

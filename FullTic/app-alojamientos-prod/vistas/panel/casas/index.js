@@ -6,11 +6,13 @@ var casas = {
             document.activeElement.blur();
         });
 
-        // Evento global para cargar municipios cuando cambia la provincia
-        $(document).off("change", "select[name='provincia']").on("change", "select[name='provincia']", function () {
+        // Evento para cargar municipios cuando cambia la provincia (Filtro o Modal)
+        $(document).off("change", "#provinciaF, #provincia_e").on("change", "#provinciaF, #provincia_e", function () {
             let selectProvincia = $(this);
             let idProvincia = selectProvincia.val();
-            let selectLocalidad = selectProvincia.closest('form').find("select[name='localidad']");
+            
+            // Buscamos la localidad que esté en el mismo contexto (filtro o modal)
+            let selectLocalidad = selectProvincia.attr('id') === 'provinciaF' ? $("#localidadF") : $("#localidad_e");
 
             $.ajax({
                 url: ROOT_AJAX,
@@ -21,7 +23,7 @@ var casas = {
                     provincia: idProvincia
                 },
                 success: function (data) {
-                    let html = '<option value="" disabled selected>Seleccione una localidad</option>';
+                    let html = '<option value="" selected>Ver todas</option>';
                     if (data.municipios) {
                         data.municipios.forEach(m => {
                             html += `<option value="${m.id}">${m.Municipio}</option>`;
@@ -31,6 +33,19 @@ var casas = {
                 }
             });
         });
+        // si existe en localstorage los filtros casas rellenar los filtros
+        if (localStorage.getItem("filtrosCasas")) {
+            let filtros = JSON.parse(localStorage.getItem("filtrosCasas"));
+            $("#idF").val(filtros.id);
+            $("#alojamientoF").val(filtros.alojamiento);
+            $("#provinciaF").val(filtros.provincia).trigger("change");
+            //Dar tiempo a que se carge el select localidad
+            setTimeout(() => {
+                $("#localidadF").val(filtros.localidad);
+                // Realizar la busqueda
+                $("#filtrosCasas").trigger("submit");
+            }, 500);
+        }
     },
 
 
@@ -62,8 +77,8 @@ var casas = {
         <td>${res.hab}</td>
         <td>${res.banios}</td>
         <td>${res.direccion}</td>
-        <td>${res.localidad}</td>
-        <td>${res.provincia}</td>
+        <td>${res.localidadN}</td>
+        <td>${res.provinciaN}</td>
         <td>${res.descripcion}</td>
         <td>${res.precio_noche}</td>
     <td>
@@ -87,7 +102,13 @@ var casas = {
             let provincia = $("#provinciaF").val();
             let localidad = $("#localidadF").val();
 
-
+            let guardar = {
+                id: id,
+                alojamiento: alojamiento,
+                provincia: provincia,
+                localidad: localidad
+            }
+            localStorage.setItem("filtrosCasas", JSON.stringify(guardar));
             $.ajax({
                 url: ROOT_AJAX,
                 type: "POST",
@@ -120,6 +141,8 @@ var casas = {
         });
         //Limpiar los filtros
         $(document).on("click", "#resetF", function () {
+            localStorage.removeItem("filtrosCasas");
+            $("#localidadF").html('<option value="">Ver todas</option>');
             $.ajax({
                 url: ROOT_AJAX,
                 type: "POST",

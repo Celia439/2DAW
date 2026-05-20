@@ -6,12 +6,25 @@ var clientes = {
         $("#modalCheckin").on("hidden.bs.modal", function () {
             document.activeElement.blur();
         });
+        //Evento desplegable
+        $(document).on("click", ".fila-cliente", function (e) {
+            if ($(e.target).closest("button, a").length) return;
+            var id = $(this).data("id");
+            $("#detalle-cliente-" + id).slideToggle();
+        });
 
-        // Evento para cargar municipios (Globalmente para cualquier select de provincia en Clientes)
-        $(document).off("change", "select[name='provincia']").on("change", "select[name='provincia']", function () {
+        // Evento para cargar municipios en Clientes (Filtro o Modal)
+        $(document).off("change", "#provinciaF_cl, #provincia_cliente, #provincia_e").on("change", "#provinciaF_cl, #provincia_cliente, #provincia_e", function () {
             let selectProvincia = $(this);
             let idProvincia = selectProvincia.val();
-            let selectLocalidad = selectProvincia.closest('form').find("select[name='localidad']");
+            let selectLocalidad;
+            if (selectProvincia.attr('id') === 'provinciaF_cl') {
+                selectLocalidad = $("#localidadF_cl");
+            } else if (selectProvincia.attr('id') === 'provincia_e') {
+                selectLocalidad = $("#localidad_e");
+            } else {
+                selectLocalidad = $("#localidad_cliente");
+            }
 
             $.ajax({
                 url: ROOT_AJAX,
@@ -48,7 +61,7 @@ var clientes = {
                     action: "NaciProv"
                 },
                 success: function (data) {
-                    let htmlP = '<option value="" disabled selected>Seleccione una Provincia</option>';
+                    let htmlP = '';
                     let htmlN = '<option value="" disabled selected>Seleccione un País</option>';
 
                     if (data.paises) {
@@ -64,7 +77,7 @@ var clientes = {
                             htmlP += `<option value="${m.id}">${m.Provincia}</option>`;
                         });
                     }
-                    $("select[name='provincia']").html(htmlP);
+                    $("#provincia_cliente").html(htmlP);
                 }
             });
         });
@@ -129,13 +142,12 @@ var clientes = {
                 comun.bloquearUI();
             },
             success: function (respuesta) {
-                //Actualizar la tabla 
                 $("#tablaCliente tbody").html(respuesta.HTML);
-                // Guardar valores
+                if (respuesta.paginadorHTML) {
+                    $("#paginadorClientes").replaceWith(respuesta.paginadorHTML);
+                }
                 clientes.paginaActual = respuesta.pagina;
                 clientes.totalPaginas = respuesta.totalPaginas;
-                // Actualizar paginador
-                clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
             },
             complete: function () {
                 comun.desbloquearUI();
@@ -174,8 +186,10 @@ var clientes = {
             clientes.cargarClientes(1);
         });
         //Limpiar los filtros
-        $(document).on("click", "#resetF", function () {
-            clientes.cargarClientes(1);
+        $(document).on("click", "#resetF", function (event) {
+            event.preventDefault();//evitamos el reset automatico
+            $('#filtrosClientes')[0].reset();// vaciar los inputs manualmente
+            clientes.cargarClientes(1);//Volver a rellenar el listado
         });
     },
     eventoEnviar: function () {
@@ -190,8 +204,6 @@ var clientes = {
                 return;
             }
             let datos = $(this).serialize();
-
-            console.log("Datos preparados para enviar:" + datos);
 
             let action = "insert";
 
@@ -216,20 +228,24 @@ var clientes = {
                     console.log("Respuesta EXITOSA del servidor:", respuesta);
 
                     if (respuesta.ok === true) {
-                        //  Actualizar el paginador
-
-                        clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
+                        $("#tablaCliente tbody").html(respuesta.HTML);
+                        if (respuesta.paginadorHTML) {
+                            $("#paginadorClientes").replaceWith(respuesta.paginadorHTML);
+                        }
+                        clientes.paginaActual = respuesta.pagina;
+                        clientes.totalPaginas = respuesta.totalPaginas;
 
                         //limpiar formulario
                         $("#formClientes")[0].reset();
                         $("#formClientes").removeClass("was-validated");
                         $("#formClientes").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
-                        // Añadir registro en la tabla
-                        let r = respuesta.clientes;
 
-                        //Rellenar la tabla de nuevo
-                        $("#tablaCliente tbody").html(respuesta.HTML);
-                        clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
+                        // Cerrar modal de nuevo cliente
+                        const modalClienteEl = document.getElementById('modalCliente');
+                        if (modalClienteEl) {
+                            const modalCliente = bootstrap.Modal.getInstance(modalClienteEl);
+                            if (modalCliente) modalCliente.hide();
+                        }
 
                     } else {
                         comun.mostrarAlerta("Error: " + (respuesta.message || "Credenciales inválidas"), "danger");
@@ -299,9 +315,12 @@ var clientes = {
                             const modal = bootstrap.Modal.getInstance(modalElement);
                             if (modal) modal.hide();
                         }
-                        // Refrescar tabla y paginador
                         $("#tablaCliente tbody").html(respuesta.HTML);
-                        clientes.ActualizaPaginador(respuesta.pagina, respuesta.totalPaginas);
+                        if (respuesta.paginadorHTML) {
+                            $("#paginadorClientes").replaceWith(respuesta.paginadorHTML);
+                        }
+                        clientes.paginaActual = respuesta.pagina;
+                        clientes.totalPaginas = respuesta.totalPaginas;
                     } else {
                         comun.mostrarAlerta("Error al actualizar el cliente", "danger");
                     }
@@ -342,8 +361,12 @@ var clientes = {
                             const modal = bootstrap.Modal.getInstance(modalEl);
                             if (modal) modal.hide();
 
-                            clientes.ActualizaPaginador(data.pagina, data.totalPaginas);
                             $("#tablaCliente tbody").html(data.HTML);
+                            if (data.paginadorHTML) {
+                                $("#paginadorClientes").replaceWith(data.paginadorHTML);
+                            }
+                            clientes.paginaActual = data.pagina;
+                            clientes.totalPaginas = data.totalPaginas;
                             comun.mostrarAlerta("Cliente eliminado correctamente", "success");
                         },
                         error: function (xhr, status, error) {

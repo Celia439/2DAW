@@ -23,17 +23,78 @@ class reservas
         $parametros = new stdClass();
         $parametros->campos = [
             "SUM(total_huespedes) AS total_huespedes",
-            "SUM(importe_bruto) AS total_bruto",
-            "SUM(descuento) AS total_descuento",
-            "SUM(comision) AS total_comision",
-            "SUM(importe_final) AS total_final"
+            "ROUND(SUM(importe_bruto), 2) AS total_bruto",
+            "ROUND(AVG(descuento), 2) AS total_descuento",
+            "ROUND(AVG(comision), 2) AS total_comision",
+            "ROUND(SUM(importe_final), 2) AS total_final"
         ];
         $parametros->tabla = "reservas";
         return $db->select($parametros)[0];
     }
+
+    function getTotalReservas($filtros = [])
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->campos = ["COUNT(*) as total"];
+        $parametros->tabla = "reservas";
+        $where = $this->buildWhereReservas($filtros);
+        if (!empty($where)) {
+            $parametros->whereArray = $where;
+        }
+        $total = $dbControl->select($parametros);
+        return $total[0]["total"];
+    }
+
+    function getReservasPaginado($porPag = null, $offset = null, $filtros = [])
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas";
+        $where = $this->buildWhereReservas($filtros);
+        if (!empty($where)) {
+            $parametros->whereArray = $where;
+        }
+        $parametros->order = "fecha_entrada DESC";
+        if (isset($offset) && isset($porPag) && $porPag > 0) {
+            $parametros->limit = "$offset,$porPag";
+        }
+        return $dbControl->select($parametros);
+    }
+
+    private function buildWhereReservas($filtros)
+    {
+        $where = [];
+        $esBusqueda = false;
+        if (!empty($filtros) && is_array($filtros)) {
+            $esBusqueda = true;
+            if (!empty($filtros["numero"])) {
+                $where[] = "num_reserva LIKE '%" . $filtros["numero"] . "%'";
+            }
+            if (!empty($filtros["anio"])) {
+                $where[] = "fecha_entrada LIKE '" . $filtros["anio"] . "-%%-%%'";
+            }
+            if (!empty($filtros["desde"])) {
+                $where[] = "fecha_entrada >= '" . $filtros["desde"] . "'";
+            }
+            if (!empty($filtros["hasta"])) {
+                $where[] = "fecha_entrada <= '" . $filtros["hasta"] . "'";
+            }
+        }
+        if (!$esBusqueda) {
+            $anio = date('Y');
+            $where[] = "fecha_entrada LIKE '" . $anio . "-%%-%%'";
+        }
+        return $where;
+    }
+
     function guardarReserva($form)
     {
         require_once CONSULTAS;
+        require_once LIBRERIA_PHP . "comun.php";
+        $comun = new comun();
         $dbControl = new Database();
         $parametros = new stdClass();
         $parametros->tabla = "reservas";
@@ -46,7 +107,8 @@ class reservas
                 "importe_bruto" => $form["importe_bruto"],
                 "descuento" => $form["descuento"],
                 "comision" => $form["comision"],
-                "num_reserva" => $form["num_reserva"]
+                "num_reserva" => $form["num_reserva"],
+                "clave_unica" => $comun->cadenaAleatoria(64)
             ]
         ];
 
@@ -82,7 +144,7 @@ class reservas
         ];
         return $dbControl->update($parametros);
     }
-  
+
     function consultarReservas($datos)
     {
         require_once CONSULTAS;
@@ -110,5 +172,4 @@ class reservas
 
         return $dbControl->select($parametros);
     }
-
 }

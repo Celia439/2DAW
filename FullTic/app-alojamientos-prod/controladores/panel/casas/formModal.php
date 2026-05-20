@@ -7,7 +7,7 @@ $casasControl = new casas();
 
 if ($id) {
     // Modo Edición
-    $casaArr = $casasControl->getCasaById($id);
+    $casaArr = $comun->getCasaById($id);
     if (empty($casaArr)) {
         echo json_encode(["HTML" => "<p class='text-danger'>Error: Casa no encontrada.</p>"]);
         exit;
@@ -50,7 +50,7 @@ ob_start();
 <form id="formCasaModal" action="#" method="post" class="needs-validation" novalidate>
     <input type="hidden" id="casaAccion" name="action" value="<?= $accion ?>">
     <input type="hidden" name="id" value="<?= $id ?>">
-    
+
     <div class="row g-3">
         <!-- Nombre -->
         <div class="col-6">

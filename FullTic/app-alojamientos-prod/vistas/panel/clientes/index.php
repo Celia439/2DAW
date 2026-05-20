@@ -6,12 +6,13 @@ $totalPaginas = ceil($total / $porPag);
 <div class="container mt-5">
     <h3 class="d-flex justify-content-between p-3">Clientes<button class="btn btn-outline-success"
             data-bs-toggle="modal" data-bs-target="#modalCliente">Nuevo</button></h3>
- 
+
     <form id="filtrosClientes" novalidate>
         <fieldset class="p-3">
-            <legend>
+            <le>
                 <h4>Filtros</h4>
-            </legend>
+            </le
+            end>
             <hr>
             <div class="row g-3">
 
@@ -22,12 +23,13 @@ $totalPaginas = ceil($total / $porPag);
 
                 <div class="col-12 col-md-3">
                     <label for="telefonoF">Telefono</label>
-                    <input id="telefonoF"  pattern="^[0-9]{9}$" class="form-control" type="tel" placeholder="Telefono">
+                    <input id="telefonoF" pattern="^[0-9]{9}$" class="form-control" type="tel" placeholder="Telefono">
                 </div>
 
                 <div class="col-12 col-md-3">
                     <label for="DNIF">DNI</label>
-                    <input id="DNIF" type="text" pattern="^[0-9]{8}[A-Z]$" class="form-control" maxlength="9" minlength="9">
+                    <input id="DNIF" type="text" pattern="^[0-9]{8}[A-Z]$" class="form-control" maxlength="9"
+                        minlength="9">
                 </div>
 
                 <div class="col-12 col-md-3">
@@ -47,35 +49,12 @@ $totalPaginas = ceil($total / $porPag);
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Creación</th>
-                <th>Nombre</th>
-                <th>1º apellido</th>
-                <th>2º apellido</th>
-                <th>Sexo</th>
+                <th>Nombre y apellidos</th>
                 <th>DNI/NIE</th>
-                <th>Tipo doc.</th>
-                <th>Soporte</th>
-                <th>Nacionalidad</th>
-                <th>Nacimiento</th>
                 <th>Tlf. fijo</th>
                 <th>Tlf. móvil</th>
                 <th>Email</th>
-                <th>Menores</th>
-                <th>País</th>
-                <th>Provincia</th>
-                <th>Localidad</th>
-                <th>Dirección</th>
-                <th>CP</th>
-                <th></th>
-                <th></th>
-                <?php
-                /* Campos autimaticamente 
-                foreach ($columnas as $columna) {
-                    foreach ($columna as $detalles) {
-                        echo "<th>$detalles</th>";
-                    }
-                }*/
-                ?>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -88,7 +67,6 @@ $totalPaginas = ceil($total / $porPag);
             ?>
         </tbody>
     </table>
-    <!--Modal nuevo cliente (html de libreria)-->
     <?php
     // file_get_contents es para cargar el HTML como texto.
     $contenidoFormulario = file_get_contents(LIBRERIA_HTML . "form_clientes.html");
@@ -98,7 +76,7 @@ $totalPaginas = ceil($total / $porPag);
     ?>
 
     <nav aria-label="Page navigation">
-        <ul class="pagination">
+        <ul id="paginadorClientes" class="pagination">
 
             <!-- Botón anterior -->
             <li id="btnAnterior" class="page-item <?= $pagina <= 1 ? 'disabled' : '' ?>">

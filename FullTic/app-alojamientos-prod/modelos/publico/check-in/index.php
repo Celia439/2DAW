@@ -92,22 +92,23 @@ class checkin
         $parametros->datosInsert = [
             [
                 "nombre" => $form["nombre"],
-                "primer_apellido" => $form["primerApellido"],
+                "primer_apellido" => $form["primer_apellido"],
+                "segundo_apellido" => $form["segundo_apellido"],
                 "sexo" => $form["sexo"],
-                "numero_documento_identidad" => $form["nIdentidad"],
-                "tipo_documentacion" => $form["tipoDocumentacion"],
-                "numero_soporte_documento" => $form["nSoporteDocumento"],
-                "nacionalidad_id" => $form["nacionalidad"],
-                "fecha_nacimiento" => $form["fechaNacimiento"],
-                "telefono_fijo" => $form["telFijo"],
-                "telefono_movil" => $form["telMovil"],
+                "numero_documento_identidad" => $form["numero_documento_identidad"],
+                "tipo_documentacion" => $form["tipo_documentacion"],
+                "numero_soporte_documento" => $form["numero_soporte_documento"],
+                "nacionalidad_id" => $form["nacionalidad_id"],
+                "fecha_nacimiento" => $form["fecha_nacimiento"],
+                "telefono_fijo" => $form["telefono_fijo"],
+                "telefono_movil" => $form["telefono_movil"],
                 "correo" => $form["correo"],
-                "menores_de_edad" => $form["parentescoEntreViajeros"],
-                "pais" => $form["paises"],
+                "menores_de_edad" => $form["menores_de_edad"],
+                "pais" => $form["pais"],
                 "provincia" => $form["provincia"],
-                "localidad" => $form["localidades"],
+                "localidad" => $form["localidad"],
                 "direccion" => $form["direccion"],
-                "codigo_postal" => $form["codigoP"]
+                "codigo_postal" => $form["codigo_postal"]
             ]
         ];
         

@@ -1,5 +1,5 @@
 <?php
-$casasControl = new casas();
+$comun = new comun();
 //Recoger los datos 
 $id = $_POST["id"];
 $alojamiento = $_POST["alojamiento"];
@@ -9,7 +9,7 @@ $localidad = $_POST["localidad"];
 $datos = ["id" => $id, "alojamiento" => $alojamiento, "provincia" => $provincia, "localidad" => $localidad];
 
 //realizar consulta
-$registros = $casasControl->consultarCasas($datos);
+$registros = $comun->getCasas($datos);
 
 echo json_encode([
     "registros" => $registros

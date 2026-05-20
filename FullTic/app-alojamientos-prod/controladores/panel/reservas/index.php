@@ -3,65 +3,185 @@ require_once LIBRERIA_PHP . "comun.php";
 $comun = new comun();
 
 $reservasControl = new reservas();
-/**
- * Summary of actualizarResumen
- * Esta función es para recoger los datos más 
- * recientes despues de cada operación del CRUD
- * @return array
- */
-function actualizar()
+$porPag = 25;
+
+function cargarPaginador()
 {
-    global $reservasControl, $comun;
-    $reservas = $comun->getReservas();
+    global $comun;
+
+    $pagina = isset($_POST["p"])
+        ? intval($_POST["p"])
+        : (isset($_SESSION["pagina_actual_reservas"])
+            ? intval($_SESSION["pagina_actual_reservas"])
+            : 1);
+    $porPag = 25;
+
+    $numero = $_POST["numero"] ?? "";
+    $anio = $_POST["anio"] ?? "";
+    $desde = $_POST["desde"] ?? "";
+    $hasta = $_POST["hasta"] ?? "";
+
+    $whereArray = [];
+
+    if (!empty($numero)) {
+        $whereArray[] = "num_reserva LIKE '%" . $numero . "%'";
+    }
+    if (!empty($anio)) {
+        $whereArray[] = "fecha_entrada LIKE '" . $anio . "-%%-%%'";
+    }
+    if (!empty($desde)) {
+        $whereArray[] = "fecha_entrada >= '" . $desde . "'";
+    }
+    if (!empty($hasta)) {
+        $whereArray[] = "fecha_entrada <= '" . $hasta . "'";
+    }
+
+    $offset = ($pagina - 1) * $porPag;
+    $reservas = $comun->getPaginado("reservas", $whereArray, $porPag, $offset);
+
+    foreach ($reservas as &$res) {
+        $res['url_checkin'] = $comun->Get_url_customer_booking($res['id']);
+    }
+    unset($res);
+
+    $total = $comun->getTotal("reservas", $whereArray);
     $resumen = $reservasControl->getResumenReservas();
-    $contenido = [$reservas, $resumen];
-    return $contenido;
+    return [$reservas, $total, $pagina, $resumen];
 }
 
+function renderizarFilas($reservas)
+{
+    ob_start();
+    foreach ($reservas as $reserva) {
+        include ROOT . "vistas/panel/reservas/fila_reserva.php";
+    }
+    return ob_get_clean();
+}
 
+function renderizarPaginador($pagina, $totalPaginas)
+{
+    ob_start();
+    ?>
+    <ul id="paginadorReservas" class="pagination">
+        <li id="btnAnterior" class="page-item <?= $pagina <= 1 ? 'disabled' : '' ?>">
+            <a class="page-link paginar" href="#" data-p="<?= $pagina - 1 ?>">Anterior</a>
+        </li>
+        <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+            <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+                <a class="page-link paginar" href="#" data-p="<?= $i ?>"><?= $i ?></a>
+            </li>
+        <?php endfor; ?>
+        <li id="btnSiguiente" class="page-item <?= $pagina >= $totalPaginas ? 'disabled' : '' ?>">
+            <a class="page-link paginar" href="#" data-p="<?= $pagina + 1 ?>">Siguiente</a>
+        </li>
+    </ul>
+    <?php
+    return ob_get_clean();
+}
 
-//Para la primera vez que se carge la página.
-$reservas = $comun->getReservas();
-$columnas = $reservasControl->getColums();
-$resumen = $reservasControl->getResumenReservas();
+function renderizarResumen($resumen)
+{
+    ob_start();
+    ?>
+    <tr class="table-secondary fw-bold">
+        <td>TOTAL</td>
+        <td></td>
+        <td></td>
+        <td><?= $resumen["total_huespedes"] ?></td>
+        <td></td>
+        <td></td>
+        <td><?= $resumen["total_bruto"] ?>€</td>
+        <td><?= $resumen["total_descuento"] ?>%</td>
+        <td><?= $resumen["total_comision"] ?>%</td>
+        <td><?= $resumen["total_final"] ?>€</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <?php
+    return ob_get_clean();
+}
 
+// Carga inicial (sin action)
+if (empty($_POST["action"])) {
+    $pagina = isset($_SESSION["pagina_actual_reservas"]) ? intval($_SESSION["pagina_actual_reservas"]) : 1;
+    $offset = ($pagina - 1) * $porPag;
+    $reservas = $comun->getPaginado("reservas", [], $porPag, $offset);
+    foreach ($reservas as &$res) {
+        $res['url_checkin'] = $comun->Get_url_customer_booking($res['id']);
+    }
+    unset($res);
+    $total = $comun->getTotal("reservas", []);
+    $resumen = $reservasControl->getResumenReservas();
+    $columnas = $reservasControl->getColums();
+    return;
+}
 
 switch ($_POST["action"]) {
     case "insert":
-
-        //Gestionar formulario 
         parse_str($_POST["datos"], $form);
-
-        //Guardar la reserva creada.
         $guardado = $reservasControl->guardarReserva($form);
 
-        //Guardar cliente casa e idReserva en la tabla reservas_huespedes
+        if (!empty($guardado) && !empty($form["casa"]) && !empty($form["id_cliente"])) {
+            require_once ROOT . "modelos/panel/huespedes/index.php";
+            $huespedesControl = new huespedes();
+            $huespedesControl->guardarHuesped([
+                "id_reserva" => $guardado,
+                "id_casa" => $form["casa"],
+                "id_cliente" => $form["id_cliente"],
+                "es_titular" => 1
+            ]);
+        }
 
-        //Actualizamos el contenido 
-        $contenido = actualizar();
+        $datos = cargarPaginador();
+        $totalPaginas = ceil($datos[1] / $porPag);
 
         echo json_encode([
             "ok" => !empty($guardado),
-            "reservas" => $contenido[0],
-            "resumen" => $contenido[1],
+            "HTML" => renderizarFilas($datos[0]),
+            "paginadorHTML" => renderizarPaginador($datos[2], $totalPaginas),
+            "resumenHTML" => renderizarResumen($datos[3]),
+            "resumen" => $datos[3],
             "error" => $guardado ? null : "no se pudo gurardar"
         ]);
         break;
+
     case "update":
         try {
             parse_str($_POST["datos"], $form);
-
             $reservasControl->editarReserva($form);
 
-            $reservaActualizada = $comun->getReservaById($form["id"]);
+            if (!empty($form["casa"]) && !empty($form["id_cliente"])) {
+                $titular = $comun->getTitularReserva($form["id"]);
+                require_once ROOT . "modelos/panel/huespedes/index.php";
+                $huespedesControl = new huespedes();
+                if (!empty($titular)) {
+                    $huespedesControl->editarHuesped([
+                        "id" => $titular[0]["id"],
+                        "id_reserva" => $form["id"],
+                        "id_casa" => $form["casa"],
+                        "id_cliente" => $form["id_cliente"],
+                        "es_titular" => 1
+                    ]);
+                } else {
+                    $huespedesControl->guardarHuesped([
+                        "id_reserva" => $form["id"],
+                        "id_casa" => $form["casa"],
+                        "id_cliente" => $form["id_cliente"],
+                        "es_titular" => 1
+                    ]);
+                }
+            }
 
-            //Actualizamos el contenido 
-            $contenido = actualizar();
+            $datos = cargarPaginador();
+            $totalPaginas = ceil($datos[1] / $porPag);
 
             echo json_encode([
                 "ok" => true,
-                "reserva" => $reservaActualizada,
-                "reservas" => $contenido[0]
+                "HTML" => renderizarFilas($datos[0]),
+                "paginadorHTML" => renderizarPaginador($datos[2], $totalPaginas),
+                "resumenHTML" => renderizarResumen($datos[3]),
+                "resumen" => $datos[3]
             ]);
         } catch (Exception $e) {
             echo json_encode([
@@ -69,47 +189,37 @@ switch ($_POST["action"]) {
                 "error" => "No se pudo actualizar la reserva: " . $e->getMessage()
             ]);
         }
-
         break;
 
     case "delete":
         $id = $_POST["id"];
-        //Eliminamos el id que nos pasan de js 
         $reservasControl->eliminarPorId($id);
 
-        //Actualizamos el contenido 
-        $contenido = actualizar();
+        $datos = cargarPaginador();
+        $totalPaginas = ceil($datos[1] / $porPag);
 
         echo json_encode([
             "HTML" => "El registro con ID $id ha sido eliminado correctamente.",
-            "reservas" => $contenido[0],
-            "resumen" => $contenido[1]
+            "HTMLtabla" => renderizarFilas($datos[0]),
+            "paginadorHTML" => renderizarPaginador($datos[2], $totalPaginas),
+            "resumenHTML" => renderizarResumen($datos[3]),
+            "resumen" => $datos[3]
         ]);
         break;
 
-        /*
-case "actualizarResumen":
-    $resumen = $reservasControl->getResumenReservas();
-    ob_start();
-    ?>
-        <tr class="table-secondary fw-bold">
-                <td>TOTAL</td>
-                <td></td>
-                <td><?= $resumen["total_huespedes"] ?></td>
-                <td></td>
-                <td></td>
-                <td><?= $resumen["total_bruto"] ?></td>
-                <td><?= $resumen["total_descuento"] ?></td>
-                <td><?= $resumen["total_comision"] ?></td>
-                <td><?= $resumen["total_final"] ?></td>
-                <td></td>
-            </tr>
-    <?php
-    $html = ob_get_clean();
-
-    // devolvemos JSON
-    echo json_encode([
-        "HTML" => $html
-    ]);
-    exit;*/
+    case "listar":
+        if (isset($_POST["p"])) {
+            $_SESSION["pagina_actual_reservas"] = intval($_POST["p"]);
+        }
+        $datos = cargarPaginador();
+        $totalPaginas = ceil($datos[1] / $porPag);
+        echo json_encode([
+            "pagina" => $datos[2],
+            "totalPaginas" => $totalPaginas,
+            "HTML" => renderizarFilas($datos[0]),
+            "paginadorHTML" => renderizarPaginador($datos[2], $totalPaginas),
+            "resumenHTML" => renderizarResumen($datos[3]),
+            "resumen" => $datos[3]
+        ]);
+        break;
 }

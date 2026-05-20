@@ -10,10 +10,37 @@ var checkin = {
             //Quitar el foco del elemento modal
             document.activeElement.blur();
         });
+        // Cargar países y provincias (solo para el modal de nuevo cliente)
+        $.ajax({
+            url: ROOT_AJAX,
+            type: "POST",
+            dataType: "json",
+            data: {
+                pagina: "libreria/php/comunAjax.php",
+                action: "NaciProv"
+            },
+            success: function (data) {
+                let htmlP = '<option value="" disabled selected>Seleccione una provincia</option>';
+                let htmlN = '<option value="" disabled selected>Seleccione un País</option>';
 
-        // Evento para cargar municipios
-        $(document).off("change", "select[name='provincia']");
-        $(document).on("change", "select[name='provincia']", function () {
+                if (data.paises) {
+                    data.paises.forEach(m => {
+                        htmlN += `<option value="${m.id}">${m.nombre}</option>`;
+                    });
+                }
+                $("select[name='nacionalidad_id']").html(htmlN);
+                $("select[id='pais']").html(htmlN);
+
+                if (data.provincias) {
+                    data.provincias.forEach(m => {
+                        htmlP += `<option value="${m.id}">${m.Provincia}</option>`;
+                    });
+                }
+                $("#provincia_cliente").html(htmlP);
+            }
+        });
+        // Evento para cargar municipios en Check-in
+        $(document).off("change", "#provincia_cliente").on("change", "#provincia_cliente", function () {
 
             let idProvincia = $(this).val();
 
@@ -33,26 +60,18 @@ var checkin = {
                         html += `<option value="${m.id}">${m.Municipio}</option>`;
                     });
 
-                    $("select[name='localidad']").html(html);
+                    $("#localidad_cliente").html(html);
                 }
             });
         });
 
-        /*
-        $.ajax({
-            url: ROOT_AJAX,
-            type: "POST",
-            dataType: "json",
-            data: {
-                pagina: "libreria/html/form_editar_reservas.html",
-            }
-        });*/
+   
     },
     validarForm: function () {
 
         //Validación Bootstrap simple
 
-        const form = document.getElementById('formCliente');
+        const form = document.getElementById('formClientes');
 
         // si algun campo incorrecto
         if (!form.checkValidity()) {
@@ -65,7 +84,7 @@ var checkin = {
     eventoEnviar: function () {
         //Enviar el formulario por jquery-ajax 
         //Accedo al formulario por id
-        $("#formCliente").on('submit', function (event) {
+        $("#formClientes").on('submit', function (event) {
             // evitar recargar la página
             event.preventDefault();
             event.stopPropagation();
@@ -102,9 +121,9 @@ var checkin = {
                     // si quedan por registrar huespedes
                     if (Number(respuesta.registrados) < Number(respuesta.total)) {
                         //Limpiar el formulario
-                        $("#formCliente")[0].reset();
-                        $("#formCliente").removeClass("was-validated");
-                        $("#formCliente").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
+                        $("#formClientes")[0].reset();
+                        $("#formClientes").removeClass("was-validated");
+                        $("#formClientes").find(".is-valid, .is-invalid").removeClass("is-valid is-invalid");
 
                         /*mensaje de Huésped guardado( pasado a comun.js)
                             $("#modalCheckinBody").html("Huésped guardado correctamente.Faltan " + (respuesta.total - respuesta.registrados) + " por registrar.");
@@ -124,9 +143,9 @@ var checkin = {
                         </div>
                     `);
                         //ocultar el formulario para que no ingresen huespedes más de la cuenta 
-                        $("#formCliente").hide();
+                        $("#formClientes").hide();
                         // Desactivar por si acaso
-                        $("#formCliente :input").prop("disabled", true);
+                        $("#formClientes :input").prop("disabled", true);
                     }
 
 

@@ -4,7 +4,7 @@
     <button style="display: none" id="vaciar-cliente-vivo" type="button" class="btn btn-danger" onclick="clienteEnVivo.desbloquearCampo()">Vaciar Cliente</button>
 </div>
 <input type="hidden" name="id_cliente" id="id-cliente-vivo" value="<?php echo $parametros->idClienteMarcado ?>">
-<div id="content-busqueda-cliente-vivo"></div>
+<div id="content-busqueda-cliente-vivo" class="busqueda-cliente "></div>
 
 
 <script type="text/javascript">

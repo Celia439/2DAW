@@ -2,8 +2,8 @@
 
 class clientes
 {
- //Get cliente paginado y getClienteById ahora esta dentro de comun.php
- 
+    //Get cliente paginado ahora esta dentro de comun.php
+
     function getTotalClientes($filtros = [])
     {
         require_once CONSULTAS;
@@ -88,7 +88,15 @@ class clientes
         $dbControl->delete($parametros);
     }
 
-
+    function getClienteById($id)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "clientes";
+        $parametros->where = "id = $id";
+        return $dbControl->select($parametros);
+    }
 
     function editarCliente($form)
     {
@@ -125,12 +133,18 @@ class clientes
         require_once CONSULTAS;
         $dbControl = new Database();
         $parametros = new stdClass();
-
-        $parametros->tabla = "clientes";
+        $parametros->campos = [
+            "c.*",
+            "p.Provincia as provinciaN",
+            "m.Municipio as localidadN"
+        ];
+        $parametros->tabla = "clientes c
+         LEFT JOIN provincias p ON c.provincia = p.id 
+         LEFT JOIN municipios m ON c.localidad = m.id";
         $parametros->order = "id DESC";
 
 
-        if (!empty($offset) && !empty($porPag)) {
+        if (isset($offset) && isset($porPag) && $porPag > 0) {
             $parametros->limit = "$offset,$porPag";
         }
 
@@ -159,7 +173,7 @@ class clientes
             }
 
             if (!empty($searchTerms)) {
-                $where[] = "(" . implode(" OR ", $searchTerms) . ")";
+                $where[] = "(" . implode(" AND ", $searchTerms) . ")";
             }
         }
 
@@ -169,5 +183,4 @@ class clientes
 
         return $dbControl->select($parametros);
     }
-
 }

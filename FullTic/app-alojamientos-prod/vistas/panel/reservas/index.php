@@ -1,13 +1,19 @@
 <?php
+
 if (!$_SESSION["id_user"]) {
     header("Location: login");
     exit;
 }
 
+//paginador
+$totalPaginas = ceil($total / $porPag);
+
+
 ?>
 <div class="container mt-5">
     <main>
-        <h3 class="d-flex justify-content-between p-3">Reservas<button id="btnNuevaReserva" class="btn btn-outline-success">Nuevo</button></h3>
+        <h3 class="d-flex justify-content-between p-3">Reservas<button id="btnNuevaReserva"
+                class="btn btn-outline-success">Nuevo</button></h3>
 
 
         <form id="filtrosReservas" novalidate>
@@ -75,6 +81,7 @@ if (!$_SESSION["id_user"]) {
                     <th>Descuento</th>
                     <th>Comisión</th>
                     <th>Importe final</th>
+                    <th>Link</th>
                     <th></th>
                     <th></th>
                     <?php
@@ -89,6 +96,8 @@ if (!$_SESSION["id_user"]) {
             </thead>
             <tbody>
                 <?php
+                require_once LIBRERIA_PHP . "comun.php";
+                $comun = new comun();
                 if ($reservas) {
                     foreach ($reservas as $reserva)
                         include ROOT . "vistas/panel/reservas/fila_reserva.php";
@@ -103,98 +112,46 @@ if (!$_SESSION["id_user"]) {
                     <td id="total_huespedes_resumen"><?= $resumen["total_huespedes"] ?></td>
                     <td></td>
                     <td></td>
-                    <td id="total_bruto_resumen"><?= $resumen["total_bruto"] ?></td>
-                    <td id="total_descuento_resumen"><?= $resumen["total_descuento"] ?></td>
-                    <td id="total_comision_resumen"><?= $resumen["total_comision"] ?></td>
-                    <td id="total_final_resumen"><?= $resumen["total_final"] ?></td>
+                    <td id="total_bruto_resumen"><?= $resumen["total_bruto"] ?>€</td>
+                    <td id="total_descuento_resumen"><?= $resumen["total_descuento"] ?>%</td>
+                    <td id="total_comision_resumen"><?= $resumen["total_comision"] ?>%</td>
+                    <td id="total_final_resumen"><?= $resumen["total_final"] ?>€</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
             </tfoot>
         </table>
-
-        <!--Modal nueva casa-->
-        <?php
-       /* $contenidoFormulario = '
-<form id="formReservas" action="#" method="post" class="needs-validation" novalidate>
-    <div class="row g-3">
-
-        <!-- canal -->
-        <div class="col-6">
-            <label class="form-label" for="canal">Canal</label>
-            <select id="canal" class="form-select" name="canal" required>
-                <option value="" selected disabled>Seleccione canal</option>
-                <option value="B">Booking</option>
-                <option value="A">Airbnb</option>
-                <option value="D">Direct</option>
-                <option value="O">Otro</option>
-            </select>
-            <div class="invalid-feedback">Seleccione un canal válido.</div>
-        </div>
-
-        <!-- total_huespedes -->
-        <div class="col-6">
-            <label class="form-label" for="total_huespedes">Total huéspedes</label>
-            <input id="total_huespedes" type="number" class="form-control" name="total_huespedes"
-                   required min="1" max="50">
-            <div class="invalid-feedback">Introduzca el número total de huéspedes.</div>
-        </div>
-
-        <!-- fecha_entrada -->
-        <div class="col-6">
-            <label class="form-label" for="fecha_entrada">Fecha de entrada</label>
-            <input id="fecha_entrada" type="date" class="form-control" name="fecha_entrada" required>
-            <div class="invalid-feedback">Seleccione una fecha de entrada válida.</div>
-        </div>
-
-        <!-- fecha_salida -->
-        <div class="col-6">
-            <label class="form-label" for="fecha_salida">Fecha de salida</label>
-            <input id="fecha_salida" type="date" class="form-control" name="fecha_salida" required>
-            <div class="invalid-feedback">Seleccione una fecha de salida válida.</div>
-        </div>
-
-        <!-- importe_bruto -->
-        <div class="col-6">
-            <label class="form-label" for="importe_bruto">Importe bruto</label>
-            <input id="importe_bruto" type="number" step="0.01" class="form-control" name="importe_bruto"
-                   required min="0">
-            <div class="invalid-feedback">Introduzca un importe bruto válido.</div>
-        </div>
-
-        <!-- descuento -->
-        <div class="col-6">
-            <label class="form-label" for="descuento">Descuento</label>
-            <input id="descuento" type="number" step="0.01" class="form-control" name="descuento"
-                   required min="0">
-            <div class="invalid-feedback">Introduzca un descuento válido.</div>
-        </div>
-
-        <!-- comision -->
-        <div class="col-6">
-            <label class="form-label" for="comision">Comisión</label>
-            <input id="comision" type="number" step="0.01" class="form-control" name="comision"
-                   required min="0">
-            <div class="invalid-feedback">Introduzca una comisión válida.</div>
-        </div>
-
-        <!-- num_reserva -->
-        <div class="col-6">
-            <label class="form-label" for="num_reserva">Número de reserva</label>
-            <input id="num_reserva" type="text" class="form-control" name="num_reserva"
-                   required maxlength="30">
-            <div class="invalid-feedback">Introduzca un número de reserva válido.</div>
-        </div>
-
-    </div>
-
-    <div class="mt-3">
-        <button type="submit" class="btn btn-outline-success">Registrar</button>
-    </div>
-</form>
-';
-        $titulo = "Nueva reserva";
-        $idModal = "modalReserva";*/
-        ?>
     </main>
+    <nav aria-label="Page navigation">
+        <ul id="paginadorReservas" class="pagination">
+
+            <!-- Botón anterior -->
+            <li id="btnAnterior" class="page-item <?= $pagina <= 1 ? 'disabled' : '' ?>">
+                <a class="page-link paginar" href="#" data-p="<?= $pagina - 1 ?>">Anterior</a>
+            </li>
+
+            <!-- Números -->
+            <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                <li class="page-item <?= $i == $pagina ? 'active' : '' ?>">
+                    <a class="page-link paginar" href="#" data-p="<?= $i ?>">
+                        <?= $i ?>
+                    </a>
+                </li>
+            <?php endfor; ?>
+
+            <!-- Botón siguiente -->
+            <li id="btnSiguiente" class="page-item <?= $pagina >= $totalPaginas ? 'disabled' : '' ?>">
+                <a class="page-link paginar" href="#" data-p="<?= $pagina + 1 ?>">Siguiente</a>
+            </li>
+
+        </ul>
+    </nav>
+    <!--Script de reservas-->
+    <script type="text/javascript" src="<?php echo ROOT_URL . "vistas/panel/reservas/index.js" ?>"></script>
+    
+    <script>
+        reservas.paginaActual = <?= $pagina ?>;
+        reservas.totalPaginas = <?= $totalPaginas ?>;
+    </script>
 </div>
