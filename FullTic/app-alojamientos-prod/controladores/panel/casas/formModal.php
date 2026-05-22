@@ -55,35 +55,35 @@ ob_start();
         <!-- Nombre -->
         <div class="col-6">
             <label class="form-label" for="nombre_e">Nombre</label>
-            <input type="text" id="nombre_e" class="form-control" name="nombre" value="<?= htmlspecialchars($nombre) ?>" required minlength="2" maxlength="100">
+            <input type="text" id="nombre_e" class="form-control" name="nombre" value="<?= htmlspecialchars($nombre) ?>" required minlength="2" maxlength="100" placeholder="Ej: Casa Rural El Lago">
             <div class="invalid-feedback">El nombre es obligatorio.</div>
         </div>
 
         <!-- Huéspedes -->
         <div class="col-6">
             <label class="form-label" for="max_huespedes_e">Huéspedes</label>
-            <input type="number" id="max_huespedes_e" class="form-control" name="max_huespedes" value="<?= $max_huespedes ?>" required min="1" max="50">
+            <input type="number" id="max_huespedes_e" class="form-control" name="max_huespedes" value="<?= $max_huespedes ?>" required min="1" max="50" placeholder="Ej: 6">
             <div class="invalid-feedback">Indica el número de huéspedes.</div>
         </div>
 
         <!-- Habitaciones -->
         <div class="col-6">
             <label class="form-label" for="hab_e">Habitaciones</label>
-            <input type="number" id="hab_e" class="form-control" name="hab" value="<?= $hab ?>" required min="1" max="20">
+            <input type="number" id="hab_e" class="form-control" name="hab" value="<?= $hab ?>" required min="1" max="20" placeholder="Ej: 3">
             <div class="invalid-feedback">Indica cuántas habitaciones tiene.</div>
         </div>
 
         <!-- Baños -->
         <div class="col-6">
             <label class="form-label" for="banios_e">Baños</label>
-            <input type="number" id="banios_e" class="form-control" name="banios" value="<?= $banios ?>" required min="1" max="20">
+            <input type="number" id="banios_e" class="form-control" name="banios" value="<?= $banios ?>" required min="1" max="20" placeholder="Ej: 2">
             <div class="invalid-feedback">Indica cuántos baños tiene.</div>
         </div>
 
         <!-- Dirección -->
         <div class="col-12">
             <label class="form-label" for="direccion_e">Dirección</label>
-            <input type="text" id="direccion_e" class="form-control" name="direccion" value="<?= htmlspecialchars($direccion) ?>" required minlength="5" maxlength="200">
+            <input type="text" id="direccion_e" class="form-control" name="direccion" value="<?= htmlspecialchars($direccion) ?>" required minlength="5" maxlength="200" placeholder="Ej: Calle Mayor, 15">
             <div class="invalid-feedback">La dirección es obligatoria.</div>
         </div>
 
@@ -114,14 +114,14 @@ ob_start();
         <!-- Descripción -->
         <div class="col-12">
             <label class="form-label" for="descripcion_e">Descripción</label>
-            <textarea id="descripcion_e" class="form-control" name="descripcion" required minlength="10" maxlength="500"><?= htmlspecialchars($descripcion) ?></textarea>
+            <textarea id="descripcion_e" class="form-control" name="descripcion" required minlength="10" maxlength="500" placeholder="Describe el alojamiento..."><?= htmlspecialchars($descripcion) ?></textarea>
             <div class="invalid-feedback">La descripción es obligatoria.</div>
         </div>
 
         <!-- Precio por noche -->
         <div class="col-6">
             <label class="form-label" for="precio_noche_e">Precio por noche</label>
-            <input type="number" id="precio_noche_e" class="form-control" name="precio_noche" value="<?= $precio_noche ?>" required min="1" max="9999">
+            <input type="number" id="precio_noche_e" class="form-control" name="precio_noche" value="<?= $precio_noche ?>" required min="1" max="9999" placeholder="Ej: 120">
             <div class="invalid-feedback">Indica un precio válido.</div>
         </div>
     </div>

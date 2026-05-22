@@ -11,7 +11,7 @@
     <td><?php echo $cliente["telefono_movil"] ?></td>
     <td><?php echo $cliente["correo"] ?></td>
     <td>
-        <button class="btn btn-sm btn-outline-primary editarCliente">Editar</button>
+        <a href="<?= PANEL_URL ?>clientes/formulario?id=<?= $cliente['id'] ?>" class="btn btn-sm btn-outline-primary">Editar</a>
         <button class="btn btn-sm btn-outline-danger delete deleteCliente">Eliminar</button>
     </td>
 </tr>

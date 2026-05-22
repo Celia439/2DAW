@@ -143,6 +143,11 @@ var reservas = {
     });
   },
   RellenarTabla: function (r) {
+    if (!Array.isArray(r)) {
+      console.warn("RellenarTabla: se esperaba un array, se recibió:", r);
+      $("#tablaReservas tbody").html('<tr><td colspan="13" class="text-center text-muted">Sin resultados</td></tr>');
+      return;
+    }
     //vaciar el tbody
     $("#tablaReservas tbody").empty();
 
@@ -261,11 +266,10 @@ var reservas = {
         },
         success: function (respuesta) {
           if (respuesta.ok === true) {
+            let tipo = respuesta.emailError ? "warning" : "success";
             comun.mostrarAlerta(
-              "Factura con id " +
-                respuesta.registro.id +
-                " realizada correctamente",
-              "success",
+              respuesta.mensaje || "Factura con id " + respuesta.registro.id + " realizada correctamente",
+              tipo,
             );
           } else {
             comun.mostrarAlerta(
@@ -355,6 +359,12 @@ var reservas = {
               if (respuesta.paginadorHTML) {
                 $("#paginadorReservas").replaceWith(respuesta.paginadorHTML);
               }
+              if (typeof respuesta.pagina !== 'undefined') {
+                reservas.paginaActual = respuesta.pagina;
+              }
+              if (typeof respuesta.totalPaginas !== 'undefined') {
+                reservas.totalPaginas = respuesta.totalPaginas;
+              }
             } else {
               comun.mostrarAlerta(
                 "Error: " + (respuesta.error || "Datos inválidos enviados"),
@@ -442,6 +452,12 @@ var reservas = {
               }
               if (data.paginadorHTML) {
                 $("#paginadorReservas").replaceWith(data.paginadorHTML);
+              }
+              if (typeof data.pagina !== 'undefined') {
+                reservas.paginaActual = data.pagina;
+              }
+              if (typeof data.totalPaginas !== 'undefined') {
+                reservas.totalPaginas = data.totalPaginas;
               }
               comun.mostrarAlerta("Reserva eliminada correctamente", "success");
             },

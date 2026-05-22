@@ -101,6 +101,7 @@ switch ($_POST["action"]) {
         $datos = cargarPaginador();
         $totalPaginas = ceil($datos[1] / $porPag);
         echo json_encode([
+            "ok" => true,
             "HTML" => renderizarFilas($datos[0]),
             "pagina" => $datos[2],
             "totalPaginas" => $totalPaginas,

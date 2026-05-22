@@ -30,3 +30,5 @@
         ?>
     </div>
 </main>
+
+<script type="text/javascript" src="<?php echo ROOT_URL . "vistas/publico/check-in/index.js" ?>"></script>

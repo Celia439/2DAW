@@ -5,6 +5,10 @@ if (!$_SESSION["id_user"]) {
     exit;
 }
 
+// Asegurar que siempre haya valores válidos para el paginador
+if (!isset($pagina) || !is_numeric($pagina)) $pagina = 1;
+if (!isset($totalPaginas) || !is_numeric($totalPaginas)) $totalPaginas = 1;
+
 //paginador
 $totalPaginas = ceil($total / $porPag);
 
@@ -47,12 +51,12 @@ $totalPaginas = ceil($total / $porPag);
 
                     <div class="col-12 col-md-3">
                         <label for="desdeF">Desde</label>
-                        <input id="desdeF" class="form-control" type="date">
+                        <input id="desdeF" class="form-control" type="date" placeholder="Desde">
                     </div>
 
                     <div class="col-12 col-md-3">
                         <label for="hastaF">Hasta</label>
-                        <input id="hastaF" class="form-control" type="date">
+                        <input id="hastaF" class="form-control" type="date" placeholder="Hasta">
                     </div>
 
                 </div>
@@ -148,7 +152,7 @@ $totalPaginas = ceil($total / $porPag);
         </ul>
     </nav>
     <!--Script de reservas-->
-    <script type="text/javascript" src="<?php echo ROOT_URL . "vistas/panel/reservas/index.js" ?>"></script>
+    <script type="text/javascript" src="<?php echo ROOT_URL . "vistas/panel/reservas/index.js?v=2" ?>"></script>
     
     <script>
         reservas.paginaActual = <?= $pagina ?>;

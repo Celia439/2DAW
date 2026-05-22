@@ -10,7 +10,7 @@
                     <div class="col-md-6">
                         <label class="form-label" for="nombre">Nombre</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" required
-                            pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" maxlength="50">
+                            pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" maxlength="50" placeholder="Ej: María">
                         <div class="invalid-feedback">Introduce un nombre válido.</div>
                     </div>
 
@@ -18,7 +18,7 @@
                     <div class="col-md-6">
                         <label class="form-label" for="primer_apellido">Primer apellido</label>
                         <input type="text" class="form-control" id="primer_apellido" name="primer_apellido" required
-                            pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" maxlength="50">
+                            pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" maxlength="50" placeholder="Ej: García">
                         <div class="invalid-feedback">Introduce un primer apellido válido.</div>
                     </div>
 
@@ -26,7 +26,7 @@
                     <div class="col-md-6">
                         <label class="form-label" for="segundo_apellido">Segundo apellido</label>
                         <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" required
-                            pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" maxlength="50">
+                            pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" maxlength="50" placeholder="Ej: López">
                         <div class="invalid-feedback">Introduce un segundo apellido válido.</div>
                     </div>
 
@@ -66,7 +66,7 @@
                     <div class="col-md-6">
                         <label class="form-label" for="numero_soporte_documento">Número de soporte</label>
                         <input type="text" class="form-control" id="numero_soporte_documento" name="numero_soporte_documento"
-                            required maxlength="20">
+                            required maxlength="20" placeholder="Ej: ABC123456">
                         <div class="invalid-feedback">Introduce un número de soporte válido.</div>
                     </div>
 
@@ -105,7 +105,7 @@
                     <!-- correo -->
                     <div class="col-md-6">
                         <label class="form-label" for="correo">Correo electrónico</label>
-                        <input type="email" class="form-control" id="correo" name="correo" required>
+                        <input type="email" class="form-control" id="correo" name="correo" required placeholder="Ej: cliente@email.com">
                         <div class="invalid-feedback">Introduce un correo válido.</div>
                     </div>
 
@@ -157,7 +157,7 @@
                     <!-- direccion -->
                     <div class="col-md-6">
                         <label class="form-label" for="direccion">Dirección</label>
-                        <input type="text" class="form-control" id="direccion" name="direccion" required maxlength="100">
+                        <input type="text" class="form-control" id="direccion" name="direccion" required maxlength="100" placeholder="Ej: Calle Mayor, 15">
                         <div class="invalid-feedback">Introduce una dirección válida.</div>
                     </div>
 
@@ -165,7 +165,7 @@
                     <div class="col-md-6">
                         <label class="form-label" for="codigo_postal">Código postal</label>
                         <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" required
-                            pattern="^[0-9]{5}$">
+                            pattern="^[0-9]{5}$" placeholder="Ej: 28001">
                         <div class="invalid-feedback">Introduce un código postal válido.</div>
                     </div>
                 </div>

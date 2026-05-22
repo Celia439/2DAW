@@ -31,7 +31,7 @@ switch ($_POST["action"]) {
             "casa" => $ultCasa,
             "casas" => $casas
         ]);
-        break;
+        exit;
     case "update":
         parse_str($_POST["datos"], $form);
         $casasControl->editarCasa($form);
@@ -40,7 +40,7 @@ switch ($_POST["action"]) {
             "ok" => true,
             "casas" => $casas
         ]);
-        break;
+        exit;
 
     case "delete":
         $id = $_POST["id"];
@@ -49,8 +49,9 @@ switch ($_POST["action"]) {
 
         $casas = $comun->getCasas([]);
         echo json_encode([
+            "ok" => true,
             "HTML" => "El registro con ID $id ha sido eliminado correctamente.",
             "casas" => $casas
         ]);
-        break;
+        exit;
 }

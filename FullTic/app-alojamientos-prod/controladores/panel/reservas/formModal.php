@@ -80,7 +80,7 @@ echo <<<HTML
         <div class="col-6">
             <label class="form-label" for="total_huespedes">Total huéspedes</label>
             <input id="total_huespedes" type="number" class="form-control" 
-                   name="total_huespedes" value="{$total_huespedes}" required min="1" max="50">
+                   name="total_huespedes" value="{$total_huespedes}" required min="1" max="50" placeholder="Ej: 4">
         </div>
 
         <div class="col-6">
@@ -98,25 +98,25 @@ echo <<<HTML
         <div class="col-6">
             <label class="form-label" for="importe_bruto">Importe bruto</label>
             <input id="importe_bruto" type="number" step="0.01" class="form-control" 
-                   name="importe_bruto" value="{$importe_bruto}" required min="0">
+                   name="importe_bruto" value="{$importe_bruto}" required min="0" placeholder="Ej: 250.00">
         </div>
 
         <div class="col-6">
             <label class="form-label" for="descuento">Descuento</label>
             <input id="descuento" type="number" step="0.01" class="form-control" 
-                   name="descuento" value="{$descuento}" required min="0">
+                   name="descuento" value="{$descuento}" required min="0" placeholder="Ej: 10.00">
         </div>
 
         <div class="col-6">
             <label class="form-label" for="comision">Comisión</label>
             <input id="comision" type="number" step="0.01" class="form-control" 
-                   name="comision" value="{$comision}" required min="0">
+                   name="comision" value="{$comision}" required min="0" placeholder="Ej: 15.00">
         </div>
 
         <div class="col-6">
             <label class="form-label" for="num_reserva">Número de reserva</label>
             <input id="num_reserva" type="text" class="form-control" 
-                   name="num_reserva" value="{$num_reserva}" required maxlength="30">
+                   name="num_reserva" value="{$num_reserva}" required maxlength="30" placeholder="Ej: RES-2025-001">
         </div>
         <!--Cliente y casa-->
         <div class="col-6">

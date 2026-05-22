@@ -31,7 +31,7 @@ define("CONSULTAS", LIBRERIA_PHP . "mysql/mysql.php");
 //Nueva ruta para acceder a modelos check-in 
 define("MODELOS_CHECKIN", ROOT . "modelos/publico/check-in");
 //Para acceder a panel 
-define("PANEL_URL", "/app-alojamientos-prod/panel");
+define("PANEL_URL", "/app-alojamientos-prod/panel/");
 //Ruta para acceder a modelos login (si no lo tengo da error pero no debe)
 define("MODELOS_LOGIN", ROOT . "modelos/panel/login/index.php");
 //Ruta para acceder a modelos reservas?

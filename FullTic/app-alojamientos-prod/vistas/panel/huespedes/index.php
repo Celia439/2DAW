@@ -83,3 +83,5 @@
         </table>
     </main>
 </div>
+
+<script type="text/javascript" src="<?php echo ROOT_URL . "vistas/panel/huespedes/index.js" ?>"></script>

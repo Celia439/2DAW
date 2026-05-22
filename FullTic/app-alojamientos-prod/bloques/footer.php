@@ -30,10 +30,6 @@
 
 <!--Libreria js-->
 <script src="<?php echo LIBRERIA_JS ?>/comun.js"></script>
-<!--Script de check-in-->
-<script type="text/javascript" src="<?php echo ROOT_URL . "vistas/publico/check-in/index.js" ?>"></script>
-<!--Script de Casas-->
-<script type="text/javascript" src="<?php echo ROOT_URL . "vistas/panel/casas/index.js" ?>"></script>
 
 
 <!--LoadingOverlay-->

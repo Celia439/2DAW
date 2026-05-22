@@ -4,8 +4,7 @@ $totalPaginas = ceil($total / $porPag);
 
 ?>
 <div class="container mt-5">
-    <h3 class="d-flex justify-content-between p-3">Clientes<button class="btn btn-outline-success"
-            data-bs-toggle="modal" data-bs-target="#modalCliente">Nuevo</button></h3>
+    <h3 class="d-flex justify-content-between p-3">Clientes<a href="<?= PANEL_URL ?>clientes/formulario" class="btn btn-outline-success">Nuevo</a></h3>
 
     <form id="filtrosClientes" novalidate>
         <fieldset class="p-3">
@@ -29,12 +28,12 @@ $totalPaginas = ceil($total / $porPag);
                 <div class="col-12 col-md-3">
                     <label for="DNIF">DNI</label>
                     <input id="DNIF" type="text" pattern="^[0-9]{8}[A-Z]$" class="form-control" maxlength="9"
-                        minlength="9">
+                        minlength="9" placeholder="Ej: 12345678A">
                 </div>
 
                 <div class="col-12 col-md-3">
                     <label for="emailF">email</label>
-                    <input id="emailF" class="form-control" type="email">
+                    <input id="emailF" class="form-control" type="email" placeholder="Ej: cliente@email.com">
                 </div>
 
             </div>

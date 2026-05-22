@@ -18,15 +18,15 @@ class huespedes
         $dbControl = new Database();
         $parametros = new stdClass();
         $parametros->tabla = "reservas_huespedes";
-        $parametros->datosInsert = [
-            [
-
-                "id_reserva" => $form["id_reserva"],
-                "id_casa" => $form["id_casa"],
-                "id_cliente" => $form["id_cliente"],
-                "es_titular" => $form["es_titular"]
-            ]
+        $datos = [
+            "id_reserva" => $form["id_reserva"],
+            "id_casa" => $form["id_casa"],
+            "es_titular" => $form["es_titular"]
         ];
+        if (!empty($form["id_cliente"])) {
+            $datos["id_cliente"] = $form["id_cliente"];
+        }
+        $parametros->datosInsert = [$datos];
 
         $ids = $dbControl->insert($parametros);
         return $ids[0];
@@ -59,12 +59,15 @@ class huespedes
         $parametros = new stdClass();
         $parametros->tabla = "reservas_huespedes";
         $parametros->where = "id = " . $form["id"];
-        $parametros->datosUpdate = [
+        $datos = [
             "id_reserva" => $form["id_reserva"],
             "id_casa" => $form["id_casa"],
-            "id_cliente" => $form["id_cliente"],
             "es_titular" => $form["es_titular"]
         ];
+        if (!empty($form["id_cliente"])) {
+            $datos["id_cliente"] = $form["id_cliente"];
+        }
+        $parametros->datosUpdate = $datos;
         return $dbControl->update($parametros);
     }
 }

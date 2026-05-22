@@ -135,10 +135,21 @@ $pdf->SetY(-20);
 $pdf->SetFont('Arial', 'I', 8);
 $pdf->Cell(0, 10, iconv('UTF-8', 'windows-1252', 'Gracias por elegir Alojamientos Bambú. Documento justificante de pago.'), 0, 0, 'C');
 
-$pdf->Output("Factura_reserva.pdf", "F");
+$pdfPath = __DIR__ . "/Factura_reserva.pdf";
+try {
+    $pdf->Output($pdfPath, "F");
+} catch (Exception $e) {
+    echo json_encode([
+        "ok" => false,
+        "error" => "Error al generar el PDF: " . $e->getMessage()
+    ]);
+    exit;
+}
 
 // --- 7. ENVÍO POR EMAIL ---
 $mail = new PHPMailer(true);
+$emailError = null;
+
 try {
     $mail->isSMTP();
     $mail->Host = "smtp.panel247.com";
@@ -153,13 +164,16 @@ try {
 
     $mail->Subject = iconv('UTF-8', 'windows-1252', "Tu factura de reserva");
     $mail->Body    = "Hola. Adjuntamos la factura de tu estancia. ¡Gracias!";
-    $mail->addAttachment("Factura_reserva.pdf");
+    $mail->addAttachment($pdfPath);
     $mail->send();
 } catch (Exception $e) {
-    // Error silencioso
+    $emailError = $mail->ErrorInfo ?: $e->getMessage();
 }
 
 echo json_encode([
     "ok" => true,
-    "registro" => $titular
+    "registro" => $titular,
+    "emailError" => $emailError,
+    "mensaje" => $emailError ? "Factura generada, pero el email no se pudo enviar: $emailError" : "Factura generada y enviada correctamente."
 ]);
+exit;

@@ -236,7 +236,7 @@ class comun
             "c.*",
             "p.Provincia as provinciaN",
             "m.Municipio as localidadN"
-        ] : "*";
+        ] :["*"];
 
         $parametros->tabla = $tabla == "clientes" ? " c
          LEFT JOIN provincias p ON c.provincia = p.id 
@@ -244,7 +244,7 @@ class comun
 
         $parametros->order = $tabla == "clientes" ? "id DESC" : "fecha_entrada DESC";
 
-        if (isset($offset) && isset($porPag) && $porPag > 0) {
+        if (isset($offset) && isset($porPag) && $porPag > 0 && $offset >= 0) {
             $parametros->limit = "$offset,$porPag";
         }
 

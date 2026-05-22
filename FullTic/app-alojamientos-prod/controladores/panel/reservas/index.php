@@ -7,12 +7,12 @@ $porPag = 25;
 
 function cargarPaginador()
 {
-    global $comun;
+    global $comun, $reservasControl;
 
     $pagina = isset($_POST["p"])
-        ? intval($_POST["p"])
+        ? max(1, intval($_POST["p"]))
         : (isset($_SESSION["pagina_actual_reservas"])
-            ? intval($_SESSION["pagina_actual_reservas"])
+            ? max(1, intval($_SESSION["pagina_actual_reservas"]))
             : 1);
     $porPag = 25;
 
@@ -51,6 +51,7 @@ function cargarPaginador()
 
 function renderizarFilas($reservas)
 {
+    global $comun;
     ob_start();
     foreach ($reservas as $reserva) {
         include ROOT . "vistas/panel/reservas/fila_reserva.php";
@@ -104,7 +105,7 @@ function renderizarResumen($resumen)
 
 // Carga inicial (sin action)
 if (empty($_POST["action"])) {
-    $pagina = isset($_SESSION["pagina_actual_reservas"]) ? intval($_SESSION["pagina_actual_reservas"]) : 1;
+    $pagina = isset($_SESSION["pagina_actual_reservas"]) ? max(1, intval($_SESSION["pagina_actual_reservas"])) : 1;
     $offset = ($pagina - 1) * $porPag;
     $reservas = $comun->getPaginado("reservas", [], $porPag, $offset);
     foreach ($reservas as &$res) {
@@ -112,8 +113,9 @@ if (empty($_POST["action"])) {
     }
     unset($res);
     $total = $comun->getTotal("reservas", []);
+    $totalPaginas = ceil($total / $porPag);
     $resumen = $reservasControl->getResumenReservas();
-    $columnas = $reservasControl->getColums();
+ //  $columnas = $reservasControl->getColums();
     return;
 }
 
@@ -122,13 +124,13 @@ switch ($_POST["action"]) {
         parse_str($_POST["datos"], $form);
         $guardado = $reservasControl->guardarReserva($form);
 
-        if (!empty($guardado) && !empty($form["casa"]) && !empty($form["id_cliente"])) {
+        if (!empty($guardado) && !empty($form["casa"])) {
             require_once ROOT . "modelos/panel/huespedes/index.php";
             $huespedesControl = new huespedes();
             $huespedesControl->guardarHuesped([
                 "id_reserva" => $guardado,
                 "id_casa" => $form["casa"],
-                "id_cliente" => $form["id_cliente"],
+                "id_cliente" => $form["id_cliente"] ?? null,
                 "es_titular" => 1
             ]);
         }
@@ -139,35 +141,38 @@ switch ($_POST["action"]) {
         echo json_encode([
             "ok" => !empty($guardado),
             "HTML" => renderizarFilas($datos[0]),
+            "pagina" => $datos[2],
+            "totalPaginas" => $totalPaginas,
             "paginadorHTML" => renderizarPaginador($datos[2], $totalPaginas),
             "resumenHTML" => renderizarResumen($datos[3]),
             "resumen" => $datos[3],
             "error" => $guardado ? null : "no se pudo gurardar"
         ]);
-        break;
+        exit;
 
     case "update":
         try {
             parse_str($_POST["datos"], $form);
             $reservasControl->editarReserva($form);
 
-            if (!empty($form["casa"]) && !empty($form["id_cliente"])) {
+            if (!empty($form["casa"])) {
                 $titular = $comun->getTitularReserva($form["id"]);
                 require_once ROOT . "modelos/panel/huespedes/index.php";
                 $huespedesControl = new huespedes();
+                
                 if (!empty($titular)) {
                     $huespedesControl->editarHuesped([
                         "id" => $titular[0]["id"],
                         "id_reserva" => $form["id"],
                         "id_casa" => $form["casa"],
-                        "id_cliente" => $form["id_cliente"],
+                        "id_cliente" => $form["id_cliente"] ?? null,
                         "es_titular" => 1
                     ]);
                 } else {
                     $huespedesControl->guardarHuesped([
                         "id_reserva" => $form["id"],
                         "id_casa" => $form["casa"],
-                        "id_cliente" => $form["id_cliente"],
+                        "id_cliente" => $form["id_cliente"] ?? null,
                         "es_titular" => 1
                     ]);
                 }
@@ -179,10 +184,13 @@ switch ($_POST["action"]) {
             echo json_encode([
                 "ok" => true,
                 "HTML" => renderizarFilas($datos[0]),
+                "pagina" => $datos[2],
+                "totalPaginas" => $totalPaginas,
                 "paginadorHTML" => renderizarPaginador($datos[2], $totalPaginas),
                 "resumenHTML" => renderizarResumen($datos[3]),
                 "resumen" => $datos[3]
             ]);
+            exit;
         } catch (Exception $e) {
             echo json_encode([
                 "ok" => false,
@@ -201,11 +209,13 @@ switch ($_POST["action"]) {
         echo json_encode([
             "HTML" => "El registro con ID $id ha sido eliminado correctamente.",
             "HTMLtabla" => renderizarFilas($datos[0]),
+            "pagina" => $datos[2],
+            "totalPaginas" => $totalPaginas,
             "paginadorHTML" => renderizarPaginador($datos[2], $totalPaginas),
             "resumenHTML" => renderizarResumen($datos[3]),
             "resumen" => $datos[3]
         ]);
-        break;
+        exit;
 
     case "listar":
         if (isset($_POST["p"])) {
@@ -221,5 +231,5 @@ switch ($_POST["action"]) {
             "resumenHTML" => renderizarResumen($datos[3]),
             "resumen" => $datos[3]
         ]);
-        break;
+        exit;
 }

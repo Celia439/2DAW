@@ -27,10 +27,10 @@ switch ($_POST["action"]) {
 
         echo json_encode([
             "ok" => !empty($guardado),
-            "casa" => $ultHuesped,
+            "huesped" => $ultHuesped,
             "huespedes" => $huespedes
         ]);
-        break;
+        exit;
     case "update":
         parse_str($_POST["datos"], $form);
 
@@ -39,9 +39,10 @@ switch ($_POST["action"]) {
         $huespedes = $controlHuespedes->getHuespedes();
         
         echo json_encode([
+            "ok" => true,
             "huespedes" => $huespedes
         ]);
-        break;
+        exit;
 
     case "delete":
         $id = $_POST["id"];
@@ -51,8 +52,9 @@ switch ($_POST["action"]) {
         $huespedes = $controlHuespedes->getHuespedes();
 
         echo json_encode([
+            "ok" => true,
             "HTML" => "El registro con ID $id ha sido eliminado correctamente.",
             "huespedes" => $huespedes
         ]);
-        break;
+        exit;
 }

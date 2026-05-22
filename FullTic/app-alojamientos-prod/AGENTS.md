@@ -386,4 +386,29 @@ vistas/           → HTML/PHP visual (panel/ y publico/)
 
 ---
 
-*Última actualización: 2026-05-18 (sesión de mañana)*
+---
+
+## 15. Cambios realizados el 2026-05-19 (sesión de tarde)
+
+### Paginador implementado en Reservas y Clientes
+- `libreria/php/comun.php`: `getPaginado()` y `getTotal()` genericos para cualquier tabla.
+- `controladores/panel/reservas/index.php`: CRUD devuelve HTML prerenderado (`HTML`, `paginadorHTML`, `resumenHTML`) en vez de arrays JSON.
+- `controladores/panel/clientes/index.php`: mismo patrón adaptado a clientes.
+- **Bug crítico encontrado y resuelto:** El JS se cargaba dos veces (footer + vista), haciendo que `var reservas = {}` se sobreescribiera y borrara `paginaActual`/`totalPaginas`. Solución: mover el `<script src>` al final de la vista, después del `<script>` inline que setea las variables.
+- `controladores/panel/reservas/index.php`: añadido `exit;` tras cada respuesta AJAX para evitar que el controlador continúe ejecutándose.
+- `controladores/panel/reservas/index.php`: `max(1, intval(...))` en carga inicial y `cargarPaginador()` para evitar offsets negativos.
+- `libreria/php/comun.php`: `getPaginado()` ahora valida `$offset >= 0` antes de generar `LIMIT`.
+
+### Botón Link en reservas tras CRUD
+- `controladores/panel/reservas/index.php`: `renderizarFilas()` ahora incluye `global $comun;` para que `fila_reserva.php` pueda generar el botón Link tras insert/update/delete.
+
+### Placeholders en todos los formularios
+- Añadidos placeholders descriptivos en filtros (Casas, Clientes, Reservas) y en formularios modales (Casas, Clientes, Reservas, form_clientes.html, form_editar_reservas.htm).
+
+### Pendiente para mañana (último día de prácticas)
+- `vistas/panel/clientes/formulario.php`: mover formulario de clientes fuera del modal a una página aparte. La desarrolladora lo hará ella sola como ejercicio final.
+- Testing exhaustivo de todos los módulos antes de la reunión con el jefe (Raúl).
+
+---
+
+*Última actualización: 2026-05-19 (sesión de tarde)*

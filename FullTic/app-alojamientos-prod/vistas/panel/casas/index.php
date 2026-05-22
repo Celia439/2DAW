@@ -10,12 +10,12 @@
             <div class="row g-3">
                 <div class="col-12 col-md-3">
                     <label for="idF">ID</label>
-                    <input id="idF" class="form-control" type="number" minlength="1" min="0">
+                    <input id="idF" class="form-control" type="number" minlength="1" min="0" placeholder="Ej: 12">
                 </div>
 
                 <div class="col-12 col-md-3">
                     <label for="alojamientoF">Nombre alojamiento</label>
-                    <input id="alojamientoF" class="form-control" type="text" placeholder="alojamiento">
+                    <input id="alojamientoF" class="form-control" type="text" placeholder="Ej: Casa Rural El Lago">
                 </div>
 
 
@@ -79,6 +79,6 @@
         </tbody>
     </table>
 
-
+<script type="text/javascript" src="<?php echo ROOT_URL . "vistas/panel/casas/index.js" ?>"></script>
 
 </div>

@@ -19,18 +19,22 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/app-alojamientos-prod/config/index.ph
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
-                            href="<?php echo PANEL_URL . "/casas" ?>">Casas</a>
+                            href="<?php echo PANEL_URL . "casas" ?>">Casas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
-                            href="<?php echo PANEL_URL . "/clientes" ?>">Clientes</a>
+                            href="<?php echo PANEL_URL . "clientes" ?>">Clientes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
-                            href="<?php echo PANEL_URL . "/reservas" ?>">Reservas</a>
+                            href="<?php echo PANEL_URL . "reservas" ?>">Reservas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?php echo PANEL_URL . "/logout" ?>">Cerrar
+                        <a class="nav-link active" aria-current="page"
+                            href="<?php echo PANEL_URL . "huespedes" ?>">Huéspedes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<?php echo PANEL_URL . "logout" ?>">Cerrar
                             sesión</a>
                     </li>
             </div>

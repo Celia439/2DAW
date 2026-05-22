@@ -15,7 +15,7 @@ $nacionalidades = $comun->getNacionalidades();
 $provincias = $comun->getProvincias();
 $municipios = $comun->getMunicipiosPorProvincia($cliente['provincia']);
 
-ob_start();
+
 ?>
 <form id="formEditarClientes" action="#" method="post" class="needs-validation p-4" novalidate>
     <input type="hidden" name="id" value="<?= $id ?>">
@@ -159,6 +159,4 @@ ob_start();
         <button type="submit" class="btn btn-outline-success btn-lg">Actualizar</button>
     </div>
 </form>
-<?php
-$form = ob_get_clean();
-echo json_encode(["HTML" => $form]);
+

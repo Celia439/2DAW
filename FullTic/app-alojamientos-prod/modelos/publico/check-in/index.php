@@ -64,7 +64,6 @@ class checkin
 
     function guardarReservasHuespedes($id_reserva, $id_casa, $id_cliente, $es_titular)
     {
-
         require_once CONSULTAS;
         $dbControl = new Database();
         $parametros = new stdClass();
@@ -77,9 +76,32 @@ class checkin
                 "es_titular" => $es_titular
             ]
         ];
-
-
         return $dbControl->insert($parametros);
+    }
+
+    function getReservaHuespedByReserva($id_reserva)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas_huespedes";
+        $parametros->where = "id_reserva = $id_reserva";
+        $parametros->order = "id ASC";
+        return $dbControl->select($parametros);
+    }
+
+    function actualizarReservasHuespedes($id, $id_cliente, $es_titular)
+    {
+        require_once CONSULTAS;
+        $dbControl = new Database();
+        $parametros = new stdClass();
+        $parametros->tabla = "reservas_huespedes";
+        $parametros->where = "id = $id";
+        $parametros->datosUpdate = [
+            "id_cliente" => $id_cliente,
+            "es_titular" => $es_titular
+        ];
+        return $dbControl->update($parametros);
     }
     function guardarCliente($form)
     {
